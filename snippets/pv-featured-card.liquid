@@ -1,0 +1,164 @@
+<div class="pv-featured-card">
+  <div class="pv-featured-card__layout">
+    
+    <!-- Image Column with Badges -->
+    <div class="pv-featured-card__image-col">
+      <a href="{{ product.url }}" class="pv-featured-card__image-wrap">
+        {%- if product.featured_image != blank -%}
+          {{ product.featured_image | image_url: width: 1000 | image_tag: loading: 'lazy', alt: product.featured_image.alt, class: 'pv-featured-card__img' }}
+        {%- else -%}
+          {{ 'product-1' | placeholder_svg_tag: 'pv-featured-card__img' }}
+        {%- endif -%}
+
+        <!-- Floating Badges -->
+        <div class="pv-featured-card__floating-badges">
+          <span class="pv-float-badge pv-float-badge--1"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="#D99A2B" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg> No-Pull Control</span>
+          <span class="pv-float-badge pv-float-badge--2"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="#D99A2B" stroke-width="2.5"/><path d="M12 8v4l3 3" stroke="#D99A2B" stroke-width="2.5" stroke-linecap="round"/></svg> Adjustable Fit</span>
+          <span class="pv-float-badge pv-float-badge--3"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M12 5l7 7-7 7" stroke="#D99A2B" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg> Adventure Ready</span>
+        </div>
+      </a>
+    </div>
+
+    <!-- Info Column -->
+    <div class="pv-featured-card__info-col">
+      <span class="pv-featured-card__badge">BEST SELLER</span>
+      
+      <h2 class="pv-featured-card__title">
+        <a href="{{ product.url }}">{{ product.title }}</a>
+      </h2>
+
+      <p class="pv-featured-card__desc">
+        Designed for dog owners who want more control, more comfort, and less pulling on every walk.
+      </p>
+
+      <div class="pv-featured-card__price-area">
+        {%- if product.compare_at_price > product.price -%}
+          <div class="pv-featured-card__price-row">
+            <span class="pv-featured-card__price-label">Today</span>
+            <span class="pv-featured-card__price-current">{{ product.price | money }}</span>
+          </div>
+          <div class="pv-featured-card__price-row pv-featured-card__price-row--old">
+            <span class="pv-featured-card__price-label">Was</span>
+            <span class="pv-featured-card__price-compare">{{ product.compare_at_price | money }}</span>
+            <span class="pv-featured-card__price-save">Save {{ product.compare_at_price | minus: product.price | money }}</span>
+          </div>
+        {%- else -%}
+          <span class="pv-featured-card__price-label">Today</span>
+          <span class="pv-featured-card__price-current">{{ product.price | money }}</span>
+        {%- endif -%}
+      </div>
+
+      <p class="pv-featured-card__sizing-note">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="#12350E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Adjustable sizing helps you find a secure fit for daily walks.
+      </p>
+
+      <div class="pv-featured-card__benefits-wrap">
+        <p class="pv-featured-card__benefits-intro">Built for dogs who pull, twist, and turn everyday walks into a tug-of-war.</p>
+        <ul class="pv-featured-card__benefits">
+          <li>
+            <svg width="20" height="20" viewBox="0 0 22 22" fill="none"><circle cx="11" cy="11" r="11" fill="#12350E"/><path d="M6 11.5l3.5 3.5 6.5-7" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Helps reduce pulling
+          </li>
+          <li>
+            <svg width="20" height="20" viewBox="0 0 22 22" fill="none"><circle cx="11" cy="11" r="11" fill="#12350E"/><path d="M6 11.5l3.5 3.5 6.5-7" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Comfortable padded chest fit
+          </li>
+          <li>
+            <svg width="20" height="20" viewBox="0 0 22 22" fill="none"><circle cx="11" cy="11" r="11" fill="#12350E"/><path d="M6 11.5l3.5 3.5 6.5-7" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Built for daily walks & travel
+          </li>
+        </ul>
+      </div>
+
+      <div class="pv-featured-card__action-area">
+        <p class="pv-featured-card__confidence-note">Try it risk-free with easy returns.</p>
+        <a href="{{ product.url }}" class="pv-featured-card__btn">
+          Shop The Harness
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" class="pv-btn-icon"><path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+        
+        <ul class="pv-featured-card__trust-icons">
+          <li>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="#6D7569" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M9 12l2 2 4-4" stroke="#6D7569" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Secure Checkout
+          </li>
+          <li>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V9z" stroke="#6D7569" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M9 22V12h6v10" stroke="#6D7569" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            30-Day Returns
+          </li>
+          <li>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><rect x="1" y="3" width="15" height="13" stroke="#6D7569" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M16 8h4l3 3v5h-7V8z" stroke="#6D7569" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="5.5" cy="18.5" r="2.5" stroke="#6D7569" stroke-width="2"/><circle cx="18.5" cy="18.5" r="2.5" stroke="#6D7569" stroke-width="2"/></svg>
+            Free Shipping
+          </li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<style>
+  .pv-featured-card { margin: 0 0 4rem; }
+  .pv-featured-card__layout { display: grid; grid-template-columns: 1fr; gap: 3rem; align-items: start; background: #FFF7EA; border-radius: 20px; box-shadow: 0 16px 48px rgba(18,53,14,0.08); overflow: hidden; padding: 2rem; position: relative; }
+  @media screen and (min-width: 990px) { .pv-featured-card__layout { grid-template-columns: 1.1fr 0.9fr; gap: 5rem; padding: 5rem; } }
+
+  .pv-featured-card__image-wrap { display: block; border-radius: 16px; overflow: hidden; position: relative; box-shadow: 0 12px 32px rgba(18,53,14,0.06); }
+  .pv-featured-card__img { width: 100%; height: auto; display: block; object-fit: cover; aspect-ratio: 4/4; transition: transform 0.4s ease; }
+  @media screen and (min-width: 990px) { .pv-featured-card__img { aspect-ratio: auto; } }
+  .pv-featured-card__image-wrap:hover .pv-featured-card__img { transform: scale(1.03); }
+
+  /* Floating Badges */
+  .pv-featured-card__floating-badges { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; }
+  .pv-float-badge { position: absolute; background: rgba(31,36,29,0.85); backdrop-filter: blur(8px); color: #FFF7EA; font-size: 1.2rem; font-weight: 700; padding: 0.8rem 1.4rem; border-radius: 999px; display: flex; align-items: center; gap: 0.6rem; box-shadow: 0 8px 16px rgba(0,0,0,0.15); border: 1px solid rgba(255,247,234,0.1); }
+  .pv-float-badge--1 { top: 10%; left: -1rem; animation: float 6s ease-in-out infinite; }
+  .pv-float-badge--2 { bottom: 20%; right: -1rem; animation: float 6s ease-in-out infinite 1s; }
+  .pv-float-badge--3 { top: 40%; right: 5%; animation: float 6s ease-in-out infinite 2s; }
+  @media screen and (max-width: 749px) {
+    .pv-float-badge { font-size: 1.1rem; padding: 0.6rem 1rem; }
+    .pv-float-badge--1 { left: 1rem; }
+    .pv-float-badge--2 { right: 1rem; bottom: 15%; }
+    .pv-float-badge--3 { display: none; } /* Hide one on mobile to prevent clutter */
+  }
+  @keyframes float { 0% { transform: translateY(0px); } 50% { transform: translateY(-8px); } 100% { transform: translateY(0px); } }
+
+  .pv-featured-card__info-col { display: flex; flex-direction: column; }
+  .pv-featured-card__badge { align-self: flex-start; background: #D99A2B; color: #FFF7EA; font-size: 1.2rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em; padding: 0.6rem 1.6rem; border-radius: 999px; margin-bottom: 1.6rem; box-shadow: 0 4px 12px rgba(217,154,43,0.25); }
+  
+  .pv-featured-card__title { font-size: clamp(2.6rem, 4vw, 3.8rem); font-weight: 800; color: #12350E; margin: 0 0 1rem; line-height: 1.1; letter-spacing: -0.02em; }
+  .pv-featured-card__title a { color: inherit; text-decoration: none; }
+  
+  .pv-featured-card__desc { font-size: 1.6rem; color: #4A5246; line-height: 1.6; margin: 0 0 2rem; max-width: 48rem; }
+  
+  /* Price Area */
+  .pv-featured-card__price-area { display: flex; flex-direction: column; gap: 0.6rem; margin-bottom: 1.6rem; padding-bottom: 1.6rem; border-bottom: 1px solid rgba(18,53,14,0.08); }
+  .pv-featured-card__price-row { display: flex; align-items: baseline; gap: 0.8rem; }
+  .pv-featured-card__price-label { font-size: 1.3rem; font-weight: 700; color: #8F998A; text-transform: uppercase; letter-spacing: 0.05em; width: 50px; }
+  .pv-featured-card__price-current { font-size: 3.2rem; font-weight: 800; color: #12350E; line-height: 1; }
+  .pv-featured-card__price-row--old { opacity: 0.8; }
+  .pv-featured-card__price-compare { font-size: 1.8rem; color: #8F998A; text-decoration: line-through; }
+  .pv-featured-card__price-save { font-size: 1.3rem; font-weight: 700; background: rgba(217,154,43,0.15); color: #B37A17; padding: 0.4rem 1rem; border-radius: 999px; margin-left: 0.8rem; }
+
+  .pv-featured-card__sizing-note { display: flex; align-items: flex-start; gap: 0.8rem; font-size: 1.4rem; color: #12350E; font-weight: 600; margin: 0 0 2.4rem; background: rgba(18,53,14,0.04); padding: 1.2rem; border-radius: 8px; }
+  .pv-featured-card__sizing-note svg { flex-shrink: 0; margin-top: 0.2rem; }
+
+  /* Benefits */
+  .pv-featured-card__benefits-wrap { margin-bottom: 3.2rem; }
+  .pv-featured-card__benefits-intro { font-size: 1.5rem; color: #4A5246; font-weight: 600; margin: 0 0 1.2rem; font-style: italic; }
+  .pv-featured-card__benefits { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 1rem; }
+  .pv-featured-card__benefits li { display: flex; align-items: center; gap: 1rem; font-size: 1.5rem; font-weight: 600; color: #1F241D; }
+
+  /* Action Area */
+  .pv-featured-card__action-area { background: #fff; padding: 2.4rem; border-radius: 16px; box-shadow: 0 8px 24px rgba(18,53,14,0.03); border: 1px solid rgba(18,53,14,0.05); }
+  .pv-featured-card__confidence-note { font-size: 1.4rem; font-weight: 700; color: #B37A17; margin: 0 0 1.2rem; text-align: center; }
+  
+  .pv-featured-card__btn { display: flex; justify-content: center; align-items: center; gap: 1rem; width: 100%; background: #12350E; color: #FFF7EA; font-size: 1.8rem; font-weight: 800; padding: 2rem 3rem; border-radius: 999px; text-decoration: none; transition: all 0.3s ease; box-shadow: 0 8px 24px rgba(18,53,14,0.25); margin-bottom: 2rem; }
+  .pv-featured-card__btn:hover { background: #1F4A16; transform: translateY(-4px); box-shadow: 0 12px 32px rgba(18,53,14,0.35); }
+  .pv-btn-icon { transition: transform 0.3s ease; }
+  .pv-featured-card__btn:hover .pv-btn-icon { transform: translateX(4px); }
+
+  /* Trust Icons */
+  .pv-featured-card__trust-icons { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; justify-content: center; gap: 1.6rem; }
+  .pv-featured-card__trust-icons li { display: flex; align-items: center; gap: 0.6rem; font-size: 1.3rem; color: #6D7569; font-weight: 600; }
+  @media screen and (max-width: 749px) { .pv-featured-card__trust-icons { gap: 1.2rem; justify-content: space-between; } .pv-featured-card__trust-icons li { font-size: 1.2rem; flex-direction: column; gap: 0.4rem; text-align: center; } }
+</style>

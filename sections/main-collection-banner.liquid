@@ -1,49 +1,50 @@
-{% comment %}theme-check-disable ImgLazyLoading{% endcomment %}
 {{ 'component-collection-hero.css' | asset_url | stylesheet_tag }}
 
-{%- style -%}
-  @media screen and (max-width: 749px) {
-    .collection-hero--with-image .collection-hero__inner {
-      padding-bottom: calc({{ settings.media_shadow_vertical_offset | at_least: 0 }}px + 2rem);
-    }
-  }
-{%- endstyle -%}
+<div class="pv-collection-hero">
+  <div class="page-width">
+    <div class="pv-collection-hero__inner">
+      <div class="pv-collection-hero__text-wrapper">
+        <h1 class="pv-collection-hero__title">
+          <span class="visually-hidden">{{ 'sections.collection_template.title' | t }}: </span>
+          {%- if section.settings.custom_title != blank -%}
+            {{ section.settings.custom_title }}
+          {%- else -%}
+            {{- collection.title | escape -}}
+          {%- endif -%}
+        </h1>
 
-<div class="collection-hero{% if section.settings.show_collection_image and collection.image %} collection-hero--with-image{% endif %} color-{{ section.settings.color_scheme }} gradient">
-  <div class="collection-hero__inner page-width {% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}">
-    <div class="collection-hero__text-wrapper">
-      <h1 class="collection-hero__title">
-        <span class="visually-hidden">{{ 'sections.collection_template.title' | t }}: </span>
-        {{- collection.title | escape -}}
-      </h1>
+        {%- if section.settings.custom_subheading != blank -%}
+          <p class="pv-collection-hero__subheading">{{ section.settings.custom_subheading }}</p>
+        {%- elsif section.settings.show_collection_description and collection.description != blank -%}
+          <div class="pv-collection-hero__subheading rte">{{ collection.description }}</div>
+        {%- endif -%}
 
-      {%- if section.settings.show_collection_description -%}
-        <div class="collection-hero__description rte">{{ collection.description }}</div>
-      {%- endif -%}
-    </div>
-
-    {%- if section.settings.show_collection_image and collection.image -%}
-      <div class="collection-hero__image-container media gradient">
-        <img
-          srcset="
-            {%- if collection.image.width >= 165 -%}{{ collection.image | image_url: width: 165 }} 165w,{%- endif -%}
-            {%- if collection.image.width >= 360 -%}{{ collection.image | image_url: width: 360 }} 360w,{%- endif -%}
-            {%- if collection.image.width >= 535 -%}{{ collection.image | image_url: width: 535 }} 535w,{%- endif -%}
-            {%- if collection.image.width >= 750 -%}{{ collection.image | image_url: width: 750 }} 750w,{%- endif -%}
-            {%- if collection.image.width >= 1070 -%}{{ collection.image | image_url: width: 1070 }} 1070w,{%- endif -%}
-            {%- if collection.image.width >= 1500 -%}{{ collection.image | image_url: width: 1500 }} 1500w,{%- endif -%}
-            {{ collection.image | image_url }} {{ collection.image.width }}w
-          "
-          src="{{ collection.image | image_url: width: 750 }}"
-          sizes="(min-width: {{ settings.page_width }}px) {{ settings.page_width | minus: 100 | divided_by: 2 }}px, (min-width: 750px) calc(50vw - 130px), calc(50vw - 55px)"
-          alt="{{ collection.image.alt | escape }}"
-          width="{{ collection.image.width }}"
-          height="{{ collection.image.height }}"
-        >
+        {%- if section.blocks.size > 0 -%}
+          <div class="pv-collection-hero__pills">
+            {%- for block in section.blocks -%}
+              {%- if block.type == 'pill' -%}
+                <span class="pv-collection-hero__pill" {{ block.shopify_attributes }}>
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M13 4L6 11L3 8" stroke="#D99A2B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  {{ block.settings.text }}
+                </span>
+              {%- endif -%}
+            {%- endfor -%}
+          </div>
+        {%- endif -%}
       </div>
-    {%- endif -%}
+    </div>
   </div>
 </div>
+
+<style>
+  .pv-collection-hero { background: #1F241D; color: #FFF7EA; padding: 3rem 0 3rem; text-align: center; }
+  .pv-collection-hero__inner { display: flex; flex-direction: column; align-items: center; }
+  .pv-collection-hero__text-wrapper { max-width: 80rem; }
+  .pv-collection-hero__title { font-size: clamp(3.2rem, 5vw, 4.8rem); font-weight: 800; color: #FFF7EA; margin: 0 0 2rem; line-height: 1.15; letter-spacing: -0.02em; }
+  .pv-collection-hero__subheading { font-size: 1.6rem; color: #D8C9AE; line-height: 1.6; margin: 0 0 3.2rem; }
+  .pv-collection-hero__pills { display: flex; flex-wrap: wrap; justify-content: center; gap: 1.2rem; }
+  .pv-collection-hero__pill { display: inline-flex; align-items: center; gap: 0.8rem; background: rgba(255,247,234,0.05); border: 1px solid rgba(255,247,234,0.15); padding: 0.8rem 1.6rem; border-radius: 999px; font-size: 1.4rem; font-weight: 600; color: #FFF7EA; }
+</style>
 
 {% schema %}
 {
@@ -51,27 +52,40 @@
   "class": "section",
   "settings": [
     {
-      "type": "paragraph",
-      "content": "t:sections.main-collection-banner.settings.paragraph.content"
+      "type": "text",
+      "id": "custom_title",
+      "label": "Custom Headline",
+      "info": "Overrides the default collection title",
+      "default": "No-Pull Dog Harness for Calmer Walks"
+    },
+    {
+      "type": "textarea",
+      "id": "custom_subheading",
+      "label": "Custom Subheadline",
+      "default": "Designed to help dog owners enjoy safer, more comfortable walks with better control and less pulling."
     },
     {
       "type": "checkbox",
       "id": "show_collection_description",
       "default": true,
       "label": "t:sections.main-collection-banner.settings.show_collection_description.label"
-    },
-    {
-      "type": "checkbox",
-      "id": "show_collection_image",
-      "default": false,
-      "label": "t:sections.main-collection-banner.settings.show_collection_image.label"
-    },
-    {
-      "type": "color_scheme",
-      "id": "color_scheme",
-      "label": "t:sections.all.colors.label",
-      "default": "scheme-1"
     }
-  ]
+  ],
+  "blocks": [
+    {
+      "type": "pill",
+      "name": "Benefit Pill",
+      "settings": [
+        { "type": "text", "id": "text", "label": "Text", "default": "Helps reduce pulling" }
+      ]
+    }
+  ],
+  "default": {
+    "blocks": [
+      { "type": "pill", "settings": { "text": "Helps reduce pulling" } },
+      { "type": "pill", "settings": { "text": "Comfortable padded fit" } },
+      { "type": "pill", "settings": { "text": "Built for daily walks & travel" } }
+    ]
+  }
 }
 {% endschema %}

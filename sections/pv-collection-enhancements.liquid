@@ -1,0 +1,186 @@
+{{ 'pawvoyage-brand.css' | asset_url | stylesheet_tag }}
+
+<section class="pv-col-enhancements section-{{ section.id }}" id="pv-col-enhancements">
+  <div class="page-width">
+    {%- for block in section.blocks -%}
+      
+      {%- case block.type -%}
+        
+        {%- when 'pain_points' -%}
+          <div class="pv-col-pain" {{ block.shopify_attributes }}>
+            <div class="pv-col-pain__header">
+              <h2 class="pv-col-pain__title">{{ block.settings.heading }}</h2>
+              <p class="pv-col-pain__desc">{{ block.settings.description }}</p>
+            </div>
+            
+            <div class="pv-col-pain__grid">
+              <div class="pv-col-pain__card">
+                <div class="pv-col-pain__problem">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="#E06060" stroke-width="2"/><path d="M15 9l-6 6M9 9l6 6" stroke="#E06060" stroke-width="2" stroke-linecap="round"/></svg>
+                  <span>Pulling too hard</span>
+                </div>
+                <div class="pv-col-pain__arrow">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M12 5l7 7-7 7" stroke="#8F998A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </div>
+                <div class="pv-col-pain__solution">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="#12350E" stroke-width="2"/><path d="M8 12l3 3 5-6" stroke="#12350E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  <span>Better no-pull control</span>
+                </div>
+              </div>
+
+              <div class="pv-col-pain__card">
+                <div class="pv-col-pain__problem">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="#E06060" stroke-width="2"/><path d="M15 9l-6 6M9 9l6 6" stroke="#E06060" stroke-width="2" stroke-linecap="round"/></svg>
+                  <span>Neck pressure</span>
+                </div>
+                <div class="pv-col-pain__arrow">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M12 5l7 7-7 7" stroke="#8F998A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </div>
+                <div class="pv-col-pain__solution">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="#12350E" stroke-width="2"/><path d="M8 12l3 3 5-6" stroke="#12350E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  <span>Padded chest comfort</span>
+                </div>
+              </div>
+
+              <div class="pv-col-pain__card">
+                <div class="pv-col-pain__problem">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="#E06060" stroke-width="2"/><path d="M15 9l-6 6M9 9l6 6" stroke="#E06060" stroke-width="2" stroke-linecap="round"/></svg>
+                  <span>Cheap harnesses shifting</span>
+                </div>
+                <div class="pv-col-pain__arrow">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M12 5l7 7-7 7" stroke="#8F998A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </div>
+                <div class="pv-col-pain__solution">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="#12350E" stroke-width="2"/><path d="M8 12l3 3 5-6" stroke="#12350E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  <span>Secure adjustable fit</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        {%- when 'trust_strip' -%}
+          <div class="pv-col-trust" {{ block.shopify_attributes }}>
+            <div class="pv-col-trust__grid">
+              <div class="pv-col-trust__item">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="#12350E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M9 12l2 2 4-4" stroke="#12350E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                <span>Secure Checkout</span>
+              </div>
+              <div class="pv-col-trust__item">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V9z" stroke="#12350E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M9 22V12h6v10" stroke="#12350E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                <span>30-Day Easy Returns</span>
+              </div>
+              <div class="pv-col-trust__item">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><rect x="1" y="3" width="15" height="13" stroke="#12350E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M16 8h4l3 3v5h-7V8z" stroke="#12350E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="5.5" cy="18.5" r="2.5" stroke="#12350E" stroke-width="2"/><circle cx="18.5" cy="18.5" r="2.5" stroke="#12350E" stroke-width="2"/></svg>
+                <span>Free Shipping Offers</span>
+              </div>
+              <div class="pv-col-trust__item">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="#12350E" stroke-width="2"/><path d="M12 8v4l3 3" stroke="#12350E" stroke-width="2" stroke-linecap="round"/></svg>
+                <span>Pet-Friendly Design</span>
+              </div>
+            </div>
+          </div>
+
+        {%- when 'faq' -%}
+          <div class="pv-col-faq" {{ block.shopify_attributes }}>
+            <h2 class="pv-col-faq__title">Frequently Asked Questions</h2>
+            <div class="pv-col-faq__list">
+              <details class="pv-col-faq__item" open>
+                <summary>Is this harness good for dogs that pull? <span class="pv-col-faq__icon">+</span></summary>
+                <div class="pv-col-faq__content">Yes. The PawVoyage tactical harness features a front-clip option designed specifically to gently redirect your dog's forward motion, actively training them to stop pulling without causing neck strain.</div>
+              </details>
+              <details class="pv-col-faq__item">
+                <summary>How do I choose the right size? <span class="pv-col-faq__icon">+</span></summary>
+                <div class="pv-col-faq__content">Please refer to our sizing chart on the product page. Measure your dog's chest girth just behind their front legs for the most accurate fit. The harness is fully adjustable.</div>
+              </details>
+              <details class="pv-col-faq__item">
+                <summary>Is it comfortable for daily walks? <span class="pv-col-faq__icon">+</span></summary>
+                <div class="pv-col-faq__content">Absolutely. It features breathable, padded mesh lining that prevents chafing and distributes pressure evenly across the chest, making it perfect for both quick bathroom breaks and long hikes.</div>
+              </details>
+              <details class="pv-col-faq__item">
+                <summary>What if it does not fit? <span class="pv-col-faq__icon">+</span></summary>
+                <div class="pv-col-faq__content">We offer a 30-day easy return and exchange policy. If the harness doesn't fit your dog perfectly, simply contact our support team and we'll help you swap it for the right size.</div>
+              </details>
+            </div>
+          </div>
+
+      {%- endcase -%}
+    {%- endfor -%}
+  </div>
+</section>
+
+<style>
+  .pv-col-enhancements { padding: 4rem 0 8rem; background: #FAF7F2; }
+
+  /* Pain Points */
+  .pv-col-pain { margin-bottom: 8rem; text-align: center; }
+  .pv-col-pain__title { font-size: clamp(2.8rem, 4vw, 4rem); font-weight: 800; color: #12350E; margin: 0 0 1.6rem; letter-spacing: -0.02em; }
+  .pv-col-pain__desc { font-size: 1.6rem; color: #4A5246; line-height: 1.6; max-width: 64rem; margin: 0 auto 4rem; }
+  .pv-col-pain__grid { display: grid; grid-template-columns: 1fr; gap: 2rem; max-width: 1000px; margin: 0 auto; }
+  @media screen and (min-width: 750px) { .pv-col-pain__grid { grid-template-columns: repeat(3, 1fr); } }
+  .pv-col-pain__card { background: #FFF; border-radius: 16px; padding: 2.4rem; box-shadow: 0 8px 24px rgba(18,53,14,0.04); display: flex; flex-direction: column; align-items: center; gap: 1.6rem; }
+  .pv-col-pain__problem, .pv-col-pain__solution { display: flex; align-items: center; gap: 1.2rem; font-size: 1.6rem; font-weight: 700; }
+  .pv-col-pain__problem { color: #A04A4A; }
+  .pv-col-pain__solution { color: #12350E; }
+  .pv-col-pain__arrow { color: #8F998A; }
+
+  /* Trust Strip */
+  .pv-col-trust { background: #FFF7EA; border: 1px solid rgba(18,53,14,0.08); border-radius: 16px; padding: 3.2rem 2.4rem; margin-bottom: 8rem; box-shadow: 0 12px 32px rgba(18,53,14,0.04); }
+  .pv-col-trust__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2.4rem; text-align: center; }
+  @media screen and (min-width: 750px) { .pv-col-trust__grid { grid-template-columns: repeat(4, 1fr); } }
+  .pv-col-trust__item { display: flex; flex-direction: column; align-items: center; gap: 1.2rem; font-size: 1.4rem; font-weight: 700; color: #12350E; text-transform: uppercase; letter-spacing: 0.05em; }
+  @media screen and (min-width: 990px) { .pv-col-trust__item { flex-direction: row; justify-content: center; } }
+  .pv-col-trust__item svg { flex-shrink: 0; }
+
+  /* FAQ */
+  .pv-col-faq { max-width: 80rem; margin: 0 auto; }
+  .pv-col-faq__title { font-size: clamp(2.8rem, 4vw, 3.6rem); font-weight: 800; color: #12350E; margin: 0 0 3.2rem; text-align: center; }
+  .pv-col-faq__list { display: flex; flex-direction: column; gap: 1.6rem; }
+  .pv-col-faq__item { background: #FFF; border-radius: 12px; box-shadow: 0 4px 16px rgba(18,53,14,0.04); overflow: hidden; }
+  .pv-col-faq__item summary { display: flex; justify-content: space-between; align-items: center; padding: 2rem 2.4rem; font-size: 1.8rem; font-weight: 700; color: #12350E; cursor: pointer; list-style: none; user-select: none; }
+  .pv-col-faq__item summary::-webkit-details-marker { display: none; }
+  .pv-col-faq__icon { font-size: 2.4rem; color: #D99A2B; font-weight: 400; transition: transform 0.3s ease; }
+  .pv-col-faq__item[open] .pv-col-faq__icon { transform: rotate(45deg); }
+  .pv-col-faq__content { padding: 0 2.4rem 2.4rem; font-size: 1.6rem; color: #4A5246; line-height: 1.6; }
+</style>
+
+{% schema %}
+{
+  "name": "PV Collection Extras",
+  "tag": "section",
+  "class": "section",
+  "settings": [],
+  "blocks": [
+    {
+      "type": "pain_points",
+      "name": "Pain Points Section",
+      "limit": 1,
+      "settings": [
+        { "type": "text", "id": "heading", "label": "Heading", "default": "Still Getting Pulled on Every Walk?" },
+        { "type": "textarea", "id": "description", "label": "Description", "default": "Pulling, slipping, and uncomfortable harnesses can turn a simple walk into a stressful experience. PawVoyage is designed to help you guide your dog with more confidence while keeping them comfortable." }
+      ]
+    },
+    {
+      "type": "trust_strip",
+      "name": "Trust Strip",
+      "limit": 1,
+      "settings": []
+    },
+    {
+      "type": "faq",
+      "name": "FAQ Block",
+      "limit": 1,
+      "settings": []
+    }
+  ],
+  "presets": [
+    {
+      "name": "PV Collection Extras",
+      "blocks": [
+        { "type": "pain_points" },
+        { "type": "trust_strip" },
+        { "type": "faq" }
+      ]
+    }
+  ]
+}
+{% endschema %}

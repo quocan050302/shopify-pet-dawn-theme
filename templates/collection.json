@@ -5,8 +5,35 @@
       "settings": {
         "show_collection_description": true,
         "show_collection_image": false,
-        "color_scheme": "scheme-1"
-      }
+        "color_scheme": "scheme-1",
+        "custom_title": "No-Pull Dog Harness for Calmer Walks",
+        "custom_subheading": "Designed to help dog owners enjoy safer, more comfortable walks with better control and less pulling."
+      },
+      "blocks": {
+        "pill_1": {
+          "type": "pill",
+          "settings": {
+            "text": "Helps reduce pulling"
+          }
+        },
+        "pill_2": {
+          "type": "pill",
+          "settings": {
+            "text": "Comfortable padded fit"
+          }
+        },
+        "pill_3": {
+          "type": "pill",
+          "settings": {
+            "text": "Built for daily walks & travel"
+          }
+        }
+      },
+      "block_order": [
+        "pill_1",
+        "pill_2",
+        "pill_3"
+      ]
     },
     "product-grid": {
       "type": "main-collection-product-grid",
@@ -27,10 +54,31 @@
         "padding_top": 36,
         "padding_bottom": 36
       }
+    },
+    "pv_enhancements": {
+      "type": "pv-collection-enhancements",
+      "blocks": {
+        "pain_points": {
+          "type": "pain_points"
+        },
+        "trust_strip": {
+          "type": "trust_strip"
+        },
+        "faq": {
+          "type": "faq"
+        }
+      },
+      "block_order": [
+        "pain_points",
+        "trust_strip",
+        "faq"
+      ],
+      "settings": {}
     }
   },
   "order": [
     "banner",
-    "product-grid"
+    "product-grid",
+    "pv_enhancements"
   ]
 }
