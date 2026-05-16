@@ -1,0 +1,245 @@
+{{ 'pawvoyage-brand.css' | asset_url | stylesheet_tag }}
+
+<section class="pv-contact-sec section-{{ section.id }}">
+  <div class="page-width">
+    
+    <!-- Hero Area -->
+    <div class="pv-contact-hero">
+      <h1 class="pv-contact-title">{{ section.settings.heading }}</h1>
+      <p class="pv-contact-sub">{{ section.settings.subheading }}</p>
+      <p class="pv-contact-trust-line">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="#12350E" stroke-width="2"/><path d="M12 6v6l4 2" stroke="#12350E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        {{ section.settings.trust_line }}
+      </p>
+    </div>
+
+    <!-- Main Grid -->
+    <div class="pv-contact-grid">
+      
+      <!-- Left Column: Support Cards -->
+      <div class="pv-contact-left">
+        <div class="pv-support-card">
+          <div class="pv-support-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="#D99A2B" stroke-width="2"/><path d="M12 8v4l3 3" stroke="#D99A2B" stroke-width="2" stroke-linecap="round"/></svg>
+          </div>
+          <div class="pv-support-text">
+            <h3>Sizing Help</h3>
+            <p>Not sure which harness size to choose? Send us your dog’s measurements and we’ll help you find the right fit.</p>
+          </div>
+        </div>
+
+        <div class="pv-support-card">
+          <div class="pv-support-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" stroke="#D99A2B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><polyline points="3.27 6.96 12 12.01 20.73 6.96" stroke="#D99A2B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><line x1="12" y1="22.08" x2="12" y2="12" stroke="#D99A2B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <div class="pv-support-text">
+            <h3>Order Support</h3>
+            <p>Questions about shipping, tracking, returns, or exchanges? We’ll help you sort it out.</p>
+          </div>
+        </div>
+
+        <div class="pv-support-card">
+          <div class="pv-support-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="#D99A2B" stroke-width="2"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" stroke="#D99A2B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><line x1="12" y1="17" x2="12.01" y2="17" stroke="#D99A2B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <div class="pv-support-text">
+            <h3>Product Questions</h3>
+            <p>Need help choosing the right walking gear for your dog? Ask us anytime.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Column: Contact Form -->
+      <div class="pv-contact-right">
+        <div class="pv-contact-card">
+          {%- form 'contact', id: 'ContactForm', class: 'pv-form' -%}
+            {%- if form.posted_successfully? -%}
+              <div class="pv-form-success" tabindex="-1" autofocus>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="#12350E" stroke-width="2"/><path d="M8 12l3 3 5-6" stroke="#12350E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                {{ 'templates.contact.form.post_success' | t }}
+              </div>
+            {%- elsif form.errors -%}
+              <div class="pv-form-error" role="alert" tabindex="-1" autofocus>
+                <h2 class="pv-form-error-title" tabindex="-1">
+                  {{ 'templates.contact.form.error_heading' | t }}
+                </h2>
+                <ul class="pv-form-error-list">
+                  <li>
+                    <a href="#ContactForm-email">
+                      {{ form.errors.translated_fields.email | capitalize }}
+                      {{ form.errors.messages.email }}
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            {%- endif -%}
+
+            <div class="pv-form-field">
+              <label class="pv-form-label" for="ContactForm-name">Name</label>
+              <input class="pv-form-input" autocomplete="name" type="text" id="ContactForm-name" name="contact[{{ 'templates.contact.form.name' | t }}]" value="{% if form.name %}{{ form.name }}{% elsif customer %}{{ customer.name }}{% endif %}" placeholder="Your name">
+            </div>
+
+            <div class="pv-form-field">
+              <label class="pv-form-label" for="ContactForm-email">Email <span aria-hidden="true">*</span></label>
+              <input class="pv-form-input" autocomplete="email" type="email" id="ContactForm-email" name="contact[email]" spellcheck="false" autocapitalize="off" value="{% if form.email %}{{ form.email }}{% elsif customer %}{{ customer.email }}{% endif %}" aria-required="true"
+                {% if form.errors contains 'email' %} aria-invalid="true" aria-describedby="ContactForm-email-error" {% endif %}
+                placeholder="you@email.com" required>
+            </div>
+
+            <div class="pv-form-field">
+              <label class="pv-form-label" for="ContactForm-phone">Phone number</label>
+              <input class="pv-form-input" type="tel" id="ContactForm-phone" autocomplete="tel" name="contact[{{ 'templates.contact.form.phone' | t }}]" pattern="[0-9\-]*" value="{% if form.phone %}{{ form.phone }}{% elsif customer %}{{ customer.phone }}{% endif %}" placeholder="Optional">
+            </div>
+
+            <div class="pv-form-field">
+              <label class="pv-form-label" for="ContactForm-body">Message <span aria-hidden="true">*</span></label>
+              <textarea class="pv-form-input pv-form-textarea" rows="6" id="ContactForm-body" name="contact[{{ 'templates.contact.form.comment' | t }}]" required placeholder="Tell us how we can help...">{{- form.body -}}</textarea>
+            </div>
+
+            <button type="submit" class="pv-form-btn">
+              Send Message
+            </button>
+          {%- endform -%}
+        </div>
+
+        <!-- Trust Block -->
+        <div class="pv-contact-trust-block">
+          <h4>Shop with confidence</h4>
+          <ul class="pv-contact-trust-list">
+            <li>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="#6F7568" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M9 12l2 2 4-4" stroke="#6F7568" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              Secure checkout
+            </li>
+            <li>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V9z" stroke="#6F7568" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M9 22V12h6v10" stroke="#6F7568" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              30-day easy returns
+            </li>
+            <li>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="#6F7568" stroke-width="2"/><path d="M12 8v4l3 3" stroke="#6F7568" stroke-width="2" stroke-linecap="round"/></svg>
+              Friendly pet support
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- FAQ Section -->
+    <div class="pv-contact-faq">
+      <h2 class="pv-contact-faq-title">Quick answers before you message us</h2>
+      <div class="pv-contact-faq-list">
+        <details class="pv-faq-item" open>
+          <summary>How do I choose the right size? <span class="pv-faq-icon">+</span></summary>
+          <div class="pv-faq-content">Please measure your dog's chest girth just behind their front legs. Our tactical harness is highly adjustable, but choosing the right size based on our size chart ensures the most secure and comfortable fit.</div>
+        </details>
+        <details class="pv-faq-item">
+          <summary>How long does shipping take? <span class="pv-faq-icon">+</span></summary>
+          <div class="pv-faq-content">Orders are typically processed within 1-2 business days. Delivery times vary by location, but standard shipping usually arrives within 3-7 business days.</div>
+        </details>
+        <details class="pv-faq-item">
+          <summary>What if the harness does not fit? <span class="pv-faq-icon">+</span></summary>
+          <div class="pv-faq-content">We want your dog to be comfortable. If it doesn't fit, please contact us for an easy exchange. Keep the harness clean and in original condition.</div>
+        </details>
+        <details class="pv-faq-item">
+          <summary>Can I return or exchange my order? <span class="pv-faq-icon">+</span></summary>
+          <div class="pv-faq-content">Yes! We offer a 30-day easy return policy. If you aren't completely satisfied with your PawVoyage gear, just reach out to us within 30 days of receiving your item to start the process.</div>
+        </details>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<style>
+  .pv-contact-sec { background: #FFF7EA; padding: 6rem 0 10rem; }
+  
+  /* Hero */
+  .pv-contact-hero { text-align: center; max-width: 60rem; margin: 0 auto 6rem; }
+  .pv-contact-title { font-size: clamp(3.2rem, 5vw, 4.8rem); font-weight: 800; color: #12350E; margin: 0 0 1.6rem; letter-spacing: -0.02em; }
+  .pv-contact-sub { font-size: 1.6rem; color: #4A5246; line-height: 1.6; margin: 0 0 2.4rem; }
+  .pv-contact-trust-line { display: inline-flex; align-items: center; gap: 0.8rem; font-size: 1.4rem; font-weight: 700; color: #12350E; background: rgba(18,53,14,0.05); padding: 0.8rem 1.6rem; border-radius: 999px; }
+
+  /* Grid */
+  .pv-contact-grid { display: grid; grid-template-columns: 1fr; gap: 4rem; max-width: 110rem; margin: 0 auto 8rem; }
+  @media screen and (min-width: 990px) { .pv-contact-grid { grid-template-columns: 1fr 1.2fr; gap: 8rem; } }
+
+  /* Left Column */
+  .pv-contact-left { display: flex; flex-direction: column; gap: 2.4rem; }
+  .pv-support-card { display: flex; gap: 2rem; align-items: flex-start; padding: 2.4rem; background: #FFF; border-radius: 16px; box-shadow: 0 8px 24px rgba(18,53,14,0.04); border: 1px solid rgba(31,36,29,0.05); }
+  .pv-support-icon { flex-shrink: 0; background: rgba(217,154,43,0.1); width: 4.8rem; height: 4.8rem; border-radius: 12px; display: flex; align-items: center; justify-content: center; }
+  .pv-support-text h3 { font-size: 1.8rem; font-weight: 800; color: #12350E; margin: 0 0 0.8rem; }
+  .pv-support-text p { font-size: 1.5rem; color: #4A5246; line-height: 1.6; margin: 0; }
+
+  /* Right Column & Form */
+  .pv-contact-card { background: #FFF; border-radius: 20px; padding: 3.2rem; box-shadow: 0 16px 48px rgba(18,53,14,0.06); border: 1px solid rgba(31,36,29,0.08); margin-bottom: 3.2rem; }
+  @media screen and (min-width: 750px) { .pv-contact-card { padding: 4.8rem; } }
+  
+  .pv-form { display: flex; flex-direction: column; gap: 2rem; }
+  .pv-form-field { display: flex; flex-direction: column; gap: 0.8rem; }
+  .pv-form-label { font-size: 1.4rem; font-weight: 700; color: #1F241D; }
+  .pv-form-label span { color: #A04A4A; }
+  .pv-form-input { appearance: none; border: 1px solid rgba(31,36,29,0.2); border-radius: 12px; padding: 1.6rem; font-size: 1.6rem; color: #1F241D; background: #FAFAFA; transition: all 0.2s ease; width: 100%; box-sizing: border-box; font-family: inherit; }
+  .pv-form-input:focus { outline: none; border-color: #12350E; box-shadow: 0 0 0 3px rgba(18,53,14,0.1); background: #FFF; }
+  .pv-form-input::placeholder { color: #8F998A; }
+  .pv-form-textarea { resize: vertical; min-height: 12rem; }
+
+  .pv-form-btn { background: #12350E; color: #FFF7EA; border: none; border-radius: 999px; padding: 1.8rem; font-size: 1.8rem; font-weight: 800; cursor: pointer; transition: all 0.3s ease; width: 100%; box-shadow: 0 8px 24px rgba(18,53,14,0.2); }
+  .pv-form-btn:hover { background: #1F4A16; transform: translateY(-2px); box-shadow: 0 12px 32px rgba(18,53,14,0.3); }
+  .pv-form-btn:focus-visible { outline: 3px solid #D99A2B; outline-offset: 2px; }
+
+  /* Form Feedback */
+  .pv-form-success { background: #E6F0E6; color: #12350E; padding: 1.6rem; border-radius: 12px; font-weight: 600; display: flex; align-items: center; gap: 1rem; margin-bottom: 2rem; font-size: 1.5rem; }
+  .pv-form-error { background: #FDE8E8; color: #A04A4A; padding: 1.6rem; border-radius: 12px; margin-bottom: 2rem; }
+  .pv-form-error-title { font-size: 1.6rem; font-weight: 700; margin: 0 0 0.8rem; }
+  .pv-form-error-list { margin: 0; padding-left: 2rem; font-size: 1.4rem; }
+  .pv-form-error-list a { color: inherit; }
+
+  /* Trust Block */
+  .pv-contact-trust-block { text-align: center; }
+  .pv-contact-trust-block h4 { font-size: 1.5rem; font-weight: 800; color: #1F241D; margin: 0 0 1.6rem; text-transform: uppercase; letter-spacing: 0.05em; }
+  .pv-contact-trust-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 1.2rem; align-items: center; }
+  @media screen and (min-width: 500px) { .pv-contact-trust-list { flex-direction: row; justify-content: center; gap: 2.4rem; } }
+  .pv-contact-trust-list li { display: flex; align-items: center; gap: 0.8rem; font-size: 1.4rem; color: #4A5246; font-weight: 600; }
+
+  /* FAQ */
+  .pv-contact-faq { max-width: 80rem; margin: 0 auto; }
+  .pv-contact-faq-title { font-size: clamp(2.4rem, 4vw, 3.2rem); font-weight: 800; color: #12350E; margin: 0 0 3.2rem; text-align: center; letter-spacing: -0.01em; }
+  .pv-contact-faq-list { display: flex; flex-direction: column; gap: 1.6rem; }
+  .pv-faq-item { background: #FFF; border-radius: 16px; box-shadow: 0 4px 16px rgba(18,53,14,0.04); overflow: hidden; border: 1px solid rgba(31,36,29,0.05); }
+  .pv-faq-item summary { display: flex; justify-content: space-between; align-items: center; padding: 2rem 2.4rem; font-size: 1.6rem; font-weight: 700; color: #12350E; cursor: pointer; list-style: none; user-select: none; }
+  .pv-faq-item summary::-webkit-details-marker { display: none; }
+  .pv-faq-icon { font-size: 2.4rem; color: #D99A2B; font-weight: 400; transition: transform 0.3s ease; }
+  .pv-faq-item[open] .pv-faq-icon { transform: rotate(45deg); }
+  .pv-faq-content { padding: 0 2.4rem 2.4rem; font-size: 1.5rem; color: #4A5246; line-height: 1.6; }
+</style>
+
+{% schema %}
+{
+  "name": "PV Contact Form",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Contact PawVoyage"
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Have a question about sizing, shipping, returns, or your order? Our support team is here to help."
+    },
+    {
+      "type": "text",
+      "id": "trust_line",
+      "label": "Trust Line",
+      "default": "We usually reply within 24–48 hours."
+    }
+  ],
+  "presets": [
+    {
+      "name": "PV Contact Form"
+    }
+  ]
+}
+{% endschema %}
