@@ -6,144 +6,164 @@
 
 <section class="pv-featured section-{{ section.id }}" id="pv-featured-{{ section.id }}">
   <div class="page-width">
-    <div class="pv-featured__header">
-      {%- if section.settings.eyebrow != blank -%}
-        <span class="pv-section-eyebrow">{{ section.settings.eyebrow }}</span>
-      {%- endif -%}
-    </div>
-
     <div class="pv-featured__layout">
+      
       <!-- Product Image -->
       <div class="pv-featured__image-col">
         <div class="pv-featured__image-wrap">
           {%- if featured_product != blank and featured_product.featured_image != blank -%}
             {%- assign fp_alt = featured_product.featured_image.alt | escape -%}
-            {{ featured_product.featured_image | image_url: width: 900 | image_tag: loading: 'lazy', widths: '450, 600, 900', sizes: '(min-width: 990px) 50vw, 100vw', alt: fp_alt, class: 'pv-featured__img' }}
+            {{ featured_product.featured_image | image_url: width: 1200 | image_tag: loading: 'lazy', widths: '450, 600, 900, 1200', sizes: '(min-width: 990px) 50vw, 100vw', alt: fp_alt, class: 'pv-featured__img' }}
           {%- elsif section.settings.fallback_image != blank -%}
-            {{ section.settings.fallback_image | image_url: width: 900 | image_tag: loading: 'lazy', widths: '450, 600, 900', sizes: '(min-width: 990px) 50vw, 100vw', alt: 'PawVoyage Harness', class: 'pv-featured__img' }}
+            {{ section.settings.fallback_image | image_url: width: 1200 | image_tag: loading: 'lazy', widths: '450, 600, 900, 1200', sizes: '(min-width: 990px) 50vw, 100vw', alt: 'PawVoyage Harness', class: 'pv-featured__img' }}
           {%- else -%}
             <div class="pv-featured__img-placeholder">
               {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
             </div>
           {%- endif -%}
-          <div class="pv-featured__badge">⭐ #1 No-Pull Harness</div>
         </div>
       </div>
 
       <!-- Product Info -->
       <div class="pv-featured__info-col">
-        {%- if featured_product != blank -%}
-          <h2 class="pv-featured__title">{{ featured_product.title }}</h2>
-          <div class="pv-featured__stars" aria-label="5 stars">
-            <span>★★★★★</span>
-            <span class="pv-featured__review-count">{{ section.settings.review_count | default: '1,247 reviews' }}</span>
-          </div>
-          <div class="pv-featured__price">
-            <span class="pv-featured__price-current">{{ featured_product.price | money }}</span>
-            {%- if featured_product.compare_at_price > featured_product.price -%}
-              <span class="pv-featured__price-compare">{{ featured_product.compare_at_price | money }}</span>
-              <span class="pv-featured__price-save">Save {{ featured_product.compare_at_price | minus: featured_product.price | money }}</span>
-            {%- endif -%}
-          </div>
-          <p class="pv-featured__desc">{{ featured_product.description | strip_html | truncate: 200 }}</p>
-        {%- else -%}
-          <h2 class="pv-featured__title">{{ section.settings.fallback_title | default: 'PawVoyage No-Pull Tactical Dog Harness' }}</h2>
-          <div class="pv-featured__stars">
-            <span>★★★★★</span>
-            <span class="pv-featured__review-count">{{ section.settings.review_count | default: '1,247 reviews' }}</span>
-          </div>
-          <div class="pv-featured__price">
-            <span class="pv-featured__price-current">{{ section.settings.fallback_price | default: '$59.99' }}</span>
-          </div>
-          <p class="pv-featured__desc">{{ section.settings.fallback_desc | default: 'The PawVoyage No-Pull Tactical Harness is engineered for dogs who pull. Dual attachment points, padded mesh lining, and military-grade buckles make every walk safer and more enjoyable.' }}</p>
+        {%- if section.settings.eyebrow != blank -%}
+          <span class="pv-featured__eyebrow">{{ section.settings.eyebrow }}</span>
         {%- endif -%}
 
+        {%- if featured_product != blank -%}
+          <h2 class="pv-featured__title">{{ featured_product.title }}</h2>
+        {%- else -%}
+          <h2 class="pv-featured__title">{{ section.settings.fallback_title | default: 'PawVoyage No-Pull Tactical Dog Harness' }}</h2>
+        {%- endif -%}
+
+        {%- if section.settings.subheading != blank -%}
+          <p class="pv-featured__subheading">{{ section.settings.subheading }}</p>
+        {%- endif -%}
+
+        <!-- Price Area -->
+        <div class="pv-featured__price-area">
+          {%- if featured_product != blank -%}
+            {%- if featured_product.compare_at_price > featured_product.price -%}
+              <span class="pv-featured__price-label">Now</span>
+              <span class="pv-featured__price-current">{{ featured_product.price | money }}</span>
+              <span class="pv-featured__price-compare">Was {{ featured_product.compare_at_price | money }}</span>
+              <span class="pv-featured__price-save">Save {{ featured_product.compare_at_price | minus: featured_product.price | money }}</span>
+            {%- else -%}
+              <span class="pv-featured__price-current">{{ featured_product.price | money }}</span>
+            {%- endif -%}
+          {%- else -%}
+            <span class="pv-featured__price-label">Now</span>
+            <span class="pv-featured__price-current">{{ section.settings.fallback_price | default: '$49.99' }}</span>
+            <span class="pv-featured__price-compare">Was {{ section.settings.fallback_compare_price | default: '$79.99' }}</span>
+          {%- endif -%}
+        </div>
+
+        <!-- Benefits -->
         <ul class="pv-featured__features">
           {%- for block in section.blocks -%}
             {%- if block.type == 'feature_bullet' -%}
               <li class="pv-featured__feature" {{ block.shopify_attributes }}>
-                <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="10" fill="#2D5016"/><path d="M5.5 10.5l3 3 6-7" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><circle cx="11" cy="11" r="11" fill="#12350E"/><path d="M6 11.5l3.5 3.5 6.5-7" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
                 <span>{{ block.settings.text }}</span>
               </li>
             {%- endif -%}
           {%- endfor -%}
         </ul>
 
+        <!-- Optional Mini Comparison Box -->
+        {%- assign has_mini_comp = false -%}
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'mini_comparison' -%}
+            {%- assign has_mini_comp = true -%}
+          {%- endif -%}
+        {%- endfor -%}
+
+        {%- if has_mini_comp -%}
+          <div class="pv-featured__mini-comp">
+            <p class="pv-featured__mini-comp-title">Why dog owners choose it:</p>
+            <ul class="pv-featured__mini-comp-list">
+              {%- for block in section.blocks -%}
+                {%- if block.type == 'mini_comparison' -%}
+                  <li {{ block.shopify_attributes }}>
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M13 5L6 12L3 9" stroke="#D99A2B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    {{ block.settings.text }}
+                  </li>
+                {%- endif -%}
+              {%- endfor -%}
+            </ul>
+          </div>
+        {%- endif -%}
+
+        <!-- CTA Row -->
         <div class="pv-featured__cta-row">
           {%- if featured_product != blank -%}
             <a href="{{ featured_product.url }}" class="pv-featured__btn" id="pv-featured-btn-{{ section.id }}">
-              Shop The Harness →
+              {{ section.settings.cta_label | default: 'Shop The Harness' }}
             </a>
           {%- else -%}
             <a href="{{ section.settings.cta_link | default: '/collections/all' }}" class="pv-featured__btn" id="pv-featured-btn-{{ section.id }}">
-              {{ section.settings.cta_label | default: 'Shop The Harness' }} →
+              {{ section.settings.cta_label | default: 'Shop The Harness' }}
             </a>
           {%- endif -%}
         </div>
 
-        <div class="pv-featured__mini-trust">
-          <span>🔒 Secure Checkout</span>
-          <span>↩️ 30-Day Returns</span>
-          <span>🚚 Free Shipping</span>
-        </div>
+        {%- if section.settings.trust_microcopy != blank -%}
+          <div class="pv-featured__trust-micro">
+            {{ section.settings.trust_microcopy }}
+          </div>
+        {%- endif -%}
+
       </div>
     </div>
   </div>
 </section>
 
 <style>
-  .pv-featured {
-    background: #FAF7F2;
-    padding: 9rem 0;
-  }
-  .pv-featured__header { text-align: center; margin-bottom: 4rem; }
-  .pv-featured__layout {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 4rem;
-    align-items: center;
-  }
+  .pv-featured { background: #FAF7F2; padding: 8rem 0; }
+  .pv-featured__layout { display: grid; grid-template-columns: 1fr; gap: 4rem; align-items: center; }
   @media screen and (min-width: 990px) {
-    .pv-featured__layout { grid-template-columns: 1fr 1fr; gap: 6rem; }
+    .pv-featured__layout { grid-template-columns: 1.1fr 0.9fr; gap: 6rem; align-items: start; }
   }
-  .pv-featured__image-wrap {
-    position: relative;
-    border-radius: 24px;
-    overflow: hidden;
-    box-shadow: 0 24px 64px rgba(44,44,44,0.16);
-  }
-  .pv-featured__img { width: 100%; height: auto; display: block; transition: transform 0.5s ease; }
-  .pv-featured__image-wrap:hover .pv-featured__img { transform: scale(1.04); }
-  .pv-featured__img-placeholder { background: #E8E0D5; border-radius: 24px; aspect-ratio: 1; display: flex; align-items: center; justify-content: center; }
-  .pv-featured__badge {
-    position: absolute; top: 1.6rem; left: 1.6rem;
-    background: #C4853A; color: white;
-    font-size: 1.2rem; font-weight: 700;
-    padding: 0.5rem 1.2rem; border-radius: 999px;
-    letter-spacing: 0.02em;
-  }
-  .pv-featured__title { font-size: clamp(2.4rem, 3.5vw, 3.6rem); font-weight: 800; color: #2C2C2C; margin: 0 0 1.2rem; line-height: 1.15; }
-  .pv-featured__stars { display: flex; align-items: center; gap: 0.8rem; margin-bottom: 1.6rem; }
-  .pv-featured__stars span:first-child { color: #C4853A; font-size: 2rem; }
-  .pv-featured__review-count { font-size: 1.4rem; color: #5C5C5C; text-decoration: underline; text-underline-offset: 3px; }
-  .pv-featured__price { display: flex; align-items: baseline; gap: 1.2rem; margin-bottom: 1.6rem; flex-wrap: wrap; }
-  .pv-featured__price-current { font-size: 2.8rem; font-weight: 800; color: #2D5016; }
-  .pv-featured__price-compare { font-size: 2rem; color: #B8A88A; text-decoration: line-through; }
-  .pv-featured__price-save { font-size: 1.3rem; font-weight: 700; background: #C4853A; color: white; padding: 0.3rem 0.9rem; border-radius: 999px; }
-  .pv-featured__desc { font-size: 1.5rem; color: #5C5C5C; line-height: 1.7; margin: 0 0 2.4rem; }
-  .pv-featured__features { list-style: none; margin: 0 0 3.2rem; padding: 0; display: flex; flex-direction: column; gap: 1rem; }
-  .pv-featured__feature { display: flex; align-items: center; gap: 1.2rem; font-size: 1.5rem; font-weight: 600; color: #2C2C2C; }
-  .pv-featured__btn {
-    display: inline-flex; align-items: center; gap: 0.8rem;
-    background: #2D5016; color: #FAF7F2;
-    font-size: 1.7rem; font-weight: 700;
-    padding: 1.6rem 4rem; border-radius: 999px;
-    text-decoration: none; transition: all 0.28s ease;
-    box-shadow: 0 4px 20px rgba(45,80,22,0.4);
-    margin-bottom: 2rem;
-  }
-  .pv-featured__btn:hover { background: #3D6B1F; transform: translateY(-3px); box-shadow: 0 10px 32px rgba(45,80,22,0.5); color: #FAF7F2; text-decoration: none; }
-  .pv-featured__mini-trust { display: flex; flex-wrap: wrap; gap: 1.6rem 2.8rem; font-size: 1.3rem; color: #5C5C5C; font-weight: 500; }
+
+  /* Image Column */
+  .pv-featured__image-wrap { position: relative; border-radius: 24px; overflow: hidden; box-shadow: 0 24px 64px rgba(31,36,29,0.12); }
+  .pv-featured__img { width: 100%; height: auto; display: block; transition: transform 0.6s ease; object-fit: cover; aspect-ratio: 4/5; }
+  @media screen and (min-width: 990px) { .pv-featured__img { aspect-ratio: auto; } }
+  .pv-featured__image-wrap:hover .pv-featured__img { transform: scale(1.03); }
+  .pv-featured__img-placeholder { background: #E8E0D5; display: flex; align-items: center; justify-content: center; aspect-ratio: 1; }
+
+  /* Info Column */
+  .pv-featured__info-col { display: flex; flex-direction: column; }
+  .pv-featured__eyebrow { display: inline-block; align-self: flex-start; background: #D99A2B; color: #FFF7EA; font-size: 1.2rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em; padding: 0.6rem 1.6rem; border-radius: 999px; box-shadow: 0 4px 12px rgba(217,154,43,0.25); margin-bottom: 2rem; }
+  .pv-featured__title { font-size: clamp(3rem, 4vw, 4.4rem); font-weight: 800; color: #12350E; margin: 0 0 1.6rem; line-height: 1.1; letter-spacing: -0.02em; }
+  .pv-featured__subheading { font-size: 1.6rem; color: #4A5246; line-height: 1.6; margin: 0 0 3.2rem; max-width: 50rem; }
+
+  /* Price Area */
+  .pv-featured__price-area { display: flex; align-items: center; flex-wrap: wrap; gap: 1.2rem; margin-bottom: 3.2rem; padding-bottom: 3.2rem; border-bottom: 1px solid rgba(18,53,14,0.1); }
+  .pv-featured__price-label { font-size: 1.4rem; font-weight: 700; color: #6D7569; text-transform: uppercase; letter-spacing: 0.05em; }
+  .pv-featured__price-current { font-size: 3.2rem; font-weight: 800; color: #12350E; line-height: 1; }
+  .pv-featured__price-compare { font-size: 1.8rem; color: #8F998A; text-decoration: line-through; margin-left: 0.4rem; }
+  .pv-featured__price-save { font-size: 1.3rem; font-weight: 700; background: rgba(217,154,43,0.15); color: #B37A17; padding: 0.4rem 1rem; border-radius: 999px; margin-left: 0.8rem; }
+
+  /* Benefits */
+  .pv-featured__features { list-style: none; margin: 0 0 3.2rem; padding: 0; display: flex; flex-direction: column; gap: 1.6rem; }
+  .pv-featured__feature { display: flex; align-items: center; gap: 1.4rem; font-size: 1.6rem; font-weight: 600; color: #1F241D; }
+
+  /* Mini Comparison */
+  .pv-featured__mini-comp { background: rgba(18,53,14,0.03); border: 1px solid rgba(18,53,14,0.08); border-radius: 16px; padding: 2.4rem; margin-bottom: 4rem; }
+  .pv-featured__mini-comp-title { font-size: 1.4rem; font-weight: 700; color: #12350E; margin: 0 0 1.2rem; text-transform: uppercase; letter-spacing: 0.05em; }
+  .pv-featured__mini-comp-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 0.8rem; }
+  .pv-featured__mini-comp-list li { display: flex; align-items: center; gap: 1rem; font-size: 1.5rem; color: #4A5246; font-weight: 500; }
+
+  /* CTA */
+  .pv-featured__cta-row { margin-bottom: 1.6rem; }
+  .pv-featured__btn { display: flex; justify-content: center; align-items: center; width: 100%; background: #12350E; color: #FFF7EA; font-size: 1.8rem; font-weight: 700; padding: 1.8rem 4rem; border-radius: 999px; text-decoration: none; transition: all 0.3s ease; box-shadow: 0 8px 24px rgba(18,53,14,0.3); }
+  @media screen and (min-width: 750px) { .pv-featured__btn { display: inline-flex; width: auto; } }
+  .pv-featured__btn:hover { background: #1F4A16; transform: translateY(-3px); box-shadow: 0 12px 32px rgba(18,53,14,0.4); color: #FFF7EA; text-decoration: none; }
+
+  /* Trust Microcopy */
+  .pv-featured__trust-micro { font-size: 1.3rem; color: #6D7569; font-weight: 600; text-align: center; }
+  @media screen and (min-width: 750px) { .pv-featured__trust-micro { text-align: left; padding-left: 2rem; } }
 </style>
 
 {% schema %}
@@ -154,21 +174,30 @@
   "disabled_on": { "groups": ["header", "footer"] },
   "settings": [
     { "type": "product", "id": "product", "label": "Featured product" },
-    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Our Flagship Product" },
-    { "type": "image_picker", "id": "fallback_image", "label": "Fallback image (if no product set)" },
-    { "type": "text", "id": "fallback_title", "label": "Fallback product title", "default": "PawVoyage No-Pull Tactical Dog Harness" },
-    { "type": "text", "id": "fallback_price", "label": "Fallback price", "default": "$59.99" },
-    { "type": "textarea", "id": "fallback_desc", "label": "Fallback description", "default": "Engineered for dogs who pull. Dual attachment points, padded mesh lining, and military-grade buckles make every walk safer and more enjoyable." },
-    { "type": "text", "id": "review_count", "label": "Review count text", "default": "1,247 reviews" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow/Badge", "default": "BEST SELLER" },
+    { "type": "textarea", "id": "subheading", "label": "Subheading", "default": "Designed for dog owners who want more control, more comfort, and less pulling on every walk." },
     { "type": "text", "id": "cta_label", "label": "CTA label", "default": "Shop The Harness" },
-    { "type": "url", "id": "cta_link", "label": "CTA link" }
+    { "type": "url", "id": "cta_link", "label": "CTA link (if no product)" },
+    { "type": "text", "id": "trust_microcopy", "label": "Trust Microcopy", "default": "Secure checkout • 30-day easy returns • Free shipping today" },
+    { "type": "header", "content": "Fallback Data (If no product selected)" },
+    { "type": "image_picker", "id": "fallback_image", "label": "Fallback image" },
+    { "type": "text", "id": "fallback_title", "label": "Fallback title", "default": "PawVoyage No-Pull Tactical Dog Harness" },
+    { "type": "text", "id": "fallback_price", "label": "Fallback price", "default": "$49.99" },
+    { "type": "text", "id": "fallback_compare_price", "label": "Fallback compare price", "default": "$79.99" }
   ],
   "blocks": [
     {
       "type": "feature_bullet",
       "name": "Feature bullet",
       "settings": [
-        { "type": "text", "id": "text", "label": "Feature", "default": "Dual-clip no-pull system" }
+        { "type": "text", "id": "text", "label": "Feature text", "default": "Helps reduce pulling" }
+      ]
+    },
+    {
+      "type": "mini_comparison",
+      "name": "Mini comparison bullet",
+      "settings": [
+        { "type": "text", "id": "text", "label": "Comparison text", "default": "More control than a collar" }
       ]
     }
   ],
@@ -176,11 +205,13 @@
     {
       "name": "PV Featured Product",
       "blocks": [
-        { "type": "feature_bullet", "settings": { "text": "Dual-clip no-pull control system" } },
-        { "type": "feature_bullet", "settings": { "text": "Thick air-mesh padded lining" } },
-        { "type": "feature_bullet", "settings": { "text": "Military-grade buckles & hardware" } },
-        { "type": "feature_bullet", "settings": { "text": "Reflective stitching for night walks" } },
-        { "type": "feature_bullet", "settings": { "text": "Grab handle for tight spaces" } }
+        { "type": "feature_bullet", "settings": { "text": "Helps reduce pulling" } },
+        { "type": "feature_bullet", "settings": { "text": "Comfortable padded chest fit" } },
+        { "type": "feature_bullet", "settings": { "text": "Secure tactical design" } },
+        { "type": "feature_bullet", "settings": { "text": "Built for daily walks & travel" } },
+        { "type": "mini_comparison", "settings": { "text": "More control than a collar" } },
+        { "type": "mini_comparison", "settings": { "text": "More comfortable than cheap harnesses" } },
+        { "type": "mini_comparison", "settings": { "text": "More secure for active dogs" } }
       ]
     }
   ]
