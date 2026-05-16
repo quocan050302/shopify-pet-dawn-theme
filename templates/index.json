@@ -237,64 +237,49 @@
         "row_1": {
           "type": "row",
           "settings": {
-            "feature": "No-Pull Control System",
-            "pv_has": true,
-            "pv_note": "Dual front & back clips",
-            "other_has": false
+            "feature": "Pulling Control",
+            "pv_benefit": "Front & back clip options help redirect pulling for calmer, more controlled walks.",
+            "other_limitation": "Often gives less control when dogs pull hard."
           }
         },
         "row_2": {
           "type": "row",
           "settings": {
-            "feature": "Padded Chest Lining",
-            "pv_has": true,
-            "pv_note": "Air-mesh foam padding",
-            "other_has": false
+            "feature": "Neck & Chest Comfort",
+            "pv_benefit": "Padded chest support helps reduce pressure and rubbing during daily walks.",
+            "other_limitation": "May shift, rub, or put pressure in the wrong areas."
           }
         },
         "row_3": {
           "type": "row",
           "settings": {
-            "feature": "Military-Grade Buckles",
-            "pv_has": true,
-            "pv_note": "",
-            "other_has": false
+            "feature": "Secure Fit",
+            "pv_benefit": "Adjustable structure helps keep the harness stable and secure.",
+            "other_limitation": "Can loosen, twist, or feel unstable during movement."
           }
         },
         "row_4": {
           "type": "row",
           "settings": {
-            "feature": "Reflective Safety Strips",
-            "pv_has": true,
-            "pv_note": "360\u00b0 visibility",
-            "other_has": false
+            "feature": "Durability",
+            "pv_benefit": "Built with durable materials for active dogs and outdoor adventures.",
+            "other_limitation": "Basic materials may wear out faster."
           }
         },
         "row_5": {
           "type": "row",
           "settings": {
-            "feature": "Top Grab Handle",
-            "pv_has": true,
-            "pv_note": "",
-            "other_has": false
+            "feature": "Safety Details",
+            "pv_benefit": "Reflective accents and secure handling support safer walks in more conditions.",
+            "other_limitation": "May lack visibility or easy handling features."
           }
         },
         "row_6": {
           "type": "row",
           "settings": {
-            "feature": "Travel-Ready Design",
-            "pv_has": true,
-            "pv_note": "",
-            "other_has": false
-          }
-        },
-        "row_7": {
-          "type": "row",
-          "settings": {
-            "feature": "30-Day Money-Back Guarantee",
-            "pv_has": true,
-            "pv_note": "",
-            "other_has": false
+            "feature": "Travel Ready",
+            "pv_benefit": "Designed for daily walks, hikes, road trips, and pet-friendly outings.",
+            "other_limitation": "Usually built only for basic short walks."
           }
         }
       },
@@ -304,17 +289,21 @@
         "row_3",
         "row_4",
         "row_5",
-        "row_6",
-        "row_7"
+        "row_6"
       ],
       "settings": {
-        "eyebrow": "See The Difference",
-        "heading": "PawVoyage vs. Regular Harness",
-        "subheading": "Not all harnesses are built equal. See why thousands of dog owners made the switch.",
+        "eyebrow": "SEE THE DIFFERENCE",
+        "heading": "Why PawVoyage Makes Walks Feel Easier",
+        "subheading": "Every detail is designed to help you guide your dog with more control, comfort, and confidence \u2014 from quick walks to outdoor adventures.",
+        "pain_hook": "Because walks should feel calm, not like a tug-of-war.",
+        "pv_badge": "Recommended for Better Walks",
         "col1_label": "PawVoyage Harness",
         "col2_label": "Regular Harness",
-        "cta_label": "Get The PawVoyage Harness",
-        "cta_link": "shopify://collections/all"
+        "summary_heading": "Ready to Upgrade Your Walks?",
+        "summary_body": "Choose a harness designed for no-pull control, padded comfort, and everyday adventure.",
+        "cta_label": "Shop The Harness",
+        "cta_link": "/collections/all",
+        "cta_microcopy": "Secure checkout \u2022 Easy returns \u2022 Built for daily walks"
       }
     },
     "featured_collection": {
