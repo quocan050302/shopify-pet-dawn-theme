@@ -1,0 +1,183 @@
+/* ============================================================
+   PawVoyage Brand CSS — Global Overrides
+   Premium pet adventure brand for the Shopify Dawn theme
+   ============================================================ */
+
+/* ── Brand Tokens ─────────────────────────────────────────── */
+:root {
+  --pv-cream:        #FAF7F2;
+  --pv-cream-deep:   #F0EBE1;
+  --pv-forest:       #2D5016;
+  --pv-forest-light: #3D6B1F;
+  --pv-forest-dark:  #1C3309;
+  --pv-charcoal:     #2C2C2C;
+  --pv-charcoal-mid: #5C5C5C;
+  --pv-amber:        #C4853A;
+  --pv-amber-light:  #D9A05A;
+  --pv-sand:         #B8A88A;
+  --pv-white:        #FFFFFF;
+
+  /* Spacing */
+  --pv-radius-sm:    8px;
+  --pv-radius-md:    16px;
+  --pv-radius-lg:    24px;
+  --pv-radius-pill:  999px;
+
+  /* Shadows */
+  --pv-shadow-sm:    0 2px 8px rgba(44, 44, 44, 0.08);
+  --pv-shadow-md:    0 6px 24px rgba(44, 44, 44, 0.12);
+  --pv-shadow-lg:    0 16px 48px rgba(44, 44, 44, 0.18);
+
+  /* Transitions */
+  --pv-transition:   all 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ── Body & Page Background ──────────────────────────────── */
+body {
+  background-color: var(--pv-cream);
+}
+
+/* ── Global Button Overrides ─────────────────────────────── */
+.button,
+.btn,
+button.button--primary,
+a.button--primary {
+  border-radius: var(--pv-radius-pill) !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.03em !important;
+  transition: var(--pv-transition) !important;
+}
+
+.button--primary,
+.shopify-payment-button__button--unbranded {
+  background-color: var(--pv-forest) !important;
+  border-color: var(--pv-forest) !important;
+  color: var(--pv-white) !important;
+}
+
+.button--primary:hover,
+.shopify-payment-button__button--unbranded:hover {
+  background-color: var(--pv-forest-light) !important;
+  border-color: var(--pv-forest-light) !important;
+  transform: translateY(-2px);
+  box-shadow: var(--pv-shadow-md);
+}
+
+.button--secondary {
+  border-color: var(--pv-forest) !important;
+  color: var(--pv-forest) !important;
+  border-radius: var(--pv-radius-pill) !important;
+  background-color: transparent !important;
+}
+
+.button--secondary:hover {
+  background-color: var(--pv-forest) !important;
+  color: var(--pv-white) !important;
+}
+
+/* ── Product Card Premium Overrides ──────────────────────── */
+.card-wrapper,
+.product-card-wrapper {
+  border-radius: var(--pv-radius-md);
+  overflow: hidden;
+  transition: var(--pv-transition);
+}
+
+.card-wrapper:hover,
+.product-card-wrapper:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--pv-shadow-md);
+}
+
+.card {
+  border-radius: var(--pv-radius-md) !important;
+  overflow: hidden;
+}
+
+.card__media img {
+  transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card-wrapper:hover .card__media img {
+  transform: scale(1.05);
+}
+
+/* ── Section Headings ────────────────────────────────────── */
+.pv-section-eyebrow {
+  display: inline-block;
+  font-size: 1.1rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--pv-amber);
+  margin-bottom: 1rem;
+}
+
+.pv-section-heading {
+  font-size: clamp(2.6rem, 5vw, 4.4rem);
+  font-weight: 800;
+  color: var(--pv-charcoal);
+  line-height: 1.12;
+  margin: 0 0 1.6rem;
+}
+
+.pv-section-subheading {
+  font-size: 1.7rem;
+  line-height: 1.7;
+  color: var(--pv-charcoal-mid);
+  max-width: 64rem;
+  margin: 0 0 3rem;
+}
+
+/* ── Scroll Reveal Utility ───────────────────────────────── */
+.pv-reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.pv-reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── Green Checkmark Utility ─────────────────────────────── */
+.pv-check {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.pv-check::before {
+  content: '';
+  display: inline-block;
+  width: 2rem;
+  height: 2rem;
+  background-color: var(--pv-forest);
+  border-radius: 50%;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='white'%3E%3Cpath fill-rule='evenodd' d='M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z' clip-rule='evenodd'/%3E%3C/svg%3E");
+  background-size: 60%;
+  background-repeat: no-repeat;
+  background-position: center;
+  flex-shrink: 0;
+}
+
+/* ── Header Override ─────────────────────────────────────── */
+.header {
+  background-color: var(--pv-cream) !important;
+  border-bottom: 1px solid rgba(44,44,44,0.08);
+}
+
+/* ── Footer Override ─────────────────────────────────────── */
+.footer {
+  background-color: var(--pv-charcoal);
+  color: var(--pv-cream);
+}
+
+/* ── Announcement Bar ────────────────────────────────────── */
+.announcement-bar {
+  background-color: var(--pv-forest) !important;
+  color: var(--pv-white) !important;
+}
+
+/* ── Scroll Reveal JS ────────────────────────────────────── */

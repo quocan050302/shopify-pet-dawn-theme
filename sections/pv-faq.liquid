@@ -1,0 +1,111 @@
+{{ 'pawvoyage-brand.css' | asset_url | stylesheet_tag }}
+
+<section class="pv-faq section-{{ section.id }}" id="pv-faq-{{ section.id }}">
+  <div class="page-width pv-faq__wrap">
+    <div class="pv-faq__header">
+      {%- if section.settings.eyebrow != blank -%}
+        <span class="pv-section-eyebrow">{{ section.settings.eyebrow }}</span>
+      {%- endif -%}
+      <h2 class="pv-section-heading">{{ section.settings.heading }}</h2>
+      {%- if section.settings.subheading != blank -%}
+        <p class="pv-section-subheading" style="margin-left:auto;margin-right:auto;">{{ section.settings.subheading }}</p>
+      {%- endif -%}
+    </div>
+
+    <div class="pv-faq__list">
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'faq_item' -%}
+          <details class="pv-faq__item" {{ block.shopify_attributes }} id="pv-faq-item-{{ section.id }}-{{ forloop.index }}">
+            <summary class="pv-faq__question">
+              <span>{{ block.settings.question }}</span>
+              <span class="pv-faq__chevron" aria-hidden="true">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M5 7.5l5 5 5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </span>
+            </summary>
+            <div class="pv-faq__answer">
+              <p>{{ block.settings.answer }}</p>
+            </div>
+          </details>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+<style>
+  .pv-faq { background: #F0EBE1; padding: 9rem 0; }
+  .pv-faq__wrap { max-width: 86rem; }
+  .pv-faq__header { text-align: center; margin-bottom: 5.6rem; }
+  .pv-faq__header .pv-section-subheading { margin-left: auto; margin-right: auto; }
+  .pv-faq__list { display: flex; flex-direction: column; gap: 0; }
+  .pv-faq__item {
+    background: #FAF7F2;
+    border-radius: 0;
+    border-bottom: 1px solid rgba(44,44,44,0.1);
+    overflow: hidden;
+    transition: background 0.2s ease;
+  }
+  .pv-faq__item:first-child { border-radius: 16px 16px 0 0; border-top: 1px solid rgba(44,44,44,0.1); }
+  .pv-faq__item:last-child { border-radius: 0 0 16px 16px; }
+  .pv-faq__item[open] { background: #FFFFFF; }
+  .pv-faq__item[open] .pv-faq__question { color: #2D5016; }
+  .pv-faq__item[open] .pv-faq__chevron svg { transform: rotate(180deg); }
+  .pv-faq__question {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 2rem;
+    padding: 2.4rem 2.8rem;
+    cursor: pointer;
+    font-size: 1.7rem;
+    font-weight: 700;
+    color: #2C2C2C;
+    list-style: none;
+    transition: color 0.2s ease;
+    user-select: none;
+  }
+  .pv-faq__question::-webkit-details-marker { display: none; }
+  .pv-faq__question:hover { color: #2D5016; }
+  .pv-faq__chevron { flex-shrink: 0; color: #2D5016; }
+  .pv-faq__chevron svg { transition: transform 0.3s ease; }
+  .pv-faq__answer { padding: 0 2.8rem 2.4rem; }
+  .pv-faq__answer p { font-size: 1.5rem; line-height: 1.75; color: #5C5C5C; margin: 0; }
+</style>
+
+{% schema %}
+{
+  "name": "PV FAQ",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": { "groups": ["header", "footer"] },
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Got Questions?" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Frequently Asked Questions" },
+    { "type": "text", "id": "subheading", "label": "Subheading", "default": "Everything you need to know about the PawVoyage No-Pull Harness." }
+  ],
+  "blocks": [
+    {
+      "type": "faq_item",
+      "name": "FAQ item",
+      "settings": [
+        { "type": "text", "id": "question", "label": "Question", "default": "What size harness does my dog need?" },
+        { "type": "textarea", "id": "answer", "label": "Answer", "default": "We recommend measuring your dog's chest girth (widest point behind the front legs) and referring to our size chart. When in doubt, size up — the harness is fully adjustable at 4 points." }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "PV FAQ",
+      "blocks": [
+        { "type": "faq_item", "settings": { "question": "What size harness does my dog need?", "answer": "Measure your dog's chest girth (the widest point behind the front legs). Refer to our size chart on the product page. The harness is fully adjustable at 4 points, so most dogs fall between two sizes — when in doubt, size up." } },
+        { "type": "faq_item", "settings": { "question": "How does the no-pull feature actually work?", "answer": "The front chest clip redirects your dog's momentum sideways when they pull, making it uncomfortable to continue pulling. The back clip is for normal walking once your dog is trained. Most owners see improvement within 1–2 walks." } },
+        { "type": "faq_item", "settings": { "question": "Is it safe for daily use?", "answer": "Absolutely. The padded mesh lining is designed for extended wear without chafing. We recommend removing the harness when your dog is unsupervised or sleeping." } },
+        { "type": "faq_item", "settings": { "question": "How long does shipping take?", "answer": "Orders ship within 1–2 business days. Standard delivery takes 5–7 business days. Expedited options (2–3 days) are available at checkout. Free shipping on orders over $50." } },
+        { "type": "faq_item", "settings": { "question": "What is your return policy?", "answer": "We offer a no-questions-asked 30-day return policy. If the harness doesn't work for you and your dog, just contact us and we'll arrange a free return and full refund." } },
+        { "type": "faq_item", "settings": { "question": "Can I wash the harness?", "answer": "Yes! The harness is machine washable on a gentle cycle in a mesh laundry bag. Air dry only. The materials are fade-resistant and retain their shape after washing." } },
+        { "type": "faq_item", "settings": { "question": "Is it suitable for travel (planes, cars)?", "answer": "Yes. The slim-profile design fits under most airline seat restrictions. The top handle also makes it easy to lift your dog into cars or over obstacles. It's compatible with most car seat adapters." } }
+      ]
+    }
+  ]
+}
+{% endschema %}

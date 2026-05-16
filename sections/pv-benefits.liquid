@@ -1,0 +1,116 @@
+{{ 'pawvoyage-brand.css' | asset_url | stylesheet_tag }}
+
+<section class="pv-benefits section-{{ section.id }}" id="pv-benefits-{{ section.id }}">
+  <div class="page-width">
+    <div class="pv-benefits__header">
+      {%- if section.settings.eyebrow != blank -%}
+        <span class="pv-section-eyebrow" style="color:#C4853A;">{{ section.settings.eyebrow }}</span>
+      {%- endif -%}
+      {%- if section.settings.heading != blank -%}
+        <h2 class="pv-section-heading" style="color:#FAF7F2;">{{ section.settings.heading }}</h2>
+      {%- endif -%}
+    </div>
+    <div class="pv-benefits__grid">
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'benefit' -%}
+          <div class="pv-benefits__item" {{ block.shopify_attributes }}>
+            <div class="pv-benefits__icon">{{ block.settings.icon_emoji }}</div>
+            <h3 class="pv-benefits__title">{{ block.settings.title }}</h3>
+            <p class="pv-benefits__desc">{{ block.settings.description }}</p>
+          </div>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+<style>
+  .pv-benefits {
+    background: linear-gradient(160deg, #1C3309 0%, #2D5016 50%, #1C2B0F 100%);
+    padding: 9rem 0;
+  }
+  .pv-benefits__header {
+    text-align: center;
+    margin-bottom: 6rem;
+  }
+  .pv-benefits__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3.2rem;
+  }
+  @media screen and (min-width: 990px) {
+    .pv-benefits__grid { grid-template-columns: repeat(4, 1fr); }
+  }
+  @media screen and (max-width: 749px) {
+    .pv-benefits__grid { grid-template-columns: 1fr; gap: 2rem; }
+  }
+  .pv-benefits__item {
+    background: rgba(250,247,242,0.07);
+    border: 1px solid rgba(250,247,242,0.12);
+    border-radius: 20px;
+    padding: 3.2rem 2.4rem;
+    text-align: center;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(8px);
+  }
+  .pv-benefits__item:hover {
+    background: rgba(250,247,242,0.12);
+    border-color: rgba(196,133,58,0.4);
+    transform: translateY(-6px);
+    box-shadow: 0 16px 48px rgba(0,0,0,0.3);
+  }
+  .pv-benefits__icon {
+    font-size: 4.8rem;
+    margin-bottom: 1.8rem;
+    line-height: 1;
+    display: block;
+  }
+  .pv-benefits__title {
+    font-size: 1.9rem;
+    font-weight: 800;
+    color: #FAF7F2;
+    margin: 0 0 1rem;
+    line-height: 1.2;
+  }
+  .pv-benefits__desc {
+    font-size: 1.4rem;
+    color: rgba(250,247,242,0.75);
+    line-height: 1.65;
+    margin: 0;
+  }
+</style>
+
+{% schema %}
+{
+  "name": "PV Benefits",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": { "groups": ["header", "footer"] },
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Why PawVoyage" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Built for Real Dogs. Made for Real Walks." }
+  ],
+  "blocks": [
+    {
+      "type": "benefit",
+      "name": "Benefit",
+      "settings": [
+        { "type": "text", "id": "icon_emoji", "label": "Icon (emoji)", "default": "🎯" },
+        { "type": "text", "id": "title", "label": "Title", "default": "Better Control" },
+        { "type": "textarea", "id": "description", "label": "Description", "default": "Front and back attachment points give you instant, calm control over your dog." }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "PV Benefits",
+      "blocks": [
+        { "type": "benefit", "settings": { "icon_emoji": "🎯", "title": "Better Control", "description": "Front & back clips redirect pulling force so you stay in control on every walk." } },
+        { "type": "benefit", "settings": { "icon_emoji": "☁️", "title": "Comfortable Fit", "description": "Thick air-mesh padding and ergonomic chest plate keep your dog comfortable for hours." } },
+        { "type": "benefit", "settings": { "icon_emoji": "🪖", "title": "Tactical Durability", "description": "Heavy-duty nylon webbing and military-grade buckles built to last years, not months." } },
+        { "type": "benefit", "settings": { "icon_emoji": "✈️", "title": "Travel-Ready Design", "description": "Top handle for crowded spaces, reflective strips for night walks, and a compact profile for travel." } }
+      ]
+    }
+  ]
+}
+{% endschema %}

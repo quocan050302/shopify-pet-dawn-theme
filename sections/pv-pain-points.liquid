@@ -1,0 +1,173 @@
+{{ 'pawvoyage-brand.css' | asset_url | stylesheet_tag }}
+
+<section class="pv-pain section-{{ section.id }}" id="pv-pain-{{ section.id }}">
+  <div class="page-width">
+    <div class="pv-pain__header">
+      {%- if section.settings.eyebrow != blank -%}
+        <span class="pv-section-eyebrow">{{ section.settings.eyebrow }}</span>
+      {%- endif -%}
+      {%- if section.settings.heading != blank -%}
+        <h2 class="pv-section-heading">{{ section.settings.heading }}</h2>
+      {%- endif -%}
+      {%- if section.settings.subheading != blank -%}
+        <p class="pv-section-subheading">{{ section.settings.subheading }}</p>
+      {%- endif -%}
+    </div>
+
+    <div class="pv-pain__grid">
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'pain_point' -%}
+          <div class="pv-pain__card" {{ block.shopify_attributes }}>
+            <div class="pv-pain__card-icon">{{ block.settings.icon_emoji }}</div>
+            <h3 class="pv-pain__card-title">{{ block.settings.title }}</h3>
+            <p class="pv-pain__card-text">{{ block.settings.description }}</p>
+            <div class="pv-pain__card-solution">
+              <span class="pv-pain__solution-label">PawVoyage fixes this:</span>
+              <span class="pv-pain__solution-text">{{ block.settings.solution }}</span>
+            </div>
+          </div>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+<style>
+  .pv-pain {
+    background: #F0EBE1;
+    padding: 8rem 0;
+  }
+  .pv-pain__header {
+    text-align: center;
+    margin-bottom: 5.6rem;
+  }
+  .pv-pain__header .pv-section-subheading {
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .pv-pain__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2.4rem;
+  }
+  @media screen and (min-width: 750px) {
+    .pv-pain__grid { grid-template-columns: repeat(3, 1fr); }
+  }
+  .pv-pain__card {
+    background: #FAF7F2;
+    border-radius: 20px;
+    padding: 3.2rem 2.8rem;
+    box-shadow: 0 4px 24px rgba(44,44,44,0.07);
+    border-top: 4px solid #C4853A;
+    transition: transform 0.28s ease, box-shadow 0.28s ease;
+    position: relative;
+    overflow: hidden;
+  }
+  .pv-pain__card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #C4853A, #D9A05A);
+  }
+  .pv-pain__card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 40px rgba(44,44,44,0.14);
+  }
+  .pv-pain__card-icon {
+    font-size: 4rem;
+    margin-bottom: 1.6rem;
+    line-height: 1;
+  }
+  .pv-pain__card-title {
+    font-size: 2rem;
+    font-weight: 800;
+    color: #2C2C2C;
+    margin: 0 0 1rem;
+    line-height: 1.25;
+  }
+  .pv-pain__card-text {
+    font-size: 1.5rem;
+    color: #5C5C5C;
+    line-height: 1.65;
+    margin: 0 0 2rem;
+  }
+  .pv-pain__card-solution {
+    border-top: 1px solid rgba(44,44,44,0.1);
+    padding-top: 1.6rem;
+  }
+  .pv-pain__solution-label {
+    display: block;
+    font-size: 1.1rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #2D5016;
+    margin-bottom: 0.4rem;
+  }
+  .pv-pain__solution-text {
+    font-size: 1.4rem;
+    color: #2C2C2C;
+    font-weight: 600;
+  }
+</style>
+
+{% schema %}
+{
+  "name": "PV Pain Points",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": { "groups": ["header", "footer"] },
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Sound Familiar?" },
+    { "type": "textarea", "id": "heading", "label": "Section heading", "default": "Still Getting Pulled Down the Street?" },
+    { "type": "textarea", "id": "subheading", "label": "Subheading", "default": "Most dog owners struggle with the same problems. Here's what we hear every day — and how PawVoyage solves it." }
+  ],
+  "blocks": [
+    {
+      "type": "pain_point",
+      "name": "Pain point",
+      "settings": [
+        { "type": "text", "id": "icon_emoji", "label": "Icon (emoji)", "default": "😤" },
+        { "type": "text", "id": "title", "label": "Pain point title", "default": "Dog Pulls Too Hard" },
+        { "type": "textarea", "id": "description", "label": "Description", "default": "Every walk turns into a tug-of-war. Your arm hurts, your dog is excited, and it's just not enjoyable for either of you." },
+        { "type": "text", "id": "solution", "label": "PawVoyage solution", "default": "Dual attachment points redirect pulling force, giving you instant control." }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "PV Pain Points",
+      "blocks": [
+        {
+          "type": "pain_point",
+          "settings": {
+            "icon_emoji": "😤",
+            "title": "Dog Pulls Too Hard",
+            "description": "Every walk turns into a tug-of-war. Your arm aches, your dog is out of control, and walks stop being enjoyable.",
+            "solution": "Dual clip points redirect pulling force so walks become relaxed again."
+          }
+        },
+        {
+          "type": "pain_point",
+          "settings": {
+            "icon_emoji": "⚠️",
+            "title": "Collars Hurt the Neck",
+            "description": "Standard collars put dangerous pressure on your dog's trachea during pulling, causing long-term damage.",
+            "solution": "No-pull harness design distributes pressure across the chest — never the neck."
+          }
+        },
+        {
+          "type": "pain_point",
+          "settings": {
+            "icon_emoji": "💸",
+            "title": "Cheap Harnesses Shift & Rub",
+            "description": "Flimsy harnesses rotate, chafe, and fall apart after a few months — wasted money and an uncomfortable dog.",
+            "solution": "Tactical-grade construction with padded mesh stays secure and comfortable all day."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,116 @@
+{{ 'pawvoyage-brand.css' | asset_url | stylesheet_tag }}
+
+<section class="pv-reviews section-{{ section.id }}" id="pv-reviews-{{ section.id }}">
+  <div class="page-width">
+    <div class="pv-reviews__header">
+      {%- if section.settings.eyebrow != blank -%}
+        <span class="pv-section-eyebrow">{{ section.settings.eyebrow }}</span>
+      {%- endif -%}
+      <h2 class="pv-section-heading">{{ section.settings.heading }}</h2>
+      <div class="pv-reviews__aggregate">
+        <span class="pv-reviews__aggregate-stars">★★★★★</span>
+        <span class="pv-reviews__aggregate-text">{{ section.settings.aggregate_text | default: '4.9 out of 5 · 1,247 reviews' }}</span>
+      </div>
+    </div>
+
+    <div class="pv-reviews__grid">
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'review' -%}
+          <div class="pv-reviews__card" {{ block.shopify_attributes }}>
+            <div class="pv-reviews__stars">
+              {%- for i in (1..block.settings.stars) -%}★{%- endfor -%}
+            </div>
+            <blockquote class="pv-reviews__quote">{{ block.settings.review_text }}</blockquote>
+            <div class="pv-reviews__reviewer">
+              <div class="pv-reviews__avatar">{{ block.settings.name | slice: 0, 1 | upcase }}</div>
+              <div>
+                <div class="pv-reviews__name">{{ block.settings.name }}</div>
+                <div class="pv-reviews__meta">
+                  {%- if block.settings.verified -%}<span class="pv-reviews__verified">✓ Verified Buyer</span>{%- endif -%}
+                  {%- if block.settings.dog_name != blank -%} · {{ block.settings.dog_name }}{%- endif -%}
+                </div>
+              </div>
+            </div>
+          </div>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+<style>
+  .pv-reviews { background: #FAF7F2; padding: 9rem 0; }
+  .pv-reviews__header { text-align: center; margin-bottom: 5.6rem; }
+  .pv-reviews__aggregate { display: flex; align-items: center; justify-content: center; gap: 1.2rem; margin-top: 0.8rem; }
+  .pv-reviews__aggregate-stars { color: #C4853A; font-size: 2.4rem; letter-spacing: 0.04em; }
+  .pv-reviews__aggregate-text { font-size: 1.5rem; color: #5C5C5C; font-weight: 600; }
+  .pv-reviews__grid { display: grid; grid-template-columns: 1fr; gap: 2.4rem; }
+  @media screen and (min-width: 750px) { .pv-reviews__grid { grid-template-columns: repeat(2, 1fr); } }
+  @media screen and (min-width: 990px) { .pv-reviews__grid { grid-template-columns: repeat(3, 1fr); } }
+  .pv-reviews__card {
+    background: #FFFFFF;
+    border-radius: 20px;
+    padding: 3.2rem 2.8rem;
+    box-shadow: 0 4px 24px rgba(44,44,44,0.07);
+    display: flex;
+    flex-direction: column;
+    gap: 1.6rem;
+    transition: transform 0.28s ease, box-shadow 0.28s ease;
+    position: relative;
+  }
+  .pv-reviews__card::before {
+    content: '"';
+    position: absolute;
+    top: 1.6rem; right: 2.4rem;
+    font-size: 7rem;
+    color: #F0EBE1;
+    font-family: Georgia, serif;
+    line-height: 1;
+    pointer-events: none;
+  }
+  .pv-reviews__card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(44,44,44,0.12); }
+  .pv-reviews__stars { color: #C4853A; font-size: 2rem; letter-spacing: 0.04em; }
+  .pv-reviews__quote { font-size: 1.5rem; line-height: 1.7; color: #2C2C2C; margin: 0; font-style: normal; font-weight: 500; flex: 1; }
+  .pv-reviews__reviewer { display: flex; align-items: center; gap: 1.2rem; }
+  .pv-reviews__avatar { width: 4.4rem; height: 4.4rem; background: #2D5016; color: #FAF7F2; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.8rem; font-weight: 800; flex-shrink: 0; }
+  .pv-reviews__name { font-size: 1.4rem; font-weight: 700; color: #2C2C2C; }
+  .pv-reviews__meta { font-size: 1.2rem; color: #5C5C5C; margin-top: 0.2rem; }
+  .pv-reviews__verified { color: #2D5016; font-weight: 600; }
+</style>
+
+{% schema %}
+{
+  "name": "PV Reviews",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": { "groups": ["header", "footer"] },
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Customer Reviews" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Dog Owners Love PawVoyage" },
+    { "type": "text", "id": "aggregate_text", "label": "Aggregate rating text", "default": "4.9 out of 5 · 1,247 reviews" }
+  ],
+  "blocks": [
+    {
+      "type": "review",
+      "name": "Review",
+      "settings": [
+        { "type": "range", "id": "stars", "min": 1, "max": 5, "step": 1, "label": "Star rating", "default": 5 },
+        { "type": "textarea", "id": "review_text", "label": "Review text", "default": "This harness completely changed our walks. No more being dragged down the street!" },
+        { "type": "text", "id": "name", "label": "Reviewer name", "default": "Sarah M." },
+        { "type": "text", "id": "dog_name", "label": "Dog name (optional)", "default": "Owner of Max, Labrador" },
+        { "type": "checkbox", "id": "verified", "label": "Verified buyer badge", "default": true }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "PV Reviews",
+      "blocks": [
+        { "type": "review", "settings": { "stars": 5, "review_text": "Finally a harness that actually works! Max used to drag me everywhere. After one walk with the PawVoyage harness, he was already calmer. The quality is incredible too — feels built to last.", "name": "Sarah M.", "dog_name": "Owner of Max, 3yr Labrador", "verified": true } },
+        { "type": "review", "settings": { "stars": 5, "review_text": "My rescue has always been anxious on walks. This harness gives me so much more control and she actually seems more comfortable in it than her old one. The padding is super soft.", "name": "James R.", "dog_name": "Owner of Luna, Rescue Mix", "verified": true } },
+        { "type": "review", "settings": { "stars": 5, "review_text": "Worth every penny. I've tried 4 harnesses in 2 years. Nothing compares to this. The buckles are solid, the fit is perfect, and the front clip makes the biggest difference on walks.", "name": "Emily K.", "dog_name": "Owner of Bear, Golden Retriever", "verified": true } }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,117 @@
+{{ 'pawvoyage-brand.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  #pv-hero-{{ section.id }} {
+    position: relative;
+    min-height: {{ section.settings.hero_height_mobile }}px;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+  }
+  @media screen and (min-width: 750px) {
+    #pv-hero-{{ section.id }} { min-height: {{ section.settings.hero_height_desktop }}px; }
+  }
+{%- endstyle -%}
+
+<section id="pv-hero-{{ section.id }}" class="pv-hero">
+  {%- if section.settings.image != blank -%}
+    {{ section.settings.image | image_url: width: 2400 | image_tag: class: 'pv-hero__bg', loading: 'eager', fetchpriority: 'high', widths: '750, 1100, 1500, 2000, 2400', sizes: '100vw', alt: section.settings.image.alt | escape }}
+  {%- else -%}
+    <div class="pv-hero__bg pv-hero__bg--placeholder"></div>
+  {%- endif -%}
+  <div class="pv-hero__overlay" style="--overlay-opacity: {{ section.settings.overlay_opacity | divided_by: 100.0 }};"></div>
+  <div class="page-width pv-hero__content-wrap">
+    <div class="pv-hero__content">
+      {%- if section.settings.eyebrow != blank -%}
+        <span class="pv-hero__eyebrow">{{ section.settings.eyebrow }}</span>
+      {%- endif -%}
+      {%- if section.settings.heading != blank -%}
+        <h1 class="pv-hero__heading">{{ section.settings.heading }}</h1>
+      {%- endif -%}
+      {%- if section.settings.subheading != blank -%}
+        <p class="pv-hero__subheading">{{ section.settings.subheading }}</p>
+      {%- endif -%}
+      {%- if section.blocks.size > 0 -%}
+        <ul class="pv-hero__bullets">
+          {%- for block in section.blocks -%}
+            {%- if block.type == 'benefit_bullet' -%}
+              <li class="pv-hero__bullet" {{ block.shopify_attributes }}>
+                <span class="pv-hero__bullet-icon">
+                  <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7L5.5 10.5L12 3.5" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </span>
+                {{ block.settings.text }}
+              </li>
+            {%- endif -%}
+          {%- endfor -%}
+        </ul>
+      {%- endif -%}
+      <div class="pv-hero__cta-group">
+        {%- if section.settings.cta_label != blank -%}
+          <a href="{{ section.settings.cta_link | default: '#' }}" class="pv-hero__cta pv-hero__cta--primary" id="pv-hero-cta-1-{{ section.id }}">
+            {{ section.settings.cta_label }}
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3 9h12M10 5l4 4-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        {%- endif -%}
+        {%- if section.settings.cta_label_2 != blank -%}
+          <a href="{{ section.settings.cta_link_2 | default: '#' }}" class="pv-hero__cta pv-hero__cta--secondary" id="pv-hero-cta-2-{{ section.id }}">{{ section.settings.cta_label_2 }}</a>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .pv-hero { background-color: #1C3309; }
+  .pv-hero__bg { position:absolute; inset:0; z-index:0; object-fit:cover; width:100%; height:100%; }
+  .pv-hero__bg--placeholder { background: linear-gradient(135deg,#1C3309 0%,#2D5016 40%,#3D6B1F 70%,#1C2B0F 100%); }
+  .pv-hero__overlay { position:absolute; inset:0; z-index:1; background: linear-gradient(105deg, rgba(28,51,9,var(--overlay-opacity,0.7)) 0%, rgba(28,51,9,calc(var(--overlay-opacity,0.7)*0.55)) 55%, rgba(28,51,9,0.05) 100%); }
+  .pv-hero__content-wrap { position:relative; z-index:2; width:100%; padding-top:6rem; padding-bottom:6rem; }
+  .pv-hero__eyebrow { display:inline-block; font-size:1.1rem; font-weight:700; letter-spacing:0.22em; text-transform:uppercase; color:#C4853A; margin-bottom:1.4rem; border:1px solid rgba(196,133,58,0.4); padding:0.4rem 1.4rem; border-radius:999px; }
+  .pv-hero__heading { font-size:clamp(3.2rem,6vw,6.4rem); font-weight:800; color:#FAF7F2; line-height:1.08; letter-spacing:-0.02em; margin:0 0 2rem; max-width:72rem; }
+  .pv-hero__subheading { font-size:clamp(1.5rem,2.2vw,1.9rem); color:rgba(250,247,242,0.85); line-height:1.65; max-width:56rem; margin:0 0 2.8rem; }
+  .pv-hero__bullets { list-style:none; margin:0 0 3.2rem; padding:0; display:flex; flex-wrap:wrap; gap:1.2rem; }
+  .pv-hero__bullet { display:inline-flex; align-items:center; gap:0.8rem; font-size:1.4rem; font-weight:600; color:#FAF7F2; background:rgba(250,247,242,0.12); border:1px solid rgba(250,247,242,0.2); padding:0.6rem 1.4rem; border-radius:999px; }
+  .pv-hero__bullet-icon { display:inline-flex; align-items:center; justify-content:center; width:2rem; height:2rem; background:#2D5016; border-radius:50%; flex-shrink:0; }
+  .pv-hero__cta-group { display:flex; flex-wrap:wrap; gap:1.6rem; align-items:center; }
+  .pv-hero__cta { display:inline-flex; align-items:center; gap:0.8rem; font-size:1.6rem; font-weight:700; padding:1.4rem 3.2rem; border-radius:999px; text-decoration:none; transition:all 0.28s ease; }
+  .pv-hero__cta--primary { background:#2D5016; color:#FAF7F2; border:2px solid #2D5016; box-shadow:0 4px 20px rgba(45,80,22,0.5); }
+  .pv-hero__cta--primary:hover { background:#3D6B1F; border-color:#3D6B1F; transform:translateY(-3px); box-shadow:0 8px 32px rgba(45,80,22,0.6); color:#FAF7F2; text-decoration:none; }
+  .pv-hero__cta--secondary { background:transparent; color:#FAF7F2; border:2px solid rgba(250,247,242,0.5); }
+  .pv-hero__cta--secondary:hover { background:rgba(250,247,242,0.12); border-color:rgba(250,247,242,0.8); transform:translateY(-3px); color:#FAF7F2; text-decoration:none; }
+  @media (max-width:749px) { .pv-hero__cta-group { flex-direction:column; align-items:flex-start; } .pv-hero__cta { font-size:1.5rem; padding:1.2rem 2.4rem; } }
+</style>
+
+{% schema %}
+{
+  "name": "PV Hero Banner",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": { "groups": ["header", "footer"] },
+  "settings": [
+    { "type": "image_picker", "id": "image", "label": "Background image" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow label", "default": "No-Pull Tactical Harness" },
+    { "type": "textarea", "id": "heading", "label": "Headline", "default": "Walks Without Pulling. Adventures Without Stress." },
+    { "type": "textarea", "id": "subheading", "label": "Subheadline", "default": "The PawVoyage No-Pull Tactical Harness helps keep your dog secure, comfortable, and easier to control — from daily walks to outdoor adventures." },
+    { "type": "text", "id": "cta_label", "label": "Primary CTA label", "default": "Shop The Harness" },
+    { "type": "url", "id": "cta_link", "label": "Primary CTA link" },
+    { "type": "text", "id": "cta_label_2", "label": "Secondary CTA label", "default": "See How It Works" },
+    { "type": "url", "id": "cta_link_2", "label": "Secondary CTA link" },
+    { "type": "range", "id": "overlay_opacity", "min": 20, "max": 90, "step": 5, "unit": "%", "label": "Overlay darkness", "default": 70 },
+    { "type": "range", "id": "hero_height_mobile", "min": 480, "max": 800, "step": 20, "unit": "px", "label": "Mobile height", "default": 600 },
+    { "type": "range", "id": "hero_height_desktop", "min": 560, "max": 1000, "step": 20, "unit": "px", "label": "Desktop height", "default": 740 }
+  ],
+  "blocks": [
+    { "type": "benefit_bullet", "name": "Benefit bullet", "settings": [ { "type": "text", "id": "text", "label": "Benefit text", "default": "No-pull control" } ] }
+  ],
+  "presets": [
+    {
+      "name": "PV Hero Banner",
+      "blocks": [
+        { "type": "benefit_bullet", "settings": { "text": "No-pull control" } },
+        { "type": "benefit_bullet", "settings": { "text": "Comfortable padded fit" } },
+        { "type": "benefit_bullet", "settings": { "text": "Built for walks & travel" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,76 @@
+{{ 'pawvoyage-brand.css' | asset_url | stylesheet_tag }}
+
+<section class="pv-trust section-{{ section.id }}" id="pv-trust-{{ section.id }}">
+  <div class="page-width pv-trust__inner">
+    {%- for block in section.blocks -%}
+      {%- if block.type == 'badge' -%}
+        <div class="pv-trust__badge" {{ block.shopify_attributes }}>
+          <span class="pv-trust__icon">{{ block.settings.icon_emoji }}</span>
+          <span class="pv-trust__label">{{ block.settings.label }}</span>
+        </div>
+      {%- endif -%}
+    {%- endfor -%}
+  </div>
+</section>
+
+<style>
+  .pv-trust {
+    background: #2D5016;
+    padding: 1.6rem 0;
+  }
+  .pv-trust__inner {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 2.4rem 4rem;
+  }
+  .pv-trust__badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.9rem;
+    color: #FAF7F2;
+    font-size: 1.35rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+  }
+  .pv-trust__icon {
+    font-size: 1.8rem;
+    line-height: 1;
+  }
+  @media (max-width: 749px) {
+    .pv-trust__inner { gap: 1.6rem 2.4rem; }
+    .pv-trust__badge { font-size: 1.25rem; }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "PV Trust Badges",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": { "groups": ["header", "footer"] },
+  "settings": [],
+  "blocks": [
+    {
+      "type": "badge",
+      "name": "Trust badge",
+      "settings": [
+        { "type": "text", "id": "icon_emoji", "label": "Icon (emoji)", "default": "🔒" },
+        { "type": "text", "id": "label", "label": "Badge label", "default": "Secure Checkout" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "PV Trust Badges",
+      "blocks": [
+        { "type": "badge", "settings": { "icon_emoji": "🔒", "label": "Secure Checkout" } },
+        { "type": "badge", "settings": { "icon_emoji": "↩️", "label": "30-Day Returns" } },
+        { "type": "badge", "settings": { "icon_emoji": "🐾", "label": "Pet-Friendly Design" } },
+        { "type": "badge", "settings": { "icon_emoji": "🚚", "label": "Free Shipping Over $50" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

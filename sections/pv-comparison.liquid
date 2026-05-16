@@ -1,0 +1,139 @@
+{{ 'pawvoyage-brand.css' | asset_url | stylesheet_tag }}
+
+<section class="pv-compare section-{{ section.id }}" id="pv-compare-{{ section.id }}">
+  <div class="page-width">
+    <div class="pv-compare__header">
+      {%- if section.settings.eyebrow != blank -%}
+        <span class="pv-section-eyebrow">{{ section.settings.eyebrow }}</span>
+      {%- endif -%}
+      <h2 class="pv-section-heading">{{ section.settings.heading }}</h2>
+      {%- if section.settings.subheading != blank -%}
+        <p class="pv-section-subheading" style="margin-left:auto;margin-right:auto;">{{ section.settings.subheading }}</p>
+      {%- endif -%}
+    </div>
+
+    <div class="pv-compare__table-wrap">
+      <table class="pv-compare__table" role="table">
+        <thead>
+          <tr>
+            <th class="pv-compare__th pv-compare__th--feature">Feature</th>
+            <th class="pv-compare__th pv-compare__th--pv">
+              <span class="pv-compare__brand-logo">🐾</span>
+              {{ section.settings.col1_label | default: 'PawVoyage Harness' }}
+            </th>
+            <th class="pv-compare__th pv-compare__th--other">{{ section.settings.col2_label | default: 'Regular Harness' }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {%- for block in section.blocks -%}
+            {%- if block.type == 'row' -%}
+              <tr class="pv-compare__row" {{ block.shopify_attributes }}>
+                <td class="pv-compare__td pv-compare__td--feature">{{ block.settings.feature }}</td>
+                <td class="pv-compare__td pv-compare__td--pv">
+                  {%- if block.settings.pv_has -%}
+                    <span class="pv-compare__check" aria-label="Yes">
+                      <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><circle cx="11" cy="11" r="11" fill="#2D5016"/><path d="M6 11.5l3.5 3.5 6.5-7" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </span>
+                  {%- else -%}
+                    <span class="pv-compare__cross" aria-label="No">
+                      <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><circle cx="11" cy="11" r="11" fill="#D9A05A" fill-opacity="0.2"/><path d="M7.5 7.5l7 7M14.5 7.5l-7 7" stroke="#B8A88A" stroke-width="2" stroke-linecap="round"/></svg>
+                    </span>
+                  {%- endif -%}
+                  {%- if block.settings.pv_note != blank -%}
+                    <span class="pv-compare__note">{{ block.settings.pv_note }}</span>
+                  {%- endif -%}
+                </td>
+                <td class="pv-compare__td pv-compare__td--other">
+                  {%- if block.settings.other_has -%}
+                    <span class="pv-compare__check pv-compare__check--other" aria-label="Yes">
+                      <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><circle cx="11" cy="11" r="11" fill="#5C5C5C" fill-opacity="0.3"/><path d="M6 11.5l3.5 3.5 6.5-7" stroke="#5C5C5C" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </span>
+                  {%- else -%}
+                    <span class="pv-compare__cross" aria-label="No">
+                      <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><circle cx="11" cy="11" r="11" fill="#CC3B3B" fill-opacity="0.1"/><path d="M7.5 7.5l7 7M14.5 7.5l-7 7" stroke="#CC3B3B" stroke-width="2" stroke-linecap="round"/></svg>
+                    </span>
+                  {%- endif -%}
+                </td>
+              </tr>
+            {%- endif -%}
+          {%- endfor -%}
+        </tbody>
+      </table>
+    </div>
+
+    {%- if section.settings.cta_label != blank -%}
+      <div class="pv-compare__cta">
+        <a href="{{ section.settings.cta_link | default: '/collections/all' }}" class="pv-compare__btn" id="pv-compare-cta-{{ section.id }}">
+          {{ section.settings.cta_label }}
+        </a>
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+<style>
+  .pv-compare { background: #FAF7F2; padding: 9rem 0; }
+  .pv-compare__header { text-align: center; margin-bottom: 5rem; }
+  .pv-compare__table-wrap { overflow-x: auto; border-radius: 20px; box-shadow: 0 8px 40px rgba(44,44,44,0.1); }
+  .pv-compare__table { width: 100%; border-collapse: collapse; background: white; min-width: 520px; }
+  .pv-compare__th { padding: 2rem 2.4rem; text-align: center; font-size: 1.5rem; font-weight: 800; letter-spacing: 0.02em; }
+  .pv-compare__th--feature { text-align: left; color: #5C5C5C; font-size: 1.2rem; text-transform: uppercase; letter-spacing: 0.12em; background: #F0EBE1; width: 40%; }
+  .pv-compare__th--pv { background: #2D5016; color: #FAF7F2; }
+  .pv-compare__th--other { background: #F0EBE1; color: #5C5C5C; }
+  .pv-compare__brand-logo { display: block; font-size: 2.4rem; margin-bottom: 0.4rem; }
+  .pv-compare__row:nth-child(even) td { background: #FAFAF8; }
+  .pv-compare__row:nth-child(even) .pv-compare__td--pv { background: rgba(45,80,22,0.04); }
+  .pv-compare__row:hover td { background: #F5F1EB; }
+  .pv-compare__td { padding: 1.8rem 2.4rem; text-align: center; border-bottom: 1px solid rgba(44,44,44,0.06); transition: background 0.2s ease; }
+  .pv-compare__td--feature { text-align: left; font-size: 1.5rem; font-weight: 600; color: #2C2C2C; }
+  .pv-compare__td--pv { background: rgba(45,80,22,0.03); }
+  .pv-compare__check, .pv-compare__cross { display: inline-flex; align-items: center; justify-content: center; }
+  .pv-compare__note { display: block; font-size: 1.2rem; color: #2D5016; font-weight: 600; margin-top: 0.4rem; }
+  .pv-compare__cta { text-align: center; margin-top: 4.8rem; }
+  .pv-compare__btn { display: inline-flex; align-items: center; gap: 0.8rem; background: #2D5016; color: #FAF7F2; font-size: 1.7rem; font-weight: 700; padding: 1.6rem 4rem; border-radius: 999px; text-decoration: none; transition: all 0.28s ease; box-shadow: 0 4px 20px rgba(45,80,22,0.4); }
+  .pv-compare__btn:hover { background: #3D6B1F; transform: translateY(-3px); box-shadow: 0 10px 32px rgba(45,80,22,0.5); color: #FAF7F2; text-decoration: none; }
+</style>
+
+{% schema %}
+{
+  "name": "PV Comparison Table",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": { "groups": ["header", "footer"] },
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "See The Difference" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "PawVoyage vs. Regular Harness" },
+    { "type": "text", "id": "subheading", "label": "Subheading", "default": "Not all harnesses are built equal. See why thousands of dog owners made the switch." },
+    { "type": "text", "id": "col1_label", "label": "Column 1 label", "default": "PawVoyage Harness" },
+    { "type": "text", "id": "col2_label", "label": "Column 2 label", "default": "Regular Harness" },
+    { "type": "text", "id": "cta_label", "label": "CTA label", "default": "Get The PawVoyage Harness" },
+    { "type": "url", "id": "cta_link", "label": "CTA link" }
+  ],
+  "blocks": [
+    {
+      "type": "row",
+      "name": "Comparison row",
+      "settings": [
+        { "type": "text", "id": "feature", "label": "Feature name", "default": "No-Pull Control" },
+        { "type": "checkbox", "id": "pv_has", "label": "PawVoyage has this?", "default": true },
+        { "type": "text", "id": "pv_note", "label": "PawVoyage note (optional)", "default": "Dual-clip system" },
+        { "type": "checkbox", "id": "other_has", "label": "Regular harness has this?", "default": false }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "PV Comparison Table",
+      "blocks": [
+        { "type": "row", "settings": { "feature": "No-Pull Control", "pv_has": true, "pv_note": "Dual front & back clips", "other_has": false } },
+        { "type": "row", "settings": { "feature": "Padded Chest Lining", "pv_has": true, "pv_note": "Air-mesh foam padding", "other_has": false } },
+        { "type": "row", "settings": { "feature": "Military-Grade Buckles", "pv_has": true, "pv_note": "", "other_has": false } },
+        { "type": "row", "settings": { "feature": "Reflective Strips", "pv_has": true, "pv_note": "360° visibility", "other_has": false } },
+        { "type": "row", "settings": { "feature": "Top Grab Handle", "pv_has": true, "pv_note": "", "other_has": false } },
+        { "type": "row", "settings": { "feature": "Travel-Ready Design", "pv_has": true, "pv_note": "", "other_has": false } },
+        { "type": "row", "settings": { "feature": "30-Day Guarantee", "pv_has": true, "pv_note": "", "other_has": false } }
+      ]
+    }
+  ]
+}
+{% endschema %}
