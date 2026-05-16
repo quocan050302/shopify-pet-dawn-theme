@@ -1,0 +1,317 @@
+{{ 'pawvoyage-brand.css' | asset_url | stylesheet_tag }}
+
+<footer class="pv-footer section-{{ section.id }}" id="pv-footer">
+  
+  <!-- Trust Strip -->
+  <div class="pv-footer__trust-strip">
+    <div class="page-width">
+      <div class="pv-footer__trust-grid">
+        <div class="pv-footer__trust-item">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="#D99A2B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M9 12l2 2 4-4" stroke="#D99A2B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span>Secure Checkout</span>
+        </div>
+        <div class="pv-footer__trust-item">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V9z" stroke="#D99A2B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M9 22V12h6v10" stroke="#D99A2B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span>30-Day Easy Returns</span>
+        </div>
+        <div class="pv-footer__trust-item">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><rect x="1" y="3" width="15" height="13" stroke="#D99A2B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M16 8h4l3 3v5h-7V8z" stroke="#D99A2B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="5.5" cy="18.5" r="2.5" stroke="#D99A2B" stroke-width="2"/><circle cx="18.5" cy="18.5" r="2.5" stroke="#D99A2B" stroke-width="2"/></svg>
+          <span>Free Shipping Offers</span>
+        </div>
+        <div class="pv-footer__trust-item">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="#D99A2B" stroke-width="2"/><path d="M12 8v4l3 3" stroke="#D99A2B" stroke-width="2" stroke-linecap="round"/></svg>
+          <span>Pet-Friendly Support</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-width">
+    
+    <!-- Newsletter Card -->
+    {%- if section.settings.show_newsletter -%}
+      <div class="pv-footer__newsletter">
+        <div class="pv-footer__nl-content">
+          <h3 class="pv-footer__nl-heading">{{ section.settings.newsletter_heading }}</h3>
+          <p class="pv-footer__nl-subheading">{{ section.settings.newsletter_subtext }}</p>
+          <p class="pv-footer__nl-micro">{{ section.settings.newsletter_micro }}</p>
+        </div>
+        <div class="pv-footer__nl-form-wrap">
+          {% form 'customer', class: 'pv-footer__nl-form' %}
+            <input type="hidden" name="contact[tags]" value="newsletter">
+            <div class="pv-footer__nl-input-group">
+              <input
+                id="NewsletterForm--{{ section.id }}"
+                type="email"
+                name="contact[email]"
+                class="pv-footer__nl-input"
+                value="{{ form.email }}"
+                aria-required="true"
+                autocorrect="off"
+                autocapitalize="off"
+                autocomplete="email"
+                {% if form.errors %}
+                  autofocus
+                  aria-invalid="true"
+                  aria-describedby="Newsletter-error--{{ section.id }}"
+                {% elsif form.posted_successfully? %}
+                  aria-describedby="Newsletter-success--{{ section.id }}"
+                {% endif %}
+                placeholder="{{ section.settings.newsletter_placeholder | default: 'Enter your email' }}"
+                required
+              >
+              <button type="submit" class="pv-footer__nl-btn" name="commit" id="Subscribe">
+                {{ section.settings.newsletter_btn | default: 'Join Now' }}
+              </button>
+            </div>
+            {%- if form.errors -%}
+              <small class="pv-footer__nl-msg pv-footer__nl-msg--error" id="Newsletter-error--{{ section.id }}">
+                <svg viewBox="0 0 14 14" fill="none"><path d="M7 0C3.134 0 0 3.134 0 7s3.134 7 7 7 7-3.134 7-7-3.134-7-7-7zm.7 10.5H6.3v-1.4h1.4v1.4zm0-2.8H6.3V3.5h1.4v4.2z" fill="currentColor"/></svg>
+                {{ form.errors.translated_fields['email'] | capitalize }} {{ form.errors.messages['email'] }}
+              </small>
+            {%- endif -%}
+            {%- if form.posted_successfully? -%}
+              <small class="pv-footer__nl-msg pv-footer__nl-msg--success" id="Newsletter-success--{{ section.id }}">
+                <svg viewBox="0 0 14 14" fill="none"><path d="M7 0C3.134 0 0 3.134 0 7s3.134 7 7 7 7-3.134 7-7-3.134-7-7-7zm3.15 4.55L6.65 8.05l-2.8-2.8L2.8 6.3l3.85 3.85L11.2 5.6l-1.05-1.05z" fill="currentColor"/></svg>
+                Thanks for subscribing!
+              </small>
+            {%- endif -%}
+          {% endform %}
+        </div>
+      </div>
+    {%- endif -%}
+
+    <!-- Main Columns -->
+    <div class="pv-footer__main">
+      <!-- Column 1: Brand -->
+      <div class="pv-footer__col pv-footer__col--brand">
+        <h2 class="pv-footer__brand-name">{{ shop.name }}</h2>
+        <p class="pv-footer__brand-desc">{{ section.settings.brand_desc }}</p>
+        <p class="pv-footer__brand-micro">{{ section.settings.brand_micro }}</p>
+      </div>
+
+      <!-- Column 2, 3, 4: Link Lists -->
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'link_list' -%}
+          <div class="pv-footer__col pv-footer__col--links" {{ block.shopify_attributes }}>
+            <h3 class="pv-footer__col-title">{{ block.settings.heading | default: block.settings.menu.title }}</h3>
+            {%- if block.settings.menu != blank -%}
+              <ul class="pv-footer__menu">
+                {%- for link in block.settings.menu.links -%}
+                  <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+                {%- endfor -%}
+              </ul>
+            {%- else -%}
+              <ul class="pv-footer__menu">
+                <li><a href="#">Example Link</a></li>
+                <li><a href="#">Example Link</a></li>
+              </ul>
+            {%- endif -%}
+          </div>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+    
+  </div>
+
+  <!-- Bottom Utility Bar -->
+  <div class="pv-footer__bottom">
+    <div class="page-width">
+      <div class="pv-footer__bottom-inner">
+        
+        <div class="pv-footer__copyright">
+          &copy; {{ 'now' | date: "%Y" }} {{ shop.name }}. All rights reserved.
+        </div>
+
+        <div class="pv-footer__selectors">
+          {%- if section.settings.enable_country_selector and localization.available_countries.size > 1 -%}
+            <noscript>
+              {%- form 'localization', id: 'FooterCountryFormNoScript', class: 'localization-form' -%}
+                <div class="localization-form__select">
+                  <select class="localization-selector link" name="country_code" aria-labelledby="FooterCountryLabelNoScript">
+                    {%- for country in localization.available_countries -%}
+                      <option value="{{ country.iso_code }}" {%- if country.iso_code == localization.country.iso_code %} selected{% endif %}>
+                        {{ country.name }} ({{ country.currency.iso_code }} {{ country.currency.symbol }})
+                      </option>
+                    {%- endfor -%}
+                  </select>
+                </div>
+                <button class="button button--tertiary">Update</button>
+              {%- endform -%}
+            </noscript>
+            <localization-form>
+              {%- form 'localization', id: 'FooterCountryForm', class: 'localization-form' -%}
+                <div class="no-js-hidden">
+                  <button type="button" class="pv-footer__localization-btn" aria-expanded="false" aria-controls="FooterCountryList" aria-describedby="FooterCountryLabel">
+                    {{ localization.country.name }} ({{ localization.country.currency.iso_code }} {{ localization.country.currency.symbol }})
+                    <svg width="10" height="6" viewBox="0 0 10 6" fill="none"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  </button>
+                  <div class="pv-footer__localization-panel" id="FooterCountryList" hidden>
+                    <ul class="pv-footer__localization-list" role="list">
+                      {%- for country in localization.available_countries -%}
+                        <li class="pv-footer__localization-item" tabindex="-1">
+                          <a class="pv-footer__localization-link {% if country.iso_code == localization.country.iso_code %}pv-footer__localization-link--active{% endif %}" href="#" {% if country.iso_code == localization.country.iso_code %} aria-current="true"{% endif %} data-value="{{ country.iso_code }}">
+                            {{ country.name }} ({{ country.currency.iso_code }} {{ country.currency.symbol }})
+                          </a>
+                        </li>
+                      {%- endfor -%}
+                    </ul>
+                  </div>
+                  <input type="hidden" name="country_code" value="{{ localization.country.iso_code }}">
+                </div>
+              {%- endform -%}
+            </localization-form>
+          {%- endif -%}
+        </div>
+
+        {%- if section.settings.payment_enable -%}
+          <div class="pv-footer__payments">
+            <span class="pv-footer__payments-label">Secure payments</span>
+            <ul class="list list-payment" role="list">
+              {%- for type in shop.enabled_payment_types -%}
+                <li class="list-payment__item">
+                  {{ type | payment_type_svg_tag: class: 'icon icon--full-color' }}
+                </li>
+              {%- endfor -%}
+            </ul>
+          </div>
+        {%- endif -%}
+
+      </div>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .pv-footer { background: #1F241D; color: #FFF7EA; font-family: inherit; }
+  
+  /* Trust Strip */
+  .pv-footer__trust-strip { background: rgba(255, 247, 234, 0.03); border-bottom: 1px solid rgba(255,247,234,0.06); padding: 2rem 0; }
+  .pv-footer__trust-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; text-align: center; }
+  @media screen and (min-width: 750px) { .pv-footer__trust-grid { grid-template-columns: repeat(4, 1fr); text-align: left; } }
+  .pv-footer__trust-item { display: flex; flex-direction: column; align-items: center; gap: 1rem; font-size: 1.3rem; font-weight: 600; color: #D8C9AE; letter-spacing: 0.05em; text-transform: uppercase; }
+  @media screen and (min-width: 750px) { .pv-footer__trust-item { flex-direction: row; justify-content: center; } }
+  .pv-footer__trust-item svg { flex-shrink: 0; }
+
+  /* Newsletter Card */
+  .pv-footer__newsletter { background: rgba(255,247,234,0.04); border: 1px solid rgba(255,247,234,0.08); border-radius: 16px; padding: 4rem 2.4rem; margin: 6rem 0; display: grid; gap: 3rem; align-items: center; }
+  @media screen and (min-width: 990px) { .pv-footer__newsletter { grid-template-columns: 1fr 1.2fr; padding: 5rem; gap: 6rem; } }
+  .pv-footer__nl-heading { font-size: clamp(2.4rem, 3vw, 3.2rem); font-weight: 800; color: #FFF7EA; margin: 0 0 1.2rem; }
+  .pv-footer__nl-subheading { font-size: 1.6rem; color: #D8C9AE; margin: 0 0 1.2rem; line-height: 1.6; }
+  .pv-footer__nl-micro { font-size: 1.3rem; color: #8F998A; font-weight: 500; font-style: italic; margin: 0; }
+  .pv-footer__nl-input-group { display: flex; flex-direction: column; gap: 1.2rem; width: 100%; }
+  @media screen and (min-width: 750px) { .pv-footer__nl-input-group { flex-direction: row; } }
+  .pv-footer__nl-input { flex-grow: 1; background: rgba(255,247,234,0.05); border: 1px solid rgba(255,247,234,0.2); color: #FFF7EA; font-size: 1.6rem; padding: 1.6rem 2rem; border-radius: 8px; outline: none; transition: border-color 0.2s ease; }
+  .pv-footer__nl-input:focus { border-color: #D99A2B; }
+  .pv-footer__nl-input::placeholder { color: rgba(255,247,234,0.4); }
+  .pv-footer__nl-btn { background: #D99A2B; color: #1F241D; font-size: 1.6rem; font-weight: 800; padding: 1.6rem 3.2rem; border: none; border-radius: 8px; cursor: pointer; transition: all 0.2s ease; white-space: nowrap; }
+  .pv-footer__nl-btn:hover { background: #EBBB4D; transform: translateY(-2px); box-shadow: 0 6px 16px rgba(217,154,43,0.3); }
+  .pv-footer__nl-msg { display: flex; align-items: center; gap: 0.8rem; font-size: 1.4rem; margin-top: 1.2rem; }
+  .pv-footer__nl-msg--success { color: #5CC072; }
+  .pv-footer__nl-msg--error { color: #E06060; }
+
+  /* Main Columns */
+  .pv-footer__main { display: grid; grid-template-columns: 1fr; gap: 4rem; padding-bottom: 6rem; border-bottom: 1px solid rgba(255,247,234,0.06); }
+  @media screen and (min-width: 750px) { .pv-footer__main { grid-template-columns: 2fr 1fr 1fr 1fr; gap: 3rem; } }
+  .pv-footer__brand-name { font-size: 2.8rem; font-weight: 800; color: #FFF7EA; margin: 0 0 1.6rem; }
+  .pv-footer__brand-desc { font-size: 1.5rem; color: #D8C9AE; line-height: 1.6; margin: 0 0 2rem; max-width: 32rem; }
+  .pv-footer__brand-micro { font-size: 1.3rem; color: #8F998A; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; max-width: 32rem; }
+  .pv-footer__col-title { font-size: 1.6rem; font-weight: 700; color: #FFF7EA; margin: 0 0 2rem; text-transform: uppercase; letter-spacing: 0.05em; }
+  .pv-footer__menu { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 1.4rem; }
+  .pv-footer__menu a { color: #D8C9AE; text-decoration: none; font-size: 1.5rem; transition: color 0.2s ease; display: inline-block; }
+  .pv-footer__menu a:hover { color: #D99A2B; }
+
+  /* Bottom Bar */
+  .pv-footer__bottom { padding: 3rem 0; }
+  .pv-footer__bottom-inner { display: flex; flex-direction: column; gap: 2.4rem; align-items: center; text-align: center; }
+  @media screen and (min-width: 990px) { .pv-footer__bottom-inner { flex-direction: row; justify-content: space-between; text-align: left; gap: 4rem; } }
+  .pv-footer__copyright { font-size: 1.4rem; color: #8F998A; }
+  .pv-footer__payments { display: flex; flex-direction: column; align-items: center; gap: 0.8rem; }
+  @media screen and (min-width: 990px) { .pv-footer__payments { flex-direction: row; align-items: center; } }
+  .pv-footer__payments-label { font-size: 1.3rem; color: #8F998A; }
+  .list-payment { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.8rem; list-style: none; padding: 0; margin: 0; }
+  .list-payment__item { display: flex; align-items: center; background: white; padding: 0.2rem; border-radius: 4px; }
+  .list-payment__item svg { width: 38px; height: 24px; }
+
+  /* Custom Localization Selector */
+  .pv-footer__localization-btn { background: transparent; border: 1px solid rgba(255,247,234,0.2); color: #D8C9AE; font-size: 1.4rem; padding: 1rem 1.6rem; border-radius: 6px; cursor: pointer; display: flex; align-items: center; gap: 1.2rem; }
+  .pv-footer__localization-panel { position: absolute; bottom: 100%; left: 0; background: #1F241D; border: 1px solid rgba(255,247,234,0.2); border-radius: 8px; padding: 0.8rem; margin-bottom: 0.8rem; min-width: 200px; max-height: 250px; overflow-y: auto; box-shadow: 0 -4px 16px rgba(0,0,0,0.4); z-index: 10; }
+  .pv-footer__selectors { position: relative; }
+  .pv-footer__localization-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; }
+  .pv-footer__localization-link { display: block; padding: 0.8rem 1.2rem; color: #D8C9AE; text-decoration: none; font-size: 1.4rem; border-radius: 4px; }
+  .pv-footer__localization-link:hover { background: rgba(255,247,234,0.05); color: #FFF7EA; }
+  .pv-footer__localization-link--active { background: rgba(217,154,43,0.1); color: #D99A2B; }
+</style>
+
+<script>
+  // Simple toggle for the custom localization selector
+  document.addEventListener('DOMContentLoaded', () => {
+    const btn = document.querySelector('.pv-footer__localization-btn');
+    const panel = document.querySelector('.pv-footer__localization-panel');
+    if(btn && panel) {
+      btn.addEventListener('click', () => {
+        const isHidden = panel.hasAttribute('hidden');
+        if(isHidden) { panel.removeAttribute('hidden'); }
+        else { panel.setAttribute('hidden', ''); }
+      });
+      document.addEventListener('click', (e) => {
+        if(!btn.contains(e.target) && !panel.contains(e.target)) {
+          panel.setAttribute('hidden', '');
+        }
+      });
+      // Handle the actual form submission when a link is clicked
+      const links = document.querySelectorAll('.pv-footer__localization-link');
+      const form = document.getElementById('FooterCountryForm');
+      const input = form ? form.querySelector('input[name="country_code"]') : null;
+      links.forEach(link => {
+        link.addEventListener('click', (e) => {
+          e.preventDefault();
+          if(input && form) {
+            input.value = e.target.getAttribute('data-value');
+            form.submit();
+          }
+        });
+      });
+    }
+  });
+</script>
+
+{% schema %}
+{
+  "name": "PV Footer",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    { "type": "header", "content": "Newsletter" },
+    { "type": "checkbox", "id": "show_newsletter", "label": "Show newsletter card", "default": true },
+    { "type": "text", "id": "newsletter_heading", "label": "Heading", "default": "Join the PawVoyage Pack" },
+    { "type": "textarea", "id": "newsletter_subtext", "label": "Subtext", "default": "Get walking tips, pet travel ideas, and exclusive offers for calmer, safer adventures with your dog." },
+    { "type": "text", "id": "newsletter_placeholder", "label": "Placeholder", "default": "Enter your email" },
+    { "type": "text", "id": "newsletter_btn", "label": "Button text", "default": "Join Now" },
+    { "type": "text", "id": "newsletter_micro", "label": "Microcopy", "default": "No spam. Just better walks." },
+    { "type": "header", "content": "Brand Info (Column 1)" },
+    { "type": "textarea", "id": "brand_desc", "label": "Brand Description", "default": "Premium dog walking and travel gear designed to help make every walk calmer, safer, and more comfortable." },
+    { "type": "text", "id": "brand_micro", "label": "Brand Microcopy", "default": "Built for daily walks, outdoor adventures, and dogs who love to explore." },
+    { "type": "header", "content": "Bottom Bar" },
+    { "type": "checkbox", "id": "enable_country_selector", "label": "Enable country/region selector", "default": true },
+    { "type": "checkbox", "id": "payment_enable", "label": "Show payment icons", "default": true }
+  ],
+  "blocks": [
+    {
+      "type": "link_list",
+      "name": "Menu",
+      "settings": [
+        { "type": "text", "id": "heading", "label": "Heading", "info": "Leave blank to use menu title." },
+        { "type": "link_list", "id": "menu", "label": "Menu" }
+      ]
+    }
+  ],
+  "default": {
+    "blocks": [
+      { "type": "link_list", "settings": { "heading": "Shop" } },
+      { "type": "link_list", "settings": { "heading": "Support" } },
+      { "type": "link_list", "settings": { "heading": "Policies" } }
+    ]
+  }
+}
+{% endschema %}

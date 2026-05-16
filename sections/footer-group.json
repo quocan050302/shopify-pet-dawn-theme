@@ -1,1 +1,52 @@
-{"name":"t:sections.footer.name","type":"footer","sections":{"footer":{"type":"footer","settings":{"color_scheme":"scheme-1","newsletter_enable":true,"newsletter_heading":"Subscribe to our emails","enable_follow_on_shop":true,"show_social":true,"enable_country_selector":true,"enable_language_selector":true,"payment_enable":true,"show_policy":true,"margin_top":0,"padding_top":36,"padding_bottom":36}}},"order":["footer"]}
+{
+  "name": "t:sections.footer.name",
+  "type": "footer",
+  "sections": {
+    "pv_footer": {
+      "type": "pv-footer",
+      "settings": {
+        "show_newsletter": true,
+        "newsletter_heading": "Join the PawVoyage Pack",
+        "newsletter_subtext": "Get walking tips, pet travel ideas, and exclusive offers for calmer, safer adventures with your dog.",
+        "newsletter_placeholder": "Enter your email",
+        "newsletter_btn": "Join Now",
+        "newsletter_micro": "No spam. Just better walks.",
+        "brand_desc": "Premium dog walking and travel gear designed to help make every walk calmer, safer, and more comfortable.",
+        "brand_micro": "Built for daily walks, outdoor adventures, and dogs who love to explore.",
+        "enable_country_selector": true,
+        "payment_enable": true
+      },
+      "blocks": {
+        "menu_1": {
+          "type": "link_list",
+          "settings": {
+            "heading": "Shop",
+            "menu": "main-menu"
+          }
+        },
+        "menu_2": {
+          "type": "link_list",
+          "settings": {
+            "heading": "Support",
+            "menu": "footer"
+          }
+        },
+        "menu_3": {
+          "type": "link_list",
+          "settings": {
+            "heading": "Policies",
+            "menu": "footer"
+          }
+        }
+      },
+      "block_order": [
+        "menu_1",
+        "menu_2",
+        "menu_3"
+      ]
+    }
+  },
+  "order": [
+    "pv_footer"
+  ]
+}
