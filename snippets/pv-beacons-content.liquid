@@ -206,23 +206,32 @@
         </tr>
       </thead>
       <tbody>
-        <tr><td>Better pulling control</td><td class="pv-brand-col"><span class="pv-check">✓</span></td><td><span class="pv-cross">×</span></td></tr>
-        <tr><td>Padded chest comfort</td><td class="pv-brand-col"><span class="pv-check">✓</span></td><td><span class="pv-cross">×</span></td></tr>
-        <tr><td>Adjustable secure fit</td><td class="pv-brand-col"><span class="pv-check">✓</span></td><td><span class="pv-cross">×</span></td></tr>
-        <tr><td>Durable tactical build</td><td class="pv-brand-col"><span class="pv-check">✓</span></td><td><span class="pv-cross">×</span></td></tr>
-        <tr><td>Travel-ready design</td><td class="pv-brand-col"><span class="pv-check">✓</span></td><td><span class="pv-cross">×</span></td></tr>
+        <tr><td>Better pulling control</td><td class="pv-brand-col"><span class="pv-check"></span></td><td><span class="pv-cross">×</span></td></tr>
+        <tr><td>Padded chest comfort</td><td class="pv-brand-col"><span class="pv-check"></span></td><td><span class="pv-cross">×</span></td></tr>
+        <tr><td>Adjustable secure fit</td><td class="pv-brand-col"><span class="pv-check"></span></td><td><span class="pv-cross">×</span></td></tr>
+        <tr><td>Durable tactical build</td><td class="pv-brand-col"><span class="pv-check"></span></td><td><span class="pv-cross">×</span></td></tr>
+        <tr><td>Travel-ready design</td><td class="pv-brand-col"><span class="pv-check"></span></td><td><span class="pv-cross">×</span></td></tr>
       </tbody>
     </table>
   </section>
 
   <!-- ===== G. FINAL CTA ===== -->
-  <section class="pv-edu-section pv-final-cta">
-    <h2>Ready for calmer walks?</h2>
-    <p>Choose a harness designed to help you guide your dog with more comfort, control, and confidence.</p>
-    <a href="#pv-variant-chooser" class="pv-btn-solid"
-       onclick="document.getElementById('pv-variant-chooser').scrollIntoView({behavior:'smooth'}); return false;">
-      Choose Your Size
-    </a>
+  <section class="pv-final-cta-card">
+    <div class="pv-fcta-content">
+      <h2 class="pv-fcta-heading">Ready for calmer walks?</h2>
+      <p class="pv-fcta-desc">Choose a harness designed to help you guide your dog with more comfort, control, and confidence.</p>
+    </div>
+    
+    <div class="pv-fcta-action">
+      <a href="#pv-variant-chooser" class="pv-fcta-btn"
+         onclick="var d = document.getElementById('pv-variant-chooser-desktop'); var m = document.getElementById('pv-variant-chooser-mobile'); var t = (d && d.offsetParent) ? d : m; if(t) { t.scrollIntoView({behavior:'smooth', block:'center'}); } return false;">
+        Choose Your Size
+      </a>
+      <p class="pv-fcta-reassurance">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4m0-4h.01"/></svg>
+        Chest girth is the most important measurement.
+      </p>
+    </div>
   </section>
 
 </div>
@@ -638,12 +647,71 @@
   .pv-check { color: #12350E; font-weight: 800; font-size: 1.6rem; }
   .pv-cross { color: #B0B8AA; font-weight: 800; font-size: 1.6rem; }
 
-  /* ===== Final CTA ===== */
-  .pv-final-cta { text-align: center; background: #FAF3E7; }
-  .pv-final-cta h2 { font-size: clamp(2.2rem, 3.5vw, 2.8rem); font-weight: 800; color: #12350E; margin: 0 0 1rem; }
-  .pv-final-cta p { font-size: 1.5rem; color: #4A5246; margin: 0 0 2rem; }
-  .pv-btn-solid { display: inline-block; background: #12350E; color: #FFF7EA; font-size: 1.6rem; font-weight: 800; padding: 1.4rem 3.6rem; border-radius: 99px; text-decoration: none; transition: transform 0.2s, box-shadow 0.2s; box-shadow: 0 8px 24px rgba(18,53,14,0.15); }
-  .pv-btn-solid:hover { transform: translateY(-3px); box-shadow: 0 12px 32px rgba(18,53,14,0.22); }
+  /* ===== Final CTA Redesign ===== */
+  .pv-final-cta-card {
+    background: #FFFFFF;
+    border-radius: 16px;
+    padding: 2.8rem;
+    text-align: center;
+    border: 1px solid rgba(31,36,29,0.08);
+    box-shadow: 0 8px 24px rgba(18,53,14,0.04);
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    animation: fctaPopUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+  @media screen and (max-width: 499px) {
+    .pv-final-cta-card { padding: 2.4rem; }
+  }
+  @keyframes fctaPopUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .pv-fcta-heading {
+    font-size: clamp(2.2rem, 3.5vw, 2.6rem);
+    font-weight: 800;
+    color: #12350E;
+    margin: 0 0 1.2rem;
+    line-height: 1.2;
+  }
+  .pv-fcta-desc {
+    font-size: clamp(1.5rem, 2vw, 1.6rem);
+    color: #6F7568;
+    margin: 0;
+    line-height: 1.5;
+  }
+  .pv-fcta-action {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+  }
+  .pv-fcta-btn {
+    display: block;
+    width: 100%;
+    background: #12350E;
+    color: #FFF7EA;
+    font-size: 1.6rem;
+    font-weight: 800;
+    padding: 1.4rem 2rem;
+    border-radius: 99px;
+    text-decoration: none;
+    transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
+    box-shadow: 0 8px 24px rgba(18,53,14,0.15);
+  }
+  .pv-fcta-btn:hover, .pv-fcta-btn:focus-visible {
+    background: #0E2A0B;
+    transform: translateY(-2px);
+    box-shadow: 0 12px 32px rgba(18,53,14,0.22);
+  }
+  .pv-fcta-reassurance {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    font-size: 1.3rem;
+    color: #8C9686;
+    margin: 0;
+  }
 
   /* ===== Mobile ===== */
   @media screen and (max-width: 499px) {
