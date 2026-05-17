@@ -279,8 +279,9 @@
           var synced = false;
           var radios = picker.querySelectorAll('input[type="radio"]');
           radios.forEach(function(radio) {
-            // Dawn names options: "option1", "option2", etc.
-            if (radio.name === 'option' + (optIdx + 1) && radio.value === optValue) {
+            // Dawn native names are "Color-1", "Size-2", etc.
+            var expectedName = optName + '-' + (optIdx + 1);
+            if (radio.name === expectedName && radio.value === optValue) {
               radio.checked = true;
               radio.dispatchEvent(new Event('change', { bubbles: true }));
               synced = true;
@@ -291,7 +292,8 @@
           if (!synced) {
             var selects = picker.querySelectorAll('select');
             selects.forEach(function(sel) {
-              if (sel.name === 'option' + (optIdx + 1)) {
+              var expectedSelectName = 'options[' + optName + ']';
+              if (sel.name === expectedSelectName) {
                 sel.value = optValue;
                 sel.dispatchEvent(new Event('change', { bubbles: true }));
               }
