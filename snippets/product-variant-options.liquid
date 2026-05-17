@@ -60,7 +60,9 @@
 
   {% assign escaped_value = value | escape %}
   {% assign display_value = value %}
+  {% assign is_color = false %}
   {% if option.name == 'Color' or option.name == 'Màu sắc' or option.name == 'Màu' %}
+    {% assign is_color = true %}
     {% if value == 'A' %}{% assign display_value = 'Style A' %}
     {% elsif value == 'B' %}{% assign display_value = 'Style B' %}
     {% elsif value == 'C' %}{% assign display_value = 'Style C' %}
@@ -104,8 +106,27 @@
       {% endif %}
       {{ input_dataset }}
     >
-    <label for="{{ input_id }}">
-      {{ display_value -}}
+    <label for="{{ input_id }}" class="{% if is_color %}pv-color-swatch-label{% endif %}" {% if is_color %}title="{{ display_value }}"{% endif %}>
+      {%- if is_color -%}
+        {%- assign variant_image = blank -%}
+        {%- assign opt_key = 'option' | append: option.position -%}
+        {%- for variant in product.variants -%}
+          {%- if variant[opt_key] == value -%}
+            {%- if variant.featured_image -%}
+              {%- assign variant_image = variant.featured_image -%}
+              {%- break -%}
+            {%- endif -%}
+          {%- endif -%}
+        {%- endfor -%}
+
+        {%- if variant_image -%}
+          <img src="{{ variant_image | image_url: width: 100, height: 100, crop: 'center' }}" alt="{{ display_value }}" class="pv-swatch-img" loading="lazy">
+        {%- else -%}
+          <span class="pv-swatch-text">{{ display_value -}}</span>
+        {%- endif -%}
+      {%- else -%}
+        {{ display_value -}}
+      {%- endif -%}
       {{ label_unavailable }}
     </label>
   {%- elsif picker_type == 'dropdown' or picker_type == 'swatch_dropdown' -%}

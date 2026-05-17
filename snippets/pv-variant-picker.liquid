@@ -12,6 +12,10 @@
         </span>
       </div>
       <div class="pv-option-grid" data-option="{{ option.name | downcase }}">
+        {%- assign is_color = false -%}
+        {%- if option.name == 'Color' or option.name == 'Màu sắc' or option.name == 'Màu' -%}
+          {%- assign is_color = true -%}
+        {%- endif -%}
         {%- for value in option.values -%}
           {%- assign is_selected = false -%}
           {%- if value == option.selected_value -%}{%- assign is_selected = true -%}{%- endif -%}
@@ -24,14 +28,34 @@
           {%- endfor -%}
           <button
             type="button"
-            class="pv-opt-btn{% if is_selected %} pv-opt-active{% endif %}{% unless option_available %} pv-opt-unavailable{% endunless %}"
+            class="pv-opt-btn{% if is_selected %} pv-opt-active{% endif %}{% unless option_available %} pv-opt-unavailable{% endunless %}{% if is_color %} pv-color-swatch-btn{% endif %}"
             data-option-index="{{ forloop.parentloop.index0 }}"
             data-option-name="{{ option.name | escape }}"
             data-option-value="{{ value | escape }}"
             data-section-id="{{ section.id }}"
+            {% if is_color %}title="{{ value | escape }}"{% endif %}
             {% unless option_available %}aria-label="{{ value }} - unavailable" disabled{% endunless %}
           >
-            {{- value -}}
+            {%- if is_color -%}
+              {%- assign variant_image = blank -%}
+              {%- assign opt_key = 'option' | append: option.position -%}
+              {%- for variant in product.variants -%}
+                {%- if variant[opt_key] == value -%}
+                  {%- if variant.featured_image -%}
+                    {%- assign variant_image = variant.featured_image -%}
+                    {%- break -%}
+                  {%- endif -%}
+                {%- endif -%}
+              {%- endfor -%}
+
+              {%- if variant_image -%}
+                <img src="{{ variant_image | image_url: width: 100, height: 100, crop: 'center' }}" alt="{{ value | escape }}" class="pv-swatch-img" loading="lazy">
+              {%- else -%}
+                <span class="pv-swatch-text">{{- value -}}</span>
+              {%- endif -%}
+            {%- else -%}
+              {{- value -}}
+            {%- endif -%}
           </button>
         {%- endfor -%}
       </div>
