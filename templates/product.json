@@ -1,1 +1,121 @@
-{"sections":{"main":{"type":"main-product","blocks":{"vendor":{"type":"text","settings":{"text":"{{ product.vendor }}","text_style":"uppercase"}},"title":{"type":"title","settings":{}},"price":{"type":"price","settings":{}},"variant_picker":{"type":"variant_picker","settings":{"picker_type":"button","swatch_shape":"circle"}},"quantity_selector":{"type":"quantity_selector","settings":{}},"buy_buttons":{"type":"buy_buttons","settings":{"show_dynamic_checkout":true,"show_gift_card_recipient":true}},"description":{"type":"description","settings":{}},"share":{"type":"share","settings":{"share_label":"Share"}}},"block_order":["vendor","title","price","variant_picker","quantity_selector","buy_buttons","description","share"],"settings":{"enable_sticky_info":true,"color_scheme":"scheme-1","media_size":"large","constrain_to_viewport":true,"media_fit":"contain","gallery_layout":"stacked","mobile_thumbnails":"hide","media_position":"left","image_zoom":"lightbox","hide_variants":true,"enable_video_looping":false,"padding_top":36,"padding_bottom":12}},"related-products":{"type":"related-products","settings":{"heading":"You may also like","heading_size":"h2","products_to_show":4,"columns_desktop":4,"columns_mobile":"2","color_scheme":"scheme-1","image_ratio":"square","image_shape":"default","show_secondary_image":true,"show_vendor":false,"show_rating":false,"padding_top":36,"padding_bottom":28}}},"order":["main","related-products"]}
+{
+  "sections": {
+    "main": {
+      "type": "main-product",
+      "blocks": {
+        "badges": {
+          "type": "custom_liquid",
+          "settings": {
+            "custom_liquid": "<div class=\"pv-product-badges\"><span class=\"pv-badge pv-badge-dark\">NO-PULL DOG HARNESS</span><span class=\"pv-badge pv-badge-gold\">FREE SHIPPING TODAY</span></div><style>.pv-product-badges { display: flex; gap: 0.8rem; margin-bottom: 1.6rem; flex-wrap: wrap; } .pv-badge { font-size: 1.1rem; font-weight: 800; letter-spacing: 0.5px; padding: 0.6rem 1.2rem; border-radius: 99px; text-transform: uppercase; } .pv-badge-dark { background: #12350E; color: #FFF7EA; } .pv-badge-gold { background: #D99A2B; color: #12350E; }</style>"
+          }
+        },
+        "headline": {
+          "type": "custom_liquid",
+          "settings": {
+            "custom_liquid": "<h1 class=\"pv-main-headline\">Take Back Control of Every Walk</h1><style>.pv-main-headline { font-size: clamp(2.4rem, 3.5vw, 3.2rem); font-weight: 800; color: #12350E; margin: 0 0 0.8rem; line-height: 1.2; }\n.product__title h1 { font-size: clamp(2rem, 3vw, 2.4rem) !important; color: #4A5246 !important; font-weight: 700 !important; margin-bottom: 1.2rem !important; line-height: 1.3 !important; }\n</style>"
+          }
+        },
+        "title": {
+          "type": "title",
+          "settings": {}
+        },
+        "value_prop": {
+          "type": "custom_liquid",
+          "settings": {
+            "custom_liquid": "<p class=\"pv-value-prop\">Built for dogs who pull, twist, and turn simple walks into a tug-of-war. PawVoyage helps you guide your dog with better control while keeping them secure and comfortable.</p><style>.pv-value-prop { font-size: 1.5rem; color: #4A5246; line-height: 1.5; margin: 0 0 2rem; }</style>"
+          }
+        },
+        "price": {
+          "type": "price",
+          "settings": {}
+        },
+        "trust_line": {
+          "type": "custom_liquid",
+          "settings": {
+            "custom_liquid": "<div class=\"pv-trust-line\">Secure checkout &bull; 30-day easy returns &bull; Free shipping today</div><style>.pv-trust-line { font-size: 1.3rem; font-weight: 700; color: #12350E; margin: 1.2rem 0 2rem; display: flex; align-items: center; gap: 0.8rem; }</style>"
+          }
+        },
+        "benefits": {
+          "type": "custom_liquid",
+          "settings": {
+            "custom_liquid": "<div class=\"pv-benefit-rows\"><div class=\"pv-brow\"><div class=\"pv-bcheck\"><svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\"><path d=\"M20 6L9 17l-5-5\" stroke=\"#FFF7EA\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/></svg></div><span>Helps reduce pulling without neck pressure</span></div><div class=\"pv-brow\"><div class=\"pv-bcheck\"><svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\"><path d=\"M20 6L9 17l-5-5\" stroke=\"#FFF7EA\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/></svg></div><span>Padded chest fit for daily comfort</span></div><div class=\"pv-brow\"><div class=\"pv-bcheck\"><svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\"><path d=\"M20 6L9 17l-5-5\" stroke=\"#FFF7EA\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/></svg></div><span>Adjustable straps for a secure fit</span></div><div class=\"pv-brow\"><div class=\"pv-bcheck\"><svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\"><path d=\"M20 6L9 17l-5-5\" stroke=\"#FFF7EA\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/></svg></div><span>Built for walks, training, travel, and adventures</span></div></div><style>.pv-benefit-rows { display: flex; flex-direction: column; gap: 1.2rem; margin-bottom: 2.4rem; background: #FFF; padding: 1.6rem; border-radius: 12px; border: 1px solid rgba(18,53,14,0.08); box-shadow: 0 4px 12px rgba(18,53,14,0.02); } .pv-brow { display: flex; align-items: flex-start; gap: 1.2rem; } .pv-bcheck { width: 2rem; height: 2rem; background: #12350E; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 0.2rem; } .pv-brow span { font-size: 1.4rem; font-weight: 600; color: #1F241D; line-height: 1.4; }</style>"
+          }
+        },
+        "variant_picker": {
+          "type": "variant_picker",
+          "settings": {
+            "picker_type": "button",
+            "swatch_shape": "circle"
+          }
+        },
+        "quantity_selector": {
+          "type": "quantity_selector",
+          "settings": {}
+        },
+        "buy_buttons": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_dynamic_checkout": true,
+            "show_gift_card_recipient": false
+          }
+        },
+        "post_buy": {
+          "type": "custom_liquid",
+          "settings": {
+            "custom_liquid": "<div class=\"pv-post-buy\"><div class=\"pv-pb-item\"><strong>Delivery:</strong> 7\u201312 business days</div><div class=\"pv-pb-item\"><strong>Guarantee:</strong> 30-day easy returns if it\u2019s not the right fit</div></div><style>.pv-post-buy { margin-top: 1.6rem; display: flex; flex-direction: column; gap: 0.8rem; padding: 1.6rem; background: rgba(217,154,43,0.1); border-radius: 8px; border: 1px solid rgba(217,154,43,0.3); } .pv-pb-item { font-size: 1.3rem; color: #12350E; line-height: 1.4; } .pv-pb-item strong { font-weight: 800; }\n\n.product-form__submit { \n  background: #12350E !important; \n  color: #FFF7EA !important; \n  border-radius: 999px !important; \n  font-size: 1.8rem !important; \n  font-weight: 800 !important; \n  padding: 1.6rem !important; \n  min-height: 5.6rem !important;\n  border: none !important;\n  box-shadow: 0 8px 24px rgba(18,53,14,0.15) !important;\n  transition: all 0.3s ease !important;\n}\n.product-form__submit:hover {\n  transform: translateY(-4px) !important;\n  box-shadow: 0 12px 32px rgba(18,53,14,0.25) !important;\n  background: #071F06 !important;\n}\n.product-form__submit::before, .product-form__submit::after { display: none !important; }\n</style>\n"
+          }
+        }
+      },
+      "block_order": [
+        "badges",
+        "headline",
+        "title",
+        "value_prop",
+        "price",
+        "trust_line",
+        "benefits",
+        "variant_picker",
+        "quantity_selector",
+        "buy_buttons",
+        "post_buy"
+      ],
+      "settings": {
+        "enable_sticky_info": true,
+        "color_scheme": "scheme-1",
+        "media_size": "large",
+        "constrain_to_viewport": true,
+        "media_fit": "contain",
+        "gallery_layout": "stacked",
+        "mobile_thumbnails": "hide",
+        "media_position": "left",
+        "image_zoom": "lightbox",
+        "hide_variants": true,
+        "enable_video_looping": false,
+        "padding_top": 36,
+        "padding_bottom": 12
+      }
+    },
+    "related-products": {
+      "type": "related-products",
+      "settings": {
+        "heading": "You may also like",
+        "heading_size": "h2",
+        "products_to_show": 4,
+        "columns_desktop": 4,
+        "columns_mobile": "2",
+        "color_scheme": "scheme-1",
+        "image_ratio": "square",
+        "image_shape": "default",
+        "show_secondary_image": true,
+        "show_vendor": false,
+        "show_rating": false,
+        "padding_top": 36,
+        "padding_bottom": 28
+      }
+    }
+  },
+  "order": [
+    "main",
+    "related-products"
+  ]
+}

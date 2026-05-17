@@ -74,14 +74,18 @@
 
   {% assign variant_images = product.images | where: 'attached_to_variant?', true | map: 'src' %}
   <div class="page-width">
-    <div class="product product--{{ section.settings.media_size }} product--{{ section.settings.media_position }} product--{{ section.settings.gallery_layout }} product--mobile-{{ section.settings.mobile_thumbnails }} grid grid--1-col {% if product.media.size > 0 %}grid--2-col-tablet{% else %}product--no-media{% endif %}">
-      <div class="grid__item product__media-wrapper">
+    <div class="product product--{{ section.settings.media_size }} product--{{ section.settings.media_position }} product--{{ section.settings.gallery_layout }} product--mobile-{{ section.settings.mobile_thumbnails }} grid grid--1-col {% if product.media.size > 0 %}grid--2-col-tablet{% else %}product--no-media{% endif %} pv-top-slider-layout">
+      <div class="grid__item product__media-wrapper pv-top-slider">
         {% render 'product-media-gallery', variant_images: variant_images %}
       </div>
-      <div class="product__info-wrapper grid__item{% if settings.page_width > 1400 and section.settings.media_size == "small" %} product__info-wrapper--extra-padding{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
+      <div class="pv-two-col-container">
+      <div class="pv-education-col">
+        {% render 'pv-beacons-content' %}
+      </div>
+      <div class="product__info-wrapper grid__item pv-checkout-col{% if settings.page_width > 1400 and section.settings.media_size == "small" %} product__info-wrapper--extra-padding{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
         <section
           id="ProductInfo-{{ section.id }}"
-          class="product__info-container{% if section.settings.enable_sticky_info %} product__column-sticky{% endif %}"
+          class="product__info-container pv-sticky-card{% if section.settings.enable_sticky_info %} product__column-sticky{% endif %}"
         >
           {%- assign product_form_id = 'product-form-' | append: section.id -%}
 
@@ -682,6 +686,7 @@
           </a>
         </section>
       </div>
+    </div>
     </div>
 
     {% render 'product-media-modal', variant_images: variant_images %}
@@ -2266,3 +2271,50 @@
   ]
 }
 {% endschema %}
+
+<style>
+/* Top Slider + Two Col Layout CSS */
+.pv-top-slider-layout { display: flex !important; flex-direction: column !important; }
+.pv-top-slider { width: 100% !important; max-width: 100% !important; padding: 0 !important; margin-bottom: 4rem; }
+
+/* Force slider layout for media gallery */
+.pv-top-slider slider-component { width: 100%; max-width: 100%; margin: 0 auto; }
+.pv-top-slider .product__media-list { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; gap: 2rem; padding-bottom: 2rem; flex-wrap: nowrap !important; }
+.pv-top-slider .product__media-item { flex: 0 0 calc(100% - 4rem) !important; scroll-snap-align: center; border-radius: 24px; overflow: hidden; border: 1px solid rgba(18,53,14,0.08); box-shadow: 0 12px 32px rgba(18,53,14,0.05); max-width: none !important; width: auto !important; }
+@media screen and (min-width: 750px) { .pv-top-slider .product__media-item { flex: 0 0 70% !important; } }
+@media screen and (min-width: 1200px) { .pv-top-slider .product__media-item { flex: 0 0 60% !important; } }
+
+.pv-two-col-container { display: flex; flex-direction: column; width: 100%; }
+.pv-checkout-col { width: 100% !important; max-width: 100% !important; padding: 0 !important; order: 1; margin-bottom: 4rem; }
+.pv-education-col { width: 100% !important; max-width: 100% !important; order: 2; }
+
+.pv-sticky-card { 
+  background: #FFFFFF; 
+  border-radius: 16px; 
+  padding: 3.2rem; 
+  box-shadow: 0 12px 48px rgba(18,53,14,0.08); 
+  border: 1px solid rgba(31,36,29,0.06); 
+}
+
+@media screen and (min-width: 990px) {
+  .pv-two-col-container {
+    display: grid !important;
+    grid-template-columns: 65% 35%;
+    gap: 0 5rem;
+    align-items: start;
+  }
+  .pv-education-col { grid-column: 1; grid-row: 1; order: unset; margin: 0; }
+  .pv-checkout-col { grid-column: 2; grid-row: 1; order: unset; margin: 0; }
+  
+  .pv-sticky-card {
+    position: sticky !important;
+    top: 3rem !important;
+    max-height: calc(100vh - 6rem) !important;
+    overflow-y: auto !important;
+    overscroll-behavior: contain;
+  }
+  .pv-sticky-card::-webkit-scrollbar { width: 6px; }
+  .pv-sticky-card::-webkit-scrollbar-track { background: transparent; }
+  .pv-sticky-card::-webkit-scrollbar-thumb { background: rgba(18,53,14,0.1); border-radius: 10px; }
+}
+</style>

@@ -1,0 +1,37 @@
+<section class="pv-faq-sec">
+  <div class="page-width">
+    <h2 class="pv-section-title">Common Questions</h2>
+    <div class="pv-faq-wrapper">
+      <details class="pv-faq-item" open>
+        <summary>Is this harness good for dogs that pull? <span class="pv-faq-icon">+</span></summary>
+        <div class="pv-faq-content">Yes. It's designed to give you more control and help reduce pulling behavior without choking or harming your dog's neck.</div>
+      </details>
+      <details class="pv-faq-item">
+        <summary>How do I choose the right size? <span class="pv-faq-icon">+</span></summary>
+        <div class="pv-faq-content">Use our size guide above to measure your dog's chest at the widest point. If they are between sizes, we recommend choosing the larger size for comfort.</div>
+      </details>
+      <details class="pv-faq-item">
+        <summary>Is it comfortable for daily walks? <span class="pv-faq-icon">+</span></summary>
+        <div class="pv-faq-content">Absolutely. The harness features a padded chest plate and breathable mesh to ensure all-day comfort.</div>
+      </details>
+      <details class="pv-faq-item">
+        <summary>What if it does not fit? <span class="pv-faq-icon">+</span></summary>
+        <div class="pv-faq-content">We offer 30-day easy returns and exchanges to ensure you get the perfect fit for your dog.</div>
+      </details>
+    </div>
+  </div>
+</section>
+<style>
+  .pv-faq-sec { padding: 6rem 0; background: #FFF; text-align: center; }
+  .pv-faq-sec .pv-section-title { font-size: clamp(2.4rem, 4vw, 3.6rem); font-weight: 800; color: #12350E; margin: 0 0 4rem; }
+  .pv-faq-wrapper { max-width: 70rem; margin: 0 auto; display: flex; flex-direction: column; gap: 1.6rem; text-align: left; }
+  .pv-faq-item { border: 1px solid rgba(18,53,14,0.1); border-radius: 12px; overflow: hidden; }
+  .pv-faq-item summary { padding: 2rem; font-size: 1.6rem; font-weight: 700; color: #12350E; cursor: pointer; display: flex; justify-content: space-between; align-items: center; list-style: none; }
+  .pv-faq-item summary::-webkit-details-marker { display: none; }
+  .pv-faq-icon { color: #D99A2B; font-size: 2.4rem; font-weight: 400; transition: transform 0.3s; }
+  .pv-faq-item[open] .pv-faq-icon { transform: rotate(45deg); }
+  .pv-faq-content { padding: 0 2rem 2rem; font-size: 1.5rem; color: #4A5246; line-height: 1.6; }
+</style>
+{% schema %}
+{ "name": "PV Product FAQ", "presets": [{ "name": "PV Product FAQ" }] }
+{% endschema %}

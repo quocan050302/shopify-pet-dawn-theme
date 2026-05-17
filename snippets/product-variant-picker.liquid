@@ -43,8 +43,25 @@
           %}
         </fieldset>
       {%- elsif picker_type == 'button' -%}
-        <fieldset class="js product-form__input product-form__input--pill">
-          <legend class="form__label">{{ option.name }}</legend>
+        {% if option.name == 'Size' or option.name == 'Kích thước' or option.name == 'Kích cỡ' %}
+          <div class="pv-pre-size-box">
+            <div class="pv-psb-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M4 19V5h16v14M4 12h16M8 12v3M12 12v3M16 12v3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <div class="pv-psb-text">
+              <strong>Not sure about size?</strong>
+              <p>Measure chest behind the front legs. If between sizes, choose larger.</p>
+            </div>
+            <button type="button" class="pv-psb-btn" onclick="document.getElementById('pv-size-guide-modal').showModal()">View Size Guide</button>
+          </div>
+        {% endif %}
+        <fieldset class="js product-form__input product-form__input--pill pv-fieldset-{{ option.name | handleize }}">
+          <legend class="form__label pv-variant-label">
+            <span class="pv-variant-name-wrap">
+              <span class="pv-variant-name">{{ option.name }}:</span>
+              <span class="pv-variant-selected" data-selected-value>{{ option.selected_value }}</span>
+            </span>
+          </legend>
           {% render 'product-variant-options',
             product: product,
             option: option,
@@ -91,4 +108,217 @@
       {{ product.selected_or_first_available_variant | json }}
     </script>
   </variant-selects>
+
+  <dialog id="pv-size-guide-modal" class="pv-modal" aria-labelledby="pv-modal-title">
+    <div class="pv-modal-content">
+      <div class="pv-modal-header">
+        <div>
+          <h2 id="pv-modal-title" class="pv-modal-title">Size Guide</h2>
+          <p class="pv-modal-subtitle">Find the best fit for your dog in under a minute.</p>
+        </div>
+        <button type="button" class="pv-modal-close" onclick="this.closest('dialog').close()" aria-label="Close size guide">&times;</button>
+      </div>
+      <div class="pv-modal-body">
+        
+        <div class="pv-steps-grid">
+          <div class="pv-step-card">
+            <span class="pv-step-badge">1</span>
+            <p>Measure around the widest part of your dog’s chest, just behind the front legs.</p>
+          </div>
+          <div class="pv-step-card">
+            <span class="pv-step-badge">2</span>
+            <p>Keep the tape snug, but not tight.</p>
+          </div>
+          <div class="pv-step-card">
+            <span class="pv-step-badge">3</span>
+            <p>If your dog is between sizes, choose the larger size.</p>
+          </div>
+        </div>
+
+        <div class="pv-note-box">
+          <strong>Chest girth is the most important measurement.</strong> Weight and breed are only general guides.
+        </div>
+
+        <div class="pv-recommendations-grid">
+          <div class="pv-rec-card">
+            <strong>XS–S: Small dogs</strong>
+            <span>Chihuahua, Yorkie, Shih Tzu, French Bulldog</span>
+          </div>
+          <div class="pv-rec-card">
+            <strong>M: Medium dogs</strong>
+            <span>Beagle, Cocker Spaniel, Border Collie</span>
+          </div>
+          <div class="pv-rec-card">
+            <strong>L: Large dogs</strong>
+            <span>Labrador, Boxer, German Shepherd</span>
+          </div>
+          <div class="pv-rec-card">
+            <strong>XL: Extra large dogs</strong>
+            <span>Rottweiler, Great Dane, large German Shepherd</span>
+          </div>
+        </div>
+
+        <!-- Desktop Table -->
+        <div class="pv-table-wrapper">
+          <table class="pv-size-table">
+            <thead>
+              <tr>
+                <th>Size</th>
+                <th>Chest Girth</th>
+                <th>Weight</th>
+                <th>Example Breeds</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="pv-size-label">XS</td>
+                <td class="pv-highlight">15–20 in / 38–51 cm</td>
+                <td>8–15 lb / 4–7 kg</td>
+                <td>Chihuahua, Yorkie, Toy Poodle</td>
+              </tr>
+              <tr>
+                <td class="pv-size-label">S</td>
+                <td class="pv-highlight">19–25 in / 48–64 cm</td>
+                <td>15–30 lb / 7–14 kg</td>
+                <td>Dachshund, Shih Tzu, French Bulldog</td>
+              </tr>
+              <tr>
+                <td class="pv-size-label">M</td>
+                <td class="pv-highlight">24–32 in / 61–81 cm</td>
+                <td>30–55 lb / 14–25 kg</td>
+                <td>Beagle, Cocker Spaniel, Border Collie</td>
+              </tr>
+              <tr>
+                <td class="pv-size-label">L</td>
+                <td class="pv-highlight">31–40 in / 79–102 cm</td>
+                <td>55–85 lb / 25–39 kg</td>
+                <td>Labrador, Boxer, German Shepherd</td>
+              </tr>
+              <tr>
+                <td class="pv-size-label">XL</td>
+                <td class="pv-highlight">35–46 in / 89–117 cm</td>
+                <td>85–120 lb / 39–54 kg</td>
+                <td>Rottweiler, Great Dane, large German Shepherd</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Mobile Stacked Cards -->
+        <div class="pv-mobile-cards">
+          <div class="pv-mobile-card">
+            <div class="pv-mc-header">XS</div>
+            <div class="pv-mc-row"><span>Chest</span> <strong class="pv-highlight">15–20 in / 38–51 cm</strong></div>
+            <div class="pv-mc-row"><span>Weight</span> <strong>8–15 lb / 4–7 kg</strong></div>
+            <div class="pv-mc-row"><span>Best for</span> <strong>Chihuahua, Yorkie, Toy Poodle</strong></div>
+          </div>
+          <div class="pv-mobile-card">
+            <div class="pv-mc-header">S</div>
+            <div class="pv-mc-row"><span>Chest</span> <strong class="pv-highlight">19–25 in / 48–64 cm</strong></div>
+            <div class="pv-mc-row"><span>Weight</span> <strong>15–30 lb / 7–14 kg</strong></div>
+            <div class="pv-mc-row"><span>Best for</span> <strong>Dachshund, Shih Tzu, French Bulldog</strong></div>
+          </div>
+          <div class="pv-mobile-card">
+            <div class="pv-mc-header">M</div>
+            <div class="pv-mc-row"><span>Chest</span> <strong class="pv-highlight">24–32 in / 61–81 cm</strong></div>
+            <div class="pv-mc-row"><span>Weight</span> <strong>30–55 lb / 14–25 kg</strong></div>
+            <div class="pv-mc-row"><span>Best for</span> <strong>Beagle, Cocker Spaniel, Border Collie</strong></div>
+          </div>
+          <div class="pv-mobile-card">
+            <div class="pv-mc-header">L</div>
+            <div class="pv-mc-row"><span>Chest</span> <strong class="pv-highlight">31–40 in / 79–102 cm</strong></div>
+            <div class="pv-mc-row"><span>Weight</span> <strong>55–85 lb / 25–39 kg</strong></div>
+            <div class="pv-mc-row"><span>Best for</span> <strong>Labrador, Boxer, German Shepherd</strong></div>
+          </div>
+          <div class="pv-mobile-card">
+            <div class="pv-mc-header">XL</div>
+            <div class="pv-mc-row"><span>Chest</span> <strong class="pv-highlight">35–46 in / 89–117 cm</strong></div>
+            <div class="pv-mc-row"><span>Weight</span> <strong>85–120 lb / 39–54 kg</strong></div>
+            <div class="pv-mc-row"><span>Best for</span> <strong>Rottweiler, Great Dane, large German Shepherd</strong></div>
+          </div>
+        </div>
+
+        <div class="pv-modal-footer">
+          <strong>Still unsure?</strong>
+          <p>Choose the larger size if your dog is between sizes, or contact us and we’ll help you find the right fit.</p>
+          <a href="/pages/contact" class="pv-contact-btn">Contact Support</a>
+        </div>
+
+      </div>
+    </div>
+  </dialog>
+
+  <style>
+    /* Variant Picker Custom Styles */
+    .pv-variant-label { display: flex; justify-content: space-between; align-items: center; width: 100%; margin-bottom: 1.2rem; }
+    .pv-variant-name-wrap { display: flex; align-items: baseline; }
+    .pv-variant-name { font-size: 1.4rem; font-weight: 700; color: #1F241D; }
+    .pv-variant-selected { font-size: 1.4rem; color: #4A5246; font-weight: 600; margin-left: 0.6rem; }
+    .pv-size-guide-btn { background: none; border: none; padding: 0; color: #D99A2B; font-size: 1.4rem; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 0.6rem; text-decoration: underline; text-underline-offset: 4px; }
+    .pv-size-guide-btn:hover { color: #12350E; }
+    .pv-size-reassurance { font-size: 1.3rem; color: #6D7569; margin: 1.2rem 0 0; line-height: 1.5; font-style: italic; }
+
+    
+    .pv-pre-size-box { display: flex; align-items: center; gap: 1.2rem; background: #FFF; border: 1px solid rgba(217,154,43,0.4); padding: 1.2rem; border-radius: 8px; margin-bottom: 1.6rem; }
+    .pv-psb-icon { color: #D99A2B; flex-shrink: 0; display: flex; align-items: center; }
+    .pv-psb-text { flex-grow: 1; }
+    .pv-psb-text strong { display: block; font-size: 1.3rem; color: #12350E; margin-bottom: 0.2rem; }
+    .pv-psb-text p { font-size: 1.2rem; color: #4A5246; margin: 0; line-height: 1.4; }
+    .pv-psb-btn { background: #D99A2B; color: #12350E; font-size: 1.2rem; font-weight: 700; border: none; padding: 0.8rem 1.2rem; border-radius: 4px; cursor: pointer; white-space: nowrap; transition: background 0.2s; }
+    .pv-psb-btn:hover { background: #E0A846; }
+    @media screen and (max-width: 500px) {
+        .pv-pre-size-box { flex-direction: column; align-items: flex-start; gap: 0.8rem; }
+        .pv-psb-btn { width: 100%; text-align: center; }
+    }
+
+    /* Size Guide Modal */
+    .pv-modal { padding: 0; border: none; border-radius: 16px; box-shadow: 0 24px 64px rgba(18,53,14,0.15); max-width: 700px; width: 95vw; margin: auto; max-height: 90vh; overflow: hidden; background: transparent; }
+    .pv-modal::backdrop { background: rgba(31,36,29,0.7); backdrop-filter: blur(4px); }
+    .pv-modal-content { background: #FFF7EA; display: flex; flex-direction: column; max-height: 90vh; }
+    .pv-modal-header { display: flex; justify-content: space-between; align-items: flex-start; padding: 2.4rem 2.4rem 2rem; border-bottom: 1px solid rgba(18,53,14,0.1); background: #FFF7EA; position: sticky; top: 0; z-index: 10; }
+    .pv-modal-title { font-size: 2.4rem; font-weight: 800; color: #12350E; margin: 0 0 0.4rem; line-height: 1.2; }
+    .pv-modal-subtitle { font-size: 1.4rem; color: #4A5246; margin: 0; }
+    .pv-modal-close { background: none; border: none; font-size: 3.2rem; line-height: 1; color: #4A5246; cursor: pointer; padding: 0 0 0 1.6rem; margin-top: -0.4rem; }
+    .pv-modal-body { padding: 2.4rem; overflow-y: auto; overscroll-behavior: contain; }
+    
+    .pv-steps-grid { display: grid; grid-template-columns: 1fr; gap: 1.2rem; margin-bottom: 2.4rem; }
+    @media screen and (min-width: 600px) { .pv-steps-grid { grid-template-columns: repeat(3, 1fr); gap: 1.6rem; } }
+    .pv-step-card { background: #FFF; padding: 1.6rem; border-radius: 12px; border: 1px solid rgba(31,36,29,0.08); display: flex; flex-direction: column; gap: 1.2rem; box-shadow: 0 2px 8px rgba(31,36,29,0.02); }
+    .pv-step-badge { width: 2.4rem; height: 2.4rem; background: #12350E; color: #FFF7EA; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; font-weight: 800; }
+    .pv-step-card p { font-size: 1.4rem; color: #1F241D; line-height: 1.5; margin: 0; }
+
+    .pv-note-box { background: rgba(217,154,43,0.15); border: 1px solid rgba(217,154,43,0.3); border-radius: 8px; padding: 1.6rem; color: #12350E; font-size: 1.4rem; line-height: 1.5; margin-bottom: 2.4rem; }
+    
+    .pv-recommendations-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; margin-bottom: 2.4rem; }
+    .pv-rec-card { background: #FFF; padding: 1.2rem; border-radius: 8px; border: 1px solid rgba(31,36,29,0.08); }
+    .pv-rec-card strong { display: block; font-size: 1.3rem; color: #12350E; margin-bottom: 0.4rem; }
+    .pv-rec-card span { display: block; font-size: 1.2rem; color: #4A5246; line-height: 1.4; }
+
+    .pv-table-wrapper { display: none; margin-bottom: 2.4rem; background: #FFF; border-radius: 12px; border: 1px solid rgba(31,36,29,0.08); overflow: hidden; }
+    .pv-size-table { width: 100%; border-collapse: collapse; text-align: left; }
+    .pv-size-table th { font-size: 1.3rem; font-weight: 700; color: #4A5246; border-bottom: 2px solid rgba(18,53,14,0.1); padding: 1.6rem; letter-spacing: 0.5px; }
+    .pv-size-table td { font-size: 1.4rem; color: #1F241D; border-bottom: 1px solid rgba(18,53,14,0.05); padding: 1.6rem; line-height: 1.5; }
+    .pv-size-table tbody tr:nth-child(even) { background: rgba(255,247,234,0.4); }
+    .pv-size-label { font-weight: 800; font-size: 1.6rem !important; }
+    .pv-highlight { color: #12350E; font-weight: 700; }
+
+    .pv-mobile-cards { display: flex; flex-direction: column; gap: 1.6rem; margin-bottom: 2.4rem; }
+    .pv-mobile-card { background: #FFF; border-radius: 12px; border: 1px solid rgba(31,36,29,0.08); overflow: hidden; box-shadow: 0 2px 8px rgba(31,36,29,0.02); }
+    .pv-mc-header { background: rgba(255,247,234,0.6); font-size: 1.8rem; font-weight: 800; color: #12350E; padding: 1.2rem 1.6rem; border-bottom: 1px solid rgba(31,36,29,0.04); }
+    .pv-mc-row { display: flex; justify-content: space-between; padding: 1.2rem 1.6rem; border-bottom: 1px solid rgba(31,36,29,0.04); font-size: 1.4rem; line-height: 1.4; gap: 1.6rem; }
+    .pv-mc-row:last-child { border-bottom: none; }
+    .pv-mc-row span { color: #4A5246; white-space: nowrap; }
+    .pv-mc-row strong { color: #1F241D; text-align: right; }
+
+    @media screen and (min-width: 650px) {
+      .pv-table-wrapper { display: block; }
+      .pv-mobile-cards { display: none; }
+    }
+
+    .pv-modal-footer { background: #FFF; padding: 2rem; border-radius: 12px; text-align: center; border: 1px solid rgba(31,36,29,0.08); }
+    .pv-modal-footer strong { display: block; font-size: 1.6rem; color: #12350E; margin-bottom: 0.8rem; }
+    .pv-modal-footer p { font-size: 1.4rem; color: #4A5246; margin: 0 0 1.6rem; line-height: 1.5; }
+    .pv-contact-btn { display: inline-block; background: #FFF7EA; color: #12350E; font-size: 1.4rem; font-weight: 700; padding: 1rem 2.4rem; border-radius: 999px; text-decoration: none; border: 1px solid rgba(18,53,14,0.1); transition: all 0.2s; }
+    .pv-contact-btn:hover { background: #12350E; color: #FFF7EA; }
+  </style>
 {%- endunless -%}

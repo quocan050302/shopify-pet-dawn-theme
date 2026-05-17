@@ -1,0 +1,44 @@
+<section class="pv-painpoints-sec">
+  <div class="page-width">
+    <h2 class="pv-section-title">Still Getting Pulled on Every Walk?</h2>
+    <p class="pv-section-desc">Pulling, choking, and slipping can turn a simple walk into a stressful experience. PawVoyage is designed to help you guide your dog with more control while keeping them comfortable.</p>
+    
+    <div class="pv-pain-grid">
+      <div class="pv-pain-card">
+        <div class="pv-pain-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M18 6L6 18M6 6l12 12" stroke="#A04A4A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <h4>Pulling too hard</h4>
+        <p>Better no-pull control</p>
+      </div>
+      <div class="pv-pain-card">
+        <div class="pv-pain-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M18 6L6 18M6 6l12 12" stroke="#A04A4A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <h4>Collar pressure</h4>
+        <p>Padded chest comfort</p>
+      </div>
+      <div class="pv-pain-card">
+        <div class="pv-pain-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M18 6L6 18M6 6l12 12" stroke="#A04A4A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <h4>Harness slipping</h4>
+        <p>Adjustable secure fit</p>
+      </div>
+    </div>
+  </div>
+</section>
+<style>
+  .pv-painpoints-sec { padding: 6rem 0; background: #FFF; text-align: center; }
+  .pv-section-title { font-size: clamp(2.4rem, 4vw, 3.6rem); font-weight: 800; color: #12350E; margin: 0 0 1.6rem; }
+  .pv-section-desc { font-size: 1.6rem; color: #4A5246; max-width: 60rem; margin: 0 auto 4rem; line-height: 1.6; }
+  .pv-pain-grid { display: grid; grid-template-columns: 1fr; gap: 2rem; max-width: 90rem; margin: 0 auto; }
+  @media screen and (min-width: 750px) { .pv-pain-grid { grid-template-columns: repeat(3, 1fr); gap: 4rem; } }
+  .pv-pain-card { background: #FFF7EA; padding: 3.2rem 2rem; border-radius: 16px; border: 1px solid rgba(18,53,14,0.05); box-shadow: 0 8px 24px rgba(18,53,14,0.04); }
+  .pv-pain-icon { background: #FDE8E8; width: 4.8rem; height: 4.8rem; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.6rem; }
+  .pv-pain-card h4 { font-size: 1.6rem; font-weight: 700; color: #1F241D; margin: 0 0 0.8rem; }
+  .pv-pain-card p { font-size: 1.4rem; color: #12350E; font-weight: 600; margin: 0; }
+</style>
+{% schema %}
+{ "name": "PV Pain Points", "presets": [{ "name": "PV Pain Points" }] }
+{% endschema %}

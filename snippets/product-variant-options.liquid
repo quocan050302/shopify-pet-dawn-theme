@@ -59,6 +59,15 @@
   {%- endcapture -%}
 
   {% assign escaped_value = value | escape %}
+  {% assign display_value = value %}
+  {% if option.name == 'Color' or option.name == 'Màu sắc' or option.name == 'Màu' %}
+    {% if value == 'A' %}{% assign display_value = 'Style A' %}
+    {% elsif value == 'B' %}{% assign display_value = 'Style B' %}
+    {% elsif value == 'C' %}{% assign display_value = 'Style C' %}
+    {% elsif value == 'D' %}{% assign display_value = 'Style D' %}
+    {% elsif value == 'Set' or value == 'Set1' %}{% assign display_value = 'Combo Set' %}
+    {% endif %}
+  {% endif %}
 
   {%- if picker_type == 'swatch' -%}
     {%- capture help_text -%}
@@ -95,7 +104,7 @@
       {{ input_dataset }}
     >
     <label for="{{ input_id }}">
-      {{ value -}}
+      {{ display_value -}}
       {{ label_unavailable }}
     </label>
   {%- elsif picker_type == 'dropdown' or picker_type == 'swatch_dropdown' -%}
@@ -114,9 +123,9 @@
       {{ input_dataset }}
     >
       {% if option_disabled -%}
-        {{- 'products.product.value_unavailable' | t: option_value: value -}}
+        {{- 'products.product.value_unavailable' | t: option_value: display_value -}}
       {%- else -%}
-        {{- value -}}
+        {{- display_value -}}
       {%- endif %}
     </option>
   {%- endif -%}

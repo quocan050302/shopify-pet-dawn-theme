@@ -90,36 +90,47 @@
           </span>
         {%- endif -%}
       </div>
-      <div class="price__sale">
-        {%- unless product.price_varies == false and product.compare_at_price_varies %}
-          <span class="visually-hidden visually-hidden--inline">{{ 'products.product.price.regular_price' | t }}</span>
-          <span>
-            <s class="price-item price-item--regular">
-              {% if settings.currency_code_enabled %}
-                {{ compare_at_price | money_with_currency }}
-              {% else %}
-                {{ compare_at_price | money }}
-              {% endif %}
-            </s>
+      <div class="price__sale pv-custom-price-sale">
+        <div class="pv-price-row pv-price-main">
+          <span class="pv-price-label">Today:</span>
+          <span class="price-item price-item--sale price-item--last pv-large-price">
+            {{ money_price }}
           </span>
+          <span class="pv-lto-badge">Limited-time offer</span>
+        </div>
+        
+        {%- unless product.price_varies == false and product.compare_at_price_varies %}
+          <div class="pv-price-row pv-price-row--old">
+            <span class="pv-price-label">Was:</span>
+            <span>
+              <s class="price-item price-item--regular pv-old-price">
+                {% if settings.currency_code_enabled %}
+                  {{ compare_at_price | money_with_currency }}
+                {% else %}
+                  {{ compare_at_price | money }}
+                {% endif %}
+              </s>
+            </span>
+            <span class="pv-price-save">
+              Save {{ compare_at_price | minus: price | money }}
+            </span>
+          </div>
         {%- endunless -%}
-        <span class="visually-hidden visually-hidden--inline">{{ 'products.product.price.sale_price' | t }}</span>
-        <span class="price-item price-item--sale price-item--last">
-          {{ money_price }}
-        </span>
       </div>
       {%- if product.selected_or_first_available_variant.unit_price_measurement -%}
         {% render 'unit-price', price: product.selected_or_first_available_variant.unit_price, measurement: product.selected_or_first_available_variant.unit_price_measurement %}
       {%- endif -%}
     </div>
-    {%- if show_badges -%}
-      <span class="badge price__badge-sale color-{{ settings.sale_badge_color_scheme }}">
-        {{ 'products.product.on_sale' | t }}
-      </span>
-
-      <span class="badge price__badge-sold-out color-{{ settings.sold_out_badge_color_scheme }}">
-        {{ 'products.product.sold_out' | t }}
-      </span>
-    {%- endif -%}
   </div>
+  
+  <style>
+    .pv-custom-price-sale { display: flex; flex-direction: column; gap: 0.8rem; margin: 1.6rem 0; background: #FFF; padding: 1.6rem; border-radius: 12px; border: 1px solid rgba(18,53,14,0.08); box-shadow: 0 4px 12px rgba(18,53,14,0.02); }
+    .pv-price-row { display: flex; align-items: baseline; gap: 0.8rem; }
+    .pv-price-main { align-items: center; flex-wrap: wrap; }
+    .pv-price-label { font-size: 1.4rem; font-weight: 700; color: #4A5246; }
+    .pv-large-price { font-size: 2.8rem; font-weight: 800; color: #12350E; }
+    .pv-lto-badge { font-size: 1.1rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; background: #FDE8E8; color: #A04A4A; padding: 0.4rem 0.8rem; border-radius: 6px; margin-left: auto; }
+    .pv-old-price { font-size: 1.6rem; color: #8F998A; }
+    .pv-price-save { background: #D99A2B; color: #12350E; font-size: 1.2rem; font-weight: 800; padding: 0.4rem 0.8rem; border-radius: 6px; text-transform: uppercase; margin-left: 0.8rem; }
+  </style>
 {% endunless %}

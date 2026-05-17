@@ -1,0 +1,25 @@
+<section class="pv-benefits-sec">
+  <div class="page-width">
+    <h2 class="pv-section-title">Why the PawVoyage Harness?</h2>
+    <div class="pv-benefits-grid">
+      <div class="pv-benefit-item"><div class="pv-b-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="#12350E" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>No-pull control</p></div>
+      <div class="pv-benefit-item"><div class="pv-b-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="#12350E" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>Padded comfort</p></div>
+      <div class="pv-benefit-item"><div class="pv-b-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="#12350E" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>Tactical durability</p></div>
+      <div class="pv-benefit-item"><div class="pv-b-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="#12350E" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>Reflective details</p></div>
+      <div class="pv-benefit-item"><div class="pv-b-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="#12350E" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>Quick-release buckles</p></div>
+      <div class="pv-benefit-item"><div class="pv-b-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="#12350E" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p>Travel-ready design</p></div>
+    </div>
+  </div>
+</section>
+<style>
+  .pv-benefits-sec { padding: 8rem 0; background: #FFF7EA; text-align: center; }
+  .pv-benefits-sec .pv-section-title { font-size: clamp(2.4rem, 4vw, 3.6rem); font-weight: 800; color: #12350E; margin: 0; }
+  .pv-benefits-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.6rem; max-width: 80rem; margin: 4rem auto 0; }
+  @media screen and (min-width: 750px) { .pv-benefits-grid { grid-template-columns: repeat(3, 1fr); gap: 2.4rem; } }
+  .pv-benefit-item { display: flex; align-items: center; gap: 1.2rem; background: #FFF; padding: 2rem; border-radius: 12px; box-shadow: 0 4px 12px rgba(18,53,14,0.03); border: 1px solid rgba(18,53,14,0.05); }
+  .pv-b-icon { width: 3.2rem; height: 3.2rem; background: rgba(217,154,43,0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .pv-benefit-item p { font-size: 1.5rem; font-weight: 700; color: #1F241D; margin: 0; text-align: left; }
+</style>
+{% schema %}
+{ "name": "PV Benefits Grid", "presets": [{ "name": "PV Benefits Grid" }] }
+{% endschema %}
