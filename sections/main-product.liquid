@@ -83,6 +83,13 @@
           id="ProductInfo-{{ section.id }}"
           class="product__info-container pv-sticky-card{% if section.settings.enable_sticky_info %} product__column-sticky{% endif %}"
         >
+          <div class="pv-offer-bar" aria-live="polite">
+            <span class="pv-offer-text">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="margin-right:4px; flex-shrink:0;"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7.01" y2="7"></line></svg>
+              Today's Deal Ends In
+            </span>
+            <span class="pv-offer-timer" id="pv-countdown-timer">03:00:00</span>
+          </div>
           {%- assign product_form_id = 'product-form-' | append: section.id -%}
 
           {%- for block in section.blocks -%}
@@ -2364,7 +2371,7 @@
 .pv-sticky-card {
   background: #FFFFFF;
   border-radius: 16px;
-  padding: 0 1.6rem 1.6rem 1.6rem !important;
+  padding: 1.6rem !important; /* Uniform padding */
   box-shadow:
     0 2px 4px rgba(0,0,0,0.06),
     0 8px 16px rgba(18,53,14,0.08),
@@ -2384,19 +2391,36 @@
   to   { opacity: 1; transform: translateY(0); }
 }
 
-/* ── Top accent bar ── */
-.pv-sticky-card::before {
-  content: '🏷️  LIMITED TIME OFFER';
-  display: block;
-  background: linear-gradient(135deg, #12350E 0%, #1A4A12 100%);
-  color: #D99A2B;
+/* ── Premium Offer Bar ── */
+.pv-sticky-card .pv-offer-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.8rem;
+  background: linear-gradient(90deg, #F4B23E, #E89418);
+  color: #103B17;
+  padding: 0.4rem 0.8rem;
+  margin: -1.6rem -1.6rem 2rem -1.6rem !important; /* Pull banner full width over card's 1.6rem padding */
+  border-radius: 16px 16px 0 0;
   font-size: 1.15rem;
   font-weight: 800;
-  text-align: center;
-  padding: 0.9rem 2rem;
-  letter-spacing: 0.08em;
   text-transform: uppercase;
-  margin: 0 -2.2rem 2rem -2.2rem; /* Pull banner full width over card padding */
+  letter-spacing: 0.05em;
+  box-shadow: 0 4px 12px rgba(232,148,24,0.15);
+}
+.pv-offer-text {
+  display: flex;
+  align-items: center;
+}
+.pv-offer-timer {
+  background: rgba(255, 255, 255, 0.4);
+  padding: 0.2rem 0.6rem;
+  border-radius: 4px;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  color: #103B17;
+  font-variant-numeric: tabular-nums;
+  min-width: 72px;
+  text-align: center;
 }
 
 /* Kill Dawn's default block-spacing (adds margin-top between all block children) */
@@ -2789,3 +2813,52 @@
   }
 }
 </style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  var DURATION_HOURS = 3;
+  var DURATION_MS = DURATION_HOURS * 60 * 60 * 1000;
+  var STORAGE_KEY = 'pv_offer_timer_end';
+
+  var endTime = localStorage.getItem(STORAGE_KEY);
+  var now = new Date().getTime();
+
+  // If no timer exists, or it has expired, reset it
+  if (!endTime || now > parseInt(endTime, 10)) {
+    endTime = now + DURATION_MS;
+    localStorage.setItem(STORAGE_KEY, endTime);
+  } else {
+    endTime = parseInt(endTime, 10);
+  }
+
+  function updateTimer() {
+    // Query the DOM on every tick so it survives Shopify's variant AJAX HTML replacement
+    var timerEl = document.getElementById('pv-countdown-timer');
+    if (!timerEl) return;
+
+    var currentTime = new Date().getTime();
+    var timeLeft = endTime - currentTime;
+
+    if (timeLeft <= 0) {
+      timerEl.innerHTML = "00:00:00";
+      // Auto-reset when it hits zero to keep the urgency loop
+      endTime = currentTime + DURATION_MS;
+      localStorage.setItem(STORAGE_KEY, endTime);
+      return;
+    }
+
+    var hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    var minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+    var seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+
+    var formatted = (hours < 10 ? "0" + hours : hours) + ":" +
+                    (minutes < 10 ? "0" + minutes : minutes) + ":" +
+                    (seconds < 10 ? "0" + seconds : seconds);
+                    
+    timerEl.innerHTML = formatted;
+  }
+
+  updateTimer();
+  setInterval(updateTimer, 1000);
+});
+</script>
