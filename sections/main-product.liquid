@@ -685,9 +685,11 @@
             {{- 'icon-arrow.svg' | inline_asset_content -}}
           </a>
         </section>
-      </div>
-    </div>
-    </div>
+      </div><!-- end .pv-checkout-col / product__info-wrapper -->
+      </div><!-- end .pv-two-col-container -->
+    </div><!-- end .pv-top-slider-layout / product grid -->
+    </div><!-- end .page-width -->
+
 
     {% render 'product-media-modal', variant_images: variant_images %}
 
@@ -2272,49 +2274,477 @@
 }
 {% endschema %}
 
+<script>
+// PawVoyage: Hide variant picker from right sticky card
+// Runs immediately and also after Shopify section reloads
+(function pvHideRightColVariants() {
+  function hidePickerInCard() {
+    var card = document.querySelector('.pv-sticky-card');
+    if (!card) return;
+    // Dawn renders the picker as <variant-selects>, not <product-variant-picker>
+    // Use clip+height approach so radio inputs remain in DOM for form submission
+    var allHide = card.querySelectorAll('variant-selects, .pv-size-reassurance, .pv-pre-size-box');
+    allHide.forEach(function(el) { 
+      el.style.cssText = 'position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;';
+    });
+  }
+  
+  if (document.readyState !== 'loading') {
+    hidePickerInCard();
+  } else {
+    document.addEventListener('DOMContentLoaded', hidePickerInCard);
+  }
+  // Re-run after Shopify updates
+  document.addEventListener('shopify:section:load', hidePickerInCard);
+  // Also run after a short delay in case of deferred rendering
+  setTimeout(hidePickerInCard, 500);
+  setTimeout(hidePickerInCard, 1500);
+})();
+</script>
+
 <style>
-/* Top Slider + Two Col Layout CSS */
+/* ============================================================
+   PawVoyage Product Page — Master Layout CSS
+   Compact slider · Left education (variants + content) · Right price+buy only
+   ============================================================ */
+
+/* ──────────────────────────────────────────────
+   1. TOP-LEVEL WRAPPER  
+   ────────────────────────────────────────────── */
 .pv-top-slider-layout { display: flex !important; flex-direction: column !important; }
-.pv-top-slider { width: 100% !important; max-width: 100% !important; padding: 0 !important; margin-bottom: 4rem; }
 
-/* Force slider layout for media gallery */
-.pv-top-slider slider-component { width: 100%; max-width: 100%; margin: 0 auto; }
-.pv-top-slider .product__media-list { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; gap: 2rem; padding-bottom: 2rem; flex-wrap: nowrap !important; }
-.pv-top-slider .product__media-item { flex: 0 0 calc(100% - 4rem) !important; scroll-snap-align: center; border-radius: 24px; overflow: hidden; border: 1px solid rgba(18,53,14,0.08); box-shadow: 0 12px 32px rgba(18,53,14,0.05); max-width: none !important; width: auto !important; }
-@media screen and (min-width: 750px) { .pv-top-slider .product__media-item { flex: 0 0 70% !important; } }
-@media screen and (min-width: 1200px) { .pv-top-slider .product__media-item { flex: 0 0 60% !important; } }
-
-.pv-two-col-container { display: flex; flex-direction: column; width: 100%; }
-.pv-checkout-col { width: 100% !important; max-width: 100% !important; padding: 0 !important; order: 1; margin-bottom: 4rem; }
-.pv-education-col { width: 100% !important; max-width: 100% !important; order: 2; }
-
-.pv-sticky-card { 
-  background: #FFFFFF; 
-  border-radius: 16px; 
-  padding: 3.2rem; 
-  box-shadow: 0 12px 48px rgba(18,53,14,0.08); 
-  border: 1px solid rgba(31,36,29,0.06); 
+/* ──────────────────────────────────────────────
+   2. COMPACT IMAGE SLIDER
+   ────────────────────────────────────────────── */
+.pv-top-slider {
+  width: 100% !important;
+  max-width: 100% !important;
+  padding: 0 !important;
+  margin-bottom: 3.2rem;
+}
+.pv-top-slider .product__media-list {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  gap: 1.2rem;
+  flex-wrap: nowrap !important;
+  padding-bottom: 1rem;
+}
+.pv-top-slider .product__media-list::-webkit-scrollbar { display: none; }
+.pv-top-slider .product__media-item {
+  flex: 0 0 88% !important;
+  scroll-snap-align: center;
+  border-radius: 14px;
+  overflow: hidden;
+  max-height: 380px;
+  border: 1px solid rgba(18,53,14,0.07);
+  box-shadow: 0 6px 20px rgba(18,53,14,0.06);
+  max-width: none !important;
+  width: auto !important;
+  background: #FAF3E7;
+}
+.pv-top-slider .product__media-item img,
+.pv-top-slider .product__media-item .media { 
+  width: 100%; height: 380px; object-fit: contain; background: #FAF3E7; 
+}
+@media screen and (min-width: 750px) {
+  .pv-top-slider .product__media-item { flex: 0 0 52% !important; max-height: 440px; }
+  .pv-top-slider .product__media-item img,
+  .pv-top-slider .product__media-item .media { height: 440px; }
+}
+@media screen and (min-width: 1200px) {
+  .pv-top-slider .product__media-item { flex: 0 0 44% !important; }
 }
 
+/* ──────────────────────────────────────────────
+   3. TWO-COLUMN LAYOUT  
+   ────────────────────────────────────────────── */
+.pv-two-col-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+/* Mobile: checkout first, education below */
+.pv-checkout-col {
+  width: 100% !important;
+  max-width: 100% !important;
+  padding: 0 !important;
+  order: 1;
+  margin-bottom: 2.4rem;
+}
+.pv-education-col {
+  width: 100% !important;
+  max-width: 100% !important;
+  order: 2;
+}
+
+/* Desktop: 340px fixed right col, rest is left */
 @media screen and (min-width: 990px) {
   .pv-two-col-container {
     display: grid !important;
-    grid-template-columns: 65% 35%;
-    gap: 0 5rem;
+    grid-template-columns: 1fr 340px;
+    gap: 0 4rem;
     align-items: start;
   }
   .pv-education-col { grid-column: 1; grid-row: 1; order: unset; margin: 0; }
-  .pv-checkout-col { grid-column: 2; grid-row: 1; order: unset; margin: 0; }
-  
+  .pv-checkout-col  { grid-column: 2; grid-row: 1; order: unset; margin: 0; }
+}
+
+/* ──────────────────────────────────────────────
+   4. RIGHT STICKY CHECKOUT CARD — PREMIUM DESIGN
+   ────────────────────────────────────────────── */
+
+/* Card wrapper */
+.pv-sticky-card {
+  background: #FFFFFF;
+  border-radius: 16px;
+  padding: 0 2.2rem 2.2rem 2.2rem !important;
+  box-shadow:
+    0 2px 4px rgba(0,0,0,0.06),
+    0 8px 16px rgba(18,53,14,0.08),
+    0 24px 48px rgba(18,53,14,0.06);
+  border: 1px solid rgba(18,53,14,0.1);
+  overflow: hidden;       /* Clip the top accent bar */
+  display: block !important;   /* Remove flex — use explicit margins */
+  animation: pvCardReveal 0.5s cubic-bezier(0.16,1,0.3,1) both;
+}
+
+@keyframes pvCardReveal {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Top accent bar ── */
+.pv-sticky-card::before {
+  content: '🏷️  LIMITED TIME OFFER';
+  display: block;
+  background: linear-gradient(135deg, #12350E 0%, #1A4A12 100%);
+  color: #D99A2B;
+  font-size: 1.15rem;
+  font-weight: 800;
+  text-align: center;
+  padding: 0.9rem 2rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin: 0 -2.2rem 2rem -2.2rem; /* Pull banner full width over card padding */
+}
+
+/* Kill Dawn's default block-spacing (adds margin-top between all block children) */
+/* Dawn: .product__info-container > * + * { margin: 1.5rem 0 } */
+/* Dawn: .product__info-container .product-form { margin: 2.5rem 0 } */
+.pv-sticky-card > * + *,
+.pv-sticky-card > * { margin: 0 !important; }
+.pv-sticky-card .product-form { margin: 0 !important; }
+.pv-sticky-card product-form { margin: 0 !important; display: block !important; }
+
+@media screen and (min-width: 990px) {
   .pv-sticky-card {
     position: sticky !important;
-    top: 3rem !important;
-    max-height: calc(100vh - 6rem) !important;
-    overflow-y: auto !important;
-    overscroll-behavior: contain;
+    top: 1.6rem !important;
+    width: 350px !important; /* Ensure desktop card width isn't too wide */
+    margin-left: auto;
   }
-  .pv-sticky-card::-webkit-scrollbar { width: 6px; }
-  .pv-sticky-card::-webkit-scrollbar-track { background: transparent; }
-  .pv-sticky-card::-webkit-scrollbar-thumb { background: rgba(18,53,14,0.1); border-radius: 10px; }
 }
+
+/* ── Hide variant picker (visually — keeps inputs in DOM for form submission) ── */
+.pv-sticky-card variant-selects,
+.pv-sticky-card .pv-size-reassurance,
+.pv-sticky-card .pv-pre-size-box {
+  /* Accessible hide: out of layout flow, still submittable */
+  position: absolute !important;
+  width: 1px !important; height: 1px !important;
+  padding: 0 !important; margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0,0,0,0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+/* CSS fallback (before JS runs) */
+.pv-sticky-card product-variant-picker,
+.pv-sticky-card .product-form__input:not(.product-form__quantity) {
+  height: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+  border: none !important;
+  min-height: 0 !important;
+}
+.pv-sticky-card .product__view-details { display: none !important; }
+.pv-sticky-card .product__info-container > * { margin-top: 0 !important; }
+/* Zero out ALL block spacing inside the right card */
+.pv-sticky-card #price-{{ section.id }},
+.pv-sticky-card product-form,
+.pv-sticky-card variant-selects + * { margin-top: 0 !important; }
+/* Control spacing explicitly via padding on the inner container */
+.pv-sticky-card .product__info-container > #price-{{ section.id }} { padding-bottom: 1.6rem; }
+
+/* ── PRICE BLOCK ── */
+/* The price.liquid snippet now handles its own styling via .pv-price-sale-clean.
+   These overrides ensure proper integration with the card padding and zero-gap layout. */
+.pv-sticky-card #price-{{ section.id }} {
+  margin: 0 !important;
+  padding: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  border: none !important;
+}
+/* Hide the outer Dawn price wrappers we don't use (.price__regular shows when no sale) */
+.pv-sticky-card .price__regular { display: block; }
+.pv-sticky-card .price__regular .price-item--regular {
+  font-size: 3.4rem !important;
+  font-weight: 900 !important;
+  color: #12350E !important;
+  letter-spacing: -0.02em !important;
+  line-height: 1 !important;
+}
+/* Hide Dawn's built-in badge (we use pv-price-save-pill from price.liquid) */
+.pv-sticky-card .price__badges { display: none !important; }
+/* Hide tax/installments note */
+.pv-sticky-card .product__tax { display: none !important; }
+.pv-sticky-card .installment { display: none !important; }
+
+/* ── DIVIDER between price and buy button ── */
+.pv-sticky-card product-form {
+  display: block !important;
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+}
+/* Hair-line rule above the buy button */
+.pv-sticky-card .product-form__buttons::before {
+  content: '';
+  display: block;
+  height: 1px;
+  background: rgba(18,53,14,0.08);
+  margin-bottom: 1.6rem;
+}
+.pv-sticky-card .product-form__error-message-wrapper { margin-bottom: 0.8rem !important; }
+
+
+/* ── PRIMARY BUY BUTTON ── */
+.pv-sticky-card .product-form__buttons {
+  max-width: 100% !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 1.2rem !important;
+}
+.pv-sticky-card .product-form__submit {
+  /* Layout */
+  width: 100% !important;
+  min-height: 5.6rem !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  /* Color */
+  background: #12350E !important;
+  color: #FFF7EA !important;
+  border: none !important;
+  /* Typography */
+  font-size: 1.8rem !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.03em !important;
+  /* Shape */
+  border-radius: 99px !important;
+  /* Shadow for depth */
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1), 0 8px 20px rgba(18,53,14,0.30) !important;
+  /* Transitions */
+  transition: transform 0.18s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.18s ease, background 0.18s ease !important;
+  cursor: pointer !important;
+  position: relative !important;
+  overflow: hidden !important;
+}
+/* Shimmer sweep */
+.pv-sticky-card .product-form__submit::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(105deg, transparent 30%, rgba(255,255,255,0.15) 50%, transparent 70%);
+  transform: translateX(-100%);
+  transition: transform 0.55s ease;
+}
+.pv-sticky-card .product-form__submit:hover::after { transform: translateX(100%); }
+.pv-sticky-card .product-form__submit:hover:not([disabled]):not([aria-disabled="true"]) {
+  transform: translateY(-3px) scale(1.02) !important;
+  box-shadow: 0 6px 8px rgba(0,0,0,0.12), 0 16px 32px rgba(18,53,14,0.40) !important;
+  background: #0E2A0B !important;
+}
+.pv-sticky-card .product-form__submit:active:not([disabled]) {
+  transform: translateY(-1px) scale(1.00) !important;
+}
+/* Disabled / Sold Out state */
+.pv-sticky-card .product-form__submit[disabled],
+.pv-sticky-card .product-form__submit[aria-disabled="true"] {
+  background: #EAECE8 !important;
+  color: #8C9686 !important;
+  box-shadow: none !important;
+  cursor: not-allowed !important;
+  min-height: 4.6rem !important;
+  font-size: 1.6rem !important;
+}
+
+/* ── DYNAMIC CHECKOUT (PayPal, etc.) ── */
+.pv-sticky-card .shopify-payment-button { margin-top: 0 !important; }
+.pv-sticky-card .shopify-payment-button__button--unbranded {
+  background: transparent !important;
+  border: 2px solid rgba(18,53,14,0.2) !important;
+  color: #12350E !important;
+  border-radius: 99px !important;
+  min-height: 4.6rem !important;
+  font-weight: 700 !important;
+  font-size: 1.6rem !important;
+  transition: border-color 0.18s, background 0.18s !important;
+}
+.pv-sticky-card .shopify-payment-button__button--unbranded:hover {
+  background: rgba(18,53,14,0.04) !important;
+  border-color: rgba(18,53,14,0.45) !important;
+}
+.pv-sticky-card .shopify-payment-button__button--branded {
+  border-radius: 99px !important;
+  min-height: 4.6rem !important;
+  overflow: hidden !important;
+}
+
+/* ── TRUST BADGES ── */
+.pv-card-trust {
+  margin-top: 1.6rem;
+  padding-top: 1.4rem;
+  border-top: 1px solid rgba(18,53,14,0.08);
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 0.6rem;
+  text-align: center;
+}
+.pv-card-trust-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.3rem;
+}
+.pv-card-trust-icon {
+  font-size: 1.8rem;
+  line-height: 1;
+}
+.pv-card-trust-label {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #4A5246;
+  line-height: 1.3;
+}
+.pv-card-delivery {
+  grid-column: 1 / -1;
+  font-size: 1.1rem;
+  color: #9A9E97;
+  text-align: center;
+  margin-top: 0.4rem;
+}
+
+/* Mobile adjustments */
+@media screen and (max-width: 989px) {
+  .pv-sticky-card .price-item--sale,
+  .pv-sticky-card .price__regular .price-item--regular { font-size: 3rem !important; }
+  .pv-sticky-card .product-form__submit { font-size: 1.6rem !important; min-height: 5rem !important; }
+}
+
+
+/* ──────────────────────────────────────────────
+   5. VARIANT DISPLAY (LEFT COLUMN)
+   ────────────────────────────────────────────── */
+.pv-variants-section { padding: 2.4rem 2.8rem; }
+.pv-option-group + .pv-option-group { margin-top: 2.4rem; }
+.pv-option-label {
+  display: flex;
+  align-items: baseline;
+  gap: 0.6rem;
+  margin-bottom: 1.2rem;
+  font-size: 1.4rem;
+  color: #4A5246;
+}
+.pv-option-name { font-weight: 700; color: #12350E; text-transform: capitalize; }
+.pv-option-selected { 
+  font-weight: 600; 
+  color: #12350E; 
+  background: #FAF3E7; 
+  padding: 0.2rem 0.8rem; 
+  border-radius: 99px; 
+  font-size: 1.3rem;
+}
+.pv-option-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.8rem;
+}
+@media screen and (min-width: 600px) {
+  .pv-option-grid { grid-template-columns: repeat(4, 1fr); }
+}
+@media screen and (min-width: 990px) {
+  .pv-option-grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+/* Individual option button */
+.pv-opt-btn {
+  display: block;
+  width: 100%;
+  padding: 0.9rem 0.6rem;
+  border: 1.5px solid rgba(31,36,29,0.15);
+  border-radius: 8px;
+  background: #FFFFFF;
+  color: #1F241D;
+  font-size: 1.3rem;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  text-align: center;
+  transition: border-color 0.15s, background 0.15s, color 0.15s;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.3;
+}
+.pv-opt-btn:hover {
+  border-color: #12350E;
+  background: #FAF3E7;
+  color: #12350E;
+}
+.pv-opt-btn.pv-opt-active {
+  border-color: #12350E;
+  background: #12350E;
+  color: #FFF7EA;
+  font-weight: 700;
+}
+/* Unavailable variant */
+.pv-opt-btn.pv-opt-unavailable {
+  opacity: 0.38;
+  cursor: not-allowed;
+  text-decoration: line-through;
+}
+.pv-opt-btn.pv-opt-unavailable:hover {
+  border-color: rgba(31,36,29,0.15);
+  background: #FFFFFF;
+  color: #1F241D;
+}
+
+/* Size guide hint */
+.pv-size-guide-hint {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 1.6rem;
+  font-size: 1.3rem;
+  color: #6F7568;
+}
+.pv-size-guide-link {
+  background: none;
+  border: none;
+  color: #D99A2B;
+  font-size: 1.3rem;
+  font-weight: 700;
+  cursor: pointer;
+  padding: 0;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.pv-size-guide-link:hover { color: #B8811E; }
 </style>
+
+

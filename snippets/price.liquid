@@ -90,47 +90,81 @@
           </span>
         {%- endif -%}
       </div>
-      <div class="price__sale pv-custom-price-sale">
-        <div class="pv-price-row pv-price-main">
-          <span class="pv-price-label">Today:</span>
-          <span class="price-item price-item--sale price-item--last pv-large-price">
-            {{ money_price }}
-          </span>
-          <span class="pv-lto-badge">Limited-time offer</span>
+      <div class="price__sale pv-price-sale-clean">
+        <div class="pv-current-price">
+          <span class="price-item price-item--sale price-item--last">{{ money_price }}</span>
         </div>
-        
+
         {%- unless product.price_varies == false and product.compare_at_price_varies %}
-          <div class="pv-price-row pv-price-row--old">
-            <span class="pv-price-label">Was:</span>
-            <span>
-              <s class="price-item price-item--regular pv-old-price">
-                {% if settings.currency_code_enabled %}
-                  {{ compare_at_price | money_with_currency }}
-                {% else %}
-                  {{ compare_at_price | money }}
-                {% endif %}
-              </s>
-            </span>
-            <span class="pv-price-save">
-              Save {{ compare_at_price | minus: price | money }}
+          <div class="pv-compare-row">
+            <s class="price-item price-item--regular pv-old-price">
+              {%- if settings.currency_code_enabled -%}
+                {{ compare_at_price | money_with_currency }}
+              {%- else -%}
+                {{ compare_at_price | money }}
+              {%- endif -%}
+            </s>
+            <span class="pv-price-save-pill">
+              SAVE {{ compare_at_price | minus: price | money }}
             </span>
           </div>
         {%- endunless -%}
       </div>
+
+  <style>
+    /* ── Clean flat price display for right checkout card ── */
+    .pv-price-sale-clean {
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+      padding: 0;
+      margin: 0;
+      background: transparent;
+      border: none;
+      box-shadow: none;
+    }
+    .pv-current-price { line-height: 1; }
+    .pv-current-price .price-item--sale {
+      font-size: 3.4rem;
+      font-weight: 900;
+      color: #12350E;
+      letter-spacing: -0.02em;
+      display: inline-block;
+    }
+    .pv-compare-row {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .pv-old-price {
+      font-size: 1.6rem;
+      font-weight: 400;
+      color: #9A9E97;
+      text-decoration: line-through;
+    }
+    .pv-price-save-pill {
+      display: inline-flex;
+      align-items: center;
+      background: linear-gradient(135deg, #D99A2B, #C07D10);
+      color: #FFFFFF;
+      font-size: 1.15rem;
+      font-weight: 800;
+      padding: 0.4rem 1.1rem;
+      border-radius: 99px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      box-shadow: 0 2px 8px rgba(217,154,43,0.35);
+    }
+    /* Hide "Today:" / "Was:" specific label elements everywhere */
+    .pv-price-label { display: none !important; }
+    /* Hide the old pv-custom-price-sale if it still exists */
+    .pv-custom-price-sale { background: transparent !important; border: none !important; box-shadow: none !important; padding: 0 !important; margin: 0 !important; }
+  </style>
       {%- if product.selected_or_first_available_variant.unit_price_measurement -%}
         {% render 'unit-price', price: product.selected_or_first_available_variant.unit_price, measurement: product.selected_or_first_available_variant.unit_price_measurement %}
       {%- endif -%}
     </div>
   </div>
-  
-  <style>
-    .pv-custom-price-sale { display: flex; flex-direction: column; gap: 0.8rem; margin: 1.6rem 0; background: #FFF; padding: 1.6rem; border-radius: 12px; border: 1px solid rgba(18,53,14,0.08); box-shadow: 0 4px 12px rgba(18,53,14,0.02); }
-    .pv-price-row { display: flex; align-items: baseline; gap: 0.8rem; }
-    .pv-price-main { align-items: center; flex-wrap: wrap; }
-    .pv-price-label { font-size: 1.4rem; font-weight: 700; color: #4A5246; }
-    .pv-large-price { font-size: 2.8rem; font-weight: 800; color: #12350E; }
-    .pv-lto-badge { font-size: 1.1rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; background: #FDE8E8; color: #A04A4A; padding: 0.4rem 0.8rem; border-radius: 6px; margin-left: auto; }
-    .pv-old-price { font-size: 1.6rem; color: #8F998A; }
-    .pv-price-save { background: #D99A2B; color: #12350E; font-size: 1.2rem; font-weight: 800; padding: 0.4rem 0.8rem; border-radius: 6px; text-transform: uppercase; margin-left: 0.8rem; }
-  </style>
 {% endunless %}
+
