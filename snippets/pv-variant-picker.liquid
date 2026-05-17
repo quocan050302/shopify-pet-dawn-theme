@@ -17,7 +17,7 @@
           {%- if value == option.selected_value -%}{%- assign is_selected = true -%}{%- endif -%}
           {%- assign option_available = false -%}
           {%- for variant in product.variants -%}
-            {%- assign opt_key = 'option' | append: forloop.parentloop.index -%}
+            {%- assign opt_key = 'option' | append: option.position -%}
             {%- if variant[opt_key] == value and variant.available -%}
               {%- assign option_available = true -%}
             {%- endif -%}
@@ -29,7 +29,7 @@
             data-option-name="{{ option.name | escape }}"
             data-option-value="{{ value | escape }}"
             data-section-id="{{ section.id }}"
-            {% unless option_available %}aria-label="{{ value }} - unavailable"{% endunless %}
+            {% unless option_available %}aria-label="{{ value }} - unavailable" disabled{% endunless %}
           >
             {{- value -}}
           </button>
