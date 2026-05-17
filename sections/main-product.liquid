@@ -2477,6 +2477,41 @@
   border: none !important;
   min-height: 0 !important;
 }
+
+/* ── Compact Horizontal Scrolling for Color Swatches ── */
+.pv-sticky-card .product-form__input--swatch {
+  display: flex !important;
+  flex-wrap: nowrap !important;
+  overflow-x: auto !important;
+  overflow-y: hidden !important;
+  gap: 0.8rem;
+  padding-bottom: 0.8rem; /* Space for scrollbar */
+  margin-bottom: 0.5rem !important; /* Overrides the wildcard margin 0 */
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(18,53,14,0.2) transparent;
+}
+.pv-sticky-card .product-form__input--swatch::-webkit-scrollbar {
+  height: 6px;
+}
+.pv-sticky-card .product-form__input--swatch::-webkit-scrollbar-track {
+  background: transparent;
+}
+.pv-sticky-card .product-form__input--swatch::-webkit-scrollbar-thumb {
+  background-color: rgba(18,53,14,0.2);
+  border-radius: 10px;
+}
+.pv-sticky-card .product-form__input--swatch > .swatch-input__input,
+.pv-sticky-card .product-form__input--swatch > .swatch-input__label {
+  flex-shrink: 0 !important;
+}
+.pv-sticky-card .product-form__input--swatch > legend {
+  position: sticky;
+  left: 0;
+  margin-bottom: 0.8rem;
+  width: 100%;
+}
+
 .pv-sticky-card .product__view-details { display: none !important; }
 .pv-sticky-card .product__info-container > * { margin-top: 0 !important; }
 /* Zero out ALL block spacing inside the right card */
