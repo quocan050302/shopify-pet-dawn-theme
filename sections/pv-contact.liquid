@@ -86,10 +86,7 @@
                 placeholder="you@email.com" required>
             </div>
 
-            <div class="pv-form-field">
-              <label class="pv-form-label" for="ContactForm-phone">Phone number</label>
-              <input class="pv-form-input" type="tel" id="ContactForm-phone" autocomplete="tel" name="contact[{{ 'templates.contact.form.phone' | t }}]" pattern="[0-9\-]*" value="{% if form.phone %}{{ form.phone }}{% elsif customer %}{{ customer.phone }}{% endif %}" placeholder="Optional">
-            </div>
+
 
             <div class="pv-form-field">
               <label class="pv-form-label" for="ContactForm-body">Message <span aria-hidden="true">*</span></label>
