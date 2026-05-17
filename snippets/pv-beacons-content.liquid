@@ -32,60 +32,7 @@
   </section>
 
   <!-- ===== B. VARIANT SELECTOR (left col — syncs with hidden right-col picker) ===== -->
-  <section class="pv-edu-section pv-variants-section" id="pv-variant-chooser">
-    <h3 class="pv-section-heading" style="margin-bottom:0.8rem">Choose Your Options</h3>
-    <p style="font-size:1.3rem;color:#6F7568;margin:0 0 2rem">Select color and size before adding to cart.</p>
-
-    {%- for option in product.options_with_values -%}
-      <div class="pv-option-group" data-option-index="{{ forloop.index0 }}">
-        <div class="pv-option-label">
-          <span class="pv-option-name">{{ option.name }}:</span>
-          <span class="pv-option-selected" id="pv-sel-{{ section.id }}-{{ forloop.index0 }}">
-            {{- option.selected_value -}}
-          </span>
-        </div>
-        <div class="pv-option-grid">
-          {%- for value in option.values -%}
-            {%- assign is_selected = false -%}
-            {%- if value == option.selected_value -%}{%- assign is_selected = true -%}{%- endif -%}
-            {%- comment -%} Check availability for this option value {%- endcomment -%}
-            {%- assign option_available = false -%}
-            {%- for variant in product.variants -%}
-              {%- assign opt_key = 'option' | append: forloop.parentloop.index -%}
-              {%- if variant[opt_key] == value and variant.available -%}
-                {%- assign option_available = true -%}
-              {%- endif -%}
-            {%- endfor -%}
-            <button
-              type="button"
-              class="pv-opt-btn{% if is_selected %} pv-opt-active{% endif %}{% unless option_available %} pv-opt-unavailable{% endunless %}"
-              data-option-index="{{ forloop.parentloop.index0 }}"
-              data-option-name="{{ option.name | escape }}"
-              data-option-value="{{ value | escape }}"
-              data-section-id="{{ section.id }}"
-              {% unless option_available %}aria-label="{{ value }} - unavailable"{% endunless %}
-            >
-              {{- value -}}
-            </button>
-          {%- endfor -%}
-        </div>
-      </div>
-    {%- endfor -%}
-
-    <!-- Size guide link -->
-    <div class="pv-size-guide-hint">
-      <span>Between sizes?</span>
-      <button type="button" class="pv-size-guide-link"
-        onclick="document.getElementById('pv-size-guide-modal').showModal()">
-        View Size Guide →
-      </button>
-    </div>
-
-    <!-- Unavailability message -->
-    <p class="pv-unavail-msg" id="pv-unavail-{{ section.id }}" style="display:none;color:#C0392B;font-size:1.3rem;margin-top:1.2rem;font-weight:600;">
-      This combination is unavailable. Please choose another option.
-    </p>
-  </section>
+  {% render 'pv-variant-picker', picker_class: 'pv-desktop-only', picker_id: 'pv-variant-chooser-desktop', product: product, section: section %}
 
   <!-- ===== C. BENEFIT CARDS ===== -->
   <section class="pv-edu-section">
@@ -241,11 +188,14 @@
         // ── 1. Update visual active state in left col ──
         document.querySelectorAll('.pv-opt-btn[data-option-index="' + optIdx + '"]')
           .forEach(function(b) { b.classList.remove('pv-opt-active'); });
-        this.classList.add('pv-opt-active');
+        
+        // Add active state to both desktop and mobile buttons with this value
+        document.querySelectorAll('.pv-opt-btn[data-option-index="' + optIdx + '"][data-option-value="' + optValue.replace(/"/g, '\\"') + '"]')
+          .forEach(function(b) { b.classList.add('pv-opt-active'); });
 
         // ── 2. Update the selected label ──
-        var label = document.getElementById('pv-sel-' + SECTION_ID + '-' + optIdx);
-        if (label) label.textContent = optValue;
+        document.querySelectorAll('.pv-sel-label[data-idx="' + optIdx + '"]')
+          .forEach(function(label) { label.textContent = optValue; });
 
         // ── 3. Sync with the hidden variant-selects in right col ──
         // Dawn's picker is a <variant-selects> custom element
@@ -282,9 +232,12 @@
   }
 
   function pvCheckAvailability() {
-    // Collect currently active values
+    // Collect currently active values from just ONE picker instance to avoid duplication
     var selected = [];
-    var groups = document.querySelectorAll('.pv-option-group');
+    var firstPicker = document.querySelector('.pv-variants-section');
+    if (!firstPicker) return;
+    
+    var groups = firstPicker.querySelectorAll('.pv-option-group');
     groups.forEach(function(g) {
       var active = g.querySelector('.pv-opt-btn.pv-opt-active');
       selected.push(active ? active.dataset.optionValue : '');
@@ -298,10 +251,9 @@
       });
     });
 
-    var msgEl = document.getElementById('pv-unavail-' + SECTION_ID);
-    if (msgEl) {
+    document.querySelectorAll('.pv-unavail-msg').forEach(function(msgEl) {
       msgEl.style.display = (match && !match.available) ? 'block' : 'none';
-    }
+    });
 
     // Dim add-to-cart in right col if unavailable
     var submitBtn = document.querySelector('.pv-sticky-card .product-form__submit');

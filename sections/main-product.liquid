@@ -482,6 +482,8 @@
               {%- when 'variant_picker' -%}
                 {% render 'product-variant-picker', product: product, block: block, product_form_id: product_form_id %}
               {%- when 'buy_buttons' -%}
+                <!-- ===== MOBILE VARIANT PICKER (rendered inside right col, visible only on mobile) ===== -->
+                {% render 'pv-variant-picker', picker_class: 'pv-mobile-only', picker_id: 'pv-variant-chooser-mobile', product: product, section: section %}
                 {%- render 'buy-buttons',
                   block: block,
                   product: product,
@@ -2648,10 +2650,27 @@
 
 
 /* ──────────────────────────────────────────────
-   5. VARIANT DISPLAY (LEFT COLUMN)
+   5. VARIANT DISPLAY (LEFT COLUMN & MOBILE RIGHT COL)
    ────────────────────────────────────────────── */
+/* Visibility controls */
+@media screen and (min-width: 990px) {
+  .pv-mobile-only { display: none !important; }
+}
+@media screen and (max-width: 989px) {
+  .pv-desktop-only { display: none !important; }
+}
+
 .pv-variants-section { padding: 2.4rem 2.8rem; }
-.pv-option-group + .pv-option-group { margin-top: 2.4rem; }
+/* Override padding & card styling when inside the sticky card on mobile */
+.pv-sticky-card .pv-variants-section { 
+  padding: 0 0 1.6rem 0 !important; 
+  margin-bottom: 0; 
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+.pv-option-group + .pv-option-group { margin-top: 2rem; }
 .pv-option-label {
   display: flex;
   align-items: baseline;
@@ -2674,11 +2693,16 @@
   grid-template-columns: repeat(3, 1fr);
   gap: 0.8rem;
 }
+.pv-option-grid[data-option="size"] {
+  grid-template-columns: repeat(4, 1fr); /* 4 per row for sizes */
+}
 @media screen and (min-width: 600px) {
   .pv-option-grid { grid-template-columns: repeat(4, 1fr); }
+  .pv-option-grid[data-option="size"] { grid-template-columns: repeat(5, 1fr); }
 }
 @media screen and (min-width: 990px) {
   .pv-option-grid { grid-template-columns: repeat(3, 1fr); }
+  .pv-option-grid[data-option="size"] { grid-template-columns: repeat(4, 1fr); }
 }
 
 /* Individual option button */
@@ -2708,13 +2732,14 @@
 }
 .pv-opt-btn.pv-opt-active {
   border-color: #12350E;
-  background: #12350E;
-  color: #FFF7EA;
-  font-weight: 700;
+  background: #FAF3E7; /* Subtle cream highlight */
+  color: #12350E;
+  font-weight: 800;
+  box-shadow: 0 0 0 1px #12350E;
 }
 /* Unavailable variant */
 .pv-opt-btn.pv-opt-unavailable {
-  opacity: 0.38;
+  opacity: 0.5;
   cursor: not-allowed;
   text-decoration: line-through;
 }

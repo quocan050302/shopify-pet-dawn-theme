@@ -1,0 +1,52 @@
+<!-- pv-variant-picker.liquid -->
+<section class="pv-edu-section pv-variants-section {{ picker_class }}" {% if picker_id %}id="{{ picker_id }}"{% endif %}>
+  <h3 class="pv-section-heading pv-desktop-only" style="margin-bottom:0.8rem">Choose Your Options</h3>
+  <p class="pv-desktop-only" style="font-size:1.3rem;color:#6F7568;margin:0 0 2rem">Select color and size before adding to cart.</p>
+
+  {%- for option in product.options_with_values -%}
+    <div class="pv-option-group" data-option-index="{{ forloop.index0 }}">
+      <div class="pv-option-label">
+        <span class="pv-option-name">{{ option.name }}:</span>
+        <span class="pv-option-selected pv-sel-label" data-idx="{{ forloop.index0 }}">
+          {{- option.selected_value -}}
+        </span>
+      </div>
+      <div class="pv-option-grid" data-option="{{ option.name | downcase }}">
+        {%- for value in option.values -%}
+          {%- assign is_selected = false -%}
+          {%- if value == option.selected_value -%}{%- assign is_selected = true -%}{%- endif -%}
+          {%- assign option_available = false -%}
+          {%- for variant in product.variants -%}
+            {%- assign opt_key = 'option' | append: forloop.parentloop.index -%}
+            {%- if variant[opt_key] == value and variant.available -%}
+              {%- assign option_available = true -%}
+            {%- endif -%}
+          {%- endfor -%}
+          <button
+            type="button"
+            class="pv-opt-btn{% if is_selected %} pv-opt-active{% endif %}{% unless option_available %} pv-opt-unavailable{% endunless %}"
+            data-option-index="{{ forloop.parentloop.index0 }}"
+            data-option-name="{{ option.name | escape }}"
+            data-option-value="{{ value | escape }}"
+            data-section-id="{{ section.id }}"
+            {% unless option_available %}aria-label="{{ value }} - unavailable"{% endunless %}
+          >
+            {{- value -}}
+          </button>
+        {%- endfor -%}
+      </div>
+    </div>
+  {%- endfor -%}
+
+  <div class="pv-size-guide-hint">
+    <span>Between sizes?</span>
+    <button type="button" class="pv-size-guide-link"
+      onclick="document.getElementById('pv-size-guide-modal').showModal()">
+      View Size Guide →
+    </button>
+  </div>
+
+  <p class="pv-unavail-msg" id="pv-unavail-{{ section.id }}-{{ picker_id }}" style="display:none;color:#C0392B;font-size:1.3rem;margin-top:1.2rem;font-weight:600;">
+    This combination is unavailable. Please choose another option.
+  </p>
+</section>

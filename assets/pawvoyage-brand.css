@@ -5,31 +5,31 @@
 
 /* ── Brand Tokens ─────────────────────────────────────────── */
 :root {
-  --pv-cream:        #FAF7F2;
-  --pv-cream-deep:   #F0EBE1;
-  --pv-forest:       #2D5016;
-  --pv-forest-light: #3D6B1F;
-  --pv-forest-dark:  #1C3309;
-  --pv-charcoal:     #2C2C2C;
-  --pv-charcoal-mid: #5C5C5C;
-  --pv-amber:        #C4853A;
-  --pv-amber-light:  #D9A05A;
-  --pv-sand:         #B8A88A;
-  --pv-white:        #FFFFFF;
+  --pv-cream: #faf7f2;
+  --pv-cream-deep: #f0ebe1;
+  --pv-forest: #2d5016;
+  --pv-forest-light: #3d6b1f;
+  --pv-forest-dark: #1c3309;
+  --pv-charcoal: #2c2c2c;
+  --pv-charcoal-mid: #5c5c5c;
+  --pv-amber: #c4853a;
+  --pv-amber-light: #d9a05a;
+  --pv-sand: #b8a88a;
+  --pv-white: #ffffff;
 
   /* Spacing */
-  --pv-radius-sm:    8px;
-  --pv-radius-md:    16px;
-  --pv-radius-lg:    24px;
-  --pv-radius-pill:  999px;
+  --pv-radius-sm: 8px;
+  --pv-radius-md: 16px;
+  --pv-radius-lg: 24px;
+  --pv-radius-pill: 999px;
 
   /* Shadows */
-  --pv-shadow-sm:    0 2px 8px rgba(44, 44, 44, 0.08);
-  --pv-shadow-md:    0 6px 24px rgba(44, 44, 44, 0.12);
-  --pv-shadow-lg:    0 16px 48px rgba(44, 44, 44, 0.18);
+  --pv-shadow-sm: 0 2px 8px rgba(44, 44, 44, 0.08);
+  --pv-shadow-md: 0 6px 24px rgba(44, 44, 44, 0.12);
+  --pv-shadow-lg: 0 16px 48px rgba(44, 44, 44, 0.18);
 
   /* Transitions */
-  --pv-transition:   all 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+  --pv-transition: all 0.28s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* ── Body & Page Background ──────────────────────────────── */
@@ -133,7 +133,9 @@ a.button--primary {
 .pv-reveal {
   opacity: 0;
   transform: translateY(24px);
-  transition: opacity 0.6s ease, transform 0.6s ease;
+  transition:
+    opacity 0.6s ease,
+    transform 0.6s ease;
 }
 
 .pv-reveal.is-visible {
@@ -149,7 +151,7 @@ a.button--primary {
 }
 
 .pv-check::before {
-  content: '';
+  content: "";
   display: inline-block;
   width: 2rem;
   height: 2rem;
@@ -165,7 +167,7 @@ a.button--primary {
 /* ── Header Override ─────────────────────────────────────── */
 .header {
   background-color: var(--pv-cream) !important;
-  border-bottom: 1px solid rgba(44,44,44,0.08);
+  border-bottom: 1px solid rgba(44, 44, 44, 0.08);
 }
 
 /* ── Footer Override ─────────────────────────────────────── */
