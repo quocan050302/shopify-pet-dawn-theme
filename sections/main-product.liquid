@@ -74,13 +74,9 @@
 
   {% assign variant_images = product.images | where: 'attached_to_variant?', true | map: 'src' %}
   <div class="page-width">
-    <div class="product product--{{ section.settings.media_size }} product--{{ section.settings.media_position }} product--{{ section.settings.gallery_layout }} product--mobile-{{ section.settings.mobile_thumbnails }} grid grid--1-col {% if product.media.size > 0 %}grid--2-col-tablet{% else %}product--no-media{% endif %} pv-top-slider-layout">
-      <div class="grid__item product__media-wrapper pv-top-slider">
+    <div class="product product--{{ section.settings.media_size }} product--{{ section.settings.media_position }} product--{{ section.settings.gallery_layout }} product--mobile-{{ section.settings.mobile_thumbnails }} grid grid--1-col {% if product.media.size > 0 %}grid--2-col-tablet{% else %}product--no-media{% endif %}">
+      <div class="grid__item product__media-wrapper">
         {% render 'product-media-gallery', variant_images: variant_images %}
-      </div>
-      <div class="pv-two-col-container">
-      <div class="pv-education-col">
-        {% render 'pv-beacons-content' %}
       </div>
       <div class="product__info-wrapper grid__item pv-checkout-col{% if settings.page_width > 1400 and section.settings.media_size == "small" %} product__info-wrapper--extra-padding{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
         <section
@@ -480,10 +476,9 @@
                 %}
 
               {%- when 'variant_picker' -%}
+                {% render 'pv-variant-picker', picker_id: 'pv-variant-chooser-main', product: product, section: section %}
                 {% render 'product-variant-picker', product: product, block: block, product_form_id: product_form_id %}
               {%- when 'buy_buttons' -%}
-                <!-- ===== MOBILE VARIANT PICKER (rendered inside right col, visible only on mobile) ===== -->
-                {% render 'pv-variant-picker', picker_class: 'pv-mobile-only', picker_id: 'pv-variant-chooser-mobile', product: product, section: section %}
                 {%- render 'buy-buttons',
                   block: block,
                   product: product,
@@ -687,7 +682,12 @@
             {{- 'icon-arrow.svg' | inline_asset_content -}}
           </a>
         </section>
-      </div><!-- end .pv-checkout-col / product__info-wrapper -->
+      </div><!-- end .pv-checkout-col -->
+      
+      <div class="pv-two-col-container" style="grid-column: 1 / -1; width: 100%; margin-top: 2rem;">
+        <div class="pv-education-col">
+          {% render 'pv-beacons-content' %}
+        </div>
       </div><!-- end .pv-two-col-container -->
     </div><!-- end .pv-top-slider-layout / product grid -->
     </div><!-- end .page-width -->
@@ -2313,51 +2313,7 @@
 /* ──────────────────────────────────────────────
    1. TOP-LEVEL WRAPPER  
    ────────────────────────────────────────────── */
-.pv-top-slider-layout { display: flex !important; flex-direction: column !important; }
-
-/* ──────────────────────────────────────────────
-   2. COMPACT IMAGE SLIDER
-   ────────────────────────────────────────────── */
-.pv-top-slider {
-  width: 100% !important;
-  max-width: 100% !important;
-  padding: 0 !important;
-  margin-bottom: 3.2rem;
-}
-.pv-top-slider .product__media-list {
-  display: flex;
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  scrollbar-width: none;
-  gap: 1.2rem;
-  flex-wrap: nowrap !important;
-  padding-bottom: 1rem;
-}
-.pv-top-slider .product__media-list::-webkit-scrollbar { display: none; }
-.pv-top-slider .product__media-item {
-  flex: 0 0 88% !important;
-  scroll-snap-align: center;
-  border-radius: 14px;
-  overflow: hidden;
-  max-height: 380px;
-  border: 1px solid rgba(18,53,14,0.07);
-  box-shadow: 0 6px 20px rgba(18,53,14,0.06);
-  max-width: none !important;
-  width: auto !important;
-  background: #FAF3E7;
-}
-.pv-top-slider .product__media-item img,
-.pv-top-slider .product__media-item .media { 
-  width: 100%; height: 380px; object-fit: contain; background: #FAF3E7; 
-}
-@media screen and (min-width: 750px) {
-  .pv-top-slider .product__media-item { flex: 0 0 52% !important; max-height: 440px; }
-  .pv-top-slider .product__media-item img,
-  .pv-top-slider .product__media-item .media { height: 440px; }
-}
-@media screen and (min-width: 1200px) {
-  .pv-top-slider .product__media-item { flex: 0 0 44% !important; }
-}
+/* Custom slider CSS removed to restore native Dawn layout */
 
 /* ──────────────────────────────────────────────
    3. TWO-COLUMN LAYOUT  
@@ -2368,30 +2324,36 @@
   width: 100%;
 }
 
-/* Mobile: checkout first, education below */
-.pv-checkout-col {
-  width: 100% !important;
-  max-width: 100% !important;
-  padding: 0 !important;
-  order: 1;
-  margin-bottom: 2.4rem;
-}
-.pv-education-col {
-  width: 100% !important;
-  max-width: 100% !important;
-  order: 2;
+@media screen and (max-width: 989px) {
+  /* Mobile: checkout first, education below */
+  .pv-checkout-col {
+    padding: 0 !important;
+    margin-bottom: 2.4rem;
+  }
+  .pv-education-col {
+    width: 100% !important;
+    max-width: 100% !important;
+    order: 2;
+  }
 }
 
-/* Desktop: 340px fixed right col, rest is left */
+/* Desktop: Education full width below */
 @media screen and (min-width: 990px) {
   .pv-two-col-container {
-    display: grid !important;
-    grid-template-columns: 1fr 340px;
-    gap: 0 4rem;
-    align-items: start;
+    display: block;
+    margin-top: 2rem;
   }
-  .pv-education-col { grid-column: 1; grid-row: 1; order: unset; margin: 0; }
-  .pv-checkout-col  { grid-column: 2; grid-row: 1; order: unset; margin: 0; }
+  .pv-education-col { margin: 0; }
+  
+  /* Balance column widths to 50/50 */
+  .product--medium:not(.product--no-media) .product__media-wrapper {
+    max-width: 50% !important;
+    width: calc(50% - var(--grid-desktop-horizontal-spacing) / 2) !important;
+  }
+  .product--medium:not(.product--no-media) .product__info-wrapper {
+    max-width: 50% !important;
+    width: calc(50% - var(--grid-desktop-horizontal-spacing) / 2) !important;
+  }
 }
 
 /* ──────────────────────────────────────────────
@@ -2402,7 +2364,7 @@
 .pv-sticky-card {
   background: #FFFFFF;
   border-radius: 16px;
-  padding: 0 2.2rem 2.2rem 2.2rem !important;
+  padding: 0 1.6rem 1.6rem 1.6rem !important;
   box-shadow:
     0 2px 4px rgba(0,0,0,0.06),
     0 8px 16px rgba(18,53,14,0.08),
@@ -2411,6 +2373,10 @@
   overflow: hidden;       /* Clip the top accent bar */
   display: block !important;   /* Remove flex — use explicit margins */
   animation: pvCardReveal 0.5s cubic-bezier(0.16,1,0.3,1) both;
+}
+
+.pv-sticky-card > * + * {
+  margin: 1rem 0 !important;
 }
 
 @keyframes pvCardReveal {
@@ -2445,7 +2411,8 @@
   .pv-sticky-card {
     position: sticky !important;
     top: 1.6rem !important;
-    width: 350px !important; /* Ensure desktop card width isn't too wide */
+    width: 100% !important;
+    max-width: 100% !important; /* Override Dawn's 60rem limit */
     margin-left: auto;
   }
 }
@@ -2462,6 +2429,19 @@
   clip: rect(0,0,0,0) !important;
   white-space: nowrap !important;
   border: 0 !important;
+}
+
+/* ── Professional Title Styling ── */
+.pv-sticky-card .product__title h1,
+.pv-sticky-card .product__title h2.h1 {
+  font-family: inherit !important;
+  font-size: 2.2rem !important;
+  font-weight: 700 !important;
+  line-height: 1.25 !important;
+  color: #12350E !important;
+  margin-top: 0.5rem !important;
+  margin-bottom: 0.2rem !important;
+  letter-spacing: -0.01em !important;
 }
 /* CSS fallback (before JS runs) */
 .pv-sticky-card product-variant-picker,
@@ -2660,22 +2640,22 @@
   .pv-desktop-only { display: none !important; }
 }
 
-.pv-variants-section { padding: 2.4rem 2.8rem; }
+.pv-variants-section { padding: 1.6rem 2rem; }
 /* Override padding & card styling when inside the sticky card on mobile */
 .pv-sticky-card .pv-variants-section { 
-  padding: 0 0 1.6rem 0 !important; 
+  padding: 0 0 0.8rem 0 !important; 
   margin-bottom: 0; 
   background: transparent !important;
   border: none !important;
   box-shadow: none !important;
 }
 
-.pv-option-group + .pv-option-group { margin-top: 2rem; }
+.pv-option-group + .pv-option-group { margin-top: 0.8rem; }
 .pv-option-label {
   display: flex;
   align-items: baseline;
   gap: 0.6rem;
-  margin-bottom: 1.2rem;
+  margin-bottom: 0.8rem;
   font-size: 1.4rem;
   color: #4A5246;
 }
@@ -2701,20 +2681,20 @@
   .pv-option-grid[data-option="size"] { grid-template-columns: repeat(5, 1fr); }
 }
 @media screen and (min-width: 990px) {
-  .pv-option-grid { grid-template-columns: repeat(5, 1fr); }
-  .pv-option-grid[data-option="size"] { grid-template-columns: repeat(5, 1fr); }
+  .pv-option-grid { grid-template-columns: repeat(9, 1fr); }
+  .pv-option-grid[data-option="size"] { grid-template-columns: repeat(7, 1fr); }
 }
 
 /* Individual option button */
 .pv-opt-btn {
   display: block;
   width: 100%;
-  padding: 0.9rem 0.6rem;
+  padding: 0.8rem 0.2rem;
   border: 1.5px solid rgba(31,36,29,0.15);
   border-radius: 8px;
   background: #FFFFFF;
   color: #1F241D;
-  font-size: 1.3rem;
+  font-size: 1.2rem;
   font-weight: 600;
   font-family: inherit;
   cursor: pointer;
@@ -2770,6 +2750,42 @@
   text-underline-offset: 3px;
 }
 .pv-size-guide-link:hover { color: #B8811E; }
+
+/* Desktop Vertical Thumbnails (Left side) */
+@media screen and (min-width: 990px) {
+  media-gallery[data-desktop-layout="thumbnail_slider"] {
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: flex-start;
+    gap: 1.5rem;
+  }
+  media-gallery[data-desktop-layout="thumbnail_slider"] .slider-mobile-gutter:not(.thumbnail-slider) {
+    flex-grow: 1;
+    width: calc(100% - 80px - 1.5rem);
+  }
+  media-gallery[data-desktop-layout="thumbnail_slider"] .thumbnail-slider {
+    width: 80px;
+    flex-shrink: 0;
+    margin-top: 0;
+    display: block;
+  }
+  media-gallery[data-desktop-layout="thumbnail_slider"] .thumbnail-list {
+    flex-direction: column !important;
+    padding-bottom: 0;
+    margin: 0;
+    gap: 1rem;
+    height: 500px; /* fixed height for vertical scroll */
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+  media-gallery[data-desktop-layout="thumbnail_slider"] .thumbnail-list::-webkit-scrollbar {
+    display: none;
+  }
+  media-gallery[data-desktop-layout="thumbnail_slider"] .thumbnail-list__item {
+    width: 100% !important;
+  }
+  media-gallery[data-desktop-layout="thumbnail_slider"] .thumbnail-slider .slider-button {
+    display: none !important; /* Hide horizontal arrows */
+  }
+}
 </style>
-
-

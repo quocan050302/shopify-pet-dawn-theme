@@ -105,6 +105,7 @@
               {%- endif -%}
             </s>
             <span class="pv-price-save-pill">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 4px; flex-shrink: 0;"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7.01" y2="7"></line></svg>
               SAVE {{ compare_at_price | minus: price | money }}
             </span>
           </div>
@@ -114,47 +115,64 @@
   <style>
     /* ── Clean flat price display for right checkout card ── */
     .pv-price-sale-clean {
-      display: flex;
-      flex-direction: column;
-      gap: 0.8rem;
-      padding: 0;
-      margin: 0;
-      background: transparent;
-      border: none;
-      box-shadow: none;
+      display: flex !important;
+      flex-direction: column !important; /* Stack vertically on mobile */
+      align-items: flex-start !important;
+      gap: 0.6rem !important;
+      padding: 0 !important;
+      margin: 0 0 1rem 0 !important;
+      background: transparent !important;
+      border: none !important;
+      box-shadow: none !important;
+      width: 100% !important;
     }
-    .pv-current-price { line-height: 1; }
+    @media screen and (min-width: 750px) {
+      .pv-price-sale-clean {
+        flex-direction: row !important; /* Align horizontally on desktop */
+        align-items: center !important;
+        gap: 1.2rem !important;
+        flex-wrap: nowrap !important;
+      }
+    }
+    .pv-current-price { line-height: 1; flex-shrink: 0; }
     .pv-current-price .price-item--sale {
-      font-size: 3.4rem;
-      font-weight: 900;
-      color: #12350E;
-      letter-spacing: -0.02em;
-      display: inline-block;
+      font-size: 2.8rem !important; /* Larger font size */
+      font-weight: 800 !important; /* Bold */
+      color: #12350E !important; /* Dark green */
+      letter-spacing: -0.01em !important;
+      display: inline-block !important;
     }
     .pv-compare-row {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      flex-wrap: wrap;
+      display: flex !important;
+      align-items: center !important;
+      gap: 0.8rem !important;
+      flex-shrink: 0 !important;
     }
     .pv-old-price {
-      font-size: 1.6rem;
-      font-weight: 400;
-      color: #9A9E97;
+      font-size: 1.5rem;
+      font-weight: 500;
+      color: #999999; /* Light grey, less visual competition */
       text-decoration: line-through;
     }
     .pv-price-save-pill {
       display: inline-flex;
       align-items: center;
-      background: linear-gradient(135deg, #D99A2B, #C07D10);
+      background: #F5A623; /* Vibrant yellow/orange */
       color: #FFFFFF;
-      font-size: 1.15rem;
+      font-size: 1.2rem;
       font-weight: 800;
-      padding: 0.4rem 1.1rem;
-      border-radius: 99px;
-      letter-spacing: 0.04em;
+      padding: 0.4rem 0.8rem;
+      border-radius: 6px; /* Rounded rectangle */
+      border: 1px solid rgba(255,255,255,0.4);
+      letter-spacing: 0.05em;
       text-transform: uppercase;
-      box-shadow: 0 2px 8px rgba(217,154,43,0.35);
+      box-shadow: 0 3px 8px rgba(245,166,35,0.3);
+      animation: pvPulseBadge 2s infinite; /* Subtle load animation */
+    }
+    @keyframes pvPulseBadge {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); box-shadow: 0 4px 10px rgba(245,166,35,0.5); }
+      100% { transform: scale(1); }
     }
     /* Hide "Today:" / "Was:" specific label elements everywhere */
     .pv-price-label { display: none !important; }

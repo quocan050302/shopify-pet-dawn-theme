@@ -1,7 +1,5 @@
 <!-- pv-variant-picker.liquid -->
-<section class="pv-edu-section pv-variants-section {{ picker_class }}" {% if picker_id %}id="{{ picker_id }}"{% endif %}>
-  <h3 class="pv-section-heading pv-desktop-only" style="margin-bottom:0.8rem">Choose Your Options</h3>
-  <p class="pv-desktop-only" style="font-size:1.3rem;color:#6F7568;margin:0 0 2rem">Select color and size before adding to cart.</p>
+<div class="pv-variants-section {{ picker_class }}" {% if picker_id %}id="{{ picker_id }}"{% endif %}>
 
   {%- for option in product.options_with_values -%}
     <div class="pv-option-group" data-option-index="{{ forloop.index0 }}">
@@ -73,4 +71,4 @@
   <p class="pv-unavail-msg" id="pv-unavail-{{ section.id }}-{{ picker_id }}" style="display:none;color:#C0392B;font-size:1.3rem;margin-top:1.2rem;font-weight:600;">
     This combination is unavailable. Please choose another option.
   </p>
-</section>
+</div>

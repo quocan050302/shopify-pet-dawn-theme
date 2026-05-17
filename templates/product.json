@@ -3,6 +3,10 @@
     "main": {
       "type": "main-product",
       "blocks": {
+        "title": {
+          "type": "title",
+          "settings": {}
+        },
         "price": {
           "type": "price",
           "settings": {}
@@ -29,6 +33,7 @@
         }
       },
       "block_order": [
+        "title",
         "price",
         "variant_picker",
         "buy_buttons",
@@ -37,10 +42,10 @@
       "settings": {
         "enable_sticky_info": true,
         "color_scheme": "scheme-1",
-        "media_size": "large",
+        "media_size": "medium",
         "constrain_to_viewport": true,
         "media_fit": "contain",
-        "gallery_layout": "stacked",
+        "gallery_layout": "thumbnail_slider",
         "mobile_thumbnails": "hide",
         "media_position": "left",
         "image_zoom": "lightbox",

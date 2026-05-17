@@ -31,8 +31,7 @@
     </p>
   </section>
 
-  <!-- ===== B. VARIANT SELECTOR (left col — syncs with hidden right-col picker) ===== -->
-  {% render 'pv-variant-picker', picker_class: 'pv-desktop-only', picker_id: 'pv-variant-chooser-desktop', product: product, section: section %}
+  <!-- ===== B. VARIANT SELECTOR MOVED TO MAIN PRODUCT ===== -->
 
   <!-- ===== C. BENEFIT CARDS ===== -->
   <section class="pv-edu-section">
@@ -223,8 +222,8 @@
     </div>
     
     <div class="pv-fcta-action">
-      <a href="#pv-variant-chooser" class="pv-fcta-btn"
-         onclick="var d = document.getElementById('pv-variant-chooser-desktop'); var m = document.getElementById('pv-variant-chooser-mobile'); var t = (d && d.offsetParent) ? d : m; if(t) { t.scrollIntoView({behavior:'smooth', block:'center'}); } return false;">
+      <a href="#product-info" class="pv-fcta-btn"
+         onclick="var target = document.querySelector('.pv-sticky-card') || document.querySelector('.product__info-container'); if(target) { target.scrollIntoView({behavior:'smooth', block:'start'}); } return false;">
         Choose Your Size
       </a>
       <p class="pv-fcta-reassurance">
