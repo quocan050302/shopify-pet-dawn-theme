@@ -432,55 +432,63 @@
       }
     },
     "pv_faq": {
-      "type": "pv-faq",
+      "type": "pawvoyage-premium-faq",
       "blocks": {
         "faq_1": {
           "type": "faq_item",
           "settings": {
             "question": "What size harness does my dog need?",
-            "answer": "Measure your dog's chest girth (the widest point behind the front legs). Refer to our size chart on the product page. The harness is fully adjustable at 4 points — when in doubt, size up."
+            "answer": "<p>Measure your dog's chest girth (the widest point behind the front legs). Refer to our size chart on the product page. The harness is fully adjustable at 4 points — when in doubt, size up.</p>",
+            "icon": "<svg width=\"32\" height=\"32\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#133316\" stroke-width=\"1.5\"><path d=\"M2 12c0 2.76 2.24 5 5 5h10c2.76 0 5-2.24 5-5H2z\"/><path d=\"M7 17v2\"/><path d=\"M11 17v2\"/><path d=\"M15 17v2\"/></svg>",
+            "open_by_default": true
           }
         },
         "faq_2": {
           "type": "faq_item",
           "settings": {
             "question": "How does the no-pull feature actually work?",
-            "answer": "The front chest clip redirects your dog's momentum sideways when they pull, making it uncomfortable to continue. Most owners see improvement within 1–2 walks."
+            "answer": "<p>The front chest clip redirects your dog's momentum sideways when they pull, making it uncomfortable to continue. Most owners see improvement within 1–2 walks.</p>",
+            "icon": "<svg width=\"32\" height=\"32\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#133316\" stroke-width=\"1.5\"><path d=\"M2 12c0 2.76 2.24 5 5 5h10c2.76 0 5-2.24 5-5H2z\"/><path d=\"M7 17v2\"/><path d=\"M11 17v2\"/><path d=\"M15 17v2\"/></svg>"
           }
         },
         "faq_3": {
           "type": "faq_item",
           "settings": {
             "question": "Is it safe for daily use?",
-            "answer": "Absolutely. The padded mesh lining is designed for extended wear without chafing. We recommend removing the harness when your dog is unsupervised or sleeping."
+            "answer": "<p>Absolutely. The padded mesh lining is designed for extended wear without chafing. We recommend removing the harness when your dog is unsupervised or sleeping.</p>",
+            "icon": "<svg width=\"32\" height=\"32\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#133316\" stroke-width=\"1.5\"><path d=\"M2 12c0 2.76 2.24 5 5 5h10c2.76 0 5-2.24 5-5H2z\"/><path d=\"M7 17v2\"/><path d=\"M11 17v2\"/><path d=\"M15 17v2\"/></svg>"
           }
         },
         "faq_4": {
           "type": "faq_item",
           "settings": {
             "question": "How long does shipping take?",
-            "answer": "Orders ship within 1–2 business days. Standard delivery takes 5–7 business days. Expedited options (2–3 days) are available at checkout. Free shipping on orders over $50."
+            "answer": "<p>Orders ship within 1–2 business days. Standard delivery takes 5–7 business days. Expedited options (2–3 days) are available at checkout. Free shipping on orders over $50.</p>",
+            "icon": "<svg width=\"32\" height=\"32\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#133316\" stroke-width=\"1.5\"><path d=\"M2 12c0 2.76 2.24 5 5 5h10c2.76 0 5-2.24 5-5H2z\"/><path d=\"M7 17v2\"/><path d=\"M11 17v2\"/><path d=\"M15 17v2\"/></svg>"
           }
         },
         "faq_5": {
           "type": "faq_item",
           "settings": {
             "question": "What is your return policy?",
-            "answer": "We offer a no-questions-asked 30-day return policy. If the harness doesn't work for you and your dog, contact us and we'll arrange a free return and full refund."
+            "answer": "<p>We offer a no-questions-asked 30-day return policy. If the harness doesn't work for you and your dog, contact us and we'll arrange a free return and full refund.</p>",
+            "icon": "<svg width=\"32\" height=\"32\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#133316\" stroke-width=\"1.5\"><path d=\"M2 12c0 2.76 2.24 5 5 5h10c2.76 0 5-2.24 5-5H2z\"/><path d=\"M7 17v2\"/><path d=\"M11 17v2\"/><path d=\"M15 17v2\"/></svg>"
           }
         },
         "faq_6": {
           "type": "faq_item",
           "settings": {
             "question": "Can I wash the harness?",
-            "answer": "Yes! Machine washable on a gentle cycle in a mesh laundry bag. Air dry only. The materials are fade-resistant and retain their shape after washing."
+            "answer": "<p>Yes! Machine washable on a gentle cycle in a mesh laundry bag. Air dry only. The materials are fade-resistant and retain their shape after washing.</p>",
+            "icon": "<svg width=\"32\" height=\"32\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#133316\" stroke-width=\"1.5\"><path d=\"M2 12c0 2.76 2.24 5 5 5h10c2.76 0 5-2.24 5-5H2z\"/><path d=\"M7 17v2\"/><path d=\"M11 17v2\"/><path d=\"M15 17v2\"/></svg>"
           }
         },
         "faq_7": {
           "type": "faq_item",
           "settings": {
             "question": "Is it suitable for travel (planes, cars)?",
-            "answer": "Yes. The slim-profile design and top handle make it easy to manage in tight spaces. It's compatible with most car seat adapters and fits under most airline restrictions."
+            "answer": "<p>Yes. The slim-profile design and top handle make it easy to manage in tight spaces. It's compatible with most car seat adapters and fits under most airline restrictions.</p>",
+            "icon": "<svg width=\"32\" height=\"32\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#133316\" stroke-width=\"1.5\"><path d=\"M2 12c0 2.76 2.24 5 5 5h10c2.76 0 5-2.24 5-5H2z\"/><path d=\"M7 17v2\"/><path d=\"M11 17v2\"/><path d=\"M15 17v2\"/></svg>"
           }
         }
       },
@@ -494,9 +502,18 @@
         "faq_7"
       ],
       "settings": {
-        "eyebrow": "Got Questions?",
+        "eyebrow_text": "Got Questions?",
         "heading": "Frequently Asked Questions",
-        "subheading": "Everything you need to know about the PawVoyage No-Pull Harness."
+        "subheading": "Everything you need to know about the PawVoyage No-Pull Harness.",
+        "show_bottom_trust_bar": true,
+        "trust_1_title": "30-Day Easy Returns",
+        "trust_1_text": "Love it or get your money back.",
+        "trust_2_title": "Fast & Free Shipping",
+        "trust_2_text": "On all orders over $50.",
+        "trust_3_title": "10,000+ Happy Dogs",
+        "trust_3_text": "Trusted by dog owners worldwide.",
+        "trust_4_title": "Need More Help?",
+        "trust_4_text": "Our support team is here for you."
       }
     }
   },

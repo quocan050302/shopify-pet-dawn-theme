@@ -1,0 +1,674 @@
+{{ 'pawvoyage-brand.css' | asset_url | stylesheet_tag }}
+
+<section class="pv-premium-faq section-{{ section.id }}" id="pv-premium-faq-{{ section.id }}">
+  <div class="pv-premium-faq__container page-width">
+    
+    <!-- HEADER -->
+    <div class="pv-premium-faq__header">
+      {%- if section.settings.eyebrow_text != blank -%}
+        <div class="pvpf-eyebrow">
+          <span class="pvpf-eyebrow-line"></span>
+          <span class="pvpf-eyebrow-content">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="pvpf-eyebrow-icon"><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><circle cx="12" cy="17" r="1"/><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+            {{ section.settings.eyebrow_text }}
+          </span>
+          <span class="pvpf-eyebrow-line"></span>
+        </div>
+      {%- endif -%}
+
+      {%- if section.settings.heading != blank -%}
+        <h2 class="pvpf-heading">{{ section.settings.heading }}</h2>
+      {%- endif -%}
+
+      {%- if section.settings.subheading != blank -%}
+        <p class="pvpf-subheading">{{ section.settings.subheading }}</p>
+      {%- endif -%}
+    </div>
+
+    <!-- ACCORDION CONTAINER -->
+    <div class="pv-premium-faq__accordion-wrapper">
+      <div class="pv-premium-faq__accordion">
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'faq_item' -%}
+            {%- assign index_padded = forloop.index | prepend: '0' | slice: -2, 2 -%}
+            
+            <details class="pvpf-details" {% if block.settings.open_by_default %}open{% endif %} {{ block.shopify_attributes }}>
+              <summary class="pvpf-summary">
+                <div class="pvpf-summary__left">
+                  <span class="pvpf-summary__number">{{ index_padded }}</span>
+                  <span class="pvpf-summary__title">{{ block.settings.question }}</span>
+                </div>
+                <div class="pvpf-summary__icon">
+                  <!-- Closed chevron -->
+                  <svg class="pvpf-icon-down" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+                  <!-- Open chevron -->
+                  <svg class="pvpf-icon-up" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="18 15 12 9 6 15"/></svg>
+                </div>
+              </summary>
+              <div class="pvpf-answer">
+                <div class="pvpf-answer__inner">
+                  <div class="pvpf-answer__icon-wrapper">
+                    {%- if block.settings.icon != blank -%}
+                      {{ block.settings.icon }}
+                    {%- else -%}
+                      <!-- Default tape measure / info icon -->
+                      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#133316" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+                    {%- endif -%}
+                  </div>
+                  <div class="pvpf-answer__text">
+                    {{ block.settings.answer }}
+                  </div>
+                </div>
+              </div>
+            </details>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    </div>
+
+    <!-- TRUST BAR -->
+    {%- if section.settings.show_bottom_trust_bar -%}
+      <div class="pv-premium-faq__trust-bar">
+        
+        <!-- Trust 1 -->
+        {%- if section.settings.trust_1_title != blank -%}
+          <div class="pvpf-trust-item">
+            <div class="pvpf-trust-icon">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#133316" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>
+            </div>
+            <div class="pvpf-trust-content">
+              <div class="pvpf-trust-title">{{ section.settings.trust_1_title }}</div>
+              <div class="pvpf-trust-text">{{ section.settings.trust_1_text }}</div>
+            </div>
+          </div>
+        {%- endif -%}
+
+        {%- if section.settings.trust_1_title != blank and section.settings.trust_2_title != blank -%}<div class="pvpf-trust-divider"></div>{%- endif -%}
+
+        <!-- Trust 2 -->
+        {%- if section.settings.trust_2_title != blank -%}
+          <div class="pvpf-trust-item">
+            <div class="pvpf-trust-icon">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#133316" stroke-width="1.5"><line x1="16.5" y1="9.4" x2="7.5" y2="4.21"/><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+            </div>
+            <div class="pvpf-trust-content">
+              <div class="pvpf-trust-title">{{ section.settings.trust_2_title }}</div>
+              <div class="pvpf-trust-text">{{ section.settings.trust_2_text }}</div>
+            </div>
+          </div>
+        {%- endif -%}
+
+        {%- if section.settings.trust_2_title != blank and section.settings.trust_3_title != blank -%}<div class="pvpf-trust-divider"></div>{%- endif -%}
+
+        <!-- Trust 3 -->
+        {%- if section.settings.trust_3_title != blank -%}
+          <div class="pvpf-trust-item">
+            <div class="pvpf-trust-icon">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#133316" stroke-width="1.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            </div>
+            <div class="pvpf-trust-content">
+              <div class="pvpf-trust-title">{{ section.settings.trust_3_title }}</div>
+              <div class="pvpf-trust-text">{{ section.settings.trust_3_text }}</div>
+            </div>
+          </div>
+        {%- endif -%}
+
+        {%- if section.settings.trust_3_title != blank and section.settings.trust_4_title != blank -%}<div class="pvpf-trust-divider"></div>{%- endif -%}
+
+        <!-- Trust 4 -->
+        {%- if section.settings.trust_4_title != blank -%}
+          <div class="pvpf-trust-item">
+            <div class="pvpf-trust-icon">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#133316" stroke-width="1.5"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/><path d="M9 12h.01"/><path d="M12 12h.01"/><path d="M15 12h.01"/></svg>
+            </div>
+            <div class="pvpf-trust-content">
+              <div class="pvpf-trust-title">{{ section.settings.trust_4_title }}</div>
+              <div class="pvpf-trust-text">{{ section.settings.trust_4_text }}</div>
+            </div>
+          </div>
+        {%- endif -%}
+
+      </div>
+    {%- endif -%}
+
+  </div>
+</section>
+
+<script>
+  // Simple script to close other accordions when one is opened (optional but good for this design)
+  document.addEventListener('DOMContentLoaded', () => {
+    const section = document.querySelector('#pv-premium-faq-{{ section.id }}');
+    if (!section) return;
+
+    const detailsElements = section.querySelectorAll('details.pvpf-details');
+    detailsElements.forEach((targetDetail) => {
+      targetDetail.addEventListener('click', (e) => {
+        // Only trigger if clicking the summary
+        if (!e.target.closest('summary')) return;
+        
+        if (!targetDetail.hasAttribute('open')) {
+          // Close all others
+          detailsElements.forEach((detail) => {
+            if (detail !== targetDetail && detail.hasAttribute('open')) {
+              detail.removeAttribute('open');
+            }
+          });
+        }
+      });
+    });
+  });
+</script>
+
+<style>
+  .pv-premium-faq {
+    background-color: #FAF7F0; /* Warm cream */
+    padding: 6rem 1.5rem;
+  }
+  @media (min-width: 990px) {
+    .pv-premium-faq {
+      padding: 10rem 2rem;
+    }
+  }
+
+  .pv-premium-faq__container {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  /* -------------------
+     HEADER
+     ------------------- */
+  .pv-premium-faq__header {
+    text-align: center;
+    margin-bottom: 4rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+  @media (min-width: 990px) {
+    .pv-premium-faq__header {
+      margin-bottom: 6rem;
+    }
+  }
+
+  .pvpf-eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 1.6rem;
+    margin-bottom: 2rem;
+    width: 100%;
+    max-width: 480px;
+  }
+  .pvpf-eyebrow-line {
+    height: 1px;
+    flex-grow: 1;
+    background: rgba(213, 151, 70, 0.4);
+  }
+  .pvpf-eyebrow-content {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    color: #D59746;
+    font-size: 1.15rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+  }
+  .pvpf-eyebrow-icon {
+    width: 16px; height: 16px;
+    margin-top: -2px;
+  }
+
+  .pvpf-heading {
+    font-family: var(--font-heading-family), serif;
+    font-size: clamp(32px, 4vw, 48px);
+    line-height: 1.1;
+    font-weight: 800;
+    color: #133316;
+    letter-spacing: -0.02em;
+    margin: 0 0 2rem 0;
+  }
+
+  .pvpf-subheading {
+    font-size: 1.7rem;
+    color: #4A5748;
+    line-height: 1.6;
+    max-width: 760px;
+    margin: 0 auto;
+  }
+
+  /* -------------------
+     ACCORDION
+     ------------------- */
+  .pv-premium-faq__accordion-wrapper {
+    width: 100%;
+    max-width: 1100px;
+    margin-bottom: 6rem;
+  }
+
+  .pv-premium-faq__accordion {
+    background: #FFF;
+    border: 1px solid rgba(19, 51, 22, 0.08);
+    border-radius: 28px;
+    box-shadow: 0 16px 40px rgba(0,0,0,0.03);
+    overflow: hidden;
+  }
+
+  .pvpf-details {
+    border-bottom: 1px solid rgba(19, 51, 22, 0.06);
+  }
+  .pvpf-details:last-child {
+    border-bottom: none;
+  }
+
+  /* Hide default details marker */
+  .pvpf-details > summary { list-style: none; }
+  .pvpf-details > summary::-webkit-details-marker { display: none; }
+
+  .pvpf-summary {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2.8rem 3.2rem;
+    cursor: pointer;
+    background: transparent;
+    transition: background 0.2s ease;
+  }
+  @media (max-width: 749px) {
+    .pvpf-summary { padding: 2rem; }
+  }
+  
+  .pvpf-summary:hover {
+    background: rgba(250, 247, 240, 0.5);
+  }
+
+  .pvpf-summary__left {
+    display: flex;
+    align-items: center;
+    gap: 2.4rem;
+    padding-right: 2rem;
+  }
+  @media (max-width: 749px) {
+    .pvpf-summary__left { gap: 1.6rem; }
+  }
+
+  .pvpf-summary__number {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #F3EFE6;
+    color: #2F392B;
+    font-size: 1.4rem;
+    font-weight: 700;
+    flex-shrink: 0;
+    transition: all 0.3s ease;
+  }
+  @media (max-width: 749px) {
+    .pvpf-summary__number { width: 34px; height: 34px; font-size: 1.2rem; }
+  }
+
+  .pvpf-summary__title {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #2F392B;
+    line-height: 1.4;
+    transition: color 0.3s ease;
+  }
+  @media (max-width: 749px) {
+    .pvpf-summary__title { font-size: 1.6rem; }
+  }
+
+  .pvpf-summary__icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 1px solid rgba(19, 51, 22, 0.1);
+    color: #2F392B;
+    flex-shrink: 0;
+    transition: all 0.3s ease;
+  }
+  .pvpf-icon-up { display: none; }
+  .pvpf-icon-down { display: block; }
+
+  /* Open State */
+  .pvpf-details[open] .pvpf-summary {
+    padding-bottom: 1.2rem;
+  }
+  .pvpf-details[open] .pvpf-summary__number {
+    background: #133316;
+    color: #FFF;
+  }
+  .pvpf-details[open] .pvpf-summary__title {
+    color: #133316;
+  }
+  .pvpf-details[open] .pvpf-summary__icon {
+    background: #133316;
+    border-color: #133316;
+    color: #FFF;
+  }
+  .pvpf-details[open] .pvpf-icon-down { display: none; }
+  .pvpf-details[open] .pvpf-icon-up { display: block; }
+
+  .pvpf-answer {
+    padding: 0 3.2rem 3.2rem;
+  }
+  @media (max-width: 749px) {
+    .pvpf-answer { padding: 0 2rem 2.4rem; }
+  }
+
+  .pvpf-answer__inner {
+    display: flex;
+    align-items: flex-start;
+    gap: 2.4rem;
+    background: #FAF9F5;
+    border-radius: 16px;
+    padding: 2.4rem;
+    border-left: 3px solid rgba(19, 51, 22, 0.2);
+  }
+  @media (max-width: 749px) {
+    .pvpf-answer__inner {
+      flex-direction: column;
+      gap: 1.6rem;
+      padding: 1.6rem;
+    }
+  }
+
+  .pvpf-answer__icon-wrapper {
+    flex-shrink: 0;
+    width: 64px;
+    height: 64px;
+    background: #EAF0EB;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .pvpf-answer__icon-wrapper svg {
+    width: 28px;
+    height: 28px;
+  }
+  @media (max-width: 749px) {
+    .pvpf-answer__icon-wrapper {
+      width: 48px; height: 48px;
+    }
+    .pvpf-answer__icon-wrapper svg { width: 22px; height: 22px; }
+  }
+
+  .pvpf-answer__text {
+    font-size: 1.55rem;
+    color: #4A5748;
+    line-height: 1.6;
+    margin-top: 0.4rem;
+  }
+  .pvpf-answer__text p {
+    margin: 0 0 1rem 0;
+  }
+  .pvpf-answer__text p:last-child {
+    margin-bottom: 0;
+  }
+
+  /* -------------------
+     TRUST BAR
+     ------------------- */
+  .pv-premium-faq__trust-bar {
+    display: flex;
+    align-items: stretch;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+  @media (max-width: 989px) {
+    .pv-premium-faq__trust-bar {
+      flex-direction: column;
+      gap: 2rem;
+      padding: 0;
+    }
+  }
+
+  .pvpf-trust-item {
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+    flex: 1;
+  }
+  @media (max-width: 989px) {
+    .pvpf-trust-item {
+      align-items: flex-start;
+    }
+  }
+
+  .pvpf-trust-icon {
+    flex-shrink: 0;
+    color: #133316;
+  }
+
+  .pvpf-trust-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+  .pvpf-trust-title {
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: #133316;
+    line-height: 1.3;
+  }
+  .pvpf-trust-text {
+    font-size: 1.3rem;
+    color: #5C6758;
+    line-height: 1.4;
+  }
+
+  .pvpf-trust-divider {
+    width: 1px;
+    background: rgba(19, 51, 22, 0.1);
+    margin: 0 2.4rem;
+  }
+  @media (max-width: 989px) {
+    .pvpf-trust-divider {
+      width: 100%;
+      height: 1px;
+      margin: 0;
+    }
+  }
+
+</style>
+
+{% schema %}
+{
+  "name": "PV Premium FAQ",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section Header"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow_text",
+      "label": "Eyebrow Label",
+      "default": "GOT QUESTIONS?"
+    },
+    {
+      "type": "textarea",
+      "id": "heading",
+      "label": "Main Heading",
+      "default": "Frequently Asked Questions"
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Everything you need to know about the PawVoyage No-Pull Harness."
+    },
+    {
+      "type": "header",
+      "content": "Bottom Trust Bar"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_bottom_trust_bar",
+      "label": "Show Bottom Trust Bar",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "trust_1_title",
+      "label": "Trust Item 1 Title",
+      "default": "30-Day Easy Returns"
+    },
+    {
+      "type": "text",
+      "id": "trust_1_text",
+      "label": "Trust Item 1 Text",
+      "default": "Love it or get your money back."
+    },
+    {
+      "type": "text",
+      "id": "trust_2_title",
+      "label": "Trust Item 2 Title",
+      "default": "Fast & Free Shipping"
+    },
+    {
+      "type": "text",
+      "id": "trust_2_text",
+      "label": "Trust Item 2 Text",
+      "default": "On all orders over $50."
+    },
+    {
+      "type": "text",
+      "id": "trust_3_title",
+      "label": "Trust Item 3 Title",
+      "default": "10,000+ Happy Dogs"
+    },
+    {
+      "type": "text",
+      "id": "trust_3_text",
+      "label": "Trust Item 3 Text",
+      "default": "Trusted by dog owners worldwide."
+    },
+    {
+      "type": "text",
+      "id": "trust_4_title",
+      "label": "Trust Item 4 Title",
+      "default": "Need More Help?"
+    },
+    {
+      "type": "text",
+      "id": "trust_4_text",
+      "label": "Trust Item 4 Text",
+      "default": "Our support team is here for you."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "faq_item",
+      "name": "FAQ Item",
+      "limit": 10,
+      "settings": [
+        {
+          "type": "text",
+          "id": "question",
+          "label": "Question",
+          "default": "What size harness does my dog need?"
+        },
+        {
+          "type": "richtext",
+          "id": "answer",
+          "label": "Answer",
+          "default": "<p>Measure your dog's chest girth at the widest point behind the front legs. Refer to our size chart on the product page. The harness is adjustable at multiple points \u2014 when in doubt, size up.</p>"
+        },
+        {
+          "type": "html",
+          "id": "icon",
+          "label": "Answer Icon (SVG)",
+          "info": "Leave blank for default info icon."
+        },
+        {
+          "type": "checkbox",
+          "id": "open_by_default",
+          "label": "Open by default",
+          "default": false
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "PV Premium FAQ",
+      "blocks": [
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "What size harness does my dog need?",
+            "answer": "<p>Measure your dog's chest girth at the widest point behind the front legs. Refer to our size chart on the product page. The harness is adjustable at multiple points \u2014 when in doubt, size up.</p>",
+            "open_by_default": true,
+            "icon": "<svg width=\"32\" height=\"32\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#133316\" stroke-width=\"1.5\"><path d=\"M2 12c0 2.76 2.24 5 5 5h10c2.76 0 5-2.24 5-5H2z\"/><path d=\"M7 17v2\"/><path d=\"M11 17v2\"/><path d=\"M15 17v2\"/></svg>"
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "How does the no-pull feature actually work?",
+            "answer": "<p>The front clip helps redirect your dog's forward pulling motion, making it easier to guide them back toward you. It is designed to support better control without putting pressure directly on the neck.</p>",
+            "open_by_default": false
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "Is it safe for daily use?",
+            "answer": "<p>Yes. The PawVoyage harness is designed for everyday walks, outdoor adventures, and regular use. The padded chest fit helps keep your dog comfortable while giving you better control.</p>",
+            "open_by_default": false
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "How long does shipping take?",
+            "answer": "<p>Shipping times vary by location. Most orders are processed within a few business days, and tracking details are provided once your order ships.</p>",
+            "open_by_default": false
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "What is your return policy?",
+            "answer": "<p>We offer easy returns within the stated return window. If the harness does not fit or meet your expectations, contact support and we will help you with the next steps.</p>",
+            "open_by_default": false
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "Can I wash the harness?",
+            "answer": "<p>Yes. We recommend hand washing with mild soap and cold water, then air drying. Avoid bleach, machine drying, or harsh chemicals to help preserve the materials.</p>",
+            "open_by_default": false
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "Is it suitable for travel, planes, or cars?",
+            "answer": "<p>The harness is built for walks, hikes, car rides, and travel days. For air travel, always check your airline\u2019s pet policy and use approved carriers or restraints where required.</p>",
+            "open_by_default": false
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
