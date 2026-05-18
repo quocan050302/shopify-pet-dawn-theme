@@ -22,6 +22,29 @@
             </div>
           {%- endif -%}
         </div>
+
+        {%- if section.settings.show_floating_badges -%}
+          <div class="pv-featured__floating-badges">
+            {%- if section.settings.floating_badge_1_text != blank -%}
+              <div class="pvf-floating-badge pvf-floating-badge--1">
+                <span class="pvf-floating-badge-icon">{{ section.settings.floating_badge_1_icon }}</span>
+                <span class="pvf-floating-badge-text">{{ section.settings.floating_badge_1_text }}</span>
+              </div>
+            {%- endif -%}
+            {%- if section.settings.floating_badge_2_text != blank -%}
+              <div class="pvf-floating-badge pvf-floating-badge--2">
+                <span class="pvf-floating-badge-icon">{{ section.settings.floating_badge_2_icon }}</span>
+                <span class="pvf-floating-badge-text">{{ section.settings.floating_badge_2_text }}</span>
+              </div>
+            {%- endif -%}
+            {%- if section.settings.floating_badge_3_text != blank -%}
+              <div class="pvf-floating-badge pvf-floating-badge--3">
+                <span class="pvf-floating-badge-icon">{{ section.settings.floating_badge_3_icon }}</span>
+                <span class="pvf-floating-badge-text">{{ section.settings.floating_badge_3_text }}</span>
+              </div>
+            {%- endif -%}
+          </div>
+        {%- endif -%}
       </div>
 
       <!-- Product Info -->
@@ -126,11 +149,76 @@
   }
 
   /* Image Column */
+  .pv-featured__image-col { position: relative; display: flex; flex-direction: column; }
   .pv-featured__image-wrap { position: relative; border-radius: 24px; overflow: hidden; box-shadow: 0 24px 64px rgba(31,36,29,0.12); }
   .pv-featured__img { width: 100%; height: auto; display: block; transition: transform 0.6s ease; object-fit: cover; aspect-ratio: 4/5; }
   @media screen and (min-width: 990px) { .pv-featured__img { aspect-ratio: auto; } }
   .pv-featured__image-wrap:hover .pv-featured__img { transform: scale(1.03); }
   .pv-featured__img-placeholder { background: #E8E0D5; display: flex; align-items: center; justify-content: center; aspect-ratio: 1; }
+
+  /* Floating Badges */
+  .pv-featured__floating-badges {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1.2rem;
+    margin-top: 2.4rem;
+  }
+  .pvf-floating-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.8rem;
+    background: rgba(255, 255, 255, 0.88);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(20, 60, 30, 0.08);
+    box-shadow: 0 8px 24px rgba(20, 45, 25, 0.08);
+    border-radius: 999px;
+    padding: 1.2rem 1.6rem;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #0f3b18;
+    z-index: 3;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .pvf-floating-badge-icon {
+    font-size: 1.6rem;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  @media screen and (min-width: 990px) {
+    .pv-featured__floating-badges {
+      display: block;
+      margin-top: 0;
+    }
+    .pvf-floating-badge {
+      position: absolute;
+      font-size: 1.5rem;
+      padding: 1.2rem 1.8rem;
+      box-shadow: 0 16px 40px rgba(20, 45, 25, 0.12);
+      animation: pvf-float 6s ease-in-out infinite;
+    }
+    .pvf-floating-badge--1 { top: 12%; left: -6%; animation-delay: 0s; }
+    .pvf-floating-badge--2 { top: 45%; right: -6%; animation-delay: 1.5s; }
+    .pvf-floating-badge--3 { bottom: 15%; left: -4%; animation-delay: 3s; }
+
+    .pvf-floating-badge:hover {
+      animation-play-state: paused;
+      transform: translateY(-4px) !important;
+      box-shadow: 0 20px 48px rgba(20, 45, 25, 0.16);
+    }
+  }
+
+  @keyframes pvf-float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .pvf-floating-badge { animation: none !important; }
+  }
 
   /* Info Column */
   .pv-featured__info-col { display: flex; flex-direction: column; }
@@ -174,6 +262,15 @@
   "disabled_on": { "groups": ["header", "footer"] },
   "settings": [
     { "type": "product", "id": "product", "label": "Featured product" },
+    { "type": "header", "content": "Floating Image Badges" },
+    { "type": "checkbox", "id": "show_floating_badges", "label": "Show floating badges on image", "default": true },
+    { "type": "text", "id": "floating_badge_1_icon", "label": "Badge 1 Icon", "default": "✓" },
+    { "type": "text", "id": "floating_badge_1_text", "label": "Badge 1 Text", "default": "No-pull control" },
+    { "type": "text", "id": "floating_badge_2_icon", "label": "Badge 2 Icon", "default": "☁" },
+    { "type": "text", "id": "floating_badge_2_text", "label": "Badge 2 Text", "default": "Comfort padded fit" },
+    { "type": "text", "id": "floating_badge_3_icon", "label": "Badge 3 Icon", "default": "⛰" },
+    { "type": "text", "id": "floating_badge_3_text", "label": "Badge 3 Text", "default": "Adventure ready" },
+    { "type": "header", "content": "Content" },
     { "type": "text", "id": "eyebrow", "label": "Eyebrow/Badge", "default": "BEST SELLER" },
     { "type": "textarea", "id": "subheading", "label": "Subheading", "default": "Designed for dog owners who want more control, more comfort, and less pulling on every walk." },
     { "type": "text", "id": "cta_label", "label": "CTA label", "default": "Shop The Harness" },
