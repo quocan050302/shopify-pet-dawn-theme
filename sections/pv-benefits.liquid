@@ -6,64 +6,70 @@
     
     <div class="pv-benefits__header">
       {%- if section.settings.eyebrow != blank -%}
-        <span class="pv-benefits__eyebrow">{{ section.settings.eyebrow }}</span>
+        <div class="pv-benefits__eyebrow-badge">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M9 12l2 2 4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          {{ section.settings.eyebrow }}
+        </div>
       {%- endif -%}
       
-      {%- if section.settings.heading != blank -%}
-        <h2 class="pv-benefits__heading">{{ section.settings.heading }}</h2>
-      {%- endif -%}
+      <h2 class="pv-benefits__heading">
+        {{ section.settings.heading_before }}
+        {%- if section.settings.heading_highlight != blank -%}
+          <span class="pv-benefits__heading-highlight">{{ section.settings.heading_highlight }}</span>
+        {%- endif -%}
+        {{ section.settings.heading_after }}
+      </h2>
       
       {%- if section.settings.subheading != blank -%}
         <p class="pv-benefits__subheading">{{ section.settings.subheading }}</p>
       {%- endif -%}
-
-      <a href="{{ section.settings.cta_link | default: routes.all_products_collection_url }}" class="pv-benefits__cta">
-        {{ section.settings.cta_label | default: "Shop PawVoyage Harness" }}
-      </a>
     </div>
 
     <div class="pv-benefits__grid">
       {%- for block in section.blocks -%}
         {%- if block.type == 'benefit' -%}
           <div class="pv-benefits__card" {{ block.shopify_attributes }}>
-            {%- if block.settings.pain_label != blank -%}
-              <div class="pv-benefits__card-pain">{{ block.settings.pain_label }}</div>
-            {%- endif -%}
             
-            <div class="pv-benefits__card-icon">
-              {{ block.settings.icon_emoji }}
+            <div class="pv-benefits__card-image-wrap">
+              {%- if block.settings.image != blank -%}
+                {{ block.settings.image | image_url: width: 900 | image_tag: loading: 'lazy', class: 'pv-benefits__card-image', alt: block.settings.image_alt | default: block.settings.title }}
+              {%- else -%}
+                <div class="pv-benefits__card-placeholder">
+                  {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+                </div>
+              {%- endif -%}
+              
+              <div class="pv-benefits__card-icon">
+                {{ block.settings.icon_emoji }}
+              </div>
             </div>
             
-            <h3 class="pv-benefits__card-title">{{ block.settings.title }}</h3>
-            <p class="pv-benefits__card-desc">{{ block.settings.description }}</p>
-            
-            {%- if block.settings.microcopy != blank -%}
-              <div class="pv-benefits__card-microcopy">
-                <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M10 3L4.5 8.5L2 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                {{ block.settings.microcopy }}
-              </div>
-            {%- endif -%}
+            <div class="pv-benefits__card-content">
+              <h3 class="pv-benefits__card-title">{{ block.settings.title }}</h3>
+              <div class="pv-benefits__card-divider"></div>
+              <p class="pv-benefits__card-desc">{{ block.settings.description }}</p>
+              
+              {%- if block.settings.microcopy != blank -%}
+                <div class="pv-benefits__card-microcopy">
+                  <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M10 3L4.5 8.5L2 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  {{ block.settings.microcopy }}
+                </div>
+              {%- endif -%}
+            </div>
+
           </div>
         {%- endif -%}
       {%- endfor -%}
     </div>
 
-    <div class="pv-benefits__trust-strip">
-      <ul class="pv-benefits__trust-list">
-        <li>
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="#D99A2B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M9 12l2 2 4-4" stroke="#D99A2B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          Secure checkout
-        </li>
-        <li>
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V9z" stroke="#D99A2B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M9 22V12h6v10" stroke="#D99A2B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          30-day returns
-        </li>
-        <li>
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="#D99A2B" stroke-width="2"/><path d="M8 14s1.5 2 4 2 4-2 4-2" stroke="#D99A2B" stroke-width="2" stroke-linecap="round"/><line x1="9" y1="9" x2="9.01" y2="9" stroke="#D99A2B" stroke-width="2" stroke-linecap="round"/><line x1="15" y1="9" x2="15.01" y2="9" stroke="#D99A2B" stroke-width="2" stroke-linecap="round"/></svg>
-          Trusted by dog owners
-        </li>
-      </ul>
-    </div>
+    {%- if section.settings.show_cta and section.settings.cta_label != blank -%}
+      <div class="pv-benefits__footer">
+        <a href="{{ section.settings.cta_link | default: routes.all_products_collection_url }}" class="pv-benefits__cta">
+          {{ section.settings.cta_label }}
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 10h12M10 4l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </div>
+    {%- endif -%}
     
   </div>
 </section>
@@ -71,21 +77,26 @@
 <style>
   .pv-benefits {
     position: relative;
-    background: linear-gradient(180deg, #071F06 0%, #12350E 100%);
-    padding: 10rem 0;
+    background: radial-gradient(circle at top center, rgba(240, 178, 60, 0.05), transparent 35%), linear-gradient(180deg, #031F0B 0%, #062B10 100%);
+    padding: 4.8rem 0;
     overflow: hidden;
+    color: #FFF8E8;
   }
+  @media screen and (min-width: 750px) {
+    .pv-benefits { padding: 6.4rem 0; }
+  }
+  @media screen and (min-width: 990px) {
+    .pv-benefits { padding: 7.6rem 0; }
+  }
+  
   .pv-benefits__bg-glow {
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 80%;
-    height: 80%;
-    background: radial-gradient(circle, rgba(217, 154, 43, 0.08) 0%, rgba(217, 154, 43, 0) 70%);
-    z-index: 0;
+    inset: 0;
+    background: radial-gradient(circle at center, rgba(217, 154, 43, 0.04) 0%, rgba(217, 154, 43, 0) 70%);
     pointer-events: none;
+    z-index: 0;
   }
+  
   .pv-benefits .page-width {
     position: relative;
     z-index: 1;
@@ -94,213 +105,247 @@
   /* Header Area */
   .pv-benefits__header {
     text-align: center;
-    margin-bottom: 6rem;
+    margin-bottom: 3.2rem;
     display: flex;
     flex-direction: column;
     align-items: center;
   }
-  .pv-benefits__eyebrow {
-    display: inline-block;
+  @media screen and (min-width: 750px) {
+    .pv-benefits__header { margin-bottom: 4.8rem; }
+  }
+  
+  .pv-benefits__eyebrow-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.8rem;
     font-size: 1.2rem;
-    font-weight: 800;
-    letter-spacing: 0.2em;
+    font-weight: 700;
+    letter-spacing: 0.15em;
     text-transform: uppercase;
-    color: #D99A2B;
+    color: #E3A12D;
+    background: rgba(0, 0, 0, 0.25);
+    border: 1px solid rgba(227, 161, 45, 0.3);
+    padding: 0.6rem 1.6rem;
+    border-radius: 999px;
     margin-bottom: 1.6rem;
   }
+  
   .pv-benefits__heading {
-    font-size: clamp(3.2rem, 5vw, 4.8rem);
+    font-size: clamp(3.6rem, 5vw, 5.6rem);
     font-weight: 800;
-    color: #FFF7EA;
-    line-height: 1.15;
-    margin: 0 0 2rem;
+    color: #FFF8E8;
+    line-height: 0.98;
+    margin: 0 0 1.6rem;
     max-width: 80rem;
     letter-spacing: -0.01em;
   }
-  .pv-benefits__subheading {
-    font-size: clamp(1.6rem, 2vw, 1.8rem);
-    color: #E8D2A6;
-    line-height: 1.6;
-    max-width: 64rem;
-    margin: 0 0 3.2rem;
+  .pv-benefits__heading-highlight {
+    color: #E3A12D;
   }
   
-  .pv-benefits__cta {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    background: #D99A2B;
-    color: #12350E;
-    font-size: 1.6rem;
-    font-weight: 800;
-    padding: 1.6rem 3.2rem;
-    border-radius: 999px;
-    text-decoration: none;
-    transition: all 0.3s ease;
-    box-shadow: 0 8px 24px rgba(217,154,43,0.2);
-    min-width: 240px;
+  .pv-benefits__subheading {
+    font-size: clamp(1.5rem, 2vw, 1.8rem);
+    color: #C2CCBC;
+    line-height: 1.6;
+    max-width: 72rem;
+    margin: 0;
   }
-  .pv-benefits__cta:hover {
-    background: #EBBB4D;
-    transform: translateY(-3px);
-    box-shadow: 0 12px 32px rgba(217,154,43,0.3);
-  }
-
+  
   /* Grid Layout */
   .pv-benefits__grid {
     display: grid;
     grid-template-columns: 1fr;
     gap: 2.4rem;
-    margin-bottom: 6rem;
+    margin-bottom: 4.8rem;
+    max-width: 148rem;
+    margin-left: auto;
+    margin-right: auto;
   }
   @media screen and (min-width: 600px) {
-    .pv-benefits__grid { grid-template-columns: repeat(2, 1fr); gap: 3.2rem; }
+    .pv-benefits__grid { grid-template-columns: repeat(2, 1fr); gap: 2rem; }
   }
   @media screen and (min-width: 990px) {
-    .pv-benefits__grid { grid-template-columns: repeat(4, 1fr); gap: 3.2rem; }
+    .pv-benefits__grid { grid-template-columns: repeat(4, 1fr); gap: 2rem; margin-bottom: 5.6rem; }
   }
 
   /* Benefit Cards */
   .pv-benefits__card {
-    background: rgba(255, 247, 234, 0.05);
-    border: 1px solid rgba(255, 247, 234, 0.1);
-    border-radius: 20px;
-    padding: 4rem 3.2rem;
-    text-align: center;
-    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    backdrop-filter: blur(12px);
+    background: linear-gradient(180deg, rgba(16, 66, 31, 0.92), rgba(8, 48, 20, 0.96));
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: 0 24px 70px rgba(0, 0, 0, 0.28);
     display: flex;
     flex-direction: column;
-    align-items: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
     height: 100%;
   }
   @media screen and (min-width: 990px) {
-    .pv-benefits__card { text-align: left; align-items: flex-start; padding: 3.6rem 2.8rem; }
-  }
-  .pv-benefits__card:hover {
-    background: rgba(255, 247, 234, 0.12);
-    border-color: rgba(217, 154, 43, 0.5);
-    transform: translateY(-8px) scale(1.02);
-    box-shadow: 0 24px 48px rgba(0,0,0,0.4), 0 0 20px rgba(217, 154, 43, 0.15);
-  }
-  @media (prefers-reduced-motion: reduce) {
-    .pv-benefits__card:hover { transform: none; }
+    .pv-benefits__card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 32px 80px rgba(0, 0, 0, 0.35);
+      border-color: rgba(227, 161, 45, 0.3);
+    }
   }
 
-  .pv-benefits__card-pain {
-    display: inline-block;
-    font-size: 1.2rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: #D99A2B;
-    margin-bottom: 2.4rem;
+  /* Image Area */
+  .pv-benefits__card-image-wrap {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 5 / 4;
+    background: #031F0B;
   }
-
-  .pv-benefits__card-icon {
+  .pv-benefits__card-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .pv-benefits__card-placeholder {
+    width: 100%;
+    height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 6.4rem;
-    height: 6.4rem;
-    background: rgba(255, 247, 234, 0.1);
-    border: 1px solid rgba(255, 247, 234, 0.2);
-    border-radius: 50%;
-    font-size: 3.2rem;
-    margin-bottom: 2.4rem;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    background: rgba(255,255,255,0.05);
+  }
+  .pv-benefits__card-placeholder svg {
+    width: 48px;
+    height: 48px;
+    fill: #1A3E22;
+  }
+  
+  /* Overlapping Icon */
+  .pv-benefits__card-icon {
+    position: absolute;
+    bottom: -28px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 56px;
+    height: 56px;
+    border-radius: 999px;
+    background: #073314;
+    color: #E3A12D;
+    border: 2px solid rgba(227, 161, 45, 0.65);
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.28);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.4rem;
+    z-index: 2;
   }
 
+  /* Content Area */
+  .pv-benefits__card-content {
+    padding: 4.4rem 2rem 2.4rem;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    align-items: center;
+    text-align: center;
+  }
   .pv-benefits__card-title {
     font-size: 2rem;
     font-weight: 800;
-    color: #FFF7EA;
+    color: #FFF8E8;
     margin: 0 0 1.2rem;
     line-height: 1.2;
   }
-
+  .pv-benefits__card-divider {
+    width: 40px;
+    height: 3px;
+    background: #E3A12D;
+    border-radius: 99px;
+    margin-bottom: 1.6rem;
+  }
   .pv-benefits__card-desc {
     font-size: 1.5rem;
-    color: #E8D2A6;
-    line-height: 1.6;
-    margin: 0 0 2.4rem;
+    color: #C2CCBC;
+    line-height: 1.65;
+    margin: 0;
     flex-grow: 1;
   }
-
   .pv-benefits__card-microcopy {
     display: flex;
     align-items: center;
-    gap: 0.8rem;
+    justify-content: center;
+    gap: 0.6rem;
     font-size: 1.3rem;
     font-weight: 700;
-    color: #D99A2B;
-    margin-top: auto;
+    color: #E3A12D;
+    margin-top: 2rem;
   }
 
-  /* Trust Strip */
-  .pv-benefits__trust-strip {
-    text-align: center;
-    border-top: 1px solid rgba(255, 247, 234, 0.1);
-    padding-top: 4rem;
-  }
-  .pv-benefits__trust-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
+  /* CTA */
+  .pv-benefits__footer {
     display: flex;
-    flex-direction: column;
-    gap: 1.6rem;
-    align-items: center;
     justify-content: center;
   }
-  @media screen and (min-width: 600px) {
-    .pv-benefits__trust-list { flex-direction: row; gap: 4rem; }
-  }
-  .pv-benefits__trust-list li {
-    display: flex;
+  .pv-benefits__cta {
+    display: inline-flex;
     align-items: center;
-    gap: 1rem;
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: #FFF7EA;
-    letter-spacing: 0.05em;
+    justify-content: center;
+    gap: 1.2rem;
+    background: #E3A12D;
+    color: #062B10;
+    font-size: 1.7rem;
+    font-weight: 800;
+    padding: 1.8rem 4.8rem;
+    border-radius: 999px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 32px rgba(227, 161, 45, 0.25);
+  }
+  @media screen and (max-width: 749px) {
+    .pv-benefits__cta { width: 100%; max-width: 400px; }
+  }
+  .pv-benefits__cta:hover {
+    background: #F4BA4E;
+    transform: translateY(-3px);
+    box-shadow: 0 12px 40px rgba(227, 161, 45, 0.35);
   }
 </style>
 
 {% schema %}
 {
-  "name": "PV Benefits (Pain to ROI)",
+  "name": "PV Premium Benefits",
   "tag": "section",
   "class": "section",
   "disabled_on": { "groups": ["header", "footer"] },
   "settings": [
-    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "WHY PAWVOYAGE" },
-    { "type": "textarea", "id": "heading", "label": "Heading", "default": "Built to Make Every Walk Feel Calmer, Safer, and Easier." },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow Badge", "default": "BUILT FOR REAL ADVENTURES" },
+    { "type": "text", "id": "heading_before", "label": "Heading (Before Highlight)", "default": "Built to Make Every Walk Feel" },
+    { "type": "text", "id": "heading_highlight", "label": "Heading (Highlight in Gold)", "default": "Calmer, Safer" },
+    { "type": "text", "id": "heading_after", "label": "Heading (After Highlight)", "default": ", and Easier." },
     { "type": "textarea", "id": "subheading", "label": "Subheading", "default": "From strong pullers to everyday explorers, PawVoyage is designed to help you stay in control while keeping your dog comfortable and secure." },
-    { "type": "text", "id": "cta_label", "label": "CTA Button Label", "default": "Shop PawVoyage Harness" },
+    { "type": "header", "content": "Call to Action" },
+    { "type": "checkbox", "id": "show_cta", "label": "Show CTA Button", "default": true },
+    { "type": "text", "id": "cta_label", "label": "CTA Button Label", "default": "SHOP THE HARNESS" },
     { "type": "url", "id": "cta_link", "label": "CTA Button Link" }
   ],
   "blocks": [
     {
       "type": "benefit",
       "name": "Benefit Card",
+      "limit": 4,
       "settings": [
-        { "type": "text", "id": "pain_label", "label": "Pain Point Label", "default": "Pulling too hard?" },
-        { "type": "text", "id": "icon_emoji", "label": "Icon (emoji)", "default": "🎯" },
+        { "type": "image_picker", "id": "image", "label": "Card Image", "info": "Recommended aspect ratio 4:3" },
+        { "type": "text", "id": "image_alt", "label": "Image Alt Text" },
+        { "type": "text", "id": "icon_emoji", "label": "Floating Icon (Emoji/Text)", "default": "🔗" },
         { "type": "text", "id": "title", "label": "Title", "default": "Better No-Pull Control" },
-        { "type": "textarea", "id": "description", "label": "Description", "default": "Front and back clip options help redirect pulling force so you can guide your dog with more confidence." },
-        { "type": "text", "id": "microcopy", "label": "Microcopy (Bottom)", "default": "More control, less struggle" }
+        { "type": "textarea", "id": "description", "label": "Description", "default": "Dual clip points redirect pulling force so walks become relaxed again. More control, less struggle." },
+        { "type": "text", "id": "microcopy", "label": "Optional Microcopy", "info": "Leave blank to hide" }
       ]
     }
   ],
   "presets": [
     {
-      "name": "PV Benefits",
+      "name": "PV Premium Benefits",
       "blocks": [
-        { "type": "benefit", "settings": { "pain_label": "Pulling too hard?", "icon_emoji": "🎯", "title": "Better No-Pull Control", "description": "Front and back clip options help redirect pulling force so you can guide your dog with more confidence.", "microcopy": "More control, less struggle" } },
-        { "type": "benefit", "settings": { "pain_label": "Collars causing pressure?", "icon_emoji": "☁️", "title": "Comfort-Focused Fit", "description": "Soft padding and an ergonomic chest design help reduce neck pressure and support longer daily walks.", "microcopy": "Made for everyday comfort" } },
-        { "type": "benefit", "settings": { "pain_label": "Cheap gear wearing out?", "icon_emoji": "🪖", "title": "Tactical Durability", "description": "Durable webbing, secure buckles, and reinforced structure are built for active dogs and outdoor adventures.", "microcopy": "Built for real movement" } },
-        { "type": "benefit", "settings": { "pain_label": "Always on the go?", "icon_emoji": "✈️", "title": "Travel-Ready Design", "description": "A secure fit, easy handling, and adventure-ready build make it ideal for walks, hikes, trips, and daily outings.", "microcopy": "Ready wherever you go" } }
+        { "type": "benefit", "settings": { "icon_emoji": "🔗", "title": "Better No-Pull Control", "description": "Dual clip points redirect pulling force so walks become relaxed again. More control, less struggle." } },
+        { "type": "benefit", "settings": { "icon_emoji": "☁️", "title": "Comfort-Focused Fit", "description": "Air-mesh padding distributes pressure evenly, helping reduce rubbing and improve everyday comfort." } },
+        { "type": "benefit", "settings": { "icon_emoji": "🛡️", "title": "Tactical Durability", "description": "Durable nylon and secure hardware are built for active dogs, outdoor use, and real movement." } },
+        { "type": "benefit", "settings": { "icon_emoji": "✈️", "title": "Travel-Ready Design", "description": "A secure fit and sturdy top handle make it ideal for walks, hikes, car rides, and everyday outings." } }
       ]
     }
   ]
