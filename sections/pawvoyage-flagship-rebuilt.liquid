@@ -1,0 +1,821 @@
+{{ 'pawvoyage-brand.css' | asset_url | stylesheet_tag }}
+
+<section class="pv-flagship-rebuilt section-{{ section.id }}" id="pv-flagship-rebuilt-{{ section.id }}">
+  <div class="pv-flagship-rebuilt__container">
+    <div class="pv-flagship-rebuilt__grid">
+      
+      <!-- LEFT COLUMN: IMAGE CARD -->
+      <div class="pv-flagship-rebuilt__left">
+        <div class="pv-flagship-rebuilt__image-card">
+          
+          <!-- Image -->
+          {%- if section.settings.main_product_image != blank -%}
+            {{ section.settings.main_product_image | image_url: width: 1200 | image_tag: loading: 'lazy', class: 'pvfr-img desktop-img', alt: section.settings.main_product_image_alt | default: 'PawVoyage Harness' }}
+            {%- if section.settings.mobile_product_image != blank -%}
+              {{ section.settings.mobile_product_image | image_url: width: 900 | image_tag: loading: 'lazy', class: 'pvfr-img mobile-img', alt: section.settings.main_product_image_alt | default: 'PawVoyage Harness' }}
+            {%- endif -%}
+          {%- else -%}
+            <div class="pvfr-img-placeholder">
+              <span>Upload product image in Theme Customizer</span>
+            </div>
+          {%- endif -%}
+
+          <!-- Floating Callouts (Desktop) -->
+          {%- if section.settings.show_callouts -%}
+            <div class="pvfr-floating-layer desktop-only">
+              
+              {%- if section.settings.enable_connector_lines -%}
+                <svg class="pvfr-annotation-lines" width="100%" height="100%">
+                  <!-- Line 1 -->
+                  {%- if section.settings.callout_1_title != blank -%}
+                    <line x1="18%" y1="18%" x2="39%" y2="34%" stroke="rgba(255,255,255,0.7)" stroke-width="2" stroke-dasharray="4 4" />
+                  {%- endif -%}
+                  <!-- Line 2 -->
+                  {%- if section.settings.callout_2_title != blank -%}
+                    <line x1="80%" y1="42%" x2="63%" y2="52%" stroke="rgba(255,255,255,0.7)" stroke-width="2" stroke-dasharray="4 4" />
+                  {%- endif -%}
+                  <!-- Line 3 -->
+                  {%- if section.settings.callout_3_title != blank -%}
+                    <line x1="18%" y1="72%" x2="34%" y2="65%" stroke="rgba(255,255,255,0.7)" stroke-width="2" stroke-dasharray="4 4" />
+                  {%- endif -%}
+                </svg>
+              {%- endif -%}
+
+              {%- for i in (1..3) -%}
+                {%- capture icon_key -%}callout_{{ i }}_icon{%- endcapture -%}
+                {%- capture title_key -%}callout_{{ i }}_title{%- endcapture -%}
+                {%- capture text_key -%}callout_{{ i }}_text{%- endcapture -%}
+                
+                {%- if section.settings[title_key] != blank -%}
+                  <div class="pvfr-float-card pvfr-float-card--{{ i }}">
+                    <div class="pvfr-float-card__icon-wrapper">
+                      {%- if section.settings[icon_key] != blank -%}
+                        {{ section.settings[icon_key] }}
+                      {%- else -%}
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="currentColor" stroke-width="2"/></svg>
+                      {%- endif -%}
+                    </div>
+                    <div class="pvfr-float-card__content">
+                      <span class="pvfr-float-card__title">{{ section.settings[title_key] }}</span>
+                      <p class="pvfr-float-card__text">{{ section.settings[text_key] }}</p>
+                    </div>
+                  </div>
+
+                  {%- if section.settings.enable_annotation_dots -%}
+                    <span class="pvfr-annotation-dot pvfr-annotation-dot--{{ i }}"></span>
+                  {%- endif -%}
+                {%- endif -%}
+              {%- endfor -%}
+            </div>
+          {%- endif -%}
+
+          <!-- Bottom Trust Bar (Inside Card) -->
+          {%- if section.settings.show_bottom_trust_bar -%}
+            <div class="pvfr-inner-trust-bar">
+              {%- for i in (1..3) -%}
+                {%- capture icon_key -%}trust_{{ i }}_icon{%- endcapture -%}
+                {%- capture title_key -%}trust_{{ i }}_title{%- endcapture -%}
+                {%- capture text_key -%}trust_{{ i }}_text{%- endcapture -%}
+                
+                {%- if section.settings[title_key] != blank -%}
+                  <div class="pvfr-inner-trust-item">
+                    <div class="pvfr-inner-trust-icon">
+                      {%- if section.settings[icon_key] != blank -%}
+                        {{ section.settings[icon_key] }}
+                      {%- else -%}
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                      {%- endif -%}
+                    </div>
+                    <div class="pvfr-inner-trust-content">
+                      <span class="pvfr-inner-trust-title">{{ section.settings[title_key] }}</span>
+                      <span class="pvfr-inner-trust-text">{{ section.settings[text_key] }}</span>
+                    </div>
+                  </div>
+                  {%- if i != 3 -%}<div class="pvfr-inner-trust-divider"></div>{%- endif -%}
+                {%- endif -%}
+              {%- endfor -%}
+            </div>
+          {%- endif -%}
+        </div>
+
+        <!-- Mobile Stacked Callouts -->
+        {%- if section.settings.show_callouts -%}
+          <div class="pvfr-mobile-callouts mobile-only">
+             {%- for i in (1..3) -%}
+                {%- capture icon_key -%}callout_{{ i }}_icon{%- endcapture -%}
+                {%- capture title_key -%}callout_{{ i }}_title{%- endcapture -%}
+                {%- capture text_key -%}callout_{{ i }}_text{%- endcapture -%}
+                
+                {%- if section.settings[title_key] != blank -%}
+                  <div class="pvfr-mobile-callout-card">
+                    <div class="pvfr-mobile-callout-card__icon">
+                      {%- if section.settings[icon_key] != blank -%}
+                        {{ section.settings[icon_key] }}
+                      {%- else -%}
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="currentColor" stroke-width="2"/></svg>
+                      {%- endif -%}
+                    </div>
+                    <div class="pvfr-mobile-callout-card__content">
+                      <span class="pvfr-mobile-callout-card__title">{{ section.settings[title_key] }}</span>
+                      <p class="pvfr-mobile-callout-card__text">{{ section.settings[text_key] }}</p>
+                    </div>
+                  </div>
+                {%- endif -%}
+              {%- endfor -%}
+          </div>
+        {%- endif -%}
+      </div>
+
+      <!-- RIGHT COLUMN: CONTENT -->
+      <div class="pv-flagship-rebuilt__right">
+        
+        <!-- Eyebrow Badge -->
+        {%- if section.settings.badge_text != blank -%}
+          <div class="pvfr-badge">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            {{ section.settings.badge_text }}
+          </div>
+        {%- endif -%}
+
+        <!-- Title & Subtitle -->
+        {%- if section.settings.heading != blank -%}
+          <h2 class="pvfr-heading">{{ section.settings.heading | newline_to_br }}</h2>
+        {%- endif -%}
+
+        {%- if section.settings.subheading != blank -%}
+          <p class="pvfr-subheading">{{ section.settings.subheading }}</p>
+        {%- endif -%}
+
+        <!-- Price Row -->
+        <div class="pvfr-price-row">
+          <span class="pvfr-price-now-label">NOW</span>
+          <span class="pvfr-price-now">{{ section.settings.current_price_text }}</span>
+          {%- if section.settings.show_compare_price and section.settings.compare_price_text != blank -%}
+            <span class="pvfr-price-compare">Was {{ section.settings.compare_price_text }}</span>
+          {%- endif -%}
+          {%- if section.settings.show_savings_badge and section.settings.savings_text != blank -%}
+            <span class="pvfr-price-save">SAVE {{ section.settings.savings_text }}</span>
+          {%- endif -%}
+        </div>
+
+        <div class="pvfr-divider"></div>
+
+        <!-- Features List -->
+        <div class="pvfr-features-wrapper">
+          <ul class="pvfr-features-list">
+            {%- for block in section.blocks -%}
+              {%- if block.type == 'feature' -%}
+                <li class="pvfr-feature-item" {{ block.shopify_attributes }}>
+                  <div class="pvfr-feature-icon">
+                    {%- if block.settings.icon != blank -%}
+                      {{ block.settings.icon }}
+                    {%- else -%}
+                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="12" fill="#133316"/><path d="M7 12l3.5 3.5L17 8" stroke="#FFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    {%- endif -%}
+                  </div>
+                  <div class="pvfr-feature-content">
+                    <h4 class="pvfr-feature-title">{{ block.settings.title }}</h4>
+                    {%- if block.settings.text != blank -%}
+                      <p class="pvfr-feature-text">{{ block.settings.text }}</p>
+                    {%- endif -%}
+                  </div>
+                </li>
+              {%- endif -%}
+            {%- endfor -%}
+          </ul>
+        </div>
+
+        <!-- CTA -->
+        {%- if section.settings.cta_text != blank -%}
+          <div class="pvfr-cta-container">
+            <a href="{{ section.settings.cta_link | default: '#' }}" class="pvfr-btn">
+              {{ section.settings.cta_text }}
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+          </div>
+        {%- endif -%}
+
+        <!-- Bottom Trust Icons -->
+        {%- if section.settings.show_footer_trust -%}
+          <div class="pvfr-footer-trust">
+            {%- if section.settings.footer_trust_1 != blank -%}
+              <div class="pvfr-footer-trust-item">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                <span>{{ section.settings.footer_trust_1 }}</span>
+              </div>
+            {%- endif -%}
+            {%- if section.settings.footer_trust_2 != blank -%}
+              <div class="pvfr-footer-trust-item">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+                <span>{{ section.settings.footer_trust_2 }}</span>
+              </div>
+            {%- endif -%}
+            {%- if section.settings.footer_trust_3 != blank -%}
+              <div class="pvfr-footer-trust-item">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 18H3a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v2"/><path d="M19 8h2a2 2 0 0 1 2 2v6h-2"/><path d="M5 18a2 2 0 1 0 4 0 2 2 0 1 0-4 0z"/><path d="M15 18a2 2 0 1 0 4 0 2 2 0 1 0-4 0z"/></svg>
+                <span>{{ section.settings.footer_trust_3 }}</span>
+              </div>
+            {%- endif -%}
+          </div>
+        {%- endif -%}
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* Base & Reset */
+  .pv-flagship-rebuilt {
+    background-color: #FAF7F0; /* Off-white / warm cream background */
+    padding: 4rem 1.5rem;
+    overflow: hidden;
+  }
+  @media (min-width: 990px) {
+    .pv-flagship-rebuilt { padding: 6.4rem 2rem; }
+  }
+
+  .pv-flagship-rebuilt__container {
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  /* Grid Layout */
+  .pv-flagship-rebuilt__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 3.2rem;
+  }
+  @media (min-width: 990px) {
+    .pv-flagship-rebuilt__grid {
+      grid-template-columns: 52% 48%;
+      gap: 6.4rem;
+      align-items: center;
+    }
+  }
+
+  /* ---------------------------------
+     LEFT COLUMN: IMAGE CARD
+     --------------------------------- */
+  .pv-flagship-rebuilt__image-card {
+    position: relative;
+    background: #E8E2D2;
+    border-radius: 28px;
+    overflow: hidden;
+    min-height: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 16px 40px rgba(0,0,0,0.06);
+  }
+  @media (min-width: 990px) {
+    .pv-flagship-rebuilt__image-card {
+      border-radius: 34px;
+      min-height: 680px;
+      align-items: stretch;
+    }
+  }
+
+  .pvfr-img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain; /* Good for harness cutout, if full bleed use cover */
+  }
+  @media (min-width: 990px) {
+    .pvfr-img { object-fit: cover; }
+  }
+
+  .pvfr-img-placeholder {
+    padding: 4rem;
+    text-align: center;
+    color: #5C6758;
+    font-size: 1.4rem;
+    font-weight: 500;
+  }
+
+  .desktop-only { display: none; }
+  .mobile-only { display: block; }
+  
+  {%- if section.settings.mobile_product_image != blank -%}
+    .pvfr-img.desktop-img { display: none; }
+    .pvfr-img.mobile-img { display: block; }
+    @media (min-width: 750px) {
+      .pvfr-img.desktop-img { display: block; }
+      .pvfr-img.mobile-img { display: none; }
+    }
+  {%- else -%}
+    .pvfr-img.mobile-img { display: none; }
+  {%- endif -%}
+
+  @media (min-width: 990px) {
+    .desktop-only { display: block; }
+    .mobile-only { display: none; }
+  }
+
+  /* Floating Callouts & Annotations */
+  .pvfr-floating-layer {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 10;
+  }
+  
+  .pvfr-annotation-lines {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .pvfr-float-card {
+    position: absolute;
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 22px;
+    box-shadow: 0 18px 48px rgba(20, 45, 25, 0.14);
+    border: 1px solid rgba(20, 60, 30, 0.08);
+    padding: 18px 20px;
+    width: 250px;
+    display: flex;
+    align-items: flex-start;
+    gap: 1.2rem;
+    pointer-events: auto;
+    z-index: 3;
+  }
+  
+  .pvfr-float-card--1 { top: 12%; left: 4%; }
+  .pvfr-float-card--2 { top: 38%; right: -3%; }
+  .pvfr-float-card--3 { bottom: 22%; left: 4%; }
+
+  .pvfr-float-card__icon-wrapper {
+    flex-shrink: 0;
+    width: 36px;
+    height: 36px;
+    background: #133316;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #FFF;
+  }
+  .pvfr-float-card__icon-wrapper svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  .pvfr-float-card__content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+  .pvfr-float-card__title {
+    font-size: 1.15rem;
+    font-weight: 800;
+    color: #133316;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+  .pvfr-float-card__text {
+    font-size: 1.25rem;
+    color: #4A5748;
+    margin: 0;
+    line-height: 1.4;
+  }
+
+  .pvfr-annotation-dot {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    border-radius: 999px;
+    background: #f2b544;
+    box-shadow: 0 0 0 6px rgba(242, 181, 68, 0.18), 0 0 18px rgba(242, 181, 68, 0.7);
+    z-index: 2;
+    transform: translate(-50%, -50%);
+  }
+  .pvfr-annotation-dot::after {
+    content: '';
+    position: absolute;
+    inset: 2px;
+    background: #FFF;
+    border-radius: 50%;
+  }
+
+  .pvfr-annotation-dot--1 { top: 34%; left: 39%; }
+  .pvfr-annotation-dot--2 { top: 52%; left: 63%; }
+  .pvfr-annotation-dot--3 { top: 65%; left: 34%; }
+
+  /* Bottom Trust Bar Inside Card */
+  .pvfr-inner-trust-bar {
+    position: absolute;
+    bottom: 2.4rem;
+    left: 2.4rem;
+    right: 2.4rem;
+    background: #1A361E; /* Dark forest green */
+    border-radius: 20px;
+    padding: 2rem 2.4rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+  }
+  @media (max-width: 989px) {
+    .pvfr-inner-trust-bar {
+      position: relative;
+      bottom: auto; left: auto; right: auto;
+      margin: 1.6rem;
+      flex-direction: column;
+      align-items: flex-start;
+      padding: 1.6rem;
+    }
+    .pvfr-inner-trust-divider { display: none; }
+  }
+
+  .pvfr-inner-trust-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 1.2rem;
+    flex: 1;
+  }
+  .pvfr-inner-trust-icon {
+    flex-shrink: 0;
+    color: #FFF;
+  }
+  .pvfr-inner-trust-icon svg {
+    width: 24px; height: 24px;
+    opacity: 0.8;
+  }
+  .pvfr-inner-trust-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+  .pvfr-inner-trust-title {
+    color: #FFF;
+    font-size: 1.1rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+  .pvfr-inner-trust-text {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 1.2rem;
+    line-height: 1.3;
+  }
+  .pvfr-inner-trust-divider {
+    width: 1px;
+    height: 40px;
+    background: rgba(255,255,255,0.15);
+  }
+
+  /* Mobile Stacked Callouts */
+  .pvfr-mobile-callouts {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+    margin-top: 1.6rem;
+  }
+  .pvfr-mobile-callout-card {
+    background: #FFF;
+    border-radius: 16px;
+    padding: 1.6rem;
+    display: flex;
+    align-items: flex-start;
+    gap: 1.2rem;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+  }
+  .pvfr-mobile-callout-card__icon {
+    flex-shrink: 0;
+    width: 32px; height: 32px;
+    background: #133316;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #FFF;
+  }
+  .pvfr-mobile-callout-card__icon svg { width: 16px; height: 16px; }
+  .pvfr-mobile-callout-card__content {
+    display: flex; flex-direction: column; gap: 0.4rem;
+  }
+  .pvfr-mobile-callout-card__title {
+    font-size: 1.1rem; font-weight: 800; color: #133316; text-transform: uppercase;
+  }
+  .pvfr-mobile-callout-card__text {
+    font-size: 1.3rem; color: #4A5748; margin: 0; line-height: 1.4;
+  }
+
+
+  /* ---------------------------------
+     RIGHT COLUMN: CONTENT
+     --------------------------------- */
+  .pv-flagship-rebuilt__right {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  /* Badge */
+  .pvfr-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    background: #D59746; /* Gold */
+    color: #FFF;
+    font-size: 1.15rem;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.6rem 1.4rem;
+    border-radius: 999px;
+    margin-bottom: 2.4rem;
+    box-shadow: 0 4px 12px rgba(213, 151, 70, 0.2);
+  }
+
+  /* Title & Sub */
+  .pvfr-heading {
+    font-family: var(--font-heading-family), serif;
+    font-size: clamp(38px, 6vw, 74px);
+    line-height: 0.95;
+    font-weight: 800;
+    color: #133316; /* Deep forest green */
+    margin: 0 0 2rem 0;
+    letter-spacing: -0.02em;
+    max-width: 680px;
+  }
+  
+  .pvfr-subheading {
+    font-size: 1.7rem;
+    color: #4A5748;
+    line-height: 1.6;
+    margin: 0 0 3.2rem 0;
+    max-width: 640px;
+  }
+  @media (min-width: 990px) {
+    .pvfr-subheading { font-size: 2rem; }
+  }
+
+  /* Price Row */
+  .pvfr-price-row {
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 1.2rem;
+    margin-bottom: 2.4rem;
+  }
+  .pvfr-price-now-label {
+    font-size: 1.4rem;
+    font-weight: 800;
+    letter-spacing: 0.05em;
+    color: #6F7B6B;
+  }
+  .pvfr-price-now {
+    font-size: clamp(3.2rem, 5vw, 4.4rem);
+    font-weight: 800;
+    color: #133316;
+  }
+  .pvfr-price-compare {
+    font-size: 2rem;
+    color: #8C9989;
+    text-decoration: line-through;
+    margin-left: 0.4rem;
+  }
+  .pvfr-price-save {
+    background: #D59746;
+    color: #FFF;
+    font-size: 1.2rem;
+    font-weight: 800;
+    padding: 0.6rem 1.2rem;
+    border-radius: 6px;
+    margin-left: 0.8rem;
+    transform: translateY(-4px); /* Align slightly higher visually */
+  }
+
+  .pvfr-divider {
+    width: 100%;
+    height: 1px;
+    background: rgba(19, 51, 22, 0.1);
+    margin: 0 0 3.2rem 0;
+  }
+
+  /* Features List */
+  .pvfr-features-wrapper {
+    margin-bottom: 4rem;
+    width: 100%;
+  }
+  .pvfr-features-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+  .pvfr-feature-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 1.6rem;
+  }
+  .pvfr-feature-icon {
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .pvfr-feature-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+  .pvfr-feature-title {
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: #133316;
+    margin: 0;
+  }
+  .pvfr-feature-text {
+    font-size: 1.5rem;
+    color: #4A5748;
+    margin: 0;
+    line-height: 1.4;
+  }
+
+  /* CTA Button */
+  .pvfr-cta-container {
+    width: 100%;
+    margin-bottom: 2rem;
+  }
+  .pvfr-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.2rem;
+    background: #133316;
+    color: #FFF;
+    font-size: 1.8rem;
+    font-weight: 700;
+    padding: 2.2rem 4rem;
+    border-radius: 999px;
+    text-decoration: none;
+    width: 100%;
+    box-shadow: 0 12px 24px rgba(19, 51, 22, 0.2);
+    transition: all 0.3s ease;
+  }
+  @media (min-width: 750px) {
+    .pvfr-btn { width: auto; min-width: 360px; }
+  }
+  .pvfr-btn:hover {
+    background: #1A421D;
+    transform: translateY(-3px);
+    box-shadow: 0 16px 32px rgba(19, 51, 22, 0.25);
+  }
+
+  /* Bottom Trust Icons */
+  .pvfr-footer-trust {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 2.4rem;
+  }
+  .pvfr-footer-trust-item {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    color: #5C6758;
+    font-size: 1.35rem;
+    font-weight: 500;
+  }
+  .pvfr-footer-trust-item svg {
+    color: #133316;
+    width: 20px; height: 20px;
+  }
+</style>
+
+{% schema %}
+{
+  "name": "PV Flagship Rebuilt",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Image Area"
+    },
+    {
+      "type": "image_picker",
+      "id": "main_product_image",
+      "label": "Main Product Image (Desktop)"
+    },
+    {
+      "type": "image_picker",
+      "id": "mobile_product_image",
+      "label": "Mobile Product Image (Optional)"
+    },
+    {
+      "type": "text",
+      "id": "main_product_image_alt",
+      "label": "Image Alt Text",
+      "default": "PawVoyage Harness"
+    },
+    {
+      "type": "header",
+      "content": "Floating Callouts"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_callouts",
+      "label": "Show Callouts",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_annotation_dots",
+      "label": "Enable glowing dots",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_connector_lines",
+      "label": "Enable connector lines",
+      "default": true
+    },
+    { "type": "html", "id": "callout_1_icon", "label": "Callout 1 Icon (SVG)", "info": "Optional" },
+    { "type": "text", "id": "callout_1_title", "label": "Callout 1 Title", "default": "NO-PULL CONTROL" },
+    { "type": "textarea", "id": "callout_1_text", "label": "Callout 1 Text", "default": "Front & back clip design helps reduce pulling instantly." },
+    { "type": "html", "id": "callout_2_icon", "label": "Callout 2 Icon (SVG)", "info": "Optional" },
+    { "type": "text", "id": "callout_2_title", "label": "Callout 2 Title", "default": "COMFORT PADDED FIT" },
+    { "type": "textarea", "id": "callout_2_text", "label": "Callout 2 Text", "default": "Breathable padding protects your dog’s skin and fur." },
+    { "type": "html", "id": "callout_3_icon", "label": "Callout 3 Icon (SVG)", "info": "Optional" },
+    { "type": "text", "id": "callout_3_title", "label": "Callout 3 Title", "default": "ADVENTURE READY" },
+    { "type": "textarea", "id": "callout_3_text", "label": "Callout 3 Text", "default": "Built tough for every trail, every day." },
+    {
+      "type": "header",
+      "content": "Inner Bottom Trust Bar"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_bottom_trust_bar",
+      "label": "Show Bottom Trust Bar",
+      "default": true
+    },
+    { "type": "html", "id": "trust_1_icon", "label": "Trust 1 Icon (SVG)", "info": "Optional" },
+    { "type": "text", "id": "trust_1_title", "label": "Trust 1 Title", "default": "SECURE & DURABLE" },
+    { "type": "text", "id": "trust_1_text", "label": "Trust 1 Text", "default": "Military-grade materials built to last." },
+    { "type": "html", "id": "trust_2_icon", "label": "Trust 2 Icon (SVG)", "info": "Optional" },
+    { "type": "text", "id": "trust_2_title", "label": "Trust 2 Title", "default": "COMFORT FIRST" },
+    { "type": "text", "id": "trust_2_text", "label": "Trust 2 Text", "default": "Soft padding for all-day comfort." },
+    { "type": "html", "id": "trust_3_icon", "label": "Trust 3 Icon (SVG)", "info": "Optional" },
+    { "type": "text", "id": "trust_3_title", "label": "Trust 3 Title", "default": "FOR EVERY DOG" },
+    { "type": "text", "id": "trust_3_text", "label": "Trust 3 Text", "default": "Adjustable fit for small to large breeds." },
+    {
+      "type": "header",
+      "content": "Content: Text & Pricing"
+    },
+    { "type": "text", "id": "badge_text", "label": "Gold Badge", "default": "OUR FLAGSHIP PRODUCT" },
+    { "type": "textarea", "id": "heading", "label": "Product Title", "default": "PawVoyage No-Pull\nTactical Dog Harness" },
+    { "type": "textarea", "id": "subheading", "label": "Subheading", "default": "Designed for dog owners who want more control, more comfort, and less pulling on every walk." },
+    { "type": "text", "id": "current_price_text", "label": "Current Price", "default": "$59.99" },
+    { "type": "checkbox", "id": "show_compare_price", "label": "Show Compare Price", "default": true },
+    { "type": "text", "id": "compare_price_text", "label": "Compare Price", "default": "$79.99" },
+    { "type": "checkbox", "id": "show_savings_badge", "label": "Show Savings Badge", "default": true },
+    { "type": "text", "id": "savings_text", "label": "Savings Amount", "default": "$20.00" },
+    {
+      "type": "header",
+      "content": "Content: CTA & Footer Trust"
+    },
+    { "type": "text", "id": "cta_text", "label": "CTA Button Text", "default": "Shop The Harness" },
+    { "type": "url", "id": "cta_link", "label": "CTA Button Link" },
+    {
+      "type": "checkbox",
+      "id": "show_footer_trust",
+      "label": "Show Footer Trust Icons",
+      "default": true
+    },
+    { "type": "text", "id": "footer_trust_1", "label": "Footer Trust 1", "default": "Secure checkout" },
+    { "type": "text", "id": "footer_trust_2", "label": "Footer Trust 2", "default": "30-day easy returns" },
+    { "type": "text", "id": "footer_trust_3", "label": "Footer Trust 3", "default": "Free shipping today" }
+  ],
+  "blocks": [
+    {
+      "type": "feature",
+      "name": "Feature List Item",
+      "limit": 5,
+      "settings": [
+        { "type": "html", "id": "icon", "label": "Feature Icon (SVG)", "info": "Leave blank for default green check" },
+        { "type": "text", "id": "title", "label": "Feature Title", "default": "Dual-clip no-pull control system" },
+        { "type": "textarea", "id": "text", "label": "Feature Text", "default": "Redirects pulling gently for calmer walks." }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "PV Flagship Rebuilt",
+      "blocks": [
+        { "type": "feature", "settings": { "title": "Dual-clip no-pull control system", "text": "Redirects pulling gently for calmer walks." } },
+        { "type": "feature", "settings": { "title": "Thick air-mesh padded lining", "text": "Breathable and soft for all-day comfort." } },
+        { "type": "feature", "settings": { "title": "Military-grade buckles & hardware", "text": "Built tough for active dogs and any terrain." } },
+        { "type": "feature", "settings": { "title": "Reflective stitching for night walks", "text": "Enhanced visibility for safer adventures." } },
+        { "type": "feature", "settings": { "title": "Top grab handle for tight spaces", "text": "Extra control when you need it most." } }
+      ]
+    }
+  ]
+}
+{% endschema %}
