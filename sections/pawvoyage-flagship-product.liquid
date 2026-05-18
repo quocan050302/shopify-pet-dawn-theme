@@ -1,0 +1,519 @@
+{%- liquid
+  assign bg_pos = section.settings.bg_position | default: 'center right'
+  assign desktop_img = section.settings.image_desktop
+  assign mobile_img  = section.settings.image_mobile
+-%}
+
+{%- style -%}
+  /* ── Section wrapper ── */
+  #pv-flagship-{{ section.id }} {
+    position: relative;
+    width: 100%;
+    min-height: {{ section.settings.min_height_mobile | default: 640 }}px;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    /* Fallback gradient when no image is set */
+    background: linear-gradient(135deg, #FAF7F0 0%, #EAE3D6 60%, #D5C9B5 100%);
+  }
+
+  @media screen and (min-width: 750px) {
+    #pv-flagship-{{ section.id }} {
+      min-height: {{ section.settings.min_height_desktop | default: 780 }}px;
+    }
+  }
+
+  /* ── CSS Background Image (Desktop) ── */
+  {%- if desktop_img != blank -%}
+    #pv-flagship-{{ section.id }} {
+      background-image: url('{{ desktop_img | image_url: width: 2400 }}');
+      background-size: cover;
+      background-position: {{ bg_pos }};
+      background-repeat: no-repeat;
+    }
+  {%- endif -%}
+
+  /* ── CSS Background Image (Mobile) ── */
+  @media screen and (max-width: 749px) {
+    {%- if mobile_img != blank -%}
+      #pv-flagship-{{ section.id }} {
+        background-image: url('{{ mobile_img | image_url: width: 900 }}');
+        background-size: cover;
+        background-position: center top;
+        background-repeat: no-repeat;
+      }
+    {%- elsif desktop_img != blank -%}
+      #pv-flagship-{{ section.id }} {
+        background-image: url('{{ desktop_img | image_url: width: 1200 }}');
+        background-size: cover;
+        background-position: center top;
+        background-repeat: no-repeat;
+      }
+    {%- endif -%}
+  }
+
+  /* ── Gradient Overlay ── */
+  #pv-flagship-{{ section.id }} .pvf-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    background: linear-gradient(
+      to right,
+      rgba(250, 247, 240, 0.96) 0%,
+      rgba(250, 247, 240, 0.96) 15%,
+      rgba(250, 247, 240, 0.78) 40%,
+      rgba(250, 247, 240, 0.28) 65%,
+      transparent 100%
+    );
+  }
+
+  @media screen and (max-width: 749px) {
+    #pv-flagship-{{ section.id }} .pvf-overlay {
+      background: linear-gradient(
+        to bottom,
+        rgba(250, 247, 240, 0.97) 0%,
+        rgba(250, 247, 240, 0.93) 50%,
+        rgba(250, 247, 240, 0.45) 78%,
+        transparent 100%
+      );
+    }
+  }
+
+  /* ── Content Wrapper ── */
+  #pv-flagship-{{ section.id }} .pvf-content-wrap {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    padding-top: 6rem;
+    padding-bottom: 6rem;
+  }
+
+  #pv-flagship-{{ section.id }} .pvf-content {
+    max-width: 560px;
+  }
+
+  /* ── Badge ── */
+  #pv-flagship-{{ section.id }} .pvf-badge {
+    display: inline-block;
+    font-size: 1.1rem;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #7A4E00;
+    background: rgba(217, 154, 43, 0.20);
+    border: 1px solid rgba(217, 154, 43, 0.45);
+    padding: 0.55rem 1.4rem;
+    border-radius: 999px;
+    margin-bottom: 1.8rem;
+  }
+
+  /* ── Headline ── */
+  #pv-flagship-{{ section.id }} .pvf-heading {
+    font-size: clamp(3.2rem, 4.5vw, 5.2rem);
+    font-weight: 800;
+    color: #12350E;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    margin: 0 0 1.4rem;
+    white-space: pre-line;
+  }
+
+  /* ── Subheadline ── */
+  #pv-flagship-{{ section.id }} .pvf-sub {
+    font-size: clamp(1.4rem, 1.8vw, 1.7rem);
+    color: #4A5246;
+    line-height: 1.65;
+    margin: 0 0 2.4rem;
+    max-width: 480px;
+  }
+
+  /* ── Price Block ── */
+  #pv-flagship-{{ section.id }} .pvf-price-row {
+    display: flex;
+    align-items: baseline;
+    gap: 1.2rem;
+    margin-bottom: 2.4rem;
+    flex-wrap: wrap;
+  }
+
+  #pv-flagship-{{ section.id }} .pvf-price-label {
+    font-size: 1.2rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #6F7568;
+  }
+
+  #pv-flagship-{{ section.id }} .pvf-price-now {
+    font-size: clamp(2.8rem, 3.5vw, 3.8rem);
+    font-weight: 800;
+    color: #12350E;
+    line-height: 1;
+  }
+
+  #pv-flagship-{{ section.id }} .pvf-price-was {
+    font-size: 1.7rem;
+    font-weight: 500;
+    color: #9CA3A0;
+    text-decoration: line-through;
+  }
+
+  /* ── Divider ── */
+  #pv-flagship-{{ section.id }} .pvf-divider {
+    border: none;
+    border-top: 1px solid rgba(18, 53, 14, 0.10);
+    margin: 0 0 2.4rem;
+  }
+
+  /* ── Benefit Bullets ── */
+  #pv-flagship-{{ section.id }} .pvf-bullets {
+    list-style: none;
+    margin: 0 0 3.2rem;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+  }
+
+  #pv-flagship-{{ section.id }} .pvf-bullet {
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+    font-size: 1.6rem;
+    font-weight: 600;
+    color: #1F241D;
+  }
+
+  #pv-flagship-{{ section.id }} .pvf-bullet-icon {
+    flex-shrink: 0;
+    width: 2.4rem;
+    height: 2.4rem;
+    background: #12350E;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* ── CTA Button ── */
+  #pv-flagship-{{ section.id }} .pvf-cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.8rem;
+    font-size: 1.7rem;
+    font-weight: 800;
+    color: #FAF7F0;
+    background: #12350E;
+    padding: 1.8rem 4rem;
+    border-radius: 999px;
+    text-decoration: none;
+    border: none;
+    box-shadow: 0 6px 24px rgba(18, 53, 14, 0.22);
+    transition: background 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
+    margin-bottom: 1.6rem;
+  }
+
+  #pv-flagship-{{ section.id }} .pvf-cta:hover {
+    background: #1D4A15;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 32px rgba(18, 53, 14, 0.28);
+    color: #FAF7F0;
+  }
+
+  /* ── Trust Microcopy ── */
+  #pv-flagship-{{ section.id }} .pvf-trust {
+    font-size: 1.3rem;
+    color: #6F7568;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin: 0;
+  }
+
+  /* ── Mobile Overrides ── */
+  @media (max-width: 749px) {
+    #pv-flagship-{{ section.id }} .pvf-content-wrap {
+      padding-top: 4rem;
+      padding-bottom: 8rem;
+    }
+
+    #pv-flagship-{{ section.id }} .pvf-content {
+      max-width: 100%;
+    }
+
+    #pv-flagship-{{ section.id }} .pvf-cta {
+      width: 100%;
+      padding: 1.8rem 2rem;
+      font-size: 1.7rem;
+    }
+
+    #pv-flagship-{{ section.id }} .pvf-trust {
+      justify-content: center;
+      text-align: center;
+    }
+
+    #pv-flagship-{{ section.id }} .pvf-bullet {
+      font-size: 1.5rem;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    #pv-flagship-{{ section.id }} .pvf-cta {
+      transition: none;
+    }
+  }
+{%- endstyle -%}
+
+<section
+  id="pv-flagship-{{ section.id }}"
+  class="pv-flagship"
+  aria-label="{{ section.settings.heading | escape }}"
+>
+
+  <!-- Gradient Overlay (decorative, all text is in DOM) -->
+  <div class="pvf-overlay" aria-hidden="true"></div>
+
+  <!-- Content -->
+  <div class="page-width pvf-content-wrap">
+    <div class="pvf-content">
+
+      {%- if section.settings.badge != blank -%}
+        <span class="pvf-badge">{{ section.settings.badge }}</span>
+      {%- endif -%}
+
+      {%- if section.settings.heading != blank -%}
+        <h2 class="pvf-heading">{{ section.settings.heading }}</h2>
+      {%- endif -%}
+
+      {%- if section.settings.subheading != blank -%}
+        <p class="pvf-sub">{{ section.settings.subheading }}</p>
+      {%- endif -%}
+
+      <!-- Price Block -->
+      {%- if section.settings.price_now != blank -%}
+        <div class="pvf-price-row">
+          <span class="pvf-price-label">NOW</span>
+          <span class="pvf-price-now">{{ section.settings.price_now }}</span>
+          {%- if section.settings.show_compare_price and section.settings.price_was != blank -%}
+            <span class="pvf-price-was">Was {{ section.settings.price_was }}</span>
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+
+      <hr class="pvf-divider">
+
+      <!-- Benefit Bullets -->
+      {%- assign has_bullets = false -%}
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'bullet' and block.settings.text != blank -%}
+          {%- assign has_bullets = true -%}
+        {%- endif -%}
+      {%- endfor -%}
+
+      {%- if has_bullets -%}
+        <ul class="pvf-bullets" role="list">
+          {%- for block in section.blocks -%}
+            {%- if block.type == 'bullet' and block.settings.text != blank -%}
+              <li class="pvf-bullet" {{ block.shopify_attributes }}>
+                <span class="pvf-bullet-icon" aria-hidden="true">
+                  <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                    <path d="M2 6L4.8 9L10 3" stroke="#FAF7F0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </span>
+                {{ block.settings.text }}
+              </li>
+            {%- endif -%}
+          {%- endfor -%}
+        </ul>
+      {%- endif -%}
+
+      <!-- CTA -->
+      {%- if section.settings.cta_label != blank -%}
+        <div>
+          <a
+            href="{{ section.settings.cta_link | default: '/collections/all' }}"
+            class="pvf-cta"
+            id="pvf-cta-{{ section.id }}"
+          >
+            {{ section.settings.cta_label }}
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
+              <path d="M3 9h12M10 5l4 4-4 4" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
+        </div>
+      {%- endif -%}
+
+      {%- if section.settings.trust_microcopy != blank -%}
+        <p class="pvf-trust">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="#D99A2B" aria-hidden="true">
+            <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+          </svg>
+          {{ section.settings.trust_microcopy }}
+        </p>
+      {%- endif -%}
+
+    </div>
+  </div>
+
+</section>
+
+{% schema %}
+{
+  "name": "PV Flagship Product",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": { "groups": ["header", "footer"] },
+  "settings": [
+    {
+      "type": "header",
+      "content": "Background Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_desktop",
+      "label": "Desktop background image",
+      "info": "Recommended: 2400×900px or wider. Place the dog/product on the right side of your photo so it shows through the gradient."
+    },
+    {
+      "type": "image_picker",
+      "id": "image_mobile",
+      "label": "Mobile background image",
+      "info": "Optional. If not set, the desktop image is used on mobile. Recommended: 900×1100px, dog centered or slightly right."
+    },
+    {
+      "type": "select",
+      "id": "bg_position",
+      "label": "Desktop background position",
+      "default": "center right",
+      "options": [
+        { "value": "center center", "label": "Center center" },
+        { "value": "center right",  "label": "Center right (default — dog on right)" },
+        { "value": "center left",   "label": "Center left" },
+        { "value": "top center",    "label": "Top center" },
+        { "value": "bottom center", "label": "Bottom center" }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "badge",
+      "label": "Badge text",
+      "default": "OUR FLAGSHIP PRODUCT"
+    },
+    {
+      "type": "textarea",
+      "id": "heading",
+      "label": "Headline",
+      "default": "PawVoyage No-Pull\nTactical Dog Harness"
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "Subheadline",
+      "default": "Designed for dog owners who want more control, more comfort, and less pulling on every walk."
+    },
+    {
+      "type": "header",
+      "content": "Price"
+    },
+    {
+      "type": "text",
+      "id": "price_now",
+      "label": "Current price",
+      "default": "$59.99",
+      "info": "Text only — update manually when your product price changes."
+    },
+    {
+      "type": "checkbox",
+      "id": "show_compare_price",
+      "label": "Show compare-at (was) price",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "price_was",
+      "label": "Compare-at price",
+      "default": "$79.99",
+      "info": "Only shown when 'Show compare-at price' is checked."
+    },
+    {
+      "type": "header",
+      "content": "CTA & Trust"
+    },
+    {
+      "type": "text",
+      "id": "cta_label",
+      "label": "CTA button label",
+      "default": "Shop The Harness"
+    },
+    {
+      "type": "url",
+      "id": "cta_link",
+      "label": "CTA link",
+      "info": "Defaults to /collections/all if left blank."
+    },
+    {
+      "type": "text",
+      "id": "trust_microcopy",
+      "label": "Trust microcopy",
+      "default": "Secure checkout \u2022 30-day easy returns \u2022 Free shipping"
+    },
+    {
+      "type": "header",
+      "content": "Section Height"
+    },
+    {
+      "type": "range",
+      "id": "min_height_desktop",
+      "min": 520,
+      "max": 1000,
+      "step": 20,
+      "unit": "px",
+      "label": "Desktop minimum height",
+      "default": 780
+    },
+    {
+      "type": "range",
+      "id": "min_height_mobile",
+      "min": 480,
+      "max": 900,
+      "step": 20,
+      "unit": "px",
+      "label": "Mobile minimum height",
+      "default": 640
+    }
+  ],
+  "blocks": [
+    {
+      "type": "bullet",
+      "name": "Benefit bullet",
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Bullet text",
+          "default": "Dual-clip no-pull control system"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "PV Flagship Product",
+      "blocks": [
+        { "type": "bullet", "settings": { "text": "Dual-clip no-pull control system" } },
+        { "type": "bullet", "settings": { "text": "Thick air-mesh padded lining" } },
+        { "type": "bullet", "settings": { "text": "Military-grade buckles & hardware" } },
+        { "type": "bullet", "settings": { "text": "Reflective stitching for night walks" } },
+        { "type": "bullet", "settings": { "text": "Top grab handle for tight spaces" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

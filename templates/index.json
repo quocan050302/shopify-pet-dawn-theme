@@ -40,6 +40,30 @@
         "hero_height_desktop": 760
       }
     },
+    "pv_flagship_hero": {
+      "type": "pawvoyage-flagship-product",
+      "blocks": {
+        "fl_b1": { "type": "bullet", "settings": { "text": "Dual-clip no-pull control system" } },
+        "fl_b2": { "type": "bullet", "settings": { "text": "Thick air-mesh padded lining" } },
+        "fl_b3": { "type": "bullet", "settings": { "text": "Military-grade buckles & hardware" } },
+        "fl_b4": { "type": "bullet", "settings": { "text": "Reflective stitching for night walks" } },
+        "fl_b5": { "type": "bullet", "settings": { "text": "Top grab handle for tight spaces" } }
+      },
+      "block_order": ["fl_b1", "fl_b2", "fl_b3", "fl_b4", "fl_b5"],
+      "settings": {
+        "badge": "OUR FLAGSHIP PRODUCT",
+        "heading": "PawVoyage No-Pull\nTactical Dog Harness",
+        "subheading": "Designed for dog owners who want more control, more comfort, and less pulling on every walk.",
+        "price_now": "$59.99",
+        "show_compare_price": true,
+        "price_was": "$79.99",
+        "cta_label": "Shop The Harness",
+        "cta_link": "/collections/all",
+        "trust_microcopy": "Secure checkout \u2022 30-day easy returns \u2022 Free shipping",
+        "min_height_desktop": 780,
+        "min_height_mobile": 640
+      }
+    },
     "pv_trust": {
       "type": "pv-trust-badges",
       "blocks": {
@@ -488,6 +512,7 @@
   },
   "order": [
     "pv_hero",
+    "pv_flagship_hero",
     "pv_trust",
     "pv_pain",
     "pv_benefits",

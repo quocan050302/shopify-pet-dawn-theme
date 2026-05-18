@@ -1,5 +1,11 @@
 {{ 'pawvoyage-brand.css' | asset_url | stylesheet_tag }}
 
+{%- liquid
+  assign bg_pos     = section.settings.bg_position | default: 'center right'
+  assign desktop_img = section.settings.image_desktop
+  assign mobile_img  = section.settings.image_mobile
+-%}
+
 {%- style -%}
   #pv-hero-{{ section.id }} {
     position: relative;
@@ -7,14 +13,44 @@
     display: flex;
     align-items: center;
     overflow: hidden;
-    background: radial-gradient(circle at 75% 30%, #FFFFFF 0%, #FAF7F2 50%, #F0EAE0 100%);
+    background: linear-gradient(135deg, #FAF7F0 0%, #EAE3D6 60%, #D5C9B5 100%);
   }
+
   @media screen and (min-width: 990px) {
     #pv-hero-{{ section.id }} { min-height: {{ section.settings.hero_height_desktop }}px; }
+  }
+
+  {%- if desktop_img != blank -%}
+  #pv-hero-{{ section.id }} {
+    background-image: url('{{ desktop_img | image_url: width: 2400 }}');
+    background-size: cover;
+    background-position: {{ bg_pos }};
+    background-repeat: no-repeat;
+  }
+  {%- endif -%}
+
+  @media screen and (max-width: 749px) {
+    {%- if mobile_img != blank -%}
+    #pv-hero-{{ section.id }} {
+      background-image: url('{{ mobile_img | image_url: width: 900 }}');
+      background-size: cover;
+      background-position: center top;
+      background-repeat: no-repeat;
+    }
+    {%- elsif desktop_img != blank -%}
+    #pv-hero-{{ section.id }} {
+      background-image: url('{{ desktop_img | image_url: width: 1200 }}');
+      background-size: cover;
+      background-position: center top;
+      background-repeat: no-repeat;
+    }
+    {%- endif -%}
   }
 {%- endstyle -%}
 
 <section id="pv-hero-{{ section.id }}" class="pv-hero">
+  <!-- Gradient overlay (decorative) -->
+  <div class="pv-hero__overlay" aria-hidden="true"></div>
   <div class="page-width pv-hero__content-wrap">
     <div class="pv-hero__grid">
       <!-- Left Column: Content -->
@@ -58,42 +94,42 @@
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" fill="#D99A2B"/></svg>
           Loved by dog owners • Secure checkout • Easy returns
         </div>
-      </div>
-
-      <!-- Right Column: Visual Area -->
-      <div class="pv-hero__visual">
-        <div class="pv-hero__card-glow"></div>
-        <div class="pv-hero__card">
-          {%- if section.settings.image != blank -%}
-            {{ section.settings.image | image_url: width: 900 | image_tag: class: 'pv-hero__card-img', loading: 'eager', fetchpriority: 'high', widths: '450, 600, 900', sizes: '(min-width: 990px) 50vw, 100vw', alt: section.settings.image.alt | escape }}
-          {%- else -%}
-            <div class="pv-hero__card-img pv-hero__card-placeholder">
-              {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
-            </div>
-          {%- endif -%}
-          
-          <div class="pv-hero__badge pv-hero__badge--1">
-            🐾 No-pull control
-          </div>
-          <div class="pv-hero__badge pv-hero__badge--2">
-            ☁️ Comfort padded fit
-          </div>
-          <div class="pv-hero__badge pv-hero__badge--3">
-            ⛰️ Adventure ready
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+      </div><!-- end .pv-hero__content -->
+    </div><!-- end .pv-hero__grid -->
+  </div><!-- end .page-width -->
 </section>
 
 <style>
-  .pv-hero { background-color: #FAF7F2; }
+  .pv-hero { }
   .pv-hero__content-wrap { position:relative; z-index:2; width:100%; padding-top:6rem; padding-bottom:6rem; }
-  .pv-hero__grid { display: grid; grid-template-columns: 1fr; gap: 4rem; align-items: center; }
-  
-  @media screen and (min-width: 990px) {
-    .pv-hero__grid { grid-template-columns: 1.1fr 0.9fr; gap: 6rem; }
+  .pv-hero__grid { display: grid; grid-template-columns: 1fr; gap: 0; align-items: center; }
+
+  /* Full-width overlay: left heavy, fades right */
+  .pv-hero__overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    background: linear-gradient(
+      to right,
+      rgba(250, 247, 240, 0.97) 0%,
+      rgba(250, 247, 240, 0.97) 15%,
+      rgba(250, 247, 240, 0.80) 40%,
+      rgba(250, 247, 240, 0.25) 65%,
+      transparent 100%
+    );
+  }
+
+  @media (max-width: 749px) {
+    .pv-hero__overlay {
+      background: linear-gradient(
+        to bottom,
+        rgba(250, 247, 240, 0.97) 0%,
+        rgba(250, 247, 240, 0.93) 50%,
+        rgba(250, 247, 240, 0.45) 78%,
+        transparent 100%
+      );
+    }
   }
 
   /* Left Column Styling */
@@ -160,7 +196,15 @@
   "class": "section",
   "disabled_on": { "groups": ["header", "footer"] },
   "settings": [
-    { "type": "image_picker", "id": "image", "label": "Product card image" },
+      { "type": "image_picker", "id": "image_desktop", "label": "Desktop background image", "info": "Recommended: 2400×900px. Place the dog on the right side of your photo." },
+    { "type": "image_picker", "id": "image_mobile", "label": "Mobile background image", "info": "Optional. Falls back to desktop image if blank. Recommended: 900×1100px." },
+    { "type": "select", "id": "bg_position", "label": "Desktop background position", "default": "center right", "options": [
+      { "value": "center center", "label": "Center center" },
+      { "value": "center right",  "label": "Center right (default)" },
+      { "value": "center left",   "label": "Center left" },
+      { "value": "top center",    "label": "Top center" },
+      { "value": "bottom center", "label": "Bottom center" }
+    ] },
     { "type": "text", "id": "eyebrow", "label": "Eyebrow label", "default": "No-Pull Tactical Harness" },
     { "type": "textarea", "id": "heading", "label": "Headline", "default": "Walks Without Pulling. Adventures Without Stress." },
     { "type": "textarea", "id": "subheading", "label": "Subheadline", "default": "The PawVoyage No-Pull Tactical Harness helps keep your dog secure, comfortable, and easier to control — from daily walks to outdoor adventures." },
