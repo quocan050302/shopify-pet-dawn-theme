@@ -18,97 +18,206 @@
       {%- for block in section.blocks -%}
         {%- if block.type == 'pain_point' -%}
           <div class="pv-pain__card" {{ block.shopify_attributes }}>
-            <div class="pv-pain__card-icon">{{ block.settings.icon_emoji }}</div>
-            <h3 class="pv-pain__card-title">{{ block.settings.title }}</h3>
-            <p class="pv-pain__card-text">{{ block.settings.description }}</p>
-            <div class="pv-pain__card-solution">
-              <span class="pv-pain__solution-label">PawVoyage fixes this:</span>
-              <span class="pv-pain__solution-text">{{ block.settings.solution }}</span>
+            <div class="pv-pain__card-image-wrap">
+              {%- if block.settings.image != blank -%}
+                {{ block.settings.image | image_url: width: 900 | image_tag: loading: 'lazy', class: 'pv-pain__card-image', alt: block.settings.image_alt | default: block.settings.title }}
+              {%- else -%}
+                <div class="pv-pain__card-placeholder">
+                  {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+                </div>
+              {%- endif -%}
+            </div>
+            <div class="pv-pain__card-content">
+              <h3 class="pv-pain__card-title">{{ block.settings.title }}</h3>
+              <p class="pv-pain__card-text">{{ block.settings.description }}</p>
+              <div class="pv-pain__card-solution">
+                <span class="pv-pain__solution-label">{{ block.settings.solution_label | default: 'PAWVOYAGE FIXES THIS:' }}</span>
+                <span class="pv-pain__solution-text">{{ block.settings.solution }}</span>
+              </div>
             </div>
           </div>
         {%- endif -%}
       {%- endfor -%}
     </div>
+
+    {%- if section.settings.show_cta and section.settings.cta_label != blank -%}
+      <div class="pv-pain__footer-cta">
+        {%- if section.settings.cta_text != blank -%}
+          <p class="pv-pain__cta-text">{{ section.settings.cta_text }}</p>
+        {%- endif -%}
+        <a href="{{ section.settings.cta_link | default: '#' }}" class="pv-pain__cta">{{ section.settings.cta_label }}</a>
+      </div>
+    {%- endif -%}
   </div>
 </section>
 
 <style>
   .pv-pain {
-    background: #F0EBE1;
-    padding: 8rem 0;
+    background: #F4EFE6;
+    padding: 6rem 0;
+  }
+  @media screen and (min-width: 750px) {
+    .pv-pain { padding: 8rem 0; }
   }
   .pv-pain__header {
     text-align: center;
-    margin-bottom: 5.6rem;
+    margin-bottom: 4rem;
+  }
+  @media screen and (min-width: 750px) {
+    .pv-pain__header { margin-bottom: 5.6rem; }
   }
   .pv-pain__header .pv-section-subheading {
     margin-left: auto;
     margin-right: auto;
+    color: #4A5246;
   }
+  .pv-section-heading { color: #12350E; }
+  
   .pv-pain__grid {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 2.4rem;
+    gap: 3.2rem;
   }
   @media screen and (min-width: 750px) {
-    .pv-pain__grid { grid-template-columns: repeat(3, 1fr); }
+    .pv-pain__grid { grid-template-columns: repeat(3, 1fr); gap: 2.4rem; }
   }
+  
+  /* Card Design */
   .pv-pain__card {
-    background: #FAF7F2;
-    border-radius: 20px;
-    padding: 3.2rem 2.8rem;
-    box-shadow: 0 4px 24px rgba(44,44,44,0.07);
-    border-top: 4px solid #C4853A;
+    background: #FFFAF1;
+    border-radius: 26px;
+    border: 1px solid rgba(100, 80, 50, 0.12);
+    border-top: 5px solid #C4853A;
+    box-shadow: 0 16px 32px rgba(20, 45, 25, 0.04);
     transition: transform 0.28s ease, box-shadow 0.28s ease;
-    position: relative;
+    display: flex;
+    flex-direction: column;
     overflow: hidden;
   }
-  .pv-pain__card::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 4px;
-    background: linear-gradient(90deg, #C4853A, #D9A05A);
+  @media screen and (min-width: 750px) {
+    .pv-pain__card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 20px 48px rgba(20, 45, 25, 0.08);
+    }
   }
-  .pv-pain__card:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 12px 40px rgba(44,44,44,0.14);
+  
+  /* Card Image */
+  .pv-pain__card-image-wrap {
+    width: 100%;
+    height: 240px;
+    padding: 1.6rem 1.6rem 0;
   }
-  .pv-pain__card-icon {
-    font-size: 4rem;
-    margin-bottom: 1.6rem;
-    line-height: 1;
+  @media screen and (min-width: 750px) {
+    .pv-pain__card-image-wrap { height: 260px; }
+  }
+  .pv-pain__card-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 18px;
+    display: block;
+  }
+  .pv-pain__card-placeholder {
+    width: 100%;
+    height: 100%;
+    background: #EAE3D6;
+    border-radius: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .pv-pain__card-placeholder svg {
+    width: 48px;
+    height: 48px;
+    fill: #C4853A;
+    opacity: 0.5;
+  }
+  
+  /* Card Content */
+  .pv-pain__card-content {
+    padding: 2.4rem;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
   }
   .pv-pain__card-title {
-    font-size: 2rem;
+    font-size: 2.2rem;
     font-weight: 800;
-    color: #2C2C2C;
-    margin: 0 0 1rem;
-    line-height: 1.25;
+    color: #12350E;
+    margin: 0 0 0.8rem;
+    line-height: 1.2;
   }
   .pv-pain__card-text {
-    font-size: 1.5rem;
-    color: #5C5C5C;
-    line-height: 1.65;
-    margin: 0 0 2rem;
+    font-size: 1.6rem;
+    color: #333333;
+    line-height: 1.5;
+    margin: 0 0 2.4rem;
+    font-weight: 500;
   }
   .pv-pain__card-solution {
-    border-top: 1px solid rgba(44,44,44,0.1);
-    padding-top: 1.6rem;
+    margin-top: auto;
+    border-top: 1px solid rgba(18, 53, 14, 0.1);
+    padding-top: 2rem;
   }
   .pv-pain__solution-label {
     display: block;
-    font-size: 1.1rem;
-    font-weight: 700;
-    letter-spacing: 0.1em;
+    font-size: 1.2rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
-    color: #2D5016;
-    margin-bottom: 0.4rem;
+    color: #12350E;
+    margin-bottom: 0.8rem;
   }
   .pv-pain__solution-text {
-    font-size: 1.4rem;
-    color: #2C2C2C;
+    display: block;
+    font-size: 1.5rem;
+    color: #2D3A2B;
+    font-weight: 500;
+    line-height: 1.5;
+  }
+  
+  /* CTA */
+  .pv-pain__footer-cta {
+    text-align: center;
+    margin-top: 4.8rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.6rem;
+  }
+  @media screen and (min-width: 750px) {
+    .pv-pain__footer-cta { margin-top: 6.4rem; }
+  }
+  .pv-pain__cta-text {
+    font-size: 1.8rem;
     font-weight: 600;
+    color: #12350E;
+    margin: 0;
+  }
+  .pv-pain__cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.6rem;
+    font-weight: 800;
+    padding: 1.6rem 3.2rem;
+    border-radius: 999px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    background: #12350E;
+    color: #FFF7EA;
+    box-shadow: 0 8px 24px rgba(18,53,14,0.18);
+    border: 2px solid #12350E;
+  }
+  .pv-pain__cta:hover {
+    background: #1A4A14;
+    border-color: #1A4A14;
+    transform: translateY(-3px);
+    box-shadow: 0 12px 32px rgba(18,53,14,0.28);
+    color: #FFF7EA;
+  }
+  @media screen and (max-width: 749px) {
+    .pv-pain__cta { width: 100%; max-width: 320px; }
   }
 </style>
 
@@ -121,17 +230,22 @@
   "settings": [
     { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Sound Familiar?" },
     { "type": "textarea", "id": "heading", "label": "Section heading", "default": "Still Getting Pulled Down the Street?" },
-    { "type": "textarea", "id": "subheading", "label": "Subheading", "default": "Most dog owners struggle with the same problems. Here's what we hear every day — and how PawVoyage solves it." }
+    { "type": "textarea", "id": "subheading", "label": "Subheading", "default": "Most dog owners struggle with the same problems. Here's what we hear every day — and how PawVoyage solves it." },
+    { "type": "header", "content": "Call to Action" },
+    { "type": "checkbox", "id": "show_cta", "label": "Show CTA button", "default": true },
+    { "type": "url", "id": "cta_link", "label": "CTA button link" }
   ],
   "blocks": [
     {
       "type": "pain_point",
-      "name": "Pain point",
+      "name": "Pain point card",
       "settings": [
-        { "type": "text", "id": "icon_emoji", "label": "Icon (emoji)", "default": "😤" },
+        { "type": "image_picker", "id": "image", "label": "Card image", "info": "Recommended aspect ratio: 4:3 or 1:1" },
+        { "type": "text", "id": "image_alt", "label": "Image alt text" },
         { "type": "text", "id": "title", "label": "Pain point title", "default": "Dog Pulls Too Hard" },
-        { "type": "textarea", "id": "description", "label": "Description", "default": "Every walk turns into a tug-of-war. Your arm hurts, your dog is excited, and it's just not enjoyable for either of you." },
-        { "type": "text", "id": "solution", "label": "PawVoyage solution", "default": "Dual attachment points redirect pulling force, giving you instant control." }
+        { "type": "textarea", "id": "description", "label": "Pain bullet/description", "default": "Walks turn into a tug-of-war." },
+        { "type": "text", "id": "solution_label", "label": "Solution label", "default": "PAWVOYAGE FIXES THIS:" },
+        { "type": "textarea", "id": "solution", "label": "Solution text", "default": "Dual clip points redirect pulling force so walks become relaxed." }
       ]
     }
   ],
@@ -142,27 +256,27 @@
         {
           "type": "pain_point",
           "settings": {
-            "icon_emoji": "😤",
             "title": "Dog Pulls Too Hard",
-            "description": "Every walk turns into a tug-of-war. Your arm aches, your dog is out of control, and walks stop being enjoyable.",
-            "solution": "Dual clip points redirect pulling force so walks become relaxed again."
+            "description": "Walks turn into a tug-of-war. Your arm aches, and it's just not enjoyable for either of you.",
+            "solution_label": "PAWVOYAGE FIXES THIS:",
+            "solution": "Dual clip points redirect pulling force so walks become relaxed and manageable."
           }
         },
         {
           "type": "pain_point",
           "settings": {
-            "icon_emoji": "⚠️",
             "title": "Collars Hurt the Neck",
-            "description": "Standard collars put dangerous pressure on your dog's trachea during pulling, causing long-term damage.",
-            "solution": "No-pull harness design distributes pressure across the chest — never the neck."
+            "description": "Standard collars can put pressure on the neck when your dog lunges or pulls.",
+            "solution_label": "PAWVOYAGE FIXES THIS:",
+            "solution": "No-pull design helps distribute pressure across the chest — not the neck."
           }
         },
         {
           "type": "pain_point",
           "settings": {
-            "icon_emoji": "💸",
             "title": "Cheap Harnesses Shift & Rub",
-            "description": "Flimsy harnesses rotate, chafe, and fall apart after a few months — wasted money and an uncomfortable dog.",
+            "description": "Flimsy harnesses rotate, chafe, and wear out quickly after a few months.",
+            "solution_label": "PAWVOYAGE FIXES THIS:",
             "solution": "Tactical-grade construction with padded mesh stays secure and comfortable all day."
           }
         }
