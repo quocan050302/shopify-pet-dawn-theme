@@ -1,14 +1,16 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "banner": {
       "type": "main-collection-banner",
-      "settings": {
-        "show_collection_description": true,
-        "show_collection_image": false,
-        "color_scheme": "scheme-1",
-        "custom_title": "No-Pull Dog Harness for Calmer Walks",
-        "custom_subheading": "Designed to help dog owners enjoy safer, more comfortable walks with better control and less pulling."
-      },
       "blocks": {
         "pill_1": {
           "type": "pill",
@@ -33,13 +35,19 @@
         "pill_1",
         "pill_2",
         "pill_3"
-      ]
+      ],
+      "settings": {
+        "custom_title": "No-Pull Dog Harness for Calmer Walks",
+        "custom_subheading": "Designed to help dog owners enjoy safer, more comfortable walks with better control and less pulling.",
+        "show_collection_description": true
+      }
     },
     "product-grid": {
       "type": "main-collection-product-grid",
       "settings": {
         "products_per_page": 16,
         "columns_desktop": 4,
+        "columns_mobile": "2",
         "color_scheme": "scheme-1",
         "image_ratio": "adapt",
         "image_shape": "default",
@@ -50,7 +58,6 @@
         "enable_filtering": true,
         "filter_type": "horizontal",
         "enable_sorting": true,
-        "columns_mobile": "2",
         "padding_top": 36,
         "padding_bottom": 36
       }
@@ -59,13 +66,16 @@
       "type": "pv-collection-enhancements",
       "blocks": {
         "pain_points": {
-          "type": "pain_points"
+          "type": "pain_points",
+          "settings": {}
         },
         "trust_strip": {
-          "type": "trust_strip"
+          "type": "trust_strip",
+          "settings": {}
         },
         "faq": {
-          "type": "faq"
+          "type": "faq",
+          "settings": {}
         }
       },
       "block_order": [
