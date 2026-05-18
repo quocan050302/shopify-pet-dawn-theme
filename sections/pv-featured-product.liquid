@@ -142,7 +142,10 @@
 </section>
 
 <style>
-  .pv-featured { background: #FAF7F2; padding: 8rem 0; }
+  .pv-featured { background: #FAF7F2; padding: 4rem 0; }
+  @media screen and (min-width: 750px) {
+    .pv-featured { padding: 8rem 0; }
+  }
   .pv-featured__layout { display: grid; grid-template-columns: 1fr; gap: 4rem; align-items: center; }
   @media screen and (min-width: 990px) {
     .pv-featured__layout { grid-template-columns: 1.1fr 0.9fr; gap: 6rem; align-items: start; }

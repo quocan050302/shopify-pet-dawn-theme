@@ -105,7 +105,10 @@
 </section>
 
 <style>
-  .pv-compare { background: #FFF7EA; padding: 10rem 0; color: #1F241D; }
+  .pv-compare { background: #FFF7EA; padding: 4rem 0; color: #1F241D; }
+  @media screen and (min-width: 750px) {
+    .pv-compare { padding: 10rem 0; }
+  }
   .pv-compare__header { text-align: center; margin-bottom: 6rem; display: flex; flex-direction: column; align-items: center; }
   .pv-section-subheading { max-width: 68rem; margin: 0 auto 2.4rem; color: #4A5246; font-size: 1.6rem; line-height: 1.6; }
   .pv-compare__pain-hook { display: inline-block; background: rgba(217, 154, 43, 0.15); border: 1px solid rgba(217, 154, 43, 0.3); color: #B37A17; font-size: 1.4rem; font-weight: 600; font-style: italic; padding: 0.8rem 2rem; border-radius: 999px; }
