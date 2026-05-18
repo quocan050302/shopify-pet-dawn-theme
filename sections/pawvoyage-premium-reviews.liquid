@@ -1,0 +1,565 @@
+{{ 'pawvoyage-brand.css' | asset_url | stylesheet_tag }}
+
+<section class="pv-premium-reviews section-{{ section.id }}" id="pv-premium-reviews-{{ section.id }}">
+  <div class="pv-premium-reviews__container page-width">
+    
+    <!-- HEADER -->
+    <div class="pv-premium-reviews__header">
+      {%- if section.settings.eyebrow_text != blank -%}
+        <div class="pvpr-eyebrow">
+          <span class="pvpr-eyebrow-line"></span>
+          <span class="pvpr-eyebrow-text">{{ section.settings.eyebrow_text }}</span>
+          <span class="pvpr-eyebrow-line"></span>
+        </div>
+      {%- endif -%}
+
+      {%- if section.settings.heading != blank -%}
+        <h2 class="pvpr-heading">{{ section.settings.heading }}</h2>
+      {%- endif -%}
+
+      {%- if section.settings.rating_text != blank or section.settings.review_count_text != blank -%}
+        <div class="pvpr-rating-row">
+          <div class="pvpr-stars" aria-hidden="true">
+            {%- for i in (1..5) -%}
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="#D59746"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            {%- endfor -%}
+          </div>
+          {%- if section.settings.rating_text != blank -%}
+            <span class="pvpr-rating-text">{{ section.settings.rating_text }}</span>
+          {%- endif -%}
+          {%- if section.settings.rating_text != blank and section.settings.review_count_text != blank -%}
+            <span class="pvpr-rating-divider">|</span>
+          {%- endif -%}
+          {%- if section.settings.review_count_text != blank -%}
+            <span class="pvpr-review-count">{{ section.settings.review_count_text }}</span>
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+    </div>
+
+    <!-- REVIEWS GRID -->
+    <div class="pv-premium-reviews__grid-wrapper">
+      <div class="pv-premium-reviews__grid">
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'review' -%}
+            <div class="pvpr-card" {{ block.shopify_attributes }}>
+              
+              <div class="pvpr-card__top">
+                <div class="pvpr-card__stars">
+                  {%- for i in (1..block.settings.rating) -%}
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="#D59746"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                  {%- endfor -%}
+                </div>
+                <div class="pvpr-card__quote-icon">
+                  <svg width="36" height="36" viewBox="0 0 24 24" fill="#E8E2D2"><path d="M14.017 18L14.017 10.609C14.017 4.905 17.748 1.039 23 0L23.995 2.151C21.563 3.068 20 5.789 20 8H24V18H14.017ZM0 18V10.609C0 4.905 3.748 1.038 9 0L9.996 2.151C7.563 3.068 6 5.789 6 8H9.983L9.983 18L0 18Z"/></svg>
+                </div>
+              </div>
+
+              <div class="pvpr-card__text-wrapper">
+                <p class="pvpr-card__text">{{ block.settings.review_text }}</p>
+              </div>
+
+              <div class="pvpr-card__customer">
+                <div class="pvpr-customer-avatar">
+                  {%- if block.settings.reviewer_avatar != blank -%}
+                    {{ block.settings.reviewer_avatar | image_url: width: 200 | image_tag: loading: 'lazy', class: 'pvpr-avatar-img', alt: block.settings.reviewer_name }}
+                  {%- else -%}
+                    <div class="pvpr-avatar-placeholder">
+                      <svg width="40" height="40" viewBox="0 0 24 24" fill="#5C6758"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/></svg>
+                    </div>
+                  {%- endif -%}
+                </div>
+                
+                <div class="pvpr-customer-info">
+                  <div class="pvpr-customer-name">{{ block.settings.reviewer_name }}</div>
+                  {%- if block.settings.verified_buyer -%}
+                    <div class="pvpr-verified">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="#133316"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+                      Verified Buyer
+                    </div>
+                  {%- endif -%}
+                  {%- if block.settings.reviewer_meta != blank -%}
+                    <div class="pvpr-customer-meta">{{ block.settings.reviewer_meta }}</div>
+                  {%- endif -%}
+                </div>
+              </div>
+
+            </div>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    </div>
+
+    <!-- BOTTOM TRUST BAR -->
+    {%- if section.settings.trust_item_1 != blank or section.settings.trust_item_2 != blank or section.settings.trust_item_3 != blank -%}
+      <div class="pv-premium-reviews__trust-bar">
+        {%- if section.settings.trust_item_1 != blank -%}
+          <div class="pvpr-trust-item">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#133316" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            <span class="pvpr-trust-text">{{ section.settings.trust_item_1 }}</span>
+          </div>
+        {%- endif -%}
+        
+        {%- if section.settings.trust_item_2 != blank -%}
+          <div class="pvpr-trust-divider"></div>
+          <div class="pvpr-trust-item">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#133316" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+            <span class="pvpr-trust-text">{{ section.settings.trust_item_2 }}</span>
+          </div>
+        {%- endif -%}
+        
+        {%- if section.settings.trust_item_3 != blank -%}
+          <div class="pvpr-trust-divider"></div>
+          <div class="pvpr-trust-item">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#133316" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+            <span class="pvpr-trust-text">{{ section.settings.trust_item_3 }}</span>
+          </div>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+
+  </div>
+</section>
+
+<style>
+  .pv-premium-reviews {
+    background-color: #FAF7F0; /* Warm cream */
+    padding: 6rem 1.5rem;
+  }
+  @media (min-width: 990px) {
+    .pv-premium-reviews {
+      padding: 10rem 2rem;
+    }
+  }
+
+  .pv-premium-reviews__container {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  /* -------------------
+     HEADER
+     ------------------- */
+  .pv-premium-reviews__header {
+    text-align: center;
+    margin-bottom: 4rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  @media (min-width: 990px) {
+    .pv-premium-reviews__header {
+      margin-bottom: 6rem;
+    }
+  }
+
+  .pvpr-eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 1.6rem;
+    margin-bottom: 2rem;
+    width: 100%;
+    max-width: 400px;
+  }
+  .pvpr-eyebrow-line {
+    height: 1px;
+    flex-grow: 1;
+    background: rgba(213, 151, 70, 0.4);
+  }
+  .pvpr-eyebrow-text {
+    color: #D59746;
+    font-size: 1.15rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+  }
+
+  .pvpr-heading {
+    font-family: var(--font-heading-family), serif;
+    font-size: clamp(42px, 5vw, 82px);
+    line-height: 0.95;
+    font-weight: 800;
+    color: #133316;
+    letter-spacing: -0.03em;
+    margin: 0 0 2.4rem 0;
+  }
+
+  .pvpr-rating-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1.2rem;
+    font-size: 1.7rem;
+    color: #2F392B;
+    font-weight: 600;
+  }
+  .pvpr-stars {
+    display: flex;
+    gap: 0.4rem;
+  }
+  .pvpr-rating-divider {
+    color: rgba(19, 51, 22, 0.2);
+  }
+
+  /* -------------------
+     GRID
+     ------------------- */
+  .pv-premium-reviews__grid-wrapper {
+    width: 100%;
+    margin-bottom: 4rem;
+  }
+  @media (min-width: 990px) {
+    .pv-premium-reviews__grid-wrapper {
+      margin-bottom: 6rem;
+    }
+  }
+
+  .pv-premium-reviews__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2.4rem;
+  }
+  @media (max-width: 749px) {
+    .pv-premium-reviews__grid-wrapper {
+      /* Mobile Swipe Carousel */
+      margin-left: -1.5rem;
+      margin-right: -1.5rem;
+      width: calc(100% + 3rem);
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scrollbar-width: none; /* Firefox */
+      -ms-overflow-style: none;  /* IE 10+ */
+    }
+    .pv-premium-reviews__grid-wrapper::-webkit-scrollbar {
+      display: none;
+    }
+    .pv-premium-reviews__grid {
+      display: flex;
+      padding: 0 1.5rem 2rem;
+      gap: 1.6rem;
+    }
+    .pvpr-card {
+      min-width: 85vw;
+      scroll-snap-align: center;
+    }
+  }
+  @media (min-width: 750px) and (max-width: 989px) {
+    .pv-premium-reviews__grid { grid-template-columns: repeat(2, 1fr); gap: 2.4rem; }
+  }
+  @media (min-width: 990px) {
+    .pv-premium-reviews__grid {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 3.2rem;
+    }
+  }
+
+  /* -------------------
+     CARD
+     ------------------- */
+  .pvpr-card {
+    background: rgba(255, 255, 255, 0.88);
+    border: 1px solid rgba(30, 60, 40, 0.06);
+    box-shadow: 0 18px 48px rgba(20, 45, 25, 0.04);
+    border-radius: 28px;
+    padding: 3.4rem;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  @media (max-width: 749px) {
+    .pvpr-card { padding: 2.4rem; border-radius: 24px; }
+  }
+  @media (min-width: 990px) {
+    .pvpr-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 24px 64px rgba(20, 45, 25, 0.08);
+    }
+  }
+
+  .pvpr-card__top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 2.4rem;
+  }
+  .pvpr-card__stars {
+    display: flex;
+    gap: 0.2rem;
+  }
+  .pvpr-card__quote-icon svg {
+    opacity: 0.8;
+  }
+
+  .pvpr-card__text-wrapper {
+    flex-grow: 1;
+    margin-bottom: 3.2rem;
+  }
+  .pvpr-card__text {
+    border-left: 3px solid rgba(50, 70, 50, 0.15);
+    padding-left: 2rem;
+    font-size: 1.6rem;
+    line-height: 1.6;
+    color: #2F392B;
+    margin: 0;
+  }
+
+  /* -------------------
+     CUSTOMER INFO BOX
+     ------------------- */
+  .pvpr-card__customer {
+    background: #F8F6F0; /* Light cream */
+    border-radius: 22px;
+    padding: 1.6rem;
+    display: flex;
+    align-items: center;
+    gap: 1.6rem;
+  }
+
+  .pvpr-customer-avatar {
+    flex-shrink: 0;
+    width: 88px;
+    height: 88px;
+    border-radius: 50%;
+    overflow: hidden;
+    background: #E8E2D2;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  }
+  .pvpr-avatar-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .pvpr-avatar-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .pvpr-customer-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+  .pvpr-customer-name {
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: #133316;
+  }
+  .pvpr-verified {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #133316;
+  }
+  .pvpr-customer-meta {
+    font-size: 1.4rem;
+    color: #5C6758;
+    line-height: 1.4;
+    margin-top: 0.2rem;
+  }
+
+  /* -------------------
+     TRUST BAR
+     ------------------- */
+  .pv-premium-reviews__trust-bar {
+    background: #F3EFE6;
+    border-radius: 999px;
+    padding: 2.4rem 4rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 3.2rem;
+    width: 100%;
+    max-width: 1000px;
+    box-shadow: 0 8px 24px rgba(20, 45, 25, 0.03);
+  }
+  @media (max-width: 989px) {
+    .pv-premium-reviews__trust-bar {
+      flex-direction: column;
+      border-radius: 28px;
+      padding: 2.4rem;
+      gap: 2rem;
+      align-items: stretch;
+    }
+  }
+
+  .pvpr-trust-item {
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+    flex: 1;
+    justify-content: center;
+  }
+  @media (max-width: 989px) {
+    .pvpr-trust-item { justify-content: flex-start; }
+  }
+  
+  .pvpr-trust-item svg {
+    flex-shrink: 0;
+  }
+  .pvpr-trust-text {
+    font-size: 1.45rem;
+    font-weight: 500;
+    color: #2F392B;
+    line-height: 1.4;
+  }
+
+  .pvpr-trust-divider {
+    width: 1px;
+    height: 40px;
+    background: rgba(19, 51, 22, 0.1);
+  }
+  @media (max-width: 989px) {
+    .pvpr-trust-divider {
+      width: 100%;
+      height: 1px;
+    }
+  }
+
+</style>
+
+{% schema %}
+{
+  "name": "PV Premium Reviews",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section Header"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow_text",
+      "label": "Eyebrow Label",
+      "default": "CUSTOMER REVIEWS"
+    },
+    {
+      "type": "textarea",
+      "id": "heading",
+      "label": "Main Heading",
+      "default": "Dog Owners Love PawVoyage"
+    },
+    {
+      "type": "text",
+      "id": "rating_text",
+      "label": "Rating Text",
+      "default": "4.9 out of 5"
+    },
+    {
+      "type": "text",
+      "id": "review_count_text",
+      "label": "Review Count Text",
+      "default": "1,247 reviews"
+    },
+    {
+      "type": "header",
+      "content": "Bottom Trust Bar"
+    },
+    {
+      "type": "text",
+      "id": "trust_item_1",
+      "label": "Trust Item 1",
+      "default": "Trusted by 10,000+ dog owners"
+    },
+    {
+      "type": "text",
+      "id": "trust_item_2",
+      "label": "Trust Item 2",
+      "default": "4.9/5 average rating from real customers"
+    },
+    {
+      "type": "text",
+      "id": "trust_item_3",
+      "label": "Trust Item 3",
+      "default": "Built for happier, healthier walks"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "review",
+      "name": "Review",
+      "settings": [
+        {
+          "type": "range",
+          "id": "rating",
+          "min": 1,
+          "max": 5,
+          "step": 1,
+          "label": "Star Rating",
+          "default": 5
+        },
+        {
+          "type": "textarea",
+          "id": "review_text",
+          "label": "Review Text",
+          "default": "Finally a harness that actually works! Max used to drag me everywhere. After one walk with PawVoyage, he was already calmer. The quality is incredible \u2014 feels built to last."
+        },
+        {
+          "type": "image_picker",
+          "id": "reviewer_avatar",
+          "label": "Reviewer Avatar",
+          "info": "Circular crop will be applied automatically."
+        },
+        {
+          "type": "text",
+          "id": "reviewer_name",
+          "label": "Reviewer Name",
+          "default": "Sarah M."
+        },
+        {
+          "type": "checkbox",
+          "id": "verified_buyer",
+          "label": "Show Verified Buyer Check",
+          "default": true
+        },
+        {
+          "type": "text",
+          "id": "reviewer_meta",
+          "label": "Dog Info / Meta",
+          "default": "Owner of Max, 3yr Labrador"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "PV Premium Reviews",
+      "blocks": [
+        {
+          "type": "review",
+          "settings": {
+            "reviewer_name": "Sarah M.",
+            "reviewer_meta": "Owner of Max, 3yr Labrador",
+            "review_text": "Finally a harness that actually works! Max used to drag me everywhere. After one walk with PawVoyage, he was already calmer. The quality is incredible \u2014 feels built to last."
+          }
+        },
+        {
+          "type": "review",
+          "settings": {
+            "reviewer_name": "James R.",
+            "reviewer_meta": "Owner of Luna, Rescue Mix",
+            "review_text": "My rescue has always been anxious on walks. This harness gives me so much more control and she actually seems more comfortable in it than her old one. The padding is so soft."
+          }
+        },
+        {
+          "type": "review",
+          "settings": {
+            "reviewer_name": "Emily K.",
+            "reviewer_meta": "Owner of Bear, Golden Retriever",
+            "review_text": "Worth every penny. I've tried 4 harnesses in 2 years and nothing compares. The buckles are rock solid, the fit is perfect, and the front clip makes the biggest difference."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
