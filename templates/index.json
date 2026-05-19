@@ -377,48 +377,71 @@
       }
     },
     "pv_reviews": {
-      "type": "pv-social-proof",
+      "type": "pawvoyage-ugc-reviews",
       "blocks": {
         "rev_1": {
-          "type": "review",
+          "type": "review_card",
           "settings": {
-            "stars": 5,
-            "review_text": "Finally a harness that actually works! Max used to drag me everywhere. After one walk with PawVoyage, he was already calmer. The quality is incredible — feels built to last.",
-            "name": "Sarah M.",
-            "dog_name": "Owner of Max, 3yr Labrador",
-            "verified": true
+            "rating": 5,
+            "review_text": "Max used to pull so hard I could barely keep up. After one walk with PawVoyage, it was night and day.",
+            "reviewer_name": "Sarah M.",
+            "dog_info": "Owner of Max",
+            "verified_text": "Verified Buyer"
           }
         },
         "rev_2": {
-          "type": "review",
+          "type": "review_card",
           "settings": {
-            "stars": 5,
-            "review_text": "My rescue has always been anxious on walks. This harness gives me so much more control and she actually seems more comfortable in it than her old one. The padding is so soft.",
-            "name": "James R.",
-            "dog_name": "Owner of Luna, Rescue Mix",
-            "verified": true
+            "rating": 5,
+            "review_text": "Finally a harness that fits perfectly and doesn\u2019t chafe. Super comfortable and super strong!",
+            "reviewer_name": "Jason T.",
+            "dog_info": "Owner of Rocky",
+            "verified_text": "Verified Buyer"
           }
         },
         "rev_3": {
-          "type": "review",
+          "type": "review_card",
           "settings": {
-            "stars": 5,
-            "review_text": "Worth every penny. I've tried 4 harnesses in 2 years and nothing compares. The buckles are rock solid, the fit is perfect, and the front clip makes the biggest difference.",
-            "name": "Emily K.",
-            "dog_name": "Owner of Bear, Golden Retriever",
-            "verified": true
+            "rating": 5,
+            "review_text": "The front clip makes all the difference. Our walks are calmer and so much more enjoyable now.",
+            "reviewer_name": "Emily R.",
+            "dog_info": "Owner of Luna",
+            "verified_text": "Verified Buyer"
+          }
+        },
+        "rev_4": {
+          "type": "review_card",
+          "settings": {
+            "rating": 5,
+            "review_text": "Love the handle and how easy it is to put on. It\u2019s our go-to harness for every adventure.",
+            "reviewer_name": "David K.",
+            "dog_info": "Owner of Bear",
+            "verified_text": "Verified Buyer"
+          }
+        },
+        "rev_5": {
+          "type": "review_card",
+          "settings": {
+            "rating": 5,
+            "review_text": "Durable, secure, and stylish. Worth every penny! My dog looks and feels like a K9.",
+            "reviewer_name": "Amanda L.",
+            "dog_info": "Owner of Titan",
+            "verified_text": "Verified Buyer"
           }
         }
       },
-      "block_order": [
-        "rev_1",
-        "rev_2",
-        "rev_3"
-      ],
+      "block_order": ["rev_1","rev_2","rev_3","rev_4","rev_5"],
       "settings": {
-        "eyebrow": "Customer Reviews",
-        "heading": "Dog Owners Love PawVoyage",
-        "aggregate_text": "4.9 out of 5 · 1,247 reviews"
+        "eyebrow_text": "REAL DOGS. REAL RESULTS.",
+        "heading": "Loved by 10,000+ Dog Owners",
+        "subheading": "See how PawVoyage helps dogs and their humans every day.",
+        "stat_1_text": "4.9/5 Average Rating",
+        "stat_2_text": "1,247 Reviews",
+        "stat_3_text": "10,000+ Happy Dogs",
+        "show_arrows": true,
+        "show_cta": true,
+        "bottom_text": "Join thousands of happy dogs living their best walks.",
+        "cta_text": "Read More Reviews \u2192"
       }
     },
     "pv_faq": {
