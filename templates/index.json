@@ -228,85 +228,30 @@
         "subheading": "Designed for dog owners who want more control, more comfort, and less pulling on every walk.",
         "cta_label": "Shop The Harness",
         "cta_link": "shopify://collections/all",
-        "trust_microcopy": "Secure checkout â€¢ 30-day easy returns â€¢ Free shipping today",
+        "trust_microcopy": "Secure checkout \u2022 30-day easy returns \u2022 Free shipping today",
         "fallback_title": "PawVoyage No-Pull Tactical Dog Harness",
-        "fallback_price": "$59.99",
+        "fallback_price": "$49.99",
         "fallback_compare_price": "$79.99"
       }
     },
     "pv_comparison": {
-      "type": "pv-comparison",
+      "type": "pawvoyage-comparison-table",
       "blocks": {
-        "row_1": {
-          "type": "row",
-          "settings": {
-            "feature": "Pulling Control",
-            "pv_benefit": "Front & back clip options help redirect pulling for calmer, more controlled walks.",
-            "other_limitation": "Often gives less control when dogs pull hard."
-          }
-        },
-        "row_2": {
-          "type": "row",
-          "settings": {
-            "feature": "Neck & Chest Comfort",
-            "pv_benefit": "Padded chest support helps reduce pressure and rubbing during daily walks.",
-            "other_limitation": "May shift, rub, or put pressure in the wrong areas."
-          }
-        },
-        "row_3": {
-          "type": "row",
-          "settings": {
-            "feature": "Secure Fit",
-            "pv_benefit": "Adjustable structure helps keep the harness stable and secure.",
-            "other_limitation": "Can loosen, twist, or feel unstable during movement."
-          }
-        },
-        "row_4": {
-          "type": "row",
-          "settings": {
-            "feature": "Durability",
-            "pv_benefit": "Built with durable materials for active dogs and outdoor adventures.",
-            "other_limitation": "Basic materials may wear out faster."
-          }
-        },
-        "row_5": {
-          "type": "row",
-          "settings": {
-            "feature": "Safety Details",
-            "pv_benefit": "Reflective accents and secure handling support safer walks in more conditions.",
-            "other_limitation": "May lack visibility or easy handling features."
-          }
-        },
-        "row_6": {
-          "type": "row",
-          "settings": {
-            "feature": "Travel Ready",
-            "pv_benefit": "Designed for daily walks, hikes, road trips, and pet-friendly outings.",
-            "other_limitation": "Usually built only for basic short walks."
-          }
-        }
+        "row_1": { "type": "comparison_row", "settings": { "icon": "shield",  "feature_title": "No-Pull Front Clip",         "feature_description": "Gently redirects pulling",         "pawvoyage_status": "yes", "pawvoyage_value": "Yes", "traditional_status": "no",      "traditional_value": "No",      "basic_status": "sometimes", "basic_value": "Sometimes" } },
+        "row_2": { "type": "comparison_row", "settings": { "icon": "comfort", "feature_title": "Padded Chest Comfort",       "feature_description": "Soft padding prevents chafing",    "pawvoyage_status": "yes", "pawvoyage_value": "Yes", "traditional_status": "no",      "traditional_value": "No",      "basic_status": "minimal",   "basic_value": "Minimal"   } },
+        "row_3": { "type": "comparison_row", "settings": { "icon": "sliders", "feature_title": "Adjustable 4-Point Fit",     "feature_description": "Perfect fit for more dogs",        "pawvoyage_status": "yes", "pawvoyage_value": "Yes", "traditional_status": "limited", "traditional_value": "Limited", "basic_status": "limited",   "basic_value": "Limited"   } },
+        "row_4": { "type": "comparison_row", "settings": { "icon": "handle",  "feature_title": "Top Handle",                 "feature_description": "Extra control when needed",        "pawvoyage_status": "yes", "pawvoyage_value": "Yes", "traditional_status": "no",      "traditional_value": "No",      "basic_status": "no",        "basic_value": "No"        } },
+        "row_5": { "type": "comparison_row", "settings": { "icon": "diamond", "feature_title": "Durable Tactical Build",     "feature_description": "Built for everyday adventure",     "pawvoyage_status": "yes", "pawvoyage_value": "Yes", "traditional_status": "average", "traditional_value": "Average", "basic_status": "no",        "basic_value": "No"        } },
+        "row_6": { "type": "comparison_row", "settings": { "icon": "moon",    "feature_title": "Reflective for Night Safety", "feature_description": "Better visibility in low light",  "pawvoyage_status": "yes", "pawvoyage_value": "Yes", "traditional_status": "some",    "traditional_value": "Some",    "basic_status": "no",        "basic_value": "No"        } }
       },
-      "block_order": [
-        "row_1",
-        "row_2",
-        "row_3",
-        "row_4",
-        "row_5",
-        "row_6"
-      ],
+      "block_order": ["row_1","row_2","row_3","row_4","row_5","row_6"],
       "settings": {
-        "eyebrow": "SEE THE DIFFERENCE",
-        "heading": "Why PawVoyage Makes Walks Feel Easier",
-        "subheading": "Every detail is designed to help you guide your dog with more control, comfort, and confidence â€” from quick walks to outdoor adventures.",
-        "pain_hook": "Because walks should feel calm, not like a tug-of-war.",
-        "pv_badge": "Recommended for Better Walks",
-        "col1_label": "PawVoyage Harness",
-        "col2_label": "Regular Harness",
-        "summary_heading": "Ready to Upgrade Your Walks?",
-        "summary_body": "Choose a harness designed for no-pull control, padded comfort, and everyday adventure.",
-        "cta_label": "Shop The Harness",
-        "cta_link": "/collections/all",
-        "cta_microcopy": "Secure checkout â€¢ Easy returns â€¢ Built for daily walks"
+        "eyebrow_text": "DESIGNED DIFFERENT. BUILT BETTER.",
+        "heading": "PawVoyage vs.\nThe Rest",
+        "subheading": "See why dog owners choose the tactical no-pull harness that actually works.",
+        "pawvoyage_col_title": "PawVoyage No-Pull Harness",
+        "traditional_col_title": "Traditional Harness",
+        "basic_col_title": "Basic No-Pull Harness"
       }
     },
     "pv_featured_product": {
