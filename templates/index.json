@@ -47,28 +47,28 @@
         "badge_1": {
           "type": "badge",
           "settings": {
-            "icon_emoji": "🔒",
+            "icon_emoji": "ðŸ”’",
             "label": "Secure Checkout"
           }
         },
         "badge_2": {
           "type": "badge",
           "settings": {
-            "icon_emoji": "↩️",
+            "icon_emoji": "â†©ï¸",
             "label": "30-Day Returns"
           }
         },
         "badge_3": {
           "type": "badge",
           "settings": {
-            "icon_emoji": "🐾",
+            "icon_emoji": "ðŸ¾",
             "label": "Pet-Friendly Design"
           }
         },
         "badge_4": {
           "type": "badge",
           "settings": {
-            "icon_emoji": "🚚",
+            "icon_emoji": "ðŸšš",
             "label": "Free Shipping Over $50"
           }
         }
@@ -87,7 +87,7 @@
         "pain_1": {
           "type": "pain_point",
           "settings": {
-            "icon_emoji": "😤",
+            "icon_emoji": "ðŸ˜¤",
             "title": "Dog Pulls Too Hard",
             "description": "Every walk turns into a tug-of-war. Your arm aches, your dog is out of control, and walks stop being enjoyable.",
             "solution": "Dual clip points redirect pulling force so walks become relaxed again."
@@ -96,18 +96,18 @@
         "pain_2": {
           "type": "pain_point",
           "settings": {
-            "icon_emoji": "⚠️",
+            "icon_emoji": "âš ï¸",
             "title": "Collars Hurt the Neck",
             "description": "Standard collars put dangerous pressure on your dog's trachea during pulling, causing long-term damage.",
-            "solution": "No-pull design distributes pressure across the chest — never the neck."
+            "solution": "No-pull design distributes pressure across the chest â€” never the neck."
           }
         },
         "pain_3": {
           "type": "pain_point",
           "settings": {
-            "icon_emoji": "💸",
+            "icon_emoji": "ðŸ’¸",
             "title": "Cheap Harnesses Shift & Rub",
-            "description": "Flimsy harnesses rotate, chafe, and fall apart after a few months — wasted money and an uncomfortable dog.",
+            "description": "Flimsy harnesses rotate, chafe, and fall apart after a few months â€” wasted money and an uncomfortable dog.",
             "solution": "Tactical-grade construction with padded mesh stays secure all day."
           }
         }
@@ -120,7 +120,7 @@
       "settings": {
         "eyebrow": "Sound Familiar?",
         "heading": "Still Getting Pulled Down the Street?",
-        "subheading": "Most dog owners struggle with the same problems. Here's what we hear every day — and how PawVoyage solves it."
+        "subheading": "Most dog owners struggle with the same problems. Here's what we hear every day â€” and how PawVoyage solves it."
       }
     },
     "pv_benefits": {
@@ -130,7 +130,7 @@
           "type": "benefit",
           "settings": {
             "pain_label": "Pulling too hard?",
-            "icon_emoji": "🎯",
+            "icon_emoji": "ðŸŽ¯",
             "title": "Better No-Pull Control",
             "description": "Front and back clip options help redirect pulling force so you can guide your dog with more confidence.",
             "microcopy": "More control, less struggle"
@@ -140,7 +140,7 @@
           "type": "benefit",
           "settings": {
             "pain_label": "Collars causing pressure?",
-            "icon_emoji": "☁️",
+            "icon_emoji": "â˜ï¸",
             "title": "Comfort-Focused Fit",
             "description": "Soft padding and an ergonomic chest design help reduce neck pressure and support longer daily walks.",
             "microcopy": "Made for everyday comfort"
@@ -150,7 +150,7 @@
           "type": "benefit",
           "settings": {
             "pain_label": "Cheap gear wearing out?",
-            "icon_emoji": "🪖",
+            "icon_emoji": "ðŸª–",
             "title": "Tactical Durability",
             "description": "Durable webbing, secure buckles, and reinforced structure are built for active dogs and outdoor adventures.",
             "microcopy": "Built for real movement"
@@ -160,7 +160,7 @@
           "type": "benefit",
           "settings": {
             "pain_label": "Always on the go?",
-            "icon_emoji": "✈️",
+            "icon_emoji": "âœˆï¸",
             "title": "Travel-Ready Design",
             "description": "A secure fit, easy handling, and adventure-ready build make it ideal for walks, hikes, trips, and daily outings.",
             "microcopy": "Ready wherever you go"
@@ -228,7 +228,7 @@
         "subheading": "Designed for dog owners who want more control, more comfort, and less pulling on every walk.",
         "cta_label": "Shop The Harness",
         "cta_link": "shopify://collections/all",
-        "trust_microcopy": "Secure checkout • 30-day easy returns • Free shipping today",
+        "trust_microcopy": "Secure checkout â€¢ 30-day easy returns â€¢ Free shipping today",
         "fallback_title": "PawVoyage No-Pull Tactical Dog Harness",
         "fallback_price": "$59.99",
         "fallback_compare_price": "$79.99"
@@ -297,7 +297,7 @@
       "settings": {
         "eyebrow": "SEE THE DIFFERENCE",
         "heading": "Why PawVoyage Makes Walks Feel Easier",
-        "subheading": "Every detail is designed to help you guide your dog with more control, comfort, and confidence — from quick walks to outdoor adventures.",
+        "subheading": "Every detail is designed to help you guide your dog with more control, comfort, and confidence â€” from quick walks to outdoor adventures.",
         "pain_hook": "Because walks should feel calm, not like a tug-of-war.",
         "pv_badge": "Recommended for Better Walks",
         "col1_label": "PawVoyage Harness",
@@ -306,7 +306,7 @@
         "summary_body": "Choose a harness designed for no-pull control, padded comfort, and everyday adventure.",
         "cta_label": "Shop The Harness",
         "cta_link": "/collections/all",
-        "cta_microcopy": "Secure checkout • Easy returns • Built for daily walks"
+        "cta_microcopy": "Secure checkout â€¢ Easy returns â€¢ Built for daily walks"
       }
     },
     "pv_featured_product": {
@@ -370,7 +370,7 @@
         "subheading": "Designed for dog owners who want more control, more comfort, and less pulling on every walk.",
         "cta_label": "Shop The Harness",
         "cta_link": "/products/pawvoyage-no-pull-tactical-dog-harness",
-        "trust_microcopy": "Secure checkout • 30-day easy returns • Free shipping today",
+        "trust_microcopy": "Secure checkout â€¢ 30-day easy returns â€¢ Free shipping today",
         "fallback_title": "PawVoyage No-Pull Tactical Dog Harness",
         "fallback_price": "$49.99",
         "fallback_compare_price": "$79.99"
@@ -445,88 +445,51 @@
       }
     },
     "pv_faq": {
-      "type": "pawvoyage-premium-faq",
+      "type": "pawvoyage-premium-faq-v2",
       "blocks": {
-        "faq_1": {
-          "type": "faq_item",
-          "settings": {
-            "question": "What size harness does my dog need?",
-            "answer": "<p>Measure your dog's chest girth (the widest point behind the front legs). Refer to our size chart on the product page. The harness is fully adjustable at 4 points — when in doubt, size up.</p>",
-            "icon": "<svg width=\"32\" height=\"32\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#133316\" stroke-width=\"1.5\"><path d=\"M2 12c0 2.76 2.24 5 5 5h10c2.76 0 5-2.24 5-5H2z\"/><path d=\"M7 17v2\"/><path d=\"M11 17v2\"/><path d=\"M15 17v2\"/></svg>",
-            "open_by_default": true
-          }
-        },
-        "faq_2": {
-          "type": "faq_item",
-          "settings": {
-            "question": "How does the no-pull feature actually work?",
-            "answer": "<p>The front chest clip redirects your dog's momentum sideways when they pull, making it uncomfortable to continue. Most owners see improvement within 1–2 walks.</p>",
-            "icon": "<svg width=\"32\" height=\"32\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#133316\" stroke-width=\"1.5\"><path d=\"M2 12c0 2.76 2.24 5 5 5h10c2.76 0 5-2.24 5-5H2z\"/><path d=\"M7 17v2\"/><path d=\"M11 17v2\"/><path d=\"M15 17v2\"/></svg>"
-          }
-        },
-        "faq_3": {
-          "type": "faq_item",
-          "settings": {
-            "question": "Is it safe for daily use?",
-            "answer": "<p>Absolutely. The padded mesh lining is designed for extended wear without chafing. We recommend removing the harness when your dog is unsupervised or sleeping.</p>",
-            "icon": "<svg width=\"32\" height=\"32\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#133316\" stroke-width=\"1.5\"><path d=\"M2 12c0 2.76 2.24 5 5 5h10c2.76 0 5-2.24 5-5H2z\"/><path d=\"M7 17v2\"/><path d=\"M11 17v2\"/><path d=\"M15 17v2\"/></svg>"
-          }
-        },
-        "faq_4": {
-          "type": "faq_item",
-          "settings": {
-            "question": "How long does shipping take?",
-            "answer": "<p>Orders ship within 1–2 business days. Standard delivery takes 5–7 business days. Expedited options (2–3 days) are available at checkout. Free shipping on orders over $50.</p>",
-            "icon": "<svg width=\"32\" height=\"32\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#133316\" stroke-width=\"1.5\"><path d=\"M2 12c0 2.76 2.24 5 5 5h10c2.76 0 5-2.24 5-5H2z\"/><path d=\"M7 17v2\"/><path d=\"M11 17v2\"/><path d=\"M15 17v2\"/></svg>"
-          }
-        },
-        "faq_5": {
-          "type": "faq_item",
-          "settings": {
-            "question": "What is your return policy?",
-            "answer": "<p>We offer a no-questions-asked 30-day return policy. If the harness doesn't work for you and your dog, contact us and we'll arrange a free return and full refund.</p>",
-            "icon": "<svg width=\"32\" height=\"32\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#133316\" stroke-width=\"1.5\"><path d=\"M2 12c0 2.76 2.24 5 5 5h10c2.76 0 5-2.24 5-5H2z\"/><path d=\"M7 17v2\"/><path d=\"M11 17v2\"/><path d=\"M15 17v2\"/></svg>"
-          }
-        },
-        "faq_6": {
-          "type": "faq_item",
-          "settings": {
-            "question": "Can I wash the harness?",
-            "answer": "<p>Yes! Machine washable on a gentle cycle in a mesh laundry bag. Air dry only. The materials are fade-resistant and retain their shape after washing.</p>",
-            "icon": "<svg width=\"32\" height=\"32\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#133316\" stroke-width=\"1.5\"><path d=\"M2 12c0 2.76 2.24 5 5 5h10c2.76 0 5-2.24 5-5H2z\"/><path d=\"M7 17v2\"/><path d=\"M11 17v2\"/><path d=\"M15 17v2\"/></svg>"
-          }
-        },
-        "faq_7": {
-          "type": "faq_item",
-          "settings": {
-            "question": "Is it suitable for travel (planes, cars)?",
-            "answer": "<p>Yes. The slim-profile design and top handle make it easy to manage in tight spaces. It's compatible with most car seat adapters and fits under most airline restrictions.</p>",
-            "icon": "<svg width=\"32\" height=\"32\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#133316\" stroke-width=\"1.5\"><path d=\"M2 12c0 2.76 2.24 5 5 5h10c2.76 0 5-2.24 5-5H2z\"/><path d=\"M7 17v2\"/><path d=\"M11 17v2\"/><path d=\"M15 17v2\"/></svg>"
-          }
-        }
+        "faq_1": { "type": "pvfaq2_item", "settings": { "question": "Is this harness good for dogs that pull?", "answer": "Yes! The PawVoyage harness features a front-clip no-pull design that gently redirects your dog\u2019s forward motion, helping to reduce pulling without causing choking or neck strain.", "open_by_default": true } },
+        "faq_2": { "type": "pvfaq2_item", "settings": { "question": "How do I choose the right size?", "answer": "Measure your dog\u2019s chest girth at the widest point behind the front legs. The harness is fully adjustable at 4 points. When in doubt, size up and adjust the straps for a snug fit." } },
+        "faq_3": { "type": "pvfaq2_item", "settings": { "question": "Is it comfortable for daily walks?", "answer": "Absolutely. The padded mesh lining and ergonomic chest panel are designed for extended daily wear without chafing or rubbing, even on longer walks." } },
+        "faq_4": { "type": "pvfaq2_item", "settings": { "question": "What if it does not fit?", "answer": "We offer a 30-day no-questions-asked return policy. If the harness doesn\u2019t fit your dog, contact us for a free exchange or full refund." } },
+        "faq_5": { "type": "pvfaq2_item", "settings": { "question": "How does the no-pull feature work?", "answer": "The front chest clip redirects your dog\u2019s momentum sideways when they pull, making it uncomfortable to continue pulling. Most owners notice improvement within the first 1\u20132 walks." } },
+        "faq_6": { "type": "pvfaq2_item", "settings": { "question": "Is it safe for all dog breeds?", "answer": "Yes. The harness is designed for dogs of all breeds and sizes. The padded chest distributes pressure evenly, making it safer than traditional collars for dogs prone to pulling." } },
+        "faq_7": { "type": "pvfaq2_item", "settings": { "question": "Can my dog wear it all day?", "answer": "It\u2019s designed for extended walks and outdoor adventures. We recommend removing the harness when your dog is unsupervised, sleeping, or resting indoors." } },
+        "faq_8": { "type": "pvfaq2_item", "settings": { "question": "How do I clean the harness?", "answer": "Machine wash on a gentle cycle in a mesh laundry bag with cold water. Air dry only. The materials are fade-resistant and retain their shape after washing." } },
+        "faq_9": { "type": "pvfaq2_item", "settings": { "question": "Is it suitable for travel (planes, cars)?", "answer": "Yes. The slim-profile design, top handle, and secure buckles make it ideal for travel. It\u2019s compatible with most car seat adapters and fits within most airline carry-on restrictions." } },
+        "faq_10": { "type": "pvfaq2_item", "settings": { "question": "How long does shipping take?", "answer": "Orders ship within 1\u20132 business days. Standard delivery is 5\u20137 business days. Expedited 2\u20133 day options are available at checkout. Free shipping on orders over $50." } }
       },
-      "block_order": [
-        "faq_1",
-        "faq_2",
-        "faq_3",
-        "faq_4",
-        "faq_5",
-        "faq_6",
-        "faq_7"
-      ],
+      "block_order": ["faq_1","faq_2","faq_3","faq_4","faq_5","faq_6","faq_7","faq_8","faq_9","faq_10"],
       "settings": {
-        "eyebrow_text": "Got Questions?",
+        "eyebrow_text": "GOT QUESTIONS?",
         "heading": "Frequently Asked Questions",
         "subheading": "Everything you need to know about the PawVoyage No-Pull Harness.",
-        "show_bottom_trust_bar": true,
-        "trust_1_title": "30-Day Easy Returns",
+        "mini_benefit_1": "Reduces pulling instantly",
+        "mini_benefit_2": "Safe \u0026 gentle on your dog",
+        "mini_benefit_3": "Recommended by trainers",
+        "trust_1_title": "30-Day Risk-Free Trial",
         "trust_1_text": "Love it or get your money back.",
-        "trust_2_title": "Fast & Free Shipping",
+        "trust_2_title": "Free Shipping",
         "trust_2_text": "On all orders over $50.",
         "trust_3_title": "10,000+ Happy Dogs",
-        "trust_3_text": "Trusted by dog owners worldwide.",
-        "trust_4_title": "Need More Help?",
-        "trust_4_text": "Our support team is here for you."
+        "trust_3_text": "Join thousands of satisfied dog owners.",
+        "trust_4_title": "Secure Checkout",
+        "trust_4_text": "Your payment information is 100% protected.",
+        "sidebar_title": "Still need help?",
+        "sidebar_text": "Our team is here for you and your dog!",
+        "contact_email": "hello@pawvoyage.com",
+        "contact_chat_title": "Live Chat",
+        "contact_chat_text": "Chat with our team",
+        "contact_email_title": "Email Us",
+        "contact_help_title": "Help Center",
+        "contact_help_text": "Browse all articles",
+        "guar_mini_title": "We care about happy dogs.",
+        "guar_mini_text": "Not 100% satisfied? We'll make it right.",
+        "guarantee_days": "30",
+        "guarantee_heading": "Try PawVoyage Risk-Free for 30 Days",
+        "guarantee_text": "We're confident you and your dog will love it. If not, return it within 30 days for a full refund \u2014 no questions asked.",
+        "guarantee_cta_text": "Shop With Confidence \u2192",
+        "proof_label": "Backed by thousands of dog owners who trust PawVoyage",
+        "proof_rating_text": "4.9/5 from 1,247 reviews"
       }
     }
   },
