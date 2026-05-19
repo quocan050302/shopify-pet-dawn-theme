@@ -1,0 +1,954 @@
+﻿{%- liquid
+  assign hero_img   = section.settings.desktop_background_image
+  assign hero_img_m = section.settings.mobile_background_image
+  assign feat_prod  = section.settings.sticky_product
+  assign show_sticky = section.settings.show_sticky_atc
+-%}
+
+{%- style -%}
+/* ── PawVoyage Hero Conversion — scoped to section ── */
+#pvhc-{{ section.id }} {
+  position: relative;
+  min-height: 680px;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  background: #FAF7F0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif;
+}
+@media (min-width: 990px) { #pvhc-{{ section.id }} { min-height: 760px; } }
+
+/* Background image */
+#pvhc-{{ section.id }} .pvhc-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center right;
+  {%- if hero_img != blank -%}
+  background-image: url('{{ hero_img | image_url: width: 2400 }}');
+  {%- else -%}
+  background: linear-gradient(135deg,#e8f0e8 0%,#c8d8c0 60%,#a0b898 100%);
+  {%- endif -%}
+}
+@media (max-width: 749px) {
+  #pvhc-{{ section.id }} .pvhc-bg {
+    background-position: center 50%;
+    {%- if hero_img_m != blank -%}
+    background-image: url('{{ hero_img_m | image_url: width: 900 }}');
+    {%- elsif hero_img != blank -%}
+    background-image: url('{{ hero_img | image_url: width: 1200 }}');
+    {%- endif -%}
+  }
+}
+
+/* Left overlay */
+#pvhc-{{ section.id }} .pvhc-overlay {
+  display: block !important;
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(
+    90deg,
+    rgba(250,247,240,1.00)  0%,
+    rgba(250,247,240,0.99) 14%,
+    rgba(250,247,240,0.95) 28%,
+    rgba(250,247,240,0.78) 42%,
+    rgba(250,247,240,0.42) 58%,
+    rgba(250,247,240,0.10) 72%,
+    rgba(250,247,240,0.00) 82%
+  );
+}
+@media (max-width: 749px) {
+  #pvhc-{{ section.id }} .pvhc-overlay {
+    background: linear-gradient(
+      180deg,
+      rgba(250,247,240,0.97) 0%,
+      rgba(250,247,240,0.88) 35%,
+      rgba(250,247,240,0.52) 62%,
+      rgba(250,247,240,0.12) 85%,
+      rgba(250,247,240,0.00) 100%
+    );
+  }
+}
+
+/* Content wrap */
+#pvhc-{{ section.id }} .pvhc-wrap {
+  position: relative;
+  z-index: 2;
+  max-width: 1360px;
+  margin: 0 auto;
+  width: 100%;
+  padding: 6rem 2rem;
+}
+@media (max-width: 749px) {
+  #pvhc-{{ section.id }} .pvhc-wrap { padding: 4rem 1.6rem; }
+}
+
+/* Left column */
+#pvhc-{{ section.id }} .pvhc-left {
+  max-width: 560px;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+/* Social proof row */
+#pvhc-{{ section.id }} .pvhc-proof {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+#pvhc-{{ section.id }} .pvhc-avatars {
+  display: flex;
+  margin-right: .4rem;
+}
+#pvhc-{{ section.id }} .pvhc-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 2px solid #FAF7F0;
+  object-fit: cover;
+  margin-left: -8px;
+  background: #d0c8b8;
+}
+#pvhc-{{ section.id }} .pvhc-avatar:first-child { margin-left: 0; }
+#pvhc-{{ section.id }} .pvhc-proof-text {
+  display: flex;
+  flex-direction: column;
+  gap: .2rem;
+}
+#pvhc-{{ section.id }} .pvhc-proof-trust {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #2A3228;
+  line-height: 1;
+}
+#pvhc-{{ section.id }} .pvhc-proof-rating {
+  display: flex;
+  align-items: center;
+  gap: .4rem;
+  font-size: 1.1rem;
+  color: #4A5748;
+  font-weight: 600;
+}
+#pvhc-{{ section.id }} .pvhc-stars { color: #D4A843; letter-spacing: 1px; font-size: 1.2rem; }
+
+/* Headline */
+#pvhc-{{ section.id }} .pvhc-headline {
+  font-size: clamp(3.6rem, 5.5vw, 6rem);
+  font-weight: 900;
+  color: #133316;
+  line-height: 1.0;
+  letter-spacing: -.03em;
+  margin: 0 0 1.6rem;
+}
+#pvhc-{{ section.id }} .pvhc-headline-accent { color: #1A5C1E; }
+
+/* Subheadline */
+#pvhc-{{ section.id }} .pvhc-sub {
+  font-size: clamp(1.5rem, 2vw, 1.75rem);
+  color: #3A4838;
+  line-height: 1.6;
+  margin: 0 0 2.2rem;
+  max-width: 500px;
+  font-weight: 500;
+}
+
+/* Benefit icon row */
+#pvhc-{{ section.id }} .pvhc-benefits {
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+  margin-bottom: 2.8rem;
+}
+#pvhc-{{ section.id }} .pvhc-ben {
+  display: flex;
+  align-items: center;
+  gap: .7rem;
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #133316;
+}
+#pvhc-{{ section.id }} .pvhc-ben-icon {
+  width: 32px;
+  height: 32px;
+  background: rgba(19,51,22,.10);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+#pvhc-{{ section.id }} .pvhc-ben-icon svg { width: 16px; height: 16px; stroke: #133316; }
+
+/* CTA */
+#pvhc-{{ section.id }} .pvhc-cta-wrap { margin-bottom: 1.4rem; }
+#pvhc-{{ section.id }} .pvhc-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: .8rem;
+  background: #133316;
+  color: #fff;
+  font-size: 1.75rem;
+  font-weight: 800;
+  padding: 1.7rem 3.6rem;
+  border-radius: 999px;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 10px 28px rgba(19,51,22,.25);
+  transition: transform .25s ease, box-shadow .25s ease, background .25s ease;
+  letter-spacing: -.01em;
+}
+#pvhc-{{ section.id }} .pvhc-cta:hover {
+  background: #1A4A20;
+  transform: translateY(-2px);
+  box-shadow: 0 16px 36px rgba(19,51,22,.30);
+  color: #fff;
+}
+@media (max-width: 749px) {
+  #pvhc-{{ section.id }} .pvhc-cta { width: 100%; justify-content: center; }
+}
+
+/* Guarantee microcopy */
+#pvhc-{{ section.id }} .pvhc-guarantee {
+  display: flex;
+  align-items: center;
+  gap: 1.4rem;
+  flex-wrap: wrap;
+  font-size: 1.25rem;
+  color: #4A5748;
+  font-weight: 600;
+  margin-bottom: 0;
+}
+#pvhc-{{ section.id }} .pvhc-guarantee span {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+}
+#pvhc-{{ section.id }} .pvhc-guarantee svg { width: 14px; height: 14px; stroke: #133316; flex-shrink: 0; }
+
+/* ── CALLOUT LABELS (desktop only) ── */
+#pvhc-{{ section.id }} .pvhc-callouts {
+  display: none;
+}
+@media (min-width: 990px) {
+  #pvhc-{{ section.id }} .pvhc-callouts {
+    display: block;
+    position: absolute;
+    inset: 0;
+    z-index: 3;
+    pointer-events: none;
+  }
+}
+#pvhc-{{ section.id }} .pvhc-callout {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  gap: .6rem;
+  background: rgba(10,25,12,.78);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  color: #fff;
+  font-size: 1.1rem;
+  font-weight: 700;
+  padding: .65rem 1.2rem .65rem .8rem;
+  border-radius: 999px;
+  letter-spacing: .02em;
+  white-space: nowrap;
+  pointer-events: auto;
+}
+#pvhc-{{ section.id }} .pvhc-callout-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #D4A843;
+  flex-shrink: 0;
+}
+/* Callout positions */
+#pvhc-{{ section.id }} .pvhc-callout--1 { top: 18%; right: 36%; }
+#pvhc-{{ section.id }} .pvhc-callout--2 { top: 46%; right: 14%; }
+#pvhc-{{ section.id }} .pvhc-callout--3 { bottom: 28%; right: 24%; }
+
+/* Mobile callout chips */
+#pvhc-{{ section.id }} .pvhc-callout-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .8rem;
+  margin-top: 2rem;
+}
+@media (min-width: 990px) {
+  #pvhc-{{ section.id }} .pvhc-callout-chips { display: none; }
+}
+#pvhc-{{ section.id }} .pvhc-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  background: rgba(19,51,22,.08);
+  color: #133316;
+  font-size: 1.1rem;
+  font-weight: 700;
+  padding: .55rem 1.2rem;
+  border-radius: 999px;
+  border: 1px solid rgba(19,51,22,.14);
+}
+#pvhc-{{ section.id }} .pvhc-chip-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #D4A843;
+  flex-shrink: 0;
+}
+
+/* ── BENEFIT STRIP ── */
+#pvhc-{{ section.id }} .pvhc-strip {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 4;
+  padding: 0 2rem 1.6rem;
+  pointer-events: none;
+}
+#pvhc-{{ section.id }} .pvhc-strip-inner {
+  max-width: 1360px;
+  margin: 0 auto;
+  background: rgba(255,255,255,0.90);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255,255,255,.6);
+  border-radius: 20px;
+  padding: 1.6rem 2rem;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.6rem;
+  pointer-events: auto;
+  box-shadow: 0 8px 32px rgba(19,51,22,.08);
+}
+@media (max-width: 749px) {
+  #pvhc-{{ section.id }} .pvhc-strip-inner {
+    grid-template-columns: 1fr;
+    gap: 1.2rem;
+    border-radius: 16px;
+    padding: 1.4rem 1.6rem;
+  }
+}
+#pvhc-{{ section.id }} .pvhc-strip-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+}
+#pvhc-{{ section.id }} .pvhc-strip-icon {
+  width: 38px;
+  height: 38px;
+  background: rgba(19,51,22,.08);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+#pvhc-{{ section.id }} .pvhc-strip-icon svg { width: 18px; height: 18px; stroke: #133316; }
+#pvhc-{{ section.id }} .pvhc-strip-title {
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: #133316;
+  margin: 0 0 .3rem;
+}
+#pvhc-{{ section.id }} .pvhc-strip-text {
+  font-size: 1.2rem;
+  color: #4A5748;
+  line-height: 1.45;
+  margin: 0;
+}
+
+/* ── STICKY ATC ── */
+#pvhc-sticky-{{ section.id }} {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 9999;
+  background: #fff;
+  border-top: 1px solid #E2DDD4;
+  box-shadow: 0 -4px 24px rgba(19,51,22,.12);
+  padding: 1.2rem 2rem;
+  transform: translateY(100%);
+  transition: transform .35s cubic-bezier(.4,0,.2,1);
+}
+#pvhc-sticky-{{ section.id }}.pvhc-sticky-visible {
+  transform: translateY(0);
+}
+#pvhc-sticky-{{ section.id }} .pvhc-sticky-inner {
+  max-width: 1360px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+#pvhc-sticky-{{ section.id }} .pvhc-sticky-left {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  flex: 1;
+  min-width: 0;
+}
+#pvhc-sticky-{{ section.id }} .pvhc-sticky-thumb {
+  width: 52px;
+  height: 52px;
+  border-radius: 10px;
+  object-fit: cover;
+  background: #EDE8DC;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+#pvhc-sticky-{{ section.id }} .pvhc-sticky-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+#pvhc-sticky-{{ section.id }} .pvhc-sticky-meta { display: flex; flex-direction: column; gap: .2rem; min-width: 0; }
+#pvhc-sticky-{{ section.id }} .pvhc-sticky-title {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #133316;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+#pvhc-sticky-{{ section.id }} .pvhc-sticky-rating {
+  display: flex;
+  align-items: center;
+  gap: .4rem;
+  font-size: 1.1rem;
+  color: #4A5748;
+}
+#pvhc-sticky-{{ section.id }} .pvhc-sticky-stars { color: #D4A843; font-size: 1.15rem; }
+
+#pvhc-sticky-{{ section.id }} .pvhc-sticky-mid {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: .3rem;
+  flex-shrink: 0;
+}
+#pvhc-sticky-{{ section.id }} .pvhc-sticky-prices {
+  display: flex;
+  align-items: center;
+  gap: .8rem;
+  flex-wrap: wrap;
+}
+#pvhc-sticky-{{ section.id }} .pvhc-sticky-price {
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: #133316;
+}
+#pvhc-sticky-{{ section.id }} .pvhc-sticky-compare {
+  font-size: 1.4rem;
+  color: #9CA8A0;
+  text-decoration: line-through;
+}
+#pvhc-sticky-{{ section.id }} .pvhc-sticky-save {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: #fff;
+  background: #133316;
+  padding: .3rem .8rem;
+  border-radius: 6px;
+}
+#pvhc-sticky-{{ section.id }} .pvhc-sticky-micro {
+  font-size: 1.1rem;
+  color: #6B7568;
+  font-weight: 500;
+}
+
+#pvhc-sticky-{{ section.id }} .pvhc-sticky-right { flex-shrink: 0; }
+#pvhc-sticky-{{ section.id }} .pvhc-sticky-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: .6rem;
+  background: #133316;
+  color: #fff;
+  font-size: 1.5rem;
+  font-weight: 800;
+  padding: 1.3rem 2.4rem;
+  border-radius: 999px;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  white-space: nowrap;
+  box-shadow: 0 6px 18px rgba(19,51,22,.20);
+  transition: background .2s ease, transform .2s ease;
+}
+#pvhc-sticky-{{ section.id }} .pvhc-sticky-btn:hover {
+  background: #1A4A20;
+  transform: translateY(-1px);
+  color: #fff;
+}
+#pvhc-sticky-{{ section.id }} .pvhc-sticky-btn:disabled,
+#pvhc-sticky-{{ section.id }} .pvhc-sticky-btn[disabled] {
+  background: #9CA8A0;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Mobile sticky */
+@media (max-width: 749px) {
+  #pvhc-sticky-{{ section.id }} { padding: 1rem 1.4rem 1.4rem; }
+  #pvhc-sticky-{{ section.id }} .pvhc-sticky-inner {
+    flex-direction: column;
+    gap: .8rem;
+    align-items: stretch;
+  }
+  #pvhc-sticky-{{ section.id }} .pvhc-sticky-left { flex: unset; }
+  #pvhc-sticky-{{ section.id }} .pvhc-sticky-mid { display: none; }
+  #pvhc-sticky-{{ section.id }} .pvhc-sticky-right { width: 100%; }
+  #pvhc-sticky-{{ section.id }} .pvhc-sticky-btn { width: 100%; }
+}
+
+/* Body padding so footer isn't hidden by sticky bar */
+body.pvhc-sticky-active { padding-bottom: 90px; }
+@media (max-width: 749px) { body.pvhc-sticky-active { padding-bottom: 140px; } }
+{%- endstyle -%}
+
+<!-- ===== HERO SECTION ===== -->
+<section id="pvhc-{{ section.id }}" aria-label="{{ section.settings.headline | strip_html | escape }}">
+
+  <!-- Background -->
+  <div class="pvhc-bg" aria-hidden="true"></div>
+
+  <!-- Gradient overlay -->
+  <div class="pvhc-overlay" aria-hidden="true"></div>
+
+  <!-- Floating callout labels (desktop) -->
+  <div class="pvhc-callouts" aria-hidden="true">
+    {%- if section.settings.callout_1_text != blank -%}
+    <div class="pvhc-callout pvhc-callout--1">
+      <span class="pvhc-callout-dot"></span>{{ section.settings.callout_1_text }}
+    </div>
+    {%- endif -%}
+    {%- if section.settings.callout_2_text != blank -%}
+    <div class="pvhc-callout pvhc-callout--2">
+      <span class="pvhc-callout-dot"></span>{{ section.settings.callout_2_text }}
+    </div>
+    {%- endif -%}
+    {%- if section.settings.callout_3_text != blank -%}
+    <div class="pvhc-callout pvhc-callout--3">
+      <span class="pvhc-callout-dot"></span>{{ section.settings.callout_3_text }}
+    </div>
+    {%- endif -%}
+  </div>
+
+  <!-- Main content -->
+  <div class="pvhc-wrap">
+    <div class="pvhc-left">
+
+      <!-- Social proof row -->
+      <div class="pvhc-proof">
+        {%- if section.settings.avatar_1 != blank or section.settings.avatar_2 != blank or section.settings.avatar_3 != blank -%}
+        <div class="pvhc-avatars">
+          {%- if section.settings.avatar_1 != blank -%}
+            <img class="pvhc-avatar" src="{{ section.settings.avatar_1 | image_url: width: 64 }}" alt="Happy customer" width="32" height="32" loading="lazy">
+          {%- endif -%}
+          {%- if section.settings.avatar_2 != blank -%}
+            <img class="pvhc-avatar" src="{{ section.settings.avatar_2 | image_url: width: 64 }}" alt="Happy customer" width="32" height="32" loading="lazy">
+          {%- endif -%}
+          {%- if section.settings.avatar_3 != blank -%}
+            <img class="pvhc-avatar" src="{{ section.settings.avatar_3 | image_url: width: 64 }}" alt="Happy customer" width="32" height="32" loading="lazy">
+          {%- endif -%}
+        </div>
+        {%- endif -%}
+        <div class="pvhc-proof-text">
+          {%- if section.settings.social_proof_text != blank -%}
+          <span class="pvhc-proof-trust">{{ section.settings.social_proof_text }}</span>
+          {%- endif -%}
+          {%- if section.settings.rating_text != blank -%}
+          <span class="pvhc-proof-rating">
+            <span class="pvhc-stars">★★★★★</span>
+            {{ section.settings.rating_text }}
+          </span>
+          {%- endif -%}
+        </div>
+      </div>
+
+      <!-- Headline -->
+      <h1 class="pvhc-headline">
+        {%- if section.settings.headline != blank -%}
+          {{ section.settings.headline }}
+        {%- else -%}
+          Stop Pulling.<br><span class="pvhc-headline-accent">Start Enjoying Every Walk.</span>
+        {%- endif -%}
+      </h1>
+
+      <!-- Subheadline -->
+      {%- if section.settings.subheadline != blank -%}
+      <p class="pvhc-sub">{{ section.settings.subheadline }}</p>
+      {%- endif -%}
+
+      <!-- Benefit icon row -->
+      <div class="pvhc-benefits">
+        {%- if section.settings.benefit_1 != blank -%}
+        <div class="pvhc-ben">
+          <span class="pvhc-ben-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+          </span>
+          {{ section.settings.benefit_1 }}
+        </div>
+        {%- endif -%}
+        {%- if section.settings.benefit_2 != blank -%}
+        <div class="pvhc-ben">
+          <span class="pvhc-ben-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+          </span>
+          {{ section.settings.benefit_2 }}
+        </div>
+        {%- endif -%}
+        {%- if section.settings.benefit_3 != blank -%}
+        <div class="pvhc-ben">
+          <span class="pvhc-ben-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          </span>
+          {{ section.settings.benefit_3 }}
+        </div>
+        {%- endif -%}
+      </div>
+
+      <!-- Primary CTA -->
+      <div class="pvhc-cta-wrap">
+        <a href="{{ section.settings.cta_link | default: '#' }}" class="pvhc-cta" id="pvhc-cta-{{ section.id }}">
+          {{ section.settings.cta_text | default: 'Get Calmer Walks →' }}
+        </a>
+      </div>
+
+      <!-- Guarantee microcopy -->
+      <div class="pvhc-guarantee">
+        <span>
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          {{ section.settings.guarantee_text | default: '30-Day Guarantee' }}
+        </span>
+        <span>
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+          {{ section.settings.shipping_text | default: 'Free Shipping' }}
+        </span>
+      </div>
+
+      <!-- Mobile callout chips -->
+      {%- assign has_callout = false -%}
+      {%- if section.settings.callout_1_text != blank or section.settings.callout_2_text != blank or section.settings.callout_3_text != blank -%}
+        {%- assign has_callout = true -%}
+      {%- endif -%}
+      {%- if has_callout -%}
+      <div class="pvhc-callout-chips" aria-hidden="true">
+        {%- if section.settings.callout_1_text != blank -%}
+        <span class="pvhc-chip"><span class="pvhc-chip-dot"></span>{{ section.settings.callout_1_text }}</span>
+        {%- endif -%}
+        {%- if section.settings.callout_2_text != blank -%}
+        <span class="pvhc-chip"><span class="pvhc-chip-dot"></span>{{ section.settings.callout_2_text }}</span>
+        {%- endif -%}
+        {%- if section.settings.callout_3_text != blank -%}
+        <span class="pvhc-chip"><span class="pvhc-chip-dot"></span>{{ section.settings.callout_3_text }}</span>
+        {%- endif -%}
+      </div>
+      {%- endif -%}
+
+    </div><!-- /pvhc-left -->
+  </div><!-- /pvhc-wrap -->
+
+  <!-- Benefit strip -->
+  <div class="pvhc-strip" aria-label="Product highlights">
+    <div class="pvhc-strip-inner">
+      <div class="pvhc-strip-item">
+        <div class="pvhc-strip-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+        </div>
+        <div>
+          <p class="pvhc-strip-title">{{ section.settings.strip_1_title | default: 'Calmer Walks' }}</p>
+          <p class="pvhc-strip-text">{{ section.settings.strip_1_text | default: 'Reduce pulling and stress for better walks.' }}</p>
+        </div>
+      </div>
+      <div class="pvhc-strip-item">
+        <div class="pvhc-strip-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <div>
+          <p class="pvhc-strip-title">{{ section.settings.strip_2_title | default: 'Safer for Dogs' }}</p>
+          <p class="pvhc-strip-text">{{ section.settings.strip_2_text | default: 'Designed to reduce neck pressure with front-clip design.' }}</p>
+        </div>
+      </div>
+      <div class="pvhc-strip-item">
+        <div class="pvhc-strip-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        </div>
+        <div>
+          <p class="pvhc-strip-title">{{ section.settings.strip_3_title | default: 'Better Bond' }}</p>
+          <p class="pvhc-strip-text">{{ section.settings.strip_3_text | default: 'More enjoyable walks strengthen your bond.' }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<!-- ===== STICKY ATC ===== -->
+{%- if section.settings.show_sticky_atc -%}
+{%- liquid
+  assign s_prod = section.settings.sticky_product
+  assign s_variant = nil
+  if s_prod != blank
+    assign s_variant = s_prod.selected_or_first_available_variant
+  endif
+-%}
+<div
+  id="pvhc-sticky-{{ section.id }}"
+  role="complementary"
+  aria-label="Quick add to cart"
+  aria-hidden="true"
+>
+  <div class="pvhc-sticky-inner">
+
+    <!-- Left: thumbnail + title + rating -->
+    <div class="pvhc-sticky-left">
+      <div class="pvhc-sticky-thumb">
+        {%- if s_prod != blank and s_prod.featured_image != blank -%}
+          <img src="{{ s_prod.featured_image | image_url: width: 120 }}" alt="{{ s_prod.title | escape }}" width="52" height="52" loading="lazy">
+        {%- else -%}
+          <svg viewBox="0 0 52 52" fill="none" style="width:52px;height:52px;"><rect width="52" height="52" fill="#D5C9B5" rx="10"/><text x="26" y="33" text-anchor="middle" font-size="24" fill="#8A9486">🐾</text></svg>
+        {%- endif -%}
+      </div>
+      <div class="pvhc-sticky-meta">
+        <span class="pvhc-sticky-title">
+          {%- if section.settings.sticky_title != blank -%}
+            {{ section.settings.sticky_title }}
+          {%- elsif s_prod != blank -%}
+            {{ s_prod.title }}
+          {%- else -%}
+            PawVoyage No-Pull Tactical Dog Harness
+          {%- endif -%}
+        </span>
+        {%- if section.settings.sticky_rating_text != blank -%}
+        <span class="pvhc-sticky-rating">
+          <span class="pvhc-sticky-stars">★★★★★</span>
+          {{ section.settings.sticky_rating_text }}
+        </span>
+        {%- endif -%}
+      </div>
+    </div>
+
+    <!-- Mid: price + microcopy -->
+    <div class="pvhc-sticky-mid">
+      <div class="pvhc-sticky-prices">
+        <span class="pvhc-sticky-price">
+          {%- if section.settings.sticky_price_text != blank -%}
+            {{ section.settings.sticky_price_text }}
+          {%- elsif s_variant != nil -%}
+            {{ s_variant.price | money }}
+          {%- else -%}
+            $49.99
+          {%- endif -%}
+        </span>
+        {%- if section.settings.sticky_compare_price_text != blank -%}
+        <span class="pvhc-sticky-compare">{{ section.settings.sticky_compare_price_text }}</span>
+        {%- elsif s_variant != nil and s_variant.compare_at_price > s_variant.price -%}
+        <span class="pvhc-sticky-compare">{{ s_variant.compare_at_price | money }}</span>
+        {%- endif -%}
+        {%- if section.settings.sticky_savings_text != blank -%}
+        <span class="pvhc-sticky-save">{{ section.settings.sticky_savings_text }}</span>
+        {%- endif -%}
+      </div>
+      {%- if section.settings.sticky_microcopy != blank -%}
+      <span class="pvhc-sticky-micro">{{ section.settings.sticky_microcopy }}</span>
+      {%- endif -%}
+    </div>
+
+    <!-- Right: Add to Cart -->
+    <div class="pvhc-sticky-right">
+      {%- if s_prod != blank and s_variant != nil -%}
+        {%- liquid
+          assign sold_out = false
+          unless s_variant.available
+            assign sold_out = true
+          endunless
+        -%}
+        <form action="/cart/add" method="post" enctype="multipart/form-data" id="pvhc-sticky-form-{{ section.id }}">
+          <input type="hidden" name="id" value="{{ s_variant.id }}">
+          <input type="hidden" name="quantity" value="1">
+          <button
+            type="submit"
+            class="pvhc-sticky-btn"
+            id="pvhc-sticky-btn-{{ section.id }}"
+            {%- if sold_out -%} disabled aria-disabled="true" {%- endif -%}
+            aria-label="{{ section.settings.sticky_button_text | default: 'Add to Cart' }}"
+          >
+            {%- if sold_out -%}
+              Sold Out
+            {%- else -%}
+              {{ section.settings.sticky_button_text | default: 'Add to Cart' }}
+              {%- if s_variant.price != blank %} — {{ s_variant.price | money }}{%- endif -%}
+            {%- endif -%}
+          </button>
+        </form>
+      {%- else -%}
+        <a
+          href="{{ section.settings.cta_link | default: '/collections/all' }}"
+          class="pvhc-sticky-btn"
+          id="pvhc-sticky-btn-{{ section.id }}"
+        >
+          {{ section.settings.sticky_button_text | default: 'Shop Now' }}
+        </a>
+      {%- endif -%}
+    </div>
+
+  </div>
+</div>
+
+<script>
+(function(){
+  var sticky = document.getElementById('pvhc-sticky-{{ section.id }}');
+  if (!sticky) return;
+  var shown = false;
+  var threshold = 300;
+  function toggle() {
+    var scrollY = window.scrollY || window.pageYOffset;
+    if (scrollY > threshold && !shown) {
+      shown = true;
+      sticky.classList.add('pvhc-sticky-visible');
+      sticky.setAttribute('aria-hidden','false');
+      document.body.classList.add('pvhc-sticky-active');
+    } else if (scrollY <= threshold && shown) {
+      shown = false;
+      sticky.classList.remove('pvhc-sticky-visible');
+      sticky.setAttribute('aria-hidden','true');
+      document.body.classList.remove('pvhc-sticky-active');
+    }
+  }
+  window.addEventListener('scroll', toggle, { passive: true });
+  toggle();
+
+  // AJAX cart integration (Dawn theme)
+  var form = document.getElementById('pvhc-sticky-form-{{ section.id }}');
+  if (form && window.fetch) {
+    form.addEventListener('submit', function(e){
+      e.preventDefault();
+      var btn = form.querySelector('.pvhc-sticky-btn');
+      if (!btn || btn.disabled) return;
+      btn.disabled = true;
+      var orig = btn.textContent;
+      btn.textContent = 'Adding...';
+      var fd = new FormData(form);
+      fetch('/cart/add.js', { method: 'POST', body: fd })
+        .then(function(r){ return r.json(); })
+        .then(function(){
+          btn.textContent = '✓ Added!';
+          // Trigger Dawn cart drawer if available
+          document.dispatchEvent(new CustomEvent('cart:add'));
+          if (window.Shopify && window.Shopify.onItemAdded) window.Shopify.onItemAdded();
+          var cartDrawer = document.querySelector('cart-drawer');
+          if (cartDrawer && typeof cartDrawer.open === 'function') cartDrawer.open();
+          setTimeout(function(){
+            btn.textContent = orig;
+            btn.disabled = false;
+          }, 2500);
+        })
+        .catch(function(){
+          btn.textContent = orig;
+          btn.disabled = false;
+        });
+    });
+  }
+})();
+</script>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "PV Hero Conversion",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": { "groups": ["header","footer"] },
+  "settings": [
+    { "type": "header", "content": "Background Image" },
+    { "type": "image_picker", "id": "desktop_background_image", "label": "Desktop background image", "info": "Recommended: 2400×900px, dog on the right side." },
+    { "type": "image_picker", "id": "mobile_background_image", "label": "Mobile background image", "info": "Optional. Falls back to desktop image. Recommended: 900×1200px." },
+
+    { "type": "header", "content": "Social Proof" },
+    { "type": "image_picker", "id": "avatar_1", "label": "Customer avatar 1" },
+    { "type": "image_picker", "id": "avatar_2", "label": "Customer avatar 2" },
+    { "type": "image_picker", "id": "avatar_3", "label": "Customer avatar 3" },
+    { "type": "text", "id": "social_proof_text", "label": "Trust text", "default": "Trusted by 10,000+ Dog Owners" },
+    { "type": "text", "id": "rating_text", "label": "Rating text", "default": "4.9/5 (1,247 reviews)" },
+
+    { "type": "header", "content": "Headline & Copy" },
+    { "type": "richtext", "id": "headline", "label": "Headline", "default": "<p>Stop Pulling.<br><strong>Start Enjoying Every Walk.</strong></p>" },
+    { "type": "textarea", "id": "subheadline", "label": "Subheadline", "default": "The tactical no-pull harness designed for calmer, safer, and more comfortable walks." },
+
+    { "type": "header", "content": "Benefits Row" },
+    { "type": "text", "id": "benefit_1", "label": "Benefit 1", "default": "No-Pull Control" },
+    { "type": "text", "id": "benefit_2", "label": "Benefit 2", "default": "Padded Comfort" },
+    { "type": "text", "id": "benefit_3", "label": "Benefit 3", "default": "Built for Adventure" },
+
+    { "type": "header", "content": "CTA" },
+    { "type": "text", "id": "cta_text", "label": "CTA button text", "default": "Get Calmer Walks →" },
+    { "type": "url", "id": "cta_link", "label": "CTA link" },
+    { "type": "text", "id": "guarantee_text", "label": "Guarantee text", "default": "30-Day Guarantee" },
+    { "type": "text", "id": "shipping_text", "label": "Shipping text", "default": "Free Shipping" },
+
+    { "type": "header", "content": "Feature Callout Labels" },
+    { "type": "text", "id": "callout_1_text", "label": "Callout 1", "default": "No-Pull Front Clip" },
+    { "type": "text", "id": "callout_2_text", "label": "Callout 2", "default": "Adjustable 4-Point Fit" },
+    { "type": "text", "id": "callout_3_text", "label": "Callout 3", "default": "Padded Chest Fit" },
+
+    { "type": "header", "content": "Benefit Strip" },
+    { "type": "text", "id": "strip_1_title", "label": "Strip column 1 title", "default": "Calmer Walks" },
+    { "type": "textarea", "id": "strip_1_text", "label": "Strip column 1 text", "default": "Reduce pulling and stress for better walks." },
+    { "type": "text", "id": "strip_2_title", "label": "Strip column 2 title", "default": "Safer for Dogs" },
+    { "type": "textarea", "id": "strip_2_text", "label": "Strip column 2 text", "default": "Designed to reduce neck pressure with front-clip design." },
+    { "type": "text", "id": "strip_3_title", "label": "Strip column 3 title", "default": "Better Bond" },
+    { "type": "textarea", "id": "strip_3_text", "label": "Strip column 3 text", "default": "More enjoyable walks strengthen your bond." },
+
+    { "type": "header", "content": "Sticky Add to Cart" },
+    { "type": "checkbox", "id": "show_sticky_atc", "label": "Show sticky add-to-cart bar", "default": true },
+    { "type": "product", "id": "sticky_product", "label": "Product (for sticky ATC)", "info": "Select the product to add to cart from the sticky bar." },
+    { "type": "text", "id": "sticky_title", "label": "Product title override", "default": "PawVoyage No-Pull Tactical Dog Harness" },
+    { "type": "text", "id": "sticky_rating_text", "label": "Rating text", "default": "4.9 (1,247 reviews)" },
+    { "type": "text", "id": "sticky_price_text", "label": "Price override (e.g. $49.99)", "default": "$49.99" },
+    { "type": "text", "id": "sticky_compare_price_text", "label": "Compare price override (e.g. $79.99)", "default": "$79.99" },
+    { "type": "text", "id": "sticky_savings_text", "label": "Savings badge (e.g. SAVE $30.00)", "default": "SAVE $30.00" },
+    { "type": "text", "id": "sticky_microcopy", "label": "Trust microcopy", "default": "Secure checkout • 30-day returns • Free shipping" },
+    { "type": "text", "id": "sticky_button_text", "label": "Button text", "default": "Add to Cart" }
+  ],
+  "presets": [
+    {
+      "name": "PV Hero Conversion",
+      "settings": {
+        "social_proof_text": "Trusted by 10,000+ Dog Owners",
+        "rating_text": "4.9/5 (1,247 reviews)",
+        "subheadline": "The tactical no-pull harness designed for calmer, safer, and more comfortable walks.",
+        "benefit_1": "No-Pull Control",
+        "benefit_2": "Padded Comfort",
+        "benefit_3": "Built for Adventure",
+        "cta_text": "Get Calmer Walks →",
+        "guarantee_text": "30-Day Guarantee",
+        "shipping_text": "Free Shipping",
+        "callout_1_text": "No-Pull Front Clip",
+        "callout_2_text": "Adjustable 4-Point Fit",
+        "callout_3_text": "Padded Chest Fit",
+        "show_sticky_atc": true,
+        "sticky_title": "PawVoyage No-Pull Tactical Dog Harness",
+        "sticky_rating_text": "4.9 (1,247 reviews)",
+        "sticky_price_text": "$49.99",
+        "sticky_compare_price_text": "$79.99",
+        "sticky_savings_text": "SAVE $30.00",
+        "sticky_microcopy": "Secure checkout • 30-day returns • Free shipping",
+        "sticky_button_text": "Add to Cart"
+      }
+    }
+  ]
+}
+{% endschema %}

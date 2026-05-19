@@ -10,45 +10,35 @@
 {
   "sections": {
     "pv_hero": {
-      "type": "pv-hero-banner",
-      "blocks": {
-        "bullet_1": {
-          "type": "benefit_bullet",
-          "settings": {
-            "text": "No-pull control"
-          }
-        },
-        "bullet_2": {
-          "type": "benefit_bullet",
-          "settings": {
-            "text": "Comfortable padded fit"
-          }
-        },
-        "bullet_3": {
-          "type": "benefit_bullet",
-          "settings": {
-            "text": "Built for walks & travel"
-          }
-        }
-      },
-      "block_order": [
-        "bullet_1",
-        "bullet_2",
-        "bullet_3"
-      ],
+      "type": "pawvoyage-hero-conversion",
       "settings": {
-        "image_desktop": "shopify://shop_images/ChatGPT_Image_19_57_11_18_thg_5_2026.png",
-        "image_mobile": "shopify://shop_images/ChatGPT_Image_19_59_47_18_thg_5_2026.png",
-        "bg_position": "center right",
-        "eyebrow": "No-Pull Tactical Harness",
-        "heading": "Walks Without Pulling. Adventures Without Stress.",
-        "subheading": "The PawVoyage No-Pull Tactical Harness helps keep your dog secure, comfortable, and easier to control — from daily walks to outdoor adventures.",
-        "cta_label": "Shop The Harness",
+        "social_proof_text": "Trusted by 10,000+ Dog Owners",
+        "rating_text": "4.9/5 (1,247 reviews)",
+        "subheadline": "The tactical no-pull harness designed for calmer, safer, and more comfortable walks.",
+        "benefit_1": "No-Pull Control",
+        "benefit_2": "Padded Comfort",
+        "benefit_3": "Built for Adventure",
+        "cta_text": "Get Calmer Walks \u2192",
         "cta_link": "shopify://collections/all",
-        "cta_label_2": "See How It Works",
-        "cta_link_2": "",
-        "hero_height_mobile": 620,
-        "hero_height_desktop": 760
+        "guarantee_text": "30-Day Guarantee",
+        "shipping_text": "Free Shipping",
+        "callout_1_text": "No-Pull Front Clip",
+        "callout_2_text": "Adjustable 4-Point Fit",
+        "callout_3_text": "Padded Chest Fit",
+        "strip_1_title": "Calmer Walks",
+        "strip_1_text": "Reduce pulling and stress for better walks.",
+        "strip_2_title": "Safer for Dogs",
+        "strip_2_text": "Designed to reduce neck pressure with front-clip design.",
+        "strip_3_title": "Better Bond",
+        "strip_3_text": "More enjoyable walks strengthen your bond.",
+        "show_sticky_atc": true,
+        "sticky_title": "PawVoyage No-Pull Tactical Dog Harness",
+        "sticky_rating_text": "4.9 (1,247 reviews)",
+        "sticky_price_text": "$49.99",
+        "sticky_compare_price_text": "$79.99",
+        "sticky_savings_text": "SAVE $30.00",
+        "sticky_microcopy": "Secure checkout \u2022 30-day returns \u2022 Free shipping",
+        "sticky_button_text": "Add to Cart \u2014 $49.99"
       }
     },
     "pv_trust": {
