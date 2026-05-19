@@ -1,4 +1,4 @@
-﻿{%- style -%}
+{%- style -%}
 /* ══ PawVoyage Comparison Table — fully scoped ══ */
 #pvct-{{ section.id }} {
   background: #FAF7F0;
@@ -9,25 +9,18 @@
 @media(max-width:749px){ #pvct-{{ section.id }} { padding: 52px 0; } }
 
 #pvct-{{ section.id }} .pvct-outer {
-  max-width: 1440px;
+  max-width: 1200px;
   margin: 0 auto;
-  display: grid;
-  grid-template-columns: 300px 1fr;
-  gap: 52px;
-  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
   padding: 0 2rem;
 }
-@media(max-width:1099px){ #pvct-{{ section.id }} .pvct-outer { grid-template-columns: 260px 1fr; gap: 36px; } }
-@media(max-width:899px){
-  #pvct-{{ section.id }} .pvct-outer {
-    grid-template-columns: 1fr;
-    gap: 32px;
-    padding: 0 1.6rem;
-  }
-}
 
-/* ── Left intro ── */
-#pvct-{{ section.id }} .pvct-intro {}
+/* ── Header (centered above table) ── */
+#pvct-{{ section.id }} .pvct-intro {
+  text-align: center;
+}
 #pvct-{{ section.id }} .pvct-eyebrow {
   display: inline-block;
   font-size: 1.05rem;
@@ -49,21 +42,16 @@
   font-size: 1.4rem;
   color: #4A5748;
   line-height: 1.6;
-  margin: 0 0 2.8rem;
-  max-width: 280px;
+  margin: 0 auto 2rem;
+  max-width: 640px;
 }
-@media(max-width:899px){
-  #pvct-{{ section.id }} .pvct-sub { max-width: 100%; }
-  #pvct-{{ section.id }} .pvct-intro { text-align: center; }
+#pvct-{{ section.id }} .pvct-seo-body {
+  font-size: 1.35rem;
+  color: #6B7568;
+  line-height: 1.7;
+  max-width: 700px;
+  margin: 0 auto;
 }
-
-/* ── Feature list in intro (desktop only) ── */
-#pvct-{{ section.id }} .pvct-feat-list {
-  display: flex;
-  flex-direction: column;
-  gap: 0;
-}
-@media(max-width:899px){ #pvct-{{ section.id }} .pvct-feat-list { display: none; } }
 
 #pvct-{{ section.id }} .pvct-feat-item {
   display: flex;
@@ -91,14 +79,54 @@
   -webkit-overflow-scrolling: touch;
   border-radius: 20px;
 }
-#pvct-{{ section.id }} .pvct-scroll-hint {
-  display: none;
-  font-size: 1.1rem;
-  color: #9CA8A0;
-  text-align: center;
-  margin-bottom: .8rem;
+#pvct-{{ section.id }} .pvct-scroll-hint { display: none; }
+
+/* ── Hide desktop table on mobile, show mobile cards ── */
+#pvct-{{ section.id }} .pvct-table-wrap { display: block; }
+#pvct-{{ section.id }} .pvct-mobile-cards { display: none; }
+@media(max-width:899px){
+  #pvct-{{ section.id }} .pvct-table-wrap { display: none; }
+  #pvct-{{ section.id }} .pvct-mobile-cards { display: flex; flex-direction: column; gap: 1.2rem; padding: 0 1.6rem; }
 }
-@media(max-width:899px){ #pvct-{{ section.id }} .pvct-scroll-hint { display: block; } }
+
+/* ── Mobile feature cards ── */
+#pvct-{{ section.id }} .pvct-mob-card {
+  background: #fff;
+  border: 1px solid rgba(19,51,22,.09);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 4px 16px rgba(19,51,22,.06);
+}
+#pvct-{{ section.id }} .pvct-mob-feat {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.4rem 1.6rem;
+  background: #FAF7F0;
+  border-bottom: 1px solid rgba(19,51,22,.08);
+}
+#pvct-{{ section.id }} .pvct-mob-feat .pvct-feat-icon {
+  width: 32px; height: 32px;
+  background: rgba(19,51,22,.08);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+#pvct-{{ section.id }} .pvct-mob-feat .pvct-feat-icon svg { width:14px; height:14px; stroke:#133316; stroke-width:1.8; }
+#pvct-{{ section.id }} .pvct-mob-feat-title { font-size: 1.35rem; font-weight: 800; color: #133316; margin: 0 0 .15rem; }
+#pvct-{{ section.id }} .pvct-mob-feat-desc  { font-size: 1.1rem; color: #6B7568; margin: 0; line-height: 1.3; }
+#pvct-{{ section.id }} .pvct-mob-rows { display: flex; flex-direction: column; }
+#pvct-{{ section.id }} .pvct-mob-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.6rem;
+  border-bottom: 1px solid rgba(19,51,22,.05);
+  font-size: 1.25rem;
+}
+#pvct-{{ section.id }} .pvct-mob-row:last-child { border-bottom: none; }
+#pvct-{{ section.id }} .pvct-mob-row-label { font-size: 1.2rem; color: #4A5748; font-weight: 600; }
+#pvct-{{ section.id }} .pvct-mob-row.pvct-mob-pv-row { background: rgba(19,51,22,.03); }
 
 /* ── Table grid ── */
 #pvct-{{ section.id }} .pvct-table {
@@ -237,45 +265,14 @@
     {%- if section.settings.subheading != blank -%}
       <p class="pvct-sub">{{ section.settings.subheading }}</p>
     {%- endif -%}
+    {%- if section.settings.seo_body != blank -%}
+      <p class="pvct-seo-body">{{ section.settings.seo_body }}</p>
+    {%- endif -%}
 
-    <!-- Feature list (desktop only) -->
-    <div class="pvct-feat-list" aria-hidden="true">
-      {%- for block in section.blocks -%}
-        {%- if block.type == 'comparison_row' -%}
-        <div class="pvct-feat-item">
-          <div class="pvct-feat-icon">
-            {%- case block.settings.icon -%}
-              {%- when 'shield' -%}
-                <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-              {%- when 'comfort' -%}
-                <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>
-              {%- when 'sliders' -%}
-                <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/></svg>
-              {%- when 'handle' -%}
-                <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>
-              {%- when 'diamond' -%}
-                <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 22 8.5 22 15.5 12 22 2 15.5 2 8.5 12 2"/><line x1="12" y1="22" x2="12" y2="15.5"/><polyline points="22 8.5 12 15.5 2 8.5"/></svg>
-              {%- when 'moon' -%}
-                <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
-              {%- else -%}
-                <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-            {%- endcase -%}
-          </div>
-          <div>
-            <p class="pvct-feat-title">{{ block.settings.feature_title }}</p>
-            {%- if block.settings.feature_description != blank -%}
-              <p class="pvct-feat-desc">{{ block.settings.feature_description }}</p>
-            {%- endif -%}
-          </div>
-        </div>
-        {%- endif -%}
-      {%- endfor -%}
-    </div>
   </div><!-- /pvct-intro -->
 
-  <!-- ══ RIGHT TABLE ══ -->
+  <!-- ══ RIGHT TABLE (desktop) ══ -->
   <div class="pvct-table-wrap">
-    <p class="pvct-scroll-hint">&#8592; Swipe to compare &nbsp;&#8594;</p>
     <div class="pvct-scroll">
       <div class="pvct-table" role="table" aria-label="Product comparison">
 
@@ -398,6 +395,83 @@
     </div><!-- /pvct-scroll -->
   </div><!-- /pvct-table-wrap -->
 
+  <!-- ══ MOBILE STACKED CARDS ══ -->
+  <div class="pvct-mobile-cards">
+    {%- for block in section.blocks -%}
+      {%- if block.type == 'comparison_row' -%}
+      {%- liquid
+        assign pv_st  = block.settings.pawvoyage_status   | default: 'yes'
+        assign tr_st  = block.settings.traditional_status | default: 'no'
+        assign ba_st  = block.settings.basic_status       | default: 'no'
+        assign pv_val = block.settings.pawvoyage_value    | default: 'Yes'
+        assign tr_val = block.settings.traditional_value  | default: 'No'
+        assign ba_val = block.settings.basic_value        | default: 'No'
+      -%}
+      <div class="pvct-mob-card" {{ block.shopify_attributes }}>
+        <!-- Feature header -->
+        <div class="pvct-mob-feat">
+          <div class="pvct-feat-icon">
+            {%- case block.settings.icon -%}
+              {%- when 'shield' -%}<svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              {%- when 'comfort' -%}<svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>
+              {%- when 'sliders' -%}<svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/></svg>
+              {%- when 'handle' -%}<svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>
+              {%- when 'diamond' -%}<svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 22 8.5 22 15.5 12 22 2 15.5 2 8.5 12 2"/><line x1="12" y1="22" x2="12" y2="15.5"/><polyline points="22 8.5 12 15.5 2 8.5"/></svg>
+              {%- when 'moon' -%}<svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+              {%- else -%}<svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            {%- endcase -%}
+          </div>
+          <div>
+            <p class="pvct-mob-feat-title">{{ block.settings.feature_title }}</p>
+            {%- if block.settings.feature_description != blank -%}
+              <p class="pvct-mob-feat-desc">{{ block.settings.feature_description }}</p>
+            {%- endif -%}
+          </div>
+        </div>
+        <!-- Comparison rows -->
+        <div class="pvct-mob-rows">
+          <div class="pvct-mob-row pvct-mob-pv-row">
+            <span class="pvct-mob-row-label">{{ section.settings.pawvoyage_col_title | default: 'PawVoyage' }}</span>
+            <span class="pvct-status pvct-{{ pv_st }}">
+              <span class="pvct-status-icon">
+                {%- if pv_st == 'yes' -%}<svg viewBox="0 0 24 24" fill="none"><polyline points="20 6 9 17 4 12"/></svg>
+                {%- elsif pv_st == 'no' -%}<svg viewBox="0 0 24 24" fill="none"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                {%- else -%}<svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="5" stroke-width="2"/></svg>
+                {%- endif -%}
+              </span>
+              <span class="pvct-status-text">{{ pv_val }}</span>
+            </span>
+          </div>
+          <div class="pvct-mob-row">
+            <span class="pvct-mob-row-label">{{ section.settings.traditional_col_title | default: 'Traditional' }}</span>
+            <span class="pvct-status pvct-{{ tr_st }}">
+              <span class="pvct-status-icon">
+                {%- if tr_st == 'yes' -%}<svg viewBox="0 0 24 24" fill="none"><polyline points="20 6 9 17 4 12"/></svg>
+                {%- elsif tr_st == 'no' -%}<svg viewBox="0 0 24 24" fill="none"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                {%- else -%}<svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="5" stroke-width="2"/></svg>
+                {%- endif -%}
+              </span>
+              <span class="pvct-status-text">{{ tr_val }}</span>
+            </span>
+          </div>
+          <div class="pvct-mob-row">
+            <span class="pvct-mob-row-label">{{ section.settings.basic_col_title | default: 'Basic' }}</span>
+            <span class="pvct-status pvct-{{ ba_st }}">
+              <span class="pvct-status-icon">
+                {%- if ba_st == 'yes' -%}<svg viewBox="0 0 24 24" fill="none"><polyline points="20 6 9 17 4 12"/></svg>
+                {%- elsif ba_st == 'no' -%}<svg viewBox="0 0 24 24" fill="none"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                {%- else -%}<svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="5" stroke-width="2"/></svg>
+                {%- endif -%}
+              </span>
+              <span class="pvct-status-text">{{ ba_val }}</span>
+            </span>
+          </div>
+        </div>
+      </div>
+      {%- endif -%}
+    {%- endfor -%}
+  </div><!-- /pvct-mobile-cards -->
+
 </div><!-- /pvct-outer -->
 </section>
 
@@ -408,10 +482,10 @@
   "class": "section",
   "disabled_on": { "groups": ["header","footer"] },
   "settings": [
-    { "type": "header", "content": "Intro" },
     { "type": "text",     "id": "eyebrow_text", "label": "Eyebrow", "default": "DESIGNED DIFFERENT. BUILT BETTER." },
     { "type": "textarea", "id": "heading",      "label": "Heading",  "default": "PawVoyage vs.\nThe Rest" },
     { "type": "textarea", "id": "subheading",   "label": "Subheading", "default": "See why dog owners choose the tactical no-pull harness that actually works." },
+    { "type": "textarea", "id": "seo_body", "label": "SEO Body Text", "info": "Optional paragraph below the subheading. Use natural keyword-rich language for SEO." },
 
     { "type": "header", "content": "Column Titles" },
     { "type": "text", "id": "pawvoyage_col_title",   "label": "PawVoyage column title",   "default": "PawVoyage No-Pull Harness" },
