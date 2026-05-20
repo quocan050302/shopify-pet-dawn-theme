@@ -24,20 +24,13 @@
             "show_dynamic_checkout": true,
             "show_gift_card_recipient": false
           }
-        },
-        "card_trust": {
-          "type": "custom_liquid",
-          "settings": {
-            "custom_liquid": "<div class=\"pv-card-trust\">\n  <div class=\"pv-card-trust-item\">\n    <span class=\"pv-card-trust-icon\">\ud83d\udd12</span>\n    <span class=\"pv-card-trust-label\">Secure<br>Checkout</span>\n  </div>\n  <div class=\"pv-card-trust-item\">\n    <span class=\"pv-card-trust-icon\">\ud83d\ude9a</span>\n    <span class=\"pv-card-trust-label\">Free<br>Shipping</span>\n  </div>\n  <div class=\"pv-card-trust-item\">\n    <span class=\"pv-card-trust-icon\">\u21a9</span>\n    <span class=\"pv-card-trust-label\">30-Day<br>Returns</span>\n  </div>\n  <div class=\"pv-card-delivery\">Delivery: 7\u201312 business days</div>\n</div>"
-          }
         }
       },
       "block_order": [
         "title",
         "price",
         "variant_picker",
-        "buy_buttons",
-        "card_trust"
+        "buy_buttons"
       ],
       "settings": {
         "enable_sticky_info": true,
