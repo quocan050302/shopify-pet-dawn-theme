@@ -582,9 +582,7 @@
   }
 }
 
-/* Body bottom padding so page content is not hidden behind floating card */
-body.pvhc-sticky-active { padding-bottom: 96px; }
-@media (max-width: 749px) { body.pvhc-sticky-active { padding-bottom: 88px; } }
+/* No body padding needed — sticky bar floats above content */
 {%- endstyle -%}
 
 <!-- ===== HERO SECTION ===== -->
@@ -930,22 +928,30 @@ body.pvhc-sticky-active { padding-bottom: 96px; }
     shown = true;
     sticky.classList.add('pvhc-sticky-visible');
     sticky.setAttribute('aria-hidden', 'false');
-    document.body.classList.add('pvhc-sticky-active');
+
   }
   function hideBar() {
     if (!shown) return;
     shown = false;
     sticky.classList.remove('pvhc-sticky-visible');
     sticky.setAttribute('aria-hidden', 'true');
-    document.body.classList.remove('pvhc-sticky-active');
+
   }
 
-  /* ── scroll threshold logic ── */
+  /* ── scroll threshold + near-bottom logic ── */
   function toggle() {
-    if (footerVisible) return;          // footer visible — keep bar hidden
-    var scrollY = window.scrollY || window.pageYOffset;
-    if (scrollY > threshold) { showBar(); }
-    else                     { hideBar(); }
+    if (footerVisible) return;          // footer in viewport — keep hidden
+
+    var scrollY   = window.scrollY || window.pageYOffset;
+    var nearBottom = (scrollY + window.innerHeight) >= (document.documentElement.scrollHeight - 120);
+
+    if (nearBottom) {
+      hideBar();                        // near page bottom — hide bar
+    } else if (scrollY > threshold) {
+      showBar();
+    } else {
+      hideBar();
+    }
   }
   window.addEventListener('scroll', toggle, { passive: true });
   toggle();
