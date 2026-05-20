@@ -920,24 +920,52 @@ body.pvhc-sticky-active { padding-bottom: 96px; }
 (function(){
   var sticky = document.getElementById('pvhc-sticky-{{ section.id }}');
   if (!sticky) return;
-  var shown = false;
-  var threshold = 300;
+  var shown         = false;
+  var footerVisible = false;
+  var threshold     = 300;
+
+  /* ── helpers ── */
+  function showBar() {
+    if (shown) return;
+    shown = true;
+    sticky.classList.add('pvhc-sticky-visible');
+    sticky.setAttribute('aria-hidden', 'false');
+    document.body.classList.add('pvhc-sticky-active');
+  }
+  function hideBar() {
+    if (!shown) return;
+    shown = false;
+    sticky.classList.remove('pvhc-sticky-visible');
+    sticky.setAttribute('aria-hidden', 'true');
+    document.body.classList.remove('pvhc-sticky-active');
+  }
+
+  /* ── scroll threshold logic ── */
   function toggle() {
+    if (footerVisible) return;          // footer visible — keep bar hidden
     var scrollY = window.scrollY || window.pageYOffset;
-    if (scrollY > threshold && !shown) {
-      shown = true;
-      sticky.classList.add('pvhc-sticky-visible');
-      sticky.setAttribute('aria-hidden','false');
-      document.body.classList.add('pvhc-sticky-active');
-    } else if (scrollY <= threshold && shown) {
-      shown = false;
-      sticky.classList.remove('pvhc-sticky-visible');
-      sticky.setAttribute('aria-hidden','true');
-      document.body.classList.remove('pvhc-sticky-active');
-    }
+    if (scrollY > threshold) { showBar(); }
+    else                     { hideBar(); }
   }
   window.addEventListener('scroll', toggle, { passive: true });
   toggle();
+
+  /* ── hide bar + remove padding when footer enters viewport ── */
+  var footer = document.querySelector('footer[id^="pvf-"], footer.pv-footer, footer');
+  if (footer && 'IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          footerVisible = true;
+          hideBar();           // slide away + remove padding-bottom
+        } else {
+          footerVisible = false;
+          toggle();            // re-check scroll position to possibly re-show
+        }
+      });
+    }, { threshold: 0.01 });   // fire as soon as 1% of footer is visible
+    io.observe(footer);
+  }
 
   // AJAX cart integration (Dawn theme)
   var form = document.getElementById('pvhc-sticky-form-{{ section.id }}');

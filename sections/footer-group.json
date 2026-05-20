@@ -2,51 +2,45 @@
   "name": "t:sections.footer.name",
   "type": "footer",
   "sections": {
-    "pv_footer": {
-      "type": "pv-footer",
+    "pv_premium_footer": {
+      "type": "pawvoyage-premium-footer",
       "settings": {
-        "show_newsletter": true,
-        "newsletter_heading": "Join the PawVoyage Pack",
-        "newsletter_subtext": "Get walking tips, pet travel ideas, and exclusive offers for calmer, safer adventures with your dog.",
-        "newsletter_placeholder": "Enter your email",
-        "newsletter_btn": "Join Now",
-        "newsletter_micro": "No spam. Just better walks.",
-        "brand_desc": "Premium dog walking and travel gear designed to help make every walk calmer, safer, and more comfortable.",
-        "brand_micro": "Built for daily walks, outdoor adventures, and dogs who love to explore.",
-        "enable_country_selector": true,
+        "newsletter_eyebrow":     "WALK BETTER. TOGETHER.",
+        "newsletter_heading":     "Join 10,000+ Dog Owners Creating Calmer Walks.",
+        "newsletter_highlight":   "Calmer Walks.",
+        "newsletter_subheading":  "Get walking tips, exclusive offers, and product updates.",
+        "newsletter_placeholder": "Enter your email address",
+        "newsletter_button_text": "Join the Pack →",
+        "trust_1_title": "Secure Checkout",
+        "trust_1_desc":  "100% safe & protected",
+        "trust_2_title": "30-Day Risk-Free Trial",
+        "trust_2_desc":  "Love it or return it.",
+        "trust_3_title": "Free Shipping",
+        "trust_3_desc":  "On all orders",
+        "trust_4_title": "Pet-Friendly Support",
+        "trust_4_desc":  "Real people, here to help",
+        "brand_name": "PawVoyage",
+        "brand_desc": "Premium dog gear designed for calmer, safer, and more comfortable walks.",
+        "proof_rating": "4.9/5 from 1,247+ reviews",
+        "proof_count":  "10,000+ Happy Dog Owners",
         "payment_enable": true
       },
       "blocks": {
-        "menu_1": {
+        "menu_shop": {
           "type": "link_list",
-          "settings": {
-            "heading": "Shop",
-            "menu": "main-menu"
-          }
+          "settings": { "heading": "Shop",    "menu": "main-menu" }
         },
-        "menu_2": {
+        "menu_support": {
           "type": "link_list",
-          "settings": {
-            "heading": "Support",
-            "menu": "footer"
-          }
+          "settings": { "heading": "Support", "menu": "footer" }
         },
-        "menu_3": {
+        "menu_company": {
           "type": "link_list",
-          "settings": {
-            "heading": "Policies",
-            "menu": "footer"
-          }
+          "settings": { "heading": "Company", "menu": "footer" }
         }
       },
-      "block_order": [
-        "menu_1",
-        "menu_2",
-        "menu_3"
-      ]
+      "block_order": ["menu_shop", "menu_support", "menu_company"]
     }
   },
-  "order": [
-    "pv_footer"
-  ]
+  "order": ["pv_premium_footer"]
 }
