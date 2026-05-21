@@ -166,7 +166,7 @@ a.button--primary {
 
 /* ── Header Override ─────────────────────────────────────── */
 .header {
-  background-color: var(--pv-cream) !important;
+  /* background-color: var(--pv-cream) !important; */
   border-bottom: 1px solid rgba(44, 44, 44, 0.08);
 }
 
