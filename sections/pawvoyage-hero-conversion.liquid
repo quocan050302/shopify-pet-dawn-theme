@@ -546,15 +546,13 @@
 /* ── Mobile: compact floating pill ── */
 @media (max-width: 749px) {
   #pvhc-sticky-{{ section.id }} {
-    /* Floating on mobile: side margins 12px, bottom 14px */
     bottom: 14px;
     left: 12px;
     right: 12px;
     width: auto;
-    /* Override the desktop translate-center approach */
     transform: translateY(calc(100% + 24px));
     border-radius: 18px;
-    padding: 10px 12px;
+    padding: 10px 14px 10px 12px;
   }
   #pvhc-sticky-{{ section.id }}.pvhc-sticky-visible {
     transform: translateY(0);
@@ -562,23 +560,50 @@
   }
   #pvhc-sticky-{{ section.id }} .pvhc-sticky-inner {
     flex-direction: row;
-    gap: .8rem;
+    gap: 1rem;
     align-items: center;
   }
-  /* Hide the price/microcopy mid section on mobile for compactness */
-  #pvhc-sticky-{{ section.id }} .pvhc-sticky-mid { display: none; }
-  /* Truncate title to one line */
-  #pvhc-sticky-{{ section.id }} .pvhc-sticky-title {
-    font-size: 1.15rem;
-    max-width: 160px;
+  /* Left: thumbnail + meta */
+  #pvhc-sticky-{{ section.id }} .pvhc-sticky-left {
+    flex: 1;
+    min-width: 0;
+    gap: .8rem;
   }
+  /* Thumbnail smaller on mobile */
+  #pvhc-sticky-{{ section.id }} .pvhc-sticky-thumb {
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    flex-shrink: 0;
+  }
+  /* Title: single line, uses all available space */
+  #pvhc-sticky-{{ section.id }} .pvhc-sticky-title {
+    font-size: 1.2rem;
+    max-width: none;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  /* Rating: compact single line */
+  #pvhc-sticky-{{ section.id }} .pvhc-sticky-rating {
+    font-size: .95rem;
+    white-space: nowrap;
+    gap: .25rem;
+  }
+  #pvhc-sticky-{{ section.id }} .pvhc-sticky-stars {
+    font-size: .95rem;
+  }
+  /* Hide mid (price block) — price is in button */
+  #pvhc-sticky-{{ section.id }} .pvhc-sticky-mid { display: none; }
+  /* Right: CTA button */
   #pvhc-sticky-{{ section.id }} .pvhc-sticky-right {
     flex-shrink: 0;
     margin-left: auto;
   }
   #pvhc-sticky-{{ section.id }} .pvhc-sticky-btn {
     font-size: 1.3rem;
-    padding: 1rem 1.6rem;
+    padding: .95rem 1.5rem;
+    white-space: nowrap;
   }
 }
 

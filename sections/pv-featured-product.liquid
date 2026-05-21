@@ -255,6 +255,59 @@
   /* Trust Microcopy */
   .pv-featured__trust-micro { font-size: 1.3rem; color: #6D7569; font-weight: 600; text-align: center; }
   @media screen and (min-width: 750px) { .pv-featured__trust-micro { text-align: left; padding-left: 2rem; } }
+
+  /* ══ MOBILE CRO OPTIMIZATIONS ══ */
+  @media screen and (max-width: 749px) {
+    /* Section: tighter padding */
+    .pv-featured { padding: 2.4rem 0 3rem; }
+
+    /* Layout gap */
+    .pv-featured__layout { gap: 2rem; }
+
+    /* Image: landscape ratio on mobile → less space, content visible sooner */
+    .pv-featured__img { aspect-ratio: 3/2; }
+
+    /* Floating badges: smaller, tighter row below image */
+    .pv-featured__floating-badges { gap: .8rem; margin-top: 1.4rem; }
+    .pvf-floating-badge { font-size: 1.25rem; padding: .9rem 1.3rem; gap: .6rem; }
+    .pvf-floating-badge-icon { font-size: 1.35rem; }
+
+    /* Info column: tighter spacing */
+    .pv-featured__eyebrow { margin-bottom: 1.2rem; font-size: 1.1rem; }
+    .pv-featured__title { font-size: clamp(2.6rem, 7vw, 3.2rem); margin-bottom: 1rem; }
+
+    /* Hide subheading on mobile — saves crucial vertical space */
+    .pv-featured__subheading { display: none; }
+
+    /* Price: tighter bottom */
+    .pv-featured__price-area {
+      margin-bottom: 2rem;
+      padding-bottom: 2rem;
+      gap: .8rem;
+    }
+    .pv-featured__price-current { font-size: 2.8rem; }
+
+    /* Features: tighter */
+    .pv-featured__features { gap: 1.2rem; margin-bottom: 2rem; }
+    .pv-featured__feature { font-size: 1.5rem; gap: 1.1rem; }
+
+    /* Mini-comp box: smaller padding */
+    .pv-featured__mini-comp { padding: 1.6rem; margin-bottom: 2.4rem; }
+    .pv-featured__mini-comp-list li { font-size: 1.4rem; }
+
+    /* CTA: full width, prominent tap target */
+    .pv-featured__btn {
+      font-size: 1.9rem;
+      padding: 2rem 3rem;
+      box-shadow: 0 10px 30px rgba(18,53,14,0.35);
+      letter-spacing: -.01em;
+    }
+    .pv-featured__cta-row { margin-bottom: 1.2rem; }
+
+    /* Trust microcopy: center */
+    .pv-featured__trust-micro { font-size: 1.25rem; }
+  }
+
 </style>
 
 {% schema %}
