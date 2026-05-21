@@ -400,13 +400,278 @@
     </div><!-- end .pv-pdp-wrap -->
   </div><!-- end .pv-pdp-outer -->
 
-  <!-- Mobile Sticky ATC Bar -->
-  <div class="pv-sticky-atc" id="pv-sticky-atc-{{ section.id }}" style="display:none;" aria-hidden="true">
-    <div class="pv-sticky-atc-inner">
-      <span class="pv-sticky-atc-title">{{ product.title | truncate: 40 | escape }}</span>
-      <button class="pv-sticky-atc-btn" type="button" onclick="document.getElementById('ProductSubmitButton-{{ section.id }}').click(); this.closest('.pv-sticky-atc').style.display='none';">Add to Cart</button>
+  {%- comment -%} ── Premium Floating Sticky ATC (matches homepage style) ── {%- endcomment -%}
+  {%- liquid
+    assign s_variant = product.selected_or_first_available_variant
+    assign s_sold_out = false
+    unless s_variant.available
+      assign s_sold_out = true
+    endunless
+    assign s_has_compare = false
+    if s_variant.compare_at_price > s_variant.price
+      assign s_has_compare = true
+    endif
+  -%}
+
+  <div
+    id="pvpdp-sticky-{{ section.id }}"
+    role="complementary"
+    aria-label="Quick add to cart"
+    aria-hidden="true"
+  >
+    <div class="pvpdp-sticky-inner">
+
+      {%- comment -%} Left: thumbnail + title + rating {%- endcomment -%}
+      <div class="pvpdp-sticky-left">
+        <div class="pvpdp-sticky-thumb">
+          {%- if product.featured_image != blank -%}
+            <img
+              src="{{ product.featured_image | image_url: width: 120 }}"
+              alt="{{ product.title | escape }}"
+              width="52" height="52" loading="lazy"
+            >
+          {%- else -%}
+            <svg viewBox="0 0 52 52" fill="none" style="width:52px;height:52px;"><rect width="52" height="52" fill="#D5C9B5" rx="10"/><text x="26" y="33" text-anchor="middle" font-size="24" fill="#8A9486">🐾</text></svg>
+          {%- endif -%}
+        </div>
+        <div class="pvpdp-sticky-meta">
+          <span class="pvpdp-sticky-title">{{ product.title | truncate: 45 | escape }}</span>
+          <span class="pvpdp-sticky-rating">
+            <span class="pvpdp-sticky-stars">★★★★★</span>
+            <span>4.9 · 1,247 reviews</span>
+          </span>
+        </div>
+      </div>
+
+      {%- comment -%} Mid: price + microcopy {%- endcomment -%}
+      <div class="pvpdp-sticky-mid">
+        <div class="pvpdp-sticky-prices">
+          <span class="pvpdp-sticky-price">{{ s_variant.price | money }}</span>
+          {%- if s_has_compare -%}
+            <span class="pvpdp-sticky-compare">{{ s_variant.compare_at_price | money }}</span>
+            {%- assign s_save_pct = s_variant.compare_at_price | minus: s_variant.price | times: 100 | divided_by: s_variant.compare_at_price -%}
+            <span class="pvpdp-sticky-save">Save {{ s_save_pct }}%</span>
+          {%- endif -%}
+        </div>
+        <span class="pvpdp-sticky-micro">Free shipping · 30-Day Guarantee</span>
+      </div>
+
+      {%- comment -%} Right: Add to Cart {%- endcomment -%}
+      <div class="pvpdp-sticky-right">
+        <button
+          type="button"
+          class="pvpdp-sticky-btn"
+          id="pvpdp-sticky-btn-{{ section.id }}"
+          {%- if s_sold_out -%} disabled aria-disabled="true" {%- endif -%}
+          aria-label="Add {{ product.title | escape }} to cart"
+        >
+          {%- if s_sold_out -%}
+            Sold Out
+          {%- else -%}
+            Add to Cart — {{ s_variant.price | money }}
+          {%- endif -%}
+        </button>
+      </div>
+
     </div>
   </div>
+
+  <style>
+  /* ── PDP Premium Sticky ATC (scoped) ── */
+  #pvpdp-sticky-{{ section.id }} {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%) translateY(calc(100% + 30px));
+    width: min(1180px, calc(100% - 48px));
+    z-index: 9000;
+    background: rgba(255,255,255,0.96);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-radius: 20px;
+    border: 1px solid rgba(20,45,25,0.08);
+    box-shadow: 0 18px 50px rgba(20,45,25,0.16);
+    padding: 12px 18px;
+    opacity: 0;
+    transition:
+      transform .38s cubic-bezier(.4,0,.2,1),
+      opacity   .38s cubic-bezier(.4,0,.2,1);
+    pointer-events: none;
+  }
+  #pvpdp-sticky-{{ section.id }}.pvpdp-sticky-visible {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+    pointer-events: auto;
+  }
+  #pvpdp-sticky-{{ section.id }} .pvpdp-sticky-inner {
+    display: flex;
+    align-items: center;
+    gap: 1.6rem;
+  }
+  /* Left */
+  #pvpdp-sticky-{{ section.id }} .pvpdp-sticky-left {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex: 1;
+    min-width: 0;
+  }
+  #pvpdp-sticky-{{ section.id }} .pvpdp-sticky-thumb {
+    width: 46px;
+    height: 46px;
+    border-radius: 9px;
+    background: #EDE8DC;
+    flex-shrink: 0;
+    overflow: hidden;
+    border: 1px solid rgba(20,45,25,0.08);
+  }
+  #pvpdp-sticky-{{ section.id }} .pvpdp-sticky-thumb img {
+    width: 100%; height: 100%; object-fit: cover; display: block;
+  }
+  #pvpdp-sticky-{{ section.id }} .pvpdp-sticky-meta {
+    display: flex; flex-direction: column; gap: .15rem; min-width: 0;
+  }
+  #pvpdp-sticky-{{ section.id }} .pvpdp-sticky-title {
+    font-size: 1.25rem; font-weight: 700; color: #133316;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis; line-height: 1.2;
+  }
+  #pvpdp-sticky-{{ section.id }} .pvpdp-sticky-rating {
+    display: flex; align-items: center; gap: .35rem;
+    font-size: 1.05rem; color: #4A5748; font-weight: 500;
+  }
+  #pvpdp-sticky-{{ section.id }} .pvpdp-sticky-stars {
+    color: #D4A843; font-size: 1.05rem; letter-spacing: .5px;
+  }
+  /* Mid */
+  #pvpdp-sticky-{{ section.id }} .pvpdp-sticky-mid {
+    display: flex; flex-direction: column; align-items: flex-start;
+    gap: .2rem; flex-shrink: 0;
+  }
+  #pvpdp-sticky-{{ section.id }} .pvpdp-sticky-prices {
+    display: flex; align-items: center; gap: .6rem; flex-wrap: wrap;
+  }
+  #pvpdp-sticky-{{ section.id }} .pvpdp-sticky-price {
+    font-size: 1.65rem; font-weight: 800; color: #133316; line-height: 1;
+  }
+  #pvpdp-sticky-{{ section.id }} .pvpdp-sticky-compare {
+    font-size: 1.25rem; color: #9CA8A0; text-decoration: line-through; font-weight: 500;
+  }
+  #pvpdp-sticky-{{ section.id }} .pvpdp-sticky-save {
+    font-size: 1rem; font-weight: 800; color: #fff;
+    background: #133316; padding: .2rem .7rem; border-radius: 5px; letter-spacing: .02em;
+  }
+  #pvpdp-sticky-{{ section.id }} .pvpdp-sticky-micro {
+    font-size: 1rem; color: #6B7568; font-weight: 500; white-space: nowrap;
+  }
+  /* Right */
+  #pvpdp-sticky-{{ section.id }} .pvpdp-sticky-right { flex-shrink: 0; }
+  #pvpdp-sticky-{{ section.id }} .pvpdp-sticky-btn {
+    display: inline-flex; align-items: center; justify-content: center;
+    gap: .5rem; background: #133316; color: #fff;
+    font-size: 1.4rem; font-weight: 800;
+    padding: 1.1rem 2.2rem; border-radius: 999px;
+    border: none; cursor: pointer; white-space: nowrap;
+    box-shadow: 0 6px 18px rgba(19,51,22,.22);
+    transition: background .2s, transform .2s, box-shadow .2s;
+    letter-spacing: -.01em; text-decoration: none;
+    font-family: inherit;
+  }
+  #pvpdp-sticky-{{ section.id }} .pvpdp-sticky-btn:hover {
+    background: #1A4A20; transform: translateY(-1px);
+    box-shadow: 0 10px 26px rgba(19,51,22,.28); color: #fff;
+  }
+  #pvpdp-sticky-{{ section.id }} .pvpdp-sticky-btn:active {
+    transform: translateY(0); box-shadow: 0 4px 12px rgba(19,51,22,.20);
+  }
+  #pvpdp-sticky-{{ section.id }} .pvpdp-sticky-btn:disabled,
+  #pvpdp-sticky-{{ section.id }} .pvpdp-sticky-btn[disabled] {
+    background: #9CA8A0; cursor: not-allowed; transform: none; box-shadow: none;
+  }
+  /* Mobile */
+  @media (max-width: 749px) {
+    #pvpdp-sticky-{{ section.id }} {
+      bottom: 14px; left: 12px; right: 12px; width: auto;
+      transform: translateY(calc(100% + 24px));
+      border-radius: 18px; padding: 10px 12px;
+    }
+    #pvpdp-sticky-{{ section.id }}.pvpdp-sticky-visible {
+      transform: translateY(0); opacity: 1;
+    }
+    #pvpdp-sticky-{{ section.id }} .pvpdp-sticky-inner {
+      flex-direction: row; gap: .8rem; align-items: center;
+    }
+    #pvpdp-sticky-{{ section.id }} .pvpdp-sticky-mid { display: none; }
+    #pvpdp-sticky-{{ section.id }} .pvpdp-sticky-title {
+      font-size: 1.15rem; max-width: 160px;
+    }
+    #pvpdp-sticky-{{ section.id }} .pvpdp-sticky-right {
+      flex-shrink: 0; margin-left: auto;
+    }
+    #pvpdp-sticky-{{ section.id }} .pvpdp-sticky-btn {
+      font-size: 1.3rem; padding: 1rem 1.6rem;
+    }
+  }
+  </style>
+
+  <script>
+  (function(){
+    var sticky = document.getElementById('pvpdp-sticky-{{ section.id }}');
+    if (!sticky) return;
+    var shown = false;
+    var footerVisible = false;
+    var threshold = 400;
+
+    function showBar() {
+      if (shown) return;
+      shown = true;
+      sticky.classList.add('pvpdp-sticky-visible');
+      sticky.setAttribute('aria-hidden', 'false');
+    }
+    function hideBar() {
+      if (!shown) return;
+      shown = false;
+      sticky.classList.remove('pvpdp-sticky-visible');
+      sticky.setAttribute('aria-hidden', 'true');
+    }
+    function toggle() {
+      if (footerVisible) return;
+      var scrollY = window.scrollY || window.pageYOffset;
+      var nearBottom = (scrollY + window.innerHeight) >= (document.documentElement.scrollHeight - 120);
+      if (nearBottom) { hideBar(); }
+      else if (scrollY > threshold) { showBar(); }
+      else { hideBar(); }
+    }
+    window.addEventListener('scroll', toggle, { passive: true });
+    toggle();
+
+    /* Hide when footer enters viewport */
+    var footer = document.querySelector('footer[id^="pvf-"], footer.pv-footer, footer');
+    if (footer && 'IntersectionObserver' in window) {
+      new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting) { footerVisible = true; hideBar(); }
+          else { footerVisible = false; toggle(); }
+        });
+      }, { threshold: 0.01 }).observe(footer);
+    }
+
+    /* Click → scroll to main ATC button */
+    var btn = document.getElementById('pvpdp-sticky-btn-{{ section.id }}');
+    if (btn && !btn.disabled) {
+      btn.addEventListener('click', function() {
+        /* Try to click the real ATC form button */
+        var mainBtn = document.getElementById('ProductSubmitButton-{{ section.id }}');
+        if (mainBtn && !mainBtn.disabled) {
+          mainBtn.click();
+          return;
+        }
+        /* Fallback: scroll to product form */
+        var form = document.querySelector('.product-form, #product-form-{{ section.id }}');
+        if (form) { form.scrollIntoView({ behavior: 'smooth', block: 'center' }); }
+      });
+    }
+  })();
+  </script>
 
   {% render 'product-media-modal', variant_images: variant_images %}
 
@@ -503,13 +768,7 @@
         if (el) { var i = Array.prototype.indexOf.call(slides, el); if (i >= 0) showSlide(i); }
       });
 
-      var col = document.querySelector('.pv-purchase-col');
-      var stk = document.getElementById('pv-sticky-atc-' + sid);
-      if (stk && col && window.IntersectionObserver) {
-        new IntersectionObserver(function(entries) {
-          entries.forEach(function(e) { stk.style.display = e.isIntersecting ? 'none' : 'block'; });
-        }, { threshold: 0.1 }).observe(col);
-      }
+      /* Old sticky atc removed — new premium floating bar handles its own visibility */
     }
     if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', pvGalleryInit); } else { pvGalleryInit(); }
   })();
