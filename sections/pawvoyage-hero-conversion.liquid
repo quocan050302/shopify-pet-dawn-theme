@@ -9,13 +9,14 @@
 /* ── PawVoyage Hero Conversion — scoped to section ── */
 #pvhc-{{ section.id }} {
   position: relative;
-  min-height: 680px;
+  min-height: 560px;
   display: flex;
   align-items: center;
   overflow: hidden;
   background: #FAF7F0;
   font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif;
 }
+@media (min-width: 750px) { #pvhc-{{ section.id }} { min-height: 680px; } }
 @media (min-width: 990px) { #pvhc-{{ section.id }} { min-height: 760px; } }
 
 /* Background image container */
@@ -87,7 +88,7 @@
   padding: 6rem 2rem;
 }
 @media (max-width: 749px) {
-  #pvhc-{{ section.id }} .pvhc-wrap { padding: 4rem 1.6rem; }
+  #pvhc-{{ section.id }} .pvhc-wrap { padding: 2.8rem 1.6rem; }
 }
 
 /* Left column */
@@ -235,6 +236,9 @@
   gap: .5rem;
 }
 #pvhc-{{ section.id }} .pvhc-guarantee svg { width: 14px; height: 14px; stroke: #133316; flex-shrink: 0; }
+@media (max-width: 749px) {
+  #pvhc-{{ section.id }} .pvhc-guarantee { display: none !important; }
+}
 
 /* ── CALLOUT LABELS (desktop only) ── */
 #pvhc-{{ section.id }} .pvhc-callouts {
@@ -335,10 +339,31 @@
 }
 @media (max-width: 749px) {
   #pvhc-{{ section.id }} .pvhc-strip-inner {
-    grid-template-columns: 1fr;
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
     gap: 1.2rem;
+    padding: 0 1.6rem 1.6rem 1.6rem;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  #pvhc-{{ section.id }} .pvhc-strip-inner::-webkit-scrollbar { display: none; }
+  #pvhc-{{ section.id }} .pvhc-strip {
+    padding: 0;
+  }
+  #pvhc-{{ section.id }} .pvhc-strip-item {
+    flex: 0 0 85%;
+    scroll-snap-align: start;
+    background: rgba(255,255,255,0.95);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255,255,255,.6);
     border-radius: 16px;
     padding: 1.4rem 1.6rem;
+    box-shadow: 0 8px 32px rgba(19,51,22,.08);
   }
 }
 #pvhc-{{ section.id }} .pvhc-strip-item {
