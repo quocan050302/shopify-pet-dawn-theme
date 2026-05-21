@@ -1,4 +1,4 @@
-﻿{%- liquid
+{%- liquid
   assign show_arrows = section.settings.show_arrows
   assign show_cta    = section.settings.show_cta
 -%}
@@ -266,6 +266,9 @@
   color: #4A5748;
   font-weight: 500;
   margin: 0;
+}
+@media(max-width:749px){
+  #pvugc-{{ section.id }} .pvugc-bottom { display: none !important; }
 }
 #pvugc-{{ section.id }} .pvugc-cta {
   display: inline-flex;

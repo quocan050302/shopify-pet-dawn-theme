@@ -5,30 +5,30 @@
     "pv_premium_footer": {
       "type": "pawvoyage-premium-footer",
       "settings": {
-        "newsletter_eyebrow":     "WALK BETTER. TOGETHER.",
-        "newsletter_heading":     "Join 10,000+ Dog Owners Creating Calmer Walks.",
-        "newsletter_highlight":   "Calmer Walks.",
-        "newsletter_subheading":  "Get walking tips, exclusive offers, and product updates.",
+        "newsletter_eyebrow": "WALK BETTER. TOGETHER.",
+        "newsletter_heading": "Join 10,000+ Dog Owners Creating Calmer Walks.",
+        "newsletter_highlight": "Calmer Walks.",
+        "newsletter_subheading": "Get walking tips, exclusive offers, and product updates.",
         "newsletter_placeholder": "Enter your email address",
-        "newsletter_button_text": "Join the Pack →",
+        "newsletter_button_text": "Join the Pack",
         "trust_1_title": "Secure Checkout",
-        "trust_1_desc":  "100% safe & protected",
+        "trust_1_desc": "100% safe & protected",
         "trust_2_title": "30-Day Risk-Free Trial",
-        "trust_2_desc":  "Love it or return it.",
+        "trust_2_desc": "Love it or return it.",
         "trust_3_title": "Free Shipping",
-        "trust_3_desc":  "On all orders",
+        "trust_3_desc": "On all orders",
         "trust_4_title": "Pet-Friendly Support",
-        "trust_4_desc":  "Real people, here to help",
+        "trust_4_desc": "Real people, here to help",
         "brand_name": "PawVoyage",
         "brand_desc": "Premium dog gear designed for calmer, safer, and more comfortable walks.",
         "proof_rating": "4.9/5 from 1,247+ reviews",
-        "proof_count":  "10,000+ Happy Dog Owners",
+        "proof_count": "10,000+ Happy Dog Owners",
         "payment_enable": true
       },
       "blocks": {
         "menu_shop": {
           "type": "link_list",
-          "settings": { "heading": "Shop",    "menu": "main-menu" }
+          "settings": { "heading": "Shop", "menu": "main-menu" }
         },
         "menu_support": {
           "type": "link_list",
