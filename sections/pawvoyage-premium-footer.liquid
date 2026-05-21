@@ -26,7 +26,7 @@
   --pvf-muted:  rgba(255,248,238,0.55);
   --pvf-border: rgba(255,248,238,0.10);
   --pvf-radius: 20px;
-  font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif;
+  font-family: var(--font-body-family), -apple-system, BlinkMacSystemFont, 'Inter', sans-serif;
   background: var(--pvf-green);
   color: var(--pvf-cream);
   position: relative;
@@ -145,6 +145,7 @@
 #pvf-{{ section.id }} .pvf-nl__heading {
   font-size: clamp(2.6rem, 3.8vw, 4.0rem);
   font-weight: 900;
+  font-family: var(--font-body-family), -apple-system, BlinkMacSystemFont, 'Inter', sans-serif;
   color: var(--pvf-cream);
   line-height: 1.10;
   letter-spacing: -.02em;
