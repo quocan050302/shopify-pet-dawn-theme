@@ -48,6 +48,84 @@
         "padding_bottom": 12
       }
     },
+    "product-benefits": {
+      "type": "pawvoyage-product-benefits",
+      "blocks": {
+        "card-1": {
+          "type": "benefit_card",
+          "settings": {
+            "icon_type": "leash",
+            "title": "Better No-Pull Control",
+            "description": "Front clip helps redirect pulling so walks feel easier and calmer."
+          }
+        },
+        "card-2": {
+          "type": "benefit_card",
+          "settings": {
+            "icon_type": "heart",
+            "title": "Comfort-Focused Design",
+            "description": "Padded chest and soft materials help prevent rubbing and irritation."
+          }
+        },
+        "card-3": {
+          "type": "benefit_card",
+          "settings": {
+            "icon_type": "sliders",
+            "title": "Secure & Adjustable Fit",
+            "description": "Multiple adjustment points create a snug and secure fit."
+          }
+        },
+        "card-4": {
+          "type": "benefit_card",
+          "settings": {
+            "icon_type": "diamond",
+            "title": "Tactical Durability",
+            "description": "Built with tough materials for everyday use and outdoor adventures."
+          }
+        },
+        "card-5": {
+          "type": "benefit_card",
+          "settings": {
+            "icon_type": "compass",
+            "title": "Ready for Every Adventure",
+            "description": "Perfect for walks, hikes, training, travel, and active dogs."
+          }
+        }
+      },
+      "block_order": ["card-1", "card-2", "card-3", "card-4", "card-5"],
+      "settings": {
+        "eyebrow": "WHY DOG PARENTS CHOOSE PAWVOYAGE",
+        "heading": "Why You'll Love It",
+        "subheading": "Thoughtfully designed for real-life walks, training, and adventures.",
+        "trust_1_label": "Vet Recommended",
+        "trust_2_label": "Loved by 10,000+ Dogs",
+        "trust_3_label": "30-Day Risk-Free Trial",
+        "trust_4_label": "Fast & Free Shipping"
+      }
+    },
+    "size-fit-guide": {
+      "type": "pawvoyage-size-fit-guide",
+      "settings": {
+        "eyebrow": "SIZE & FIT GUIDE",
+        "heading": "Find the Right Fit",
+        "subheading": "A properly fitted harness ensures comfort, control, and safety on every walk.",
+        "instr_1_title": "Measure Chest Girth",
+        "instr_1_desc": "Wrap the tape around the widest part of your dog's chest, just behind the front legs.",
+        "instr_2_title": "Measure Neck Base",
+        "instr_2_desc": "Measure around the base of your dog's neck, where the harness will sit.",
+        "between_title": "Between sizes?",
+        "between_desc": "Choose the larger size for the best comfort and a secure fit.",
+        "support_text": "Still unsure? Contact our support team — we're happy to help!",
+        "trust_1_title": "Easy to Measure",
+        "trust_1_desc": "Simple steps for an accurate fit",
+        "trust_2_title": "Perfect Fit Promise",
+        "trust_2_desc": "Designed for comfort, built for control",
+        "trust_3_title": "Comfort Guaranteed",
+        "trust_3_desc": "Soft padding & secure fit for all-day comfort",
+        "trust_4_title": "Hassle-Free Returns",
+        "trust_4_desc": "30-day returns if the size isn't right"
+      }
+    },
     "related-products": {
       "type": "related-products",
       "settings": {
@@ -69,6 +147,8 @@
   },
   "order": [
     "main",
+    "product-benefits",
+    "size-fit-guide",
     "related-products"
   ]
 }

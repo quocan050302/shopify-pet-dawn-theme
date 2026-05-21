@@ -1,0 +1,970 @@
+{%- comment -%}
+  PawVoyage Size & Fit Guide Section
+  sections/pawvoyage-size-fit-guide.liquid
+  v1.2 — layout redesign to match reference
+{%- endcomment -%}
+
+<section class="psg-outer" id="psg-{{ section.id }}" aria-label="Size and Fit Guide">
+  <div class="psg-wrap">
+
+    {%- comment -%} ── TWO-COLUMN BODY ── {%- endcomment -%}
+    <div class="psg-body">
+
+      {%- comment -%} ═══ LEFT COLUMN ═══ {%- endcomment -%}
+      <div class="psg-guide-col">
+
+        {%- comment -%} Header lives inside left column {%- endcomment -%}
+        <div class="psg-guide-header">
+          {%- if section.settings.eyebrow != blank -%}
+            <p class="psg-eyebrow">
+              <svg class="psg-eyebrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/>
+              </svg>
+              {{ section.settings.eyebrow }}
+            </p>
+          {%- endif -%}
+          {%- if section.settings.heading != blank -%}
+            <h2 class="psg-heading">{{ section.settings.heading }}</h2>
+          {%- endif -%}
+          {%- if section.settings.subheading != blank -%}
+            <p class="psg-subheading">{{ section.settings.subheading }}</p>
+          {%- endif -%}
+        </div>
+
+        {%- comment -%} Dog image + instruction cards side-by-side {%- endcomment -%}
+        <div class="psg-guide-inner">
+
+          {%- comment -%} Dog photo with label badges {%- endcomment -%}
+          <div class="psg-img-block">
+            {%- if section.settings.guide_image != blank -%}
+              <div class="psg-img-wrap">
+                {{
+                  section.settings.guide_image
+                  | image_url: width: 700
+                  | image_tag:
+                    loading: 'lazy',
+                    alt: section.settings.guide_image_alt | default: 'Dog measurement guide',
+                    class: 'psg-guide-img',
+                    widths: '350, 500, 700'
+                }}
+                <div class="psg-label psg-label--a" aria-label="A: Girth / Chest">A</div>
+                <div class="psg-label psg-label--c" aria-label="C: Neck Base">C</div>
+              </div>
+            {%- else -%}
+              <div class="psg-img-placeholder">
+                <svg viewBox="0 0 80 120" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" opacity="0.35">
+                  <ellipse cx="38" cy="85" rx="22" ry="16"/>
+                  <circle cx="38" cy="52" r="16"/>
+                  <path d="M16 82 Q8 65 18 56"/>
+                  <path d="M60 82 Q68 65 58 56"/>
+                  <circle cx="18" cy="84" r="3" fill="currentColor" stroke="none"/>
+                  <text x="13" y="79" font-size="8" font-weight="700" fill="currentColor" opacity="0.7">A</text>
+                  <text x="24" y="48" font-size="8" font-weight="700" fill="currentColor" opacity="0.7">C</text>
+                </svg>
+                <span>Upload dog image</span>
+              </div>
+            {%- endif -%}
+          </div>
+
+          {%- comment -%} Measurement instruction cards {%- endcomment -%}
+          <div class="psg-instructions">
+
+            <div class="psg-instr-item">
+              <div class="psg-instr-badge psg-instr-badge--a">A</div>
+              <div>
+                <strong class="psg-instr-title">{{ section.settings.instr_1_title }}</strong>
+                <p class="psg-instr-desc">{{ section.settings.instr_1_desc }}</p>
+              </div>
+            </div>
+
+            <div class="psg-instr-divider" aria-hidden="true">
+              <svg class="psg-sketch" viewBox="0 0 120 60" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" opacity="0.2">
+                <ellipse cx="60" cy="38" rx="30" ry="14"/>
+                <circle cx="60" cy="22" r="10"/>
+                <path d="M30 36 Q22 28 30 22"/>
+                <path d="M90 36 Q98 28 90 22"/>
+                <line x1="60" y1="50" x2="60" y2="58"/>
+                <line x1="52" y1="56" x2="60" y2="58"/><line x1="68" y1="56" x2="60" y2="58"/>
+              </svg>
+            </div>
+
+            <div class="psg-instr-item">
+              <div class="psg-instr-badge psg-instr-badge--c">C</div>
+              <div>
+                <strong class="psg-instr-title">{{ section.settings.instr_2_title }}</strong>
+                <p class="psg-instr-desc">{{ section.settings.instr_2_desc }}</p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        {%- comment -%} Between sizes box — full-width at bottom of left column {%- endcomment -%}
+        <div class="psg-between-sizes">
+          <svg class="psg-between-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+          </svg>
+          <div>
+            <strong class="psg-between-title">{{ section.settings.between_title }}</strong>
+            <p class="psg-between-desc">{{ section.settings.between_desc }}</p>
+          </div>
+        </div>
+
+      </div>
+
+      {%- comment -%} ═══ RIGHT COLUMN: size table ═══ {%- endcomment -%}
+      <div class="psg-table-col">
+        <div class="psg-table-scroll">
+          <table class="psg-table" role="table">
+            <thead>
+              <tr>
+                <th scope="col">Size</th>
+                <th scope="col">A Girth<br>(Chest)</th>
+                <th scope="col">B Back<br>Length</th>
+                <th scope="col">C Neck<br>Base</th>
+                <th scope="col">D Neck to<br>Armpit</th>
+                <th scope="col">Item Weight<br>(kgs)</th>
+                <th scope="col">Dog Weight<br>(kgs)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="psg-size-cell">S</td>
+                <td>22&#8243; &#8211; 28&#8243;<br><span class="psg-cm">(56 &#8211; 71 cm)</span></td>
+                <td>9.5&#8243;<br><span class="psg-cm">(24 cm)</span></td>
+                <td>18&#8243; &#8211; 20&#8243;<br><span class="psg-cm">(46 &#8211; 51 cm)</span></td>
+                <td>11&#8243;<br><span class="psg-cm">(28 cm)</span></td>
+                <td>0.45</td>
+                <td>Below 30 kgs</td>
+              </tr>
+              <tr>
+                <td class="psg-size-cell">M</td>
+                <td>28&#8243; &#8211; 35&#8243;<br><span class="psg-cm">(71 &#8211; 89 cm)</span></td>
+                <td>11&#8243;<br><span class="psg-cm">(28 cm)</span></td>
+                <td>18&#8243; &#8211; 24&#8243;<br><span class="psg-cm">(46 &#8211; 61 cm)</span></td>
+                <td>12&#8243;<br><span class="psg-cm">(30 cm)</span></td>
+                <td>0.55</td>
+                <td>15 &#8211; 30 kgs</td>
+              </tr>
+              <tr>
+                <td class="psg-size-cell">L</td>
+                <td>28&#8243; &#8211; 40&#8243;<br><span class="psg-cm">(71 &#8211; 102 cm)</span></td>
+                <td>12&#8243;<br><span class="psg-cm">(30 cm)</span></td>
+                <td>21&#8243; &#8211; 32&#8243;<br><span class="psg-cm">(53 &#8211; 81 cm)</span></td>
+                <td>13&#8243;<br><span class="psg-cm">(33 cm)</span></td>
+                <td>0.65</td>
+                <td>30 &#8211; 40 kgs</td>
+              </tr>
+              <tr>
+                <td class="psg-size-cell">XL</td>
+                <td>32&#8243; &#8211; 45&#8243;<br><span class="psg-cm">(81 &#8211; 114 cm)</span></td>
+                <td>13&#8243;<br><span class="psg-cm">(33 cm)</span></td>
+                <td>24&#8243; &#8211; 30&#8243;<br><span class="psg-cm">(61 &#8211; 76 cm)</span></td>
+                <td>14.5&#8243;<br><span class="psg-cm">(37 cm)</span></td>
+                <td>0.75</td>
+                <td>40 &#8211; 55 kgs</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p class="psg-support-line">
+          <svg class="psg-support-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.4 2 2 0 0 1 3.6 1.21h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.5a16 16 0 0 0 6 6l.86-.86a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+          </svg>
+          {{ section.settings.support_text }}
+        </p>
+      </div>
+
+    </div>
+
+    {%- comment -%} ── TRUST STRIP (full width below body) ── {%- endcomment -%}
+    <div class="psg-trust-strip" role="list">
+
+      <div class="psg-trust-item" role="listitem">
+        <div class="psg-trust-icon-wrap" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+          </svg>
+        </div>
+        <div class="psg-trust-text">
+          <strong>{{ section.settings.trust_1_title }}</strong>
+          <span>{{ section.settings.trust_1_desc }}</span>
+        </div>
+      </div>
+
+      <div class="psg-trust-item" role="listitem">
+        <div class="psg-trust-icon-wrap" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4" stroke-width="2"/>
+          </svg>
+        </div>
+        <div class="psg-trust-text">
+          <strong>{{ section.settings.trust_2_title }}</strong>
+          <span>{{ section.settings.trust_2_desc }}</span>
+        </div>
+      </div>
+
+      <div class="psg-trust-item" role="listitem">
+        <div class="psg-trust-icon-wrap" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+          </svg>
+        </div>
+        <div class="psg-trust-text">
+          <strong>{{ section.settings.trust_3_title }}</strong>
+          <span>{{ section.settings.trust_3_desc }}</span>
+        </div>
+      </div>
+
+      <div class="psg-trust-item" role="listitem">
+        <div class="psg-trust-icon-wrap" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/>
+          </svg>
+        </div>
+        <div class="psg-trust-text">
+          <strong>{{ section.settings.trust_4_title }}</strong>
+          <span>{{ section.settings.trust_4_desc }}</span>
+        </div>
+      </div>
+
+    </div>
+
+    <p class="psg-fine-print">*Measurements may vary slightly. If your dog is between sizes, we recommend choosing the larger size.</p>
+
+  </div>
+</section>
+
+<style>
+/* ============================================================
+   PawVoyage Size & Fit Guide v1.2 — scoped to #psg-{{ section.id }}
+   ============================================================ */
+#psg-{{ section.id }} {
+  --psg-green:      #12350e;
+  --psg-green-hd:   #0e2b0b;
+  --psg-gold:       #c98a1a;
+  --psg-gold-bg:    #fdf0d0;
+  --psg-gold-bdr:   rgba(201,138,26,0.28);
+  --psg-cream:      #fdf8f0;
+  --psg-cream-dk:   #f0e8d6;
+  --psg-white:      #ffffff;
+  --psg-text:       #1f241d;
+  --psg-text-sec:   #4a5246;
+  --psg-border:     rgba(31,36,29,0.09);
+  --psg-radius:     16px;
+  --psg-radius-sm:  10px;
+  --psg-font:       'Inter', system-ui, -apple-system, sans-serif;
+}
+
+/* ── Section wrapper ── */
+.psg-outer {
+  background: var(--psg-cream);
+  padding: 4.8rem 0 4rem;
+  overflow-x: hidden; /* prevent section from causing page horizontal scroll */
+}
+
+.psg-wrap {
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 0 3rem;
+}
+
+/* ══════════════════════
+   BODY: 2 columns
+   ══════════════════════ */
+.psg-body {
+  display: grid;
+  grid-template-columns: 38% 1fr;
+  gap: 2.8rem;
+  align-items: stretch; /* both cols same height */
+}
+
+/* ══════════════════════
+   LEFT COLUMN
+   ══════════════════════ */
+.psg-guide-col {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* pin Between-sizes to bottom */
+  gap: 1.4rem;
+}
+
+/* Header at top of left column */
+.psg-guide-header {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.psg-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-family: var(--psg-font);
+  font-size: 1.1rem;
+  font-weight: 800;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+  color: var(--psg-gold);
+  margin: 0;
+}
+
+.psg-eyebrow-icon {
+  width: 13px;
+  height: 13px;
+  flex-shrink: 0;
+}
+
+.psg-heading {
+  font-family: var(--psg-font);
+  font-size: clamp(2.6rem, 3vw, 3.6rem);
+  font-weight: 900;
+  color: var(--psg-green);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  margin: 0;
+}
+
+.psg-subheading {
+  font-size: 1.4rem;
+  color: var(--psg-text-sec);
+  line-height: 1.55;
+  margin: 0;
+  word-break: break-word;
+  overflow-wrap: break-word;
+}
+
+/* Inner: image + instructions side by side */
+.psg-guide-inner {
+  flex: 1;             /* grow to fill remaining height */
+  display: flex;
+  gap: 1.2rem;
+  align-items: stretch;
+  min-height: 220px;   /* sensible floor when no image */
+}
+
+/* Dog image */
+.psg-img-block {
+  flex: 0 0 52%;
+  min-width: 0; /* allow flex item to shrink below content size */
+}
+
+.psg-img-wrap {
+  position: relative;
+  border-radius: var(--psg-radius);
+  overflow: hidden;
+  background: var(--psg-cream-dk);
+  height: 100%;
+  min-height: 200px;
+}
+
+.psg-guide-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
+}
+
+/* A / C label badges */
+.psg-label {
+  position: absolute;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--psg-green);
+  color: var(--psg-white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--psg-font);
+  font-weight: 900;
+  font-size: 1rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.28);
+  pointer-events: none;
+  z-index: 2;
+}
+
+.psg-label--a { bottom: 35%; right: 22%; }
+.psg-label--c { top: 18%;  left: 10%; }
+
+.psg-img-placeholder {
+  height: 100%;
+  min-height: 200px;
+  border-radius: var(--psg-radius);
+  background: var(--psg-cream-dk);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  color: var(--psg-text-sec);
+}
+
+.psg-img-placeholder svg { width: 60%; max-width: 100px; }
+.psg-img-placeholder span { font-size: 1.1rem; font-weight: 500; opacity: 0.5; }
+
+/* Instruction items */
+.psg-instructions {
+  flex: 1;
+  min-width: 0; /* allow shrinking */
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.psg-instr-item {
+  display: flex;
+  gap: 0.9rem;
+  align-items: flex-start;
+  padding: 0.4rem 0;
+}
+
+.psg-instr-badge {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--psg-font);
+  font-weight: 900;
+  font-size: 1rem;
+  color: var(--psg-white);
+  flex-shrink: 0;
+  margin-top: 0.15rem;
+}
+
+.psg-instr-badge--a { background: var(--psg-green); }
+.psg-instr-badge--c { background: var(--psg-green-hd); }
+
+.psg-instr-title {
+  display: block;
+  font-family: var(--psg-font);
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--psg-green);
+  line-height: 1.3;
+  margin-bottom: 0.35rem;
+}
+
+.psg-instr-desc {
+  font-size: 1.2rem;
+  color: var(--psg-text-sec);
+  line-height: 1.5;
+  margin: 0;
+  word-break: break-word;
+  overflow-wrap: break-word;
+}
+
+/* Dog sketch divider */
+.psg-instr-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.6rem 0;
+}
+
+.psg-sketch {
+  width: 80px;
+  height: auto;
+}
+
+/* Between sizes box */
+.psg-between-sizes {
+  display: flex;
+  gap: 0.9rem;
+  align-items: flex-start;
+  background: var(--psg-gold-bg);
+  border: 1px solid var(--psg-gold-bdr);
+  border-radius: var(--psg-radius-sm);
+  padding: 1.1rem 1.3rem;
+}
+
+.psg-between-icon {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  color: var(--psg-gold);
+  margin-top: 0.1rem;
+}
+
+.psg-between-title {
+  display: block;
+  font-family: var(--psg-font);
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--psg-green);
+  margin-bottom: 0.25rem;
+}
+
+.psg-between-desc {
+  font-size: 1.2rem;
+  color: var(--psg-text-sec);
+  line-height: 1.5;
+  margin: 0;
+  word-break: break-word;
+  overflow-wrap: break-word;
+}
+
+/* ══════════════════════
+   RIGHT COLUMN: TABLE
+   ══════════════════════ */
+.psg-table-col {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  height: 100%; /* fill the full grid cell height */
+}
+
+.psg-table-scroll {
+  flex: 1;              /* grow to fill remaining height after support line */
+  border-radius: var(--psg-radius);
+  overflow: hidden;
+  border: 1px solid var(--psg-border);
+  box-shadow: 0 4px 20px rgba(18,53,14,0.07);
+}
+
+.psg-table {
+  width: 100%;
+  height: 100%;          /* table fills scroll container, rows grow evenly */
+  border-collapse: collapse;
+  font-family: var(--psg-font);
+  font-size: 1.3rem;
+  background: var(--psg-white);
+}
+
+/* Header row */
+.psg-table thead tr { background: var(--psg-green-hd); }
+
+.psg-table thead th {
+  color: var(--psg-white);
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  padding: 1.15rem 1.2rem;
+  text-align: center;
+  border: none;
+  vertical-align: middle;
+  line-height: 1.3;
+  white-space: nowrap;
+}
+
+/* Body rows */
+.psg-table tbody tr {
+  border-bottom: 1px solid var(--psg-border);
+  transition: background 0.15s;
+}
+
+.psg-table tbody tr:last-child { border-bottom: none; }
+.psg-table tbody tr:hover { background: var(--psg-cream); }
+
+.psg-table tbody td {
+  padding: 1.1rem 1.2rem;
+  color: var(--psg-text);
+  text-align: center;
+  vertical-align: middle;
+  line-height: 1.4;
+}
+
+/* Size label cell */
+.psg-size-cell {
+  font-weight: 900;
+  font-size: 1.5rem;
+  color: var(--psg-green) !important;
+  background: var(--psg-cream);
+  border-right: 1px solid var(--psg-border);
+}
+
+/* CM sub-text */
+.psg-cm {
+  display: block;
+  font-size: 1.05rem;
+  color: var(--psg-text-sec);
+  margin-top: 0.2rem;
+}
+
+/* Support line */
+.psg-support-line {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  font-size: 1.25rem;
+  color: var(--psg-text-sec);
+  font-style: italic;
+  margin: 0;
+  padding: 0.9rem 1.2rem;
+  background: var(--psg-white);
+  border: 1px solid var(--psg-border);
+  border-radius: var(--psg-radius-sm);
+}
+
+.psg-support-icon {
+  width: 17px;
+  height: 17px;
+  flex-shrink: 0;
+  color: var(--psg-gold);
+}
+
+/* ══════════════════════
+   TRUST STRIP
+   ══════════════════════ */
+.psg-trust-strip {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  background: var(--psg-white);
+  border: 1px solid var(--psg-border);
+  border-radius: var(--psg-radius-sm);
+  margin-top: 3rem;
+  overflow: hidden;
+  box-shadow: 0 2px 12px rgba(18,53,14,0.05);
+}
+
+.psg-trust-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.1rem;
+  padding: 1.8rem 1.6rem;
+  border-right: 1px solid var(--psg-border);
+  transition: background 0.18s;
+}
+
+.psg-trust-item:last-child { border-right: none; }
+.psg-trust-item:hover { background: var(--psg-cream); }
+
+.psg-trust-icon-wrap {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: var(--psg-gold-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.psg-trust-icon-wrap svg {
+  width: 19px;
+  height: 19px;
+  color: var(--psg-green);
+}
+
+.psg-trust-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.psg-trust-text strong {
+  font-family: var(--psg-font);
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--psg-green);
+  line-height: 1.25;
+}
+
+.psg-trust-text span {
+  font-size: 1.15rem;
+  color: var(--psg-text-sec);
+  line-height: 1.4;
+}
+
+/* Fine print */
+.psg-fine-print {
+  margin-top: 1.4rem;
+  font-size: 1.1rem;
+  color: var(--psg-text-sec);
+  opacity: 0.65;
+  text-align: center;
+}
+
+/* ══════════════════════
+   TABLET ≤ 1099px
+   ══════════════════════ */
+@media screen and (max-width: 1099px) {
+  .psg-wrap {
+    padding: 0 2rem;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
+  /* Switch to single column on tablet */
+  .psg-body {
+    grid-template-columns: 1fr;
+    gap: 1.8rem;
+    width: 100%;
+  }
+
+  .psg-guide-col {
+    justify-content: flex-start;
+    gap: 1.4rem;
+    min-width: 0;
+  }
+
+  /* On tablet: guide-inner stays side-by-side, capped */
+  .psg-guide-inner {
+    min-height: 200px;
+  }
+
+  .psg-img-wrap,
+  .psg-img-placeholder { min-height: 180px; max-height: 260px; }
+
+  .psg-guide-img { max-height: 260px; }
+
+  /* CRITICAL: reset desktop height hacks */
+  .psg-table-col {
+    height: auto;
+    min-width: 0;
+  }
+
+  .psg-table-scroll {
+    flex: none;              /* reset flex:1 from desktop */
+    overflow-x: auto;        /* horizontal scroll */
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    max-width: 100%;
+  }
+
+  .psg-table {
+    height: auto;            /* reset height:100% from desktop */
+    min-width: 560px;        /* force scroll if needed */
+    font-size: 1.2rem;
+  }
+
+  .psg-table thead th {
+    font-size: 1rem;
+    padding: 1rem;
+    white-space: nowrap;
+  }
+
+  .psg-table tbody td {
+    padding: 0.95rem 1rem;
+    font-size: 1.15rem;
+  }
+
+  /* Trust strip 2x2 on tablet */
+  .psg-trust-strip { grid-template-columns: repeat(2, 1fr); }
+
+  .psg-trust-item:nth-child(1),
+  .psg-trust-item:nth-child(2) { border-bottom: 1px solid var(--psg-border); }
+
+  .psg-trust-item:nth-child(2) { border-right: none; }
+  .psg-trust-item:nth-child(3) { border-right: 1px solid var(--psg-border); }
+  .psg-trust-item:nth-child(4) { border-right: none; }
+}
+
+/* ══════════════════════
+   MOBILE ≤ 749px
+   ══════════════════════ */
+@media screen and (max-width: 749px) {
+  .psg-outer { padding: 3rem 0 2.4rem; }
+
+  .psg-wrap {
+    padding: 0 1.6rem;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
+  /* Single column, full-width */
+  .psg-body {
+    grid-template-columns: 1fr;
+    gap: 1.4rem;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .psg-guide-col {
+    justify-content: flex-start;
+    gap: 1.2rem;
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  /* Stack image + instructions vertically */
+  .psg-guide-inner {
+    flex-direction: column;
+    flex: none;
+    gap: 1.2rem;
+    min-height: unset;
+    max-width: 100%;
+  }
+
+  .psg-img-block {
+    flex: none;
+    width: 100%;
+    min-width: 0;
+  }
+
+  .psg-img-wrap {
+    height: auto;
+    min-height: 180px;
+    max-height: 260px;
+    width: 100%;
+  }
+
+  .psg-guide-img {
+    height: 260px;
+    max-height: 260px;
+    object-position: center top;
+  }
+
+  .psg-img-placeholder {
+    height: auto;
+    min-height: 140px;
+    max-height: 180px;
+    width: 100%;
+  }
+
+  .psg-instructions {
+    min-width: 0;
+    max-width: 100%;
+    width: 100%;
+  }
+
+  .psg-heading { font-size: 2.2rem; }
+  .psg-subheading { font-size: 1.3rem; }
+
+  /* Reset desktop height hacks for table */
+  .psg-table-col {
+    height: auto;
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  /* Table: contained horizontal scroll */
+  .psg-table-scroll {
+    flex: none;                /* reset flex:1 */
+    overflow-x: auto;          /* allow horizontal scroll inside */
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: none;
+    max-width: 100%;
+    border-radius: var(--psg-radius-sm);
+  }
+
+  .psg-table {
+    height: auto;              /* reset height:100% */
+    min-width: 480px;          /* wider than viewport = scrollable */
+    font-size: 1.1rem;
+    width: max-content;        /* don't squish columns */
+  }
+
+  .psg-table thead th {
+    font-size: 0.82rem;
+    padding: 0.8rem 0.6rem;
+    white-space: nowrap;
+    letter-spacing: 0.02em;
+  }
+
+  .psg-table tbody td {
+    padding: 0.75rem 0.6rem;
+    font-size: 1.05rem;
+  }
+
+  .psg-cm { font-size: 0.82rem; }
+  .psg-size-cell { font-size: 1.2rem; }
+
+  /* Sticky SIZE column when scrolling horizontally */
+  .psg-table thead th:first-child,
+  .psg-table tbody td:first-child {
+    position: sticky;
+    left: 0;
+    z-index: 3;
+  }
+
+  .psg-table thead th:first-child {
+    background: var(--psg-green-hd);
+    box-shadow: 2px 0 8px rgba(0,0,0,0.20);
+  }
+
+  .psg-table tbody td:first-child {
+    background: var(--psg-cream);
+    box-shadow: 2px 0 6px rgba(18,53,14,0.10);
+  }
+
+  /* Support line */
+  .psg-support-line {
+    flex-wrap: wrap;
+    font-size: 1.15rem;
+    padding: 0.8rem 1rem;
+  }
+
+  /* Trust strip: compact 2x2 */
+  .psg-trust-strip {
+    grid-template-columns: 1fr 1fr;
+    margin-top: 1.4rem;
+  }
+
+  .psg-trust-item {
+    flex-direction: row;
+    gap: 0.7rem;
+    padding: 1.1rem 0.9rem;
+    border-right: none;
+    border-bottom: 1px solid var(--psg-border);
+    align-items: center;
+  }
+
+  .psg-trust-item:nth-child(odd)  { border-right: 1px solid var(--psg-border); }
+  .psg-trust-item:nth-last-child(-n+2) { border-bottom: none; }
+
+  .psg-trust-icon-wrap { width: 30px; height: 30px; flex-shrink: 0; }
+  .psg-trust-icon-wrap svg { width: 15px; height: 15px; }
+  .psg-trust-text strong { font-size: 1.15rem; }
+  .psg-trust-text span { font-size: 1rem; }
+
+  .psg-fine-print { font-size: 1rem; text-align: left; }
+}
+
+/* ── Very small ── */
+@media screen and (max-width: 389px) {
+  .psg-wrap { padding: 0 1.2rem; }
+  .psg-trust-strip { grid-template-columns: 1fr; }
+  .psg-trust-item {
+    flex-direction: row;
+    border-right: none !important;
+    border-bottom: 1px solid var(--psg-border) !important;
+    align-items: center;
+  }
+  .psg-trust-item:last-child { border-bottom: none !important; }
+}
+</style>
+
+{% schema %}
+{
+  "name": "Size & Fit Guide",
+  "tag": "section",
+  "class": "psg-section",
+  "settings": [
+    { "type": "header", "content": "Section Header" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow text", "default": "SIZE & FIT GUIDE" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Find the Right Fit" },
+    { "type": "text", "id": "subheading", "label": "Subheading", "default": "A properly fitted harness ensures comfort, control, and safety on every walk." },
+    { "type": "header", "content": "Guide Image" },
+    { "type": "image_picker", "id": "guide_image", "label": "Dog measurement image" },
+    { "type": "text", "id": "guide_image_alt", "label": "Image alt text", "default": "Dog wearing PawVoyage harness with measurement labels A and C" },
+    { "type": "header", "content": "Instructions" },
+    { "type": "text", "id": "instr_1_title", "label": "Instruction A title", "default": "Measure Chest Girth" },
+    { "type": "textarea", "id": "instr_1_desc", "label": "Instruction A description", "default": "Wrap the tape around the widest part of your dog's chest, just behind the front legs." },
+    { "type": "text", "id": "instr_2_title", "label": "Instruction C title", "default": "Measure Neck Base" },
+    { "type": "textarea", "id": "instr_2_desc", "label": "Instruction C description", "default": "Measure around the base of your dog's neck, where the harness will sit." },
+    { "type": "header", "content": "Between Sizes Box" },
+    { "type": "text", "id": "between_title", "label": "Title", "default": "Between sizes?" },
+    { "type": "text", "id": "between_desc", "label": "Description", "default": "Choose the larger size for the best comfort and a secure fit." },
+    { "type": "header", "content": "Support Line" },
+    { "type": "text", "id": "support_text", "label": "Support line", "default": "Still unsure? Contact our support team — we are happy to help!" },
+    { "type": "header", "content": "Trust Strip" },
+    { "type": "text", "id": "trust_1_title", "label": "Trust 1 title", "default": "Easy to Measure" },
+    { "type": "text", "id": "trust_1_desc",  "label": "Trust 1 desc",  "default": "Simple steps for an accurate fit" },
+    { "type": "text", "id": "trust_2_title", "label": "Trust 2 title", "default": "Perfect Fit Promise" },
+    { "type": "text", "id": "trust_2_desc",  "label": "Trust 2 desc",  "default": "Designed for comfort, built for control" },
+    { "type": "text", "id": "trust_3_title", "label": "Trust 3 title", "default": "Comfort Guaranteed" },
+    { "type": "text", "id": "trust_3_desc",  "label": "Trust 3 desc",  "default": "Soft padding and secure fit for all-day comfort" },
+    { "type": "text", "id": "trust_4_title", "label": "Trust 4 title", "default": "Hassle-Free Returns" },
+    { "type": "text", "id": "trust_4_desc",  "label": "Trust 4 desc",  "default": "30-day returns if the size is not right" }
+  ],
+  "presets": [{ "name": "Size & Fit Guide" }],
+  "enabled_on": { "templates": ["product", "page"] }
+}
+{% endschema %}
