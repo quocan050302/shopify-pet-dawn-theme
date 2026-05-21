@@ -505,7 +505,7 @@
 
 .pvc-row--even .pvc-td--feature,
 .pvc-row--even .pvc-td--competitor {
-  background: rgba(31,36,29,0.025);
+  background: #f7f4ef; /* solid warm white for alternating rows */
 }
 
 .pvc-td {
@@ -520,7 +520,7 @@
 }
 
 .pvc-row--even .pvc-td--feature {
-  background: rgba(31,36,29,0.02);
+  background: #f7f4ef; /* solid — no transparency on sticky cells */
 }
 
 .pvc-feature {
@@ -592,7 +592,7 @@
 }
 
 .pvc-row--even .pvc-td--competitor {
-  background: rgba(31,36,29,0.02);
+  background: #f7f4ef;
 }
 
 /* ══════════════════════
@@ -673,6 +673,29 @@
   .pvc-col-img-placeholder { width: 65px; height: 65px; }
 
   .pvc-trust-strip { grid-template-columns: repeat(2, 1fr); }
+
+  /* Sticky feature column on tablet (when table scrolls) */
+  .pvc-th--label,
+  .pvc-td--feature {
+    position: sticky;
+    left: 0;
+    z-index: 3;
+  }
+
+  .pvc-th--label {
+    background: var(--pvc-cream);        /* #fdf8f0 solid */
+    box-shadow: 2px 0 10px rgba(0,0,0,0.10);
+  }
+
+  .pvc-td--feature {
+    background: #ffffff;                  /* solid white */
+    box-shadow: 2px 0 8px rgba(18,53,14,0.08);
+  }
+
+  .pvc-row--even .pvc-td--feature {
+    background: #f7f4ef;                  /* solid — no bleed-through */
+    box-shadow: 2px 0 8px rgba(18,53,14,0.08);
+  }
 }
 
 /* ══════════════════════
@@ -721,12 +744,14 @@
   }
 
   .pvc-td--feature {
-    background: var(--pvc-white);
+    background: #ffffff;                  /* solid opaque — covers scrolling content */
     box-shadow: 2px 0 8px rgba(18,53,14,0.08);
   }
 
+  /* CRITICAL: solid background on even rows — rgba would show through sticky */
   .pvc-row--even .pvc-td--feature {
-    background: rgba(31,36,29,0.025);
+    background: #f7f4ef;                  /* same solid warm white as base even rows */
+    box-shadow: 2px 0 8px rgba(18,53,14,0.08);
   }
 
   /* Compact table cells */
