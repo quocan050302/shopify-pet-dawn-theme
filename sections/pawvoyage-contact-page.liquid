@@ -1,0 +1,960 @@
+{%- style -%}
+/* ═══════════════════════════════════════════════════════════
+   PawVoyage Premium Contact Page — pawvoyage-contact-page.liquid
+   All CSS scoped to #pvcp-{{ section.id }}
+   ═══════════════════════════════════════════════════════════ */
+
+/* ── Tokens ── */
+#pvcp-{{ section.id }} {
+  --pvcp-green:      #1A3310;
+  --pvcp-green-mid:  #2A5218;
+  --pvcp-green-light:#3B7025;
+  --pvcp-gold:       #C8862A;
+  --pvcp-gold-bg:    #FDF3E3;
+  --pvcp-cream:      #FAF7F2;
+  --pvcp-white:      #ffffff;
+  --pvcp-border:     rgba(26,51,16,0.10);
+  --pvcp-text:       #1C2B14;
+  --pvcp-muted:      #5A6B52;
+  --pvcp-shadow:     0 4px 20px rgba(26,51,16,0.08);
+  --pvcp-shadow-lg:  0 12px 40px rgba(26,51,16,0.10);
+  --pvcp-radius:     16px;
+  --pvcp-radius-sm:  10px;
+  --pvcp-font:       "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family: var(--pvcp-font);
+  color: var(--pvcp-text);
+  background: var(--pvcp-cream);
+}
+#pvcp-{{ section.id }} *, #pvcp-{{ section.id }} *::before, #pvcp-{{ section.id }} *::after {
+  box-sizing: border-box;
+}
+#pvcp-{{ section.id }} a { text-decoration: none; color: inherit; }
+
+/* ══════════════════════════════
+   1. HERO
+   ══════════════════════════════ */
+.pvcp-hero {
+  position: relative;
+  overflow: hidden;
+  background: var(--pvcp-cream);
+  min-height: 420px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+/* Left text pane */
+.pvcp-hero-left {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 5rem 4rem 5rem 6rem;
+}
+.pvcp-hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: .6rem;
+  font-size: 1.15rem;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--pvcp-gold);
+  margin-bottom: 1.2rem;
+}
+.pvcp-hero-eyebrow svg { width: 18px; height: 18px; fill: var(--pvcp-gold); flex-shrink: 0; }
+.pvcp-hero-heading {
+  font-size: clamp(2.8rem, 4.5vw, 4.2rem);
+  font-weight: 800;
+  color: var(--pvcp-green);
+  line-height: 1.12;
+  margin: 0 0 1.2rem;
+  letter-spacing: -.02em;
+}
+.pvcp-hero-sub {
+  font-size: 1.5rem;
+  color: var(--pvcp-muted);
+  line-height: 1.6;
+  margin: 0 0 2rem;
+  max-width: 420px;
+}
+.pvcp-hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: .7rem;
+  background: var(--pvcp-white);
+  border: 1px solid var(--pvcp-border);
+  border-radius: 999px;
+  padding: .75rem 1.4rem;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--pvcp-text);
+  box-shadow: var(--pvcp-shadow);
+  width: fit-content;
+}
+.pvcp-hero-badge svg { width: 18px; height: 18px; stroke: var(--pvcp-gold); flex-shrink: 0; }
+
+/* Right image pane */
+.pvcp-hero-right {
+  position: relative;
+  overflow: hidden;
+  min-height: 420px;
+}
+.pvcp-hero-right::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to right, var(--pvcp-cream) 0%, transparent 35%);
+  z-index: 1;
+  pointer-events: none;
+}
+.pvcp-hero-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+.pvcp-hero-placeholder {
+  width: 100%;
+  height: 100%;
+  min-height: 420px;
+  background: linear-gradient(135deg, #D5C9B5 0%, #C2B89A 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.pvcp-hero-placeholder svg { width: 80px; height: 80px; opacity: .35; }
+
+/* ══════════════════════════════
+   SHARED LAYOUT WRAPPER
+   ══════════════════════════════ */
+.pvcp-page-wrap {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2.4rem;
+}
+
+/* ══════════════════════════════
+   2. MAIN CONTACT AREA
+   ══════════════════════════════ */
+.pvcp-main {
+  padding: 5rem 0;
+}
+.pvcp-main-grid {
+  display: grid;
+  grid-template-columns: 420px 1fr;
+  gap: 4rem;
+  align-items: start;
+}
+
+/* ── Left: Support Cards ── */
+.pvcp-support-heading {
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--pvcp-green);
+  margin: 0 0 2rem;
+}
+.pvcp-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  margin-bottom: 2.8rem;
+}
+.pvcp-card {
+  display: flex;
+  align-items: center;
+  gap: 1.4rem;
+  background: var(--pvcp-white);
+  border: 1px solid var(--pvcp-border);
+  border-radius: var(--pvcp-radius);
+  padding: 1.6rem 1.6rem 1.6rem 1.6rem;
+  box-shadow: var(--pvcp-shadow);
+  transition: box-shadow .2s, border-color .2s, transform .2s;
+  cursor: default;
+}
+.pvcp-card:hover {
+  box-shadow: var(--pvcp-shadow-lg);
+  border-color: rgba(26,51,16,0.18);
+  transform: translateY(-2px);
+}
+.pvcp-card-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--pvcp-gold-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.pvcp-card-icon svg {
+  width: 22px;
+  height: 22px;
+  stroke: var(--pvcp-gold);
+  fill: none;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.pvcp-card-body { flex: 1; min-width: 0; }
+.pvcp-card-title {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--pvcp-green);
+  margin: 0 0 .35rem;
+}
+.pvcp-card-text {
+  font-size: 1.25rem;
+  color: var(--pvcp-muted);
+  line-height: 1.55;
+  margin: 0;
+}
+.pvcp-card-arrow {
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: var(--pvcp-muted);
+}
+.pvcp-card-arrow svg { width: 16px; height: 16px; stroke: currentColor; stroke-width: 2; }
+
+/* Contact info row */
+.pvcp-contact-info {
+  display: flex;
+  gap: 2.4rem;
+  flex-wrap: wrap;
+}
+.pvcp-contact-info-item {
+  display: flex;
+  align-items: center;
+  gap: .65rem;
+  font-size: 1.25rem;
+  color: var(--pvcp-muted);
+}
+.pvcp-contact-info-item svg {
+  width: 18px;
+  height: 18px;
+  stroke: var(--pvcp-muted);
+  fill: none;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  flex-shrink: 0;
+}
+.pvcp-contact-info-item a {
+  color: var(--pvcp-green);
+  font-weight: 600;
+}
+.pvcp-contact-info-item a:hover { text-decoration: underline; }
+.pvcp-contact-info-label { font-size: 1.1rem; color: var(--pvcp-muted); display: block; margin-bottom: .1rem; }
+
+/* ── Right: Contact Form ── */
+.pvcp-form-card {
+  background: var(--pvcp-white);
+  border: 1px solid var(--pvcp-border);
+  border-radius: var(--pvcp-radius);
+  padding: 3.2rem;
+  box-shadow: var(--pvcp-shadow-lg);
+}
+.pvcp-form-heading {
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--pvcp-green);
+  margin: 0 0 .5rem;
+}
+.pvcp-form-sub {
+  font-size: 1.25rem;
+  color: var(--pvcp-muted);
+  margin: 0 0 2.4rem;
+  line-height: 1.55;
+}
+.pvcp-form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.4rem;
+  margin-bottom: 1.4rem;
+}
+.pvcp-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+  margin-bottom: 1.4rem;
+}
+.pvcp-form-group:last-of-type { margin-bottom: 0; }
+.pvcp-form-label {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--pvcp-text);
+}
+.pvcp-form-label .pvcp-required { color: #C0392B; margin-left: .2rem; }
+.pvcp-form-label .pvcp-optional { color: var(--pvcp-muted); font-weight: 400; font-size: 1.1rem; }
+.pvcp-form-input,
+.pvcp-form-textarea {
+  width: 100%;
+  border: 1px solid rgba(26,51,16,0.18);
+  border-radius: var(--pvcp-radius-sm);
+  padding: 1.05rem 1.2rem;
+  font-size: 1.35rem;
+  color: var(--pvcp-text);
+  font-family: var(--pvcp-font);
+  background: var(--pvcp-white);
+  transition: border-color .2s, box-shadow .2s;
+  outline: none;
+  appearance: none;
+}
+.pvcp-form-input::placeholder,
+.pvcp-form-textarea::placeholder { color: #B0BAA8; }
+.pvcp-form-input:focus,
+.pvcp-form-textarea:focus {
+  border-color: var(--pvcp-green-mid);
+  box-shadow: 0 0 0 3px rgba(42,82,24,0.10);
+}
+.pvcp-form-textarea {
+  resize: vertical;
+  min-height: 130px;
+  line-height: 1.55;
+}
+.pvcp-form-submit {
+  width: 100%;
+  background: var(--pvcp-green);
+  color: #fff;
+  border: none;
+  border-radius: var(--pvcp-radius-sm);
+  padding: 1.35rem 2rem;
+  font-size: 1.5rem;
+  font-weight: 700;
+  font-family: var(--pvcp-font);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: .7rem;
+  margin-top: 2rem;
+  margin-bottom: 1.2rem;
+  transition: background .2s, transform .15s;
+  letter-spacing: .01em;
+}
+.pvcp-form-submit:hover { background: var(--pvcp-green-mid); transform: translateY(-1px); }
+.pvcp-form-submit:active { transform: translateY(0); }
+.pvcp-form-submit svg { width: 18px; height: 18px; stroke: #fff; stroke-width: 2; fill: none; flex-shrink: 0; }
+.pvcp-form-trust {
+  display: flex;
+  align-items: center;
+  gap: .6rem;
+  font-size: 1.15rem;
+  color: var(--pvcp-muted);
+}
+.pvcp-form-trust svg { width: 16px; height: 16px; stroke: var(--pvcp-muted); fill: none; stroke-width: 1.8; flex-shrink: 0; }
+
+/* Success / Error messages */
+.pvcp-form-message {
+  padding: 1.2rem 1.6rem;
+  border-radius: var(--pvcp-radius-sm);
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin-bottom: 1.4rem;
+}
+.pvcp-form-message--success { background: #E8F5E9; color: #1B5E20; border: 1px solid #A5D6A7; }
+.pvcp-form-message--error   { background: #FFEBEE; color: #B71C1C; border: 1px solid #EF9A9A; }
+
+/* ══════════════════════════════
+   3. QUICK FAQ
+   ══════════════════════════════ */
+.pvcp-faq {
+  background: var(--pvcp-white);
+  border-top: 1px solid var(--pvcp-border);
+  border-bottom: 1px solid var(--pvcp-border);
+  padding: 4rem 0;
+}
+.pvcp-faq-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  margin-bottom: 2.4rem;
+}
+.pvcp-faq-heading {
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--pvcp-green);
+  margin: 0;
+}
+.pvcp-faq-all {
+  display: inline-flex;
+  align-items: center;
+  gap: .4rem;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--pvcp-green);
+  white-space: nowrap;
+  transition: gap .2s;
+}
+.pvcp-faq-all:hover { gap: .8rem; text-decoration: underline; }
+.pvcp-faq-all svg { width: 16px; height: 16px; stroke: currentColor; stroke-width: 2; }
+
+/* Horizontal FAQ pills row */
+.pvcp-faq-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.2rem;
+}
+.pvcp-faq-item {
+  border: 1px solid var(--pvcp-border);
+  border-radius: var(--pvcp-radius-sm);
+  background: var(--pvcp-cream);
+  overflow: hidden;
+}
+.pvcp-faq-btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: .8rem;
+  padding: 1.2rem 1.4rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: var(--pvcp-font);
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--pvcp-text);
+  text-align: left;
+  transition: background .15s;
+}
+.pvcp-faq-btn:hover { background: rgba(26,51,16,0.04); }
+.pvcp-faq-btn svg {
+  width: 16px;
+  height: 16px;
+  stroke: var(--pvcp-muted);
+  fill: none;
+  stroke-width: 2.2;
+  flex-shrink: 0;
+  transition: transform .25s;
+}
+.pvcp-faq-item.is-open .pvcp-faq-btn svg { transform: rotate(180deg); }
+.pvcp-faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height .3s ease, padding .3s ease;
+}
+.pvcp-faq-answer-inner {
+  padding: 0 1.4rem 1.2rem;
+  font-size: 1.2rem;
+  color: var(--pvcp-muted);
+  line-height: 1.6;
+}
+.pvcp-faq-item.is-open .pvcp-faq-answer { max-height: 300px; }
+
+/* ══════════════════════════════
+   4. TRUST STRIP
+   ══════════════════════════════ */
+.pvcp-trust {
+  padding: 4rem 0 5rem;
+}
+.pvcp-trust-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2.4rem;
+}
+.pvcp-trust-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.2rem;
+}
+.pvcp-trust-icon {
+  width: 48px;
+  height: 48px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.pvcp-trust-icon svg {
+  width: 36px;
+  height: 36px;
+  stroke: var(--pvcp-green);
+  fill: none;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.pvcp-trust-title {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--pvcp-green);
+  margin: 0 0 .25rem;
+}
+.pvcp-trust-text {
+  font-size: 1.2rem;
+  color: var(--pvcp-muted);
+  margin: 0;
+  line-height: 1.45;
+}
+
+/* ══════════════════════════════
+   RESPONSIVE — Tablet (≤ 990px)
+   ══════════════════════════════ */
+@media (max-width: 990px) {
+  .pvcp-hero { grid-template-columns: 1fr; min-height: 380px; }
+  .pvcp-hero-left {
+    padding: 4rem 3rem;
+    background: linear-gradient(to bottom, var(--pvcp-cream) 70%, transparent);
+  }
+  .pvcp-hero-right { position: absolute; inset: 0; z-index: 0; }
+  .pvcp-hero-left { position: relative; z-index: 2; min-height: 380px; }
+  .pvcp-hero-right::before {
+    background: linear-gradient(to bottom, var(--pvcp-cream) 20%, rgba(250,247,242,0.6) 60%, transparent);
+  }
+  .pvcp-main-grid { grid-template-columns: 1fr; gap: 3rem; }
+  .pvcp-faq-row { grid-template-columns: repeat(2, 1fr); }
+  .pvcp-trust-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* ══════════════════════════════
+   RESPONSIVE — Mobile (≤ 749px)
+   ══════════════════════════════ */
+@media (max-width: 749px) {
+  .pvcp-hero { min-height: unset; }
+  .pvcp-hero-left { padding: 2rem 1.8rem 2.2rem; min-height: unset; }
+  .pvcp-hero-heading { font-size: 2.8rem; }
+  .pvcp-hero-sub { font-size: 1.35rem; }
+  .pvcp-page-wrap { padding: 0 1.6rem; }
+  .pvcp-main { padding: 3.2rem 0; }
+  .pvcp-form-card { padding: 2rem 1.6rem; }
+  .pvcp-form-row { grid-template-columns: 1fr; gap: 0; }
+  .pvcp-faq { padding: 3rem 0; }
+  .pvcp-faq-header { flex-direction: column; align-items: flex-start; gap: 1rem; }
+  .pvcp-faq-row { grid-template-columns: 1fr; }
+  .pvcp-trust { display: none; }
+  .pvcp-contact-info { flex-wrap: wrap; gap: 1.2rem; }
+  .pvcp-form-submit { font-size: 1.4rem; padding: 1.2rem; }
+}
+
+@media (max-width: 480px) {
+  .pvcp-trust-grid { grid-template-columns: 1fr; }
+}
+{%- endstyle -%}
+
+{%- liquid
+  assign hero_img = section.settings.hero_image
+  assign faq_link = section.settings.faq_link | default: '/pages/faq'
+  assign contact_email = section.settings.contact_email | default: 'hello@pawvoyage.com'
+  assign contact_phone  = section.settings.contact_phone | default: '+1 (555) 123-4567'
+-%}
+
+<div id="pvcp-{{ section.id }}">
+
+  {%- comment -%} ══ 1. HERO ══ {%- endcomment -%}
+  <section class="pvcp-hero" aria-label="{{ section.settings.hero_heading | default: 'Contact us' | escape }}">
+    <div class="pvcp-hero-left">
+      <div class="pvcp-hero-eyebrow" aria-hidden="true">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+        {{ section.settings.hero_eyebrow | default: "WE'RE HERE TO HELP" }}
+      </div>
+      <h1 class="pvcp-hero-heading">{{ section.settings.hero_heading | default: 'Contact PawVoyage' }}</h1>
+      <p class="pvcp-hero-sub">{{ section.settings.hero_subheading | default: 'Have a question about sizing, shipping, returns, or your order? Our support team is ready to help you and your pup.' }}</p>
+      <div class="pvcp-hero-badge">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        {{ section.settings.hero_badge | default: 'We usually reply within 24–48 hours.' }}
+      </div>
+    </div>
+    <div class="pvcp-hero-right">
+      {%- if hero_img != blank -%}
+        <img
+          class="pvcp-hero-img"
+          src="{{ hero_img | image_url: width: 1200 }}"
+          srcset="{{ hero_img | image_url: width: 600 }} 600w, {{ hero_img | image_url: width: 900 }} 900w, {{ hero_img | image_url: width: 1200 }} 1200w"
+          sizes="(max-width: 990px) 100vw, 50vw"
+          alt="{{ section.settings.hero_image_alt | default: hero_img.alt | default: 'Contact PawVoyage' | escape }}"
+          width="{{ hero_img.width }}"
+          height="{{ hero_img.height }}"
+          loading="eager"
+          fetchpriority="high"
+        >
+      {%- else -%}
+        <div class="pvcp-hero-placeholder">
+          <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M20 60 Q30 20 60 30" stroke="#8A9486" stroke-width="3" stroke-linecap="round"/>
+            <circle cx="50" cy="25" r="8" stroke="#8A9486" stroke-width="2.5"/>
+            <path d="M10 70 Q40 40 70 55" stroke="#8A9486" stroke-width="3" stroke-linecap="round"/>
+          </svg>
+        </div>
+      {%- endif -%}
+    </div>
+  </section>
+
+  {%- comment -%} ══ 2. MAIN CONTACT AREA ══ {%- endcomment -%}
+  <section class="pvcp-main" aria-label="Contact options">
+    <div class="pvcp-page-wrap">
+      <div class="pvcp-main-grid">
+
+        {%- comment -%} LEFT: Support Cards {%- endcomment -%}
+        <div>
+          <h2 class="pvcp-support-heading">{{ section.settings.support_heading | default: 'How can we help?' }}</h2>
+          <div class="pvcp-cards">
+            {%- for i in (1..3) -%}
+              {%- liquid
+                assign t_key = 'card_' | append: i | append: '_title'
+                assign d_key = 'card_' | append: i | append: '_desc'
+                assign card_title = section.settings[t_key]
+                assign card_desc  = section.settings[d_key]
+                case i
+                  when 1
+                    assign default_title = "Sizing Help"
+                    assign default_desc  = "Not sure which size to choose? Send us your dog's measurements and we'll help you find the perfect fit."
+                  when 2
+                    assign default_title = "Order Support"
+                    assign default_desc  = "Questions about shipping, tracking, returns, or exchanges? We'll help you sort it out."
+                  when 3
+                    assign default_title = "Product Questions"
+                    assign default_desc  = "Need help choosing the right gear for your dog? Ask us anytime."
+                endcase
+              -%}
+              <div class="pvcp-card">
+                <div class="pvcp-card-icon">
+                  {%- case i -%}
+                  {%- when 1 -%}
+                    <svg viewBox="0 0 24 24"><path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                  {%- when 2 -%}
+                    <svg viewBox="0 0 24 24"><path d="M20 7H4a2 2 0 00-2 2v6a2 2 0 002 2h16a2 2 0 002-2V9a2 2 0 00-2-2z"/><path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16"/></svg>
+                  {%- when 3 -%}
+                    <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+                  {%- endcase -%}
+                </div>
+                <div class="pvcp-card-body">
+                  <p class="pvcp-card-title">{{ card_title | default: default_title }}</p>
+                  <p class="pvcp-card-text">{{ card_desc | default: default_desc }}</p>
+                </div>
+                <div class="pvcp-card-arrow" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none"><path d="M9 18l6-6-6-6"/></svg>
+                </div>
+              </div>
+            {%- endfor -%}
+          </div>
+
+          <div class="pvcp-contact-info">
+            <div class="pvcp-contact-info-item">
+              <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              <div>
+                <span class="pvcp-contact-info-label">{{ section.settings.email_label | default: 'Prefer email?' }}</span>
+                <a href="mailto:{{ contact_email }}">{{ contact_email }}</a>
+              </div>
+            </div>
+            <div class="pvcp-contact-info-item">
+              <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 11 19.79 19.79 0 01.12 2.3 2 2 0 012.1.12h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.13 8.03a16 16 0 006.08 6.08l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg>
+              <div>
+                <span class="pvcp-contact-info-label">{{ section.settings.phone_label | default: 'Call us' }}</span>
+                <a href="tel:{{ contact_phone | remove: ' ' | remove: '(' | remove: ')' | remove: '-' }}">{{ contact_phone }}</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {%- comment -%} RIGHT: Contact Form {%- endcomment -%}
+        <div class="pvcp-form-card">
+          <h2 class="pvcp-form-heading">{{ section.settings.form_heading | default: 'Send us a message' }}</h2>
+          <p class="pvcp-form-sub">{{ section.settings.form_subheading | default: "Fill out the form below and we'll get back to you as soon as possible." }}</p>
+
+          {%- form 'contact', id: 'pvcp-contact-form' -%}
+
+            {%- if form.posted_successfully? -%}
+              <div class="pvcp-form-message pvcp-form-message--success" role="status">
+                🎉 {{ section.settings.form_success | default: "Thanks for reaching out! We'll reply within 24–48 hours." }}
+              </div>
+            {%- endif -%}
+            {%- if form.errors -%}
+              <div class="pvcp-form-message pvcp-form-message--error" role="alert">
+                {{ form.errors | default_errors }}
+              </div>
+            {%- endif -%}
+
+            <div class="pvcp-form-row">
+              <div class="pvcp-form-group">
+                <label class="pvcp-form-label" for="pvcp-name-{{ section.id }}">
+                  {{ section.settings.field_name | default: 'Name' }}<span class="pvcp-required" aria-hidden="true">*</span>
+                </label>
+                <input
+                  class="pvcp-form-input"
+                  type="text"
+                  id="pvcp-name-{{ section.id }}"
+                  name="contact[name]"
+                  placeholder="{{ section.settings.field_name_placeholder | default: 'Your name' }}"
+                  required
+                  autocomplete="name"
+                  value="{% if form.name %}{{ form.name }}{% elsif customer %}{{ customer.name }}{% endif %}"
+                >
+              </div>
+              <div class="pvcp-form-group">
+                <label class="pvcp-form-label" for="pvcp-email-{{ section.id }}">
+                  {{ section.settings.field_email | default: 'Email' }}<span class="pvcp-required" aria-hidden="true">*</span>
+                </label>
+                <input
+                  class="pvcp-form-input"
+                  type="email"
+                  id="pvcp-email-{{ section.id }}"
+                  name="contact[email]"
+                  placeholder="{{ section.settings.field_email_placeholder | default: 'you@email.com' }}"
+                  required
+                  autocomplete="email"
+                  value="{% if form.email %}{{ form.email }}{% elsif customer %}{{ customer.email }}{% endif %}"
+                >
+              </div>
+            </div>
+
+            <div class="pvcp-form-group">
+              <label class="pvcp-form-label" for="pvcp-order-{{ section.id }}">
+                {{ section.settings.field_order | default: 'Order Number' }}
+                <span class="pvcp-optional">({{ section.settings.field_order_optional | default: 'optional' }})</span>
+              </label>
+              <input
+                class="pvcp-form-input"
+                type="text"
+                id="pvcp-order-{{ section.id }}"
+                name="contact[Order Number]"
+                placeholder="{{ section.settings.field_order_placeholder | default: 'e.g. #12345' }}"
+                autocomplete="off"
+                value="{{ form['contact[Order Number]'] }}"
+              >
+            </div>
+
+            <div class="pvcp-form-group">
+              <label class="pvcp-form-label" for="pvcp-message-{{ section.id }}">
+                {{ section.settings.field_message | default: 'Message' }}<span class="pvcp-required" aria-hidden="true">*</span>
+              </label>
+              <textarea
+                class="pvcp-form-textarea"
+                id="pvcp-message-{{ section.id }}"
+                name="contact[body]"
+                placeholder="{{ section.settings.field_message_placeholder | default: 'Tell us how we can help...' }}"
+                required
+                rows="5"
+              >{{ form.body }}</textarea>
+            </div>
+
+            <button type="submit" class="pvcp-form-submit">
+              <svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+              {{ section.settings.form_button | default: 'Send Message' }}
+            </button>
+
+            <div class="pvcp-form-trust">
+              <svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+              {{ section.settings.form_trust_text | default: "Your information is safe with us. We'll never share your details." }}
+            </div>
+
+          {%- endform -%}
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  {%- comment -%} ══ 3. QUICK FAQ ══ {%- endcomment -%}
+  <section class="pvcp-faq" aria-label="Frequently asked questions">
+    <div class="pvcp-page-wrap">
+      <div class="pvcp-faq-header">
+        <h2 class="pvcp-faq-heading">{{ section.settings.faq_heading | default: 'Quick answers before you message us' }}</h2>
+        {%- if faq_link != blank -%}
+        <a href="{{ faq_link }}" class="pvcp-faq-all">
+          {{ section.settings.faq_link_text | default: 'View all FAQs' }}
+          <svg viewBox="0 0 24 24" fill="none"><path d="M9 18l6-6-6-6"/></svg>
+        </a>
+        {%- endif -%}
+      </div>
+      <div class="pvcp-faq-row" role="list">
+        {%- for i in (1..4) -%}
+          {%- liquid
+            assign q_key = 'faq_q' | append: i
+            assign a_key = 'faq_a' | append: i
+            assign faq_q = section.settings[q_key]
+            assign faq_a = section.settings[a_key]
+            case i
+              when 1
+                assign default_q = "How do I choose the right size?"
+                assign default_a = "Measure your dog's chest girth (just behind the front legs) and compare to our size chart. When between sizes, choose the larger."
+              when 2
+                assign default_q = "How long does shipping take?"
+                assign default_a = "Standard shipping takes 5-7 business days. Expedited options are available at checkout."
+              when 3
+                assign default_q = "What if the harness doesn't fit?"
+                assign default_a = "No worries! We offer hassle-free exchanges within 30 days of purchase. Contact us with your order number."
+              when 4
+                assign default_q = "Can I return or exchange my order?"
+                assign default_a = "Yes. We accept returns within 30 days if the item is unused and in original condition. See our returns policy for details."
+            endcase
+          -%}
+          <div class="pvcp-faq-item" role="listitem">
+            <button
+              class="pvcp-faq-btn"
+              aria-expanded="false"
+              aria-controls="pvcp-faq-answer-{{ section.id }}-{{ i }}"
+              id="pvcp-faq-btn-{{ section.id }}-{{ i }}"
+            >
+              <span>{{ faq_q | default: default_q }}</span>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+            <div
+              class="pvcp-faq-answer"
+              id="pvcp-faq-answer-{{ section.id }}-{{ i }}"
+              role="region"
+              aria-labelledby="pvcp-faq-btn-{{ section.id }}-{{ i }}"
+            >
+              <div class="pvcp-faq-answer-inner">{{ faq_a | default: default_a }}</div>
+            </div>
+          </div>
+        {%- endfor -%}
+      </div>
+    </div>
+  </section>
+
+  {%- comment -%} ══ 4. TRUST STRIP ══ {%- endcomment -%}
+  <section class="pvcp-trust" aria-label="Why shop with PawVoyage">
+    <div class="pvcp-page-wrap">
+      <div class="pvcp-trust-grid">
+        {%- for i in (1..4) -%}
+          {%- liquid
+            assign tt_key = 'trust_' | append: i | append: '_title'
+            assign td_key = 'trust_' | append: i | append: '_desc'
+            assign trust_title = section.settings[tt_key]
+            assign trust_desc  = section.settings[td_key]
+            case i
+              when 1
+                assign default_tt = 'Secure Checkout'
+                assign default_td = 'Your payment is 100% secure'
+              when 2
+                assign default_tt = '30-Day Easy Returns'
+                assign default_td = 'Love it or return it. No hassle.'
+              when 3
+                assign default_tt = 'Fast Shipping'
+                assign default_td = 'Quick delivery, right to your door'
+              when 4
+                assign default_tt = 'Friendly Pet Support'
+                assign default_td = 'Real people who love pets'
+            endcase
+          -%}
+          <div class="pvcp-trust-item">
+            <div class="pvcp-trust-icon" aria-hidden="true">
+              {%- case i -%}
+              {%- when 1 -%}
+                <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              {%- when 2 -%}
+                <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="18" rx="2"/><path d="M8 3v3M16 3v3M2 9h20"/><path d="M8 13h.01M12 13h.01M16 13h.01M8 17h.01M12 17h.01M16 17h.01"/></svg>
+              {%- when 3 -%}
+                <svg viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13" rx="1"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+              {%- when 4 -%}
+                <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+              {%- endcase -%}
+            </div>
+            <div>
+              <p class="pvcp-trust-title">{{ trust_title | default: default_tt }}</p>
+              <p class="pvcp-trust-text">{{ trust_desc | default: default_td }}</p>
+            </div>
+          </div>
+        {%- endfor -%}
+      </div>
+    </div>
+  </section>
+
+</div><!-- /#pvcp-{{ section.id }} -->
+
+<script>
+(function() {
+  var wrap = document.getElementById('pvcp-{{ section.id }}');
+  if (!wrap) return;
+
+  /* ── FAQ Accordion ── */
+  var faqItems = wrap.querySelectorAll('.pvcp-faq-item');
+  faqItems.forEach(function(item) {
+    var btn    = item.querySelector('.pvcp-faq-btn');
+    var answer = item.querySelector('.pvcp-faq-answer');
+    if (!btn || !answer) return;
+    btn.addEventListener('click', function() {
+      var isOpen = item.classList.contains('is-open');
+      /* Close all */
+      faqItems.forEach(function(el) {
+        el.classList.remove('is-open');
+        el.querySelector('.pvcp-faq-btn').setAttribute('aria-expanded', 'false');
+      });
+      /* Toggle clicked */
+      if (!isOpen) {
+        item.classList.add('is-open');
+        btn.setAttribute('aria-expanded', 'true');
+      }
+    });
+  });
+})();
+</script>
+
+{% schema %}
+{
+  "name": "PV Contact Page",
+  "tag": "div",
+  "class": "section",
+  "settings": [
+    { "type": "header", "content": "Hero" },
+    { "type": "image_picker", "id": "hero_image", "label": "Hero image", "info": "Recommended: 1200×800px. Dog/lifestyle photo." },
+    { "type": "text", "id": "hero_image_alt", "label": "Hero image alt text", "default": "A happy dog wearing a PawVoyage harness" },
+    { "type": "text", "id": "hero_eyebrow", "label": "Eyebrow text", "default": "WE'RE HERE TO HELP" },
+    { "type": "text", "id": "hero_heading", "label": "Hero heading", "default": "Contact PawVoyage" },
+    { "type": "textarea", "id": "hero_subheading", "label": "Hero subheading", "default": "Have a question about sizing, shipping, returns, or your order? Our support team is ready to help you and your pup." },
+    { "type": "text", "id": "hero_badge", "label": "Reply time badge", "default": "We usually reply within 24–48 hours." },
+
+    { "type": "header", "content": "Support Cards" },
+    { "type": "text", "id": "support_heading", "label": "Section heading", "default": "How can we help?" },
+    { "type": "text", "id": "card_1_title", "label": "Card 1 title", "default": "Sizing Help" },
+    { "type": "textarea", "id": "card_1_desc", "label": "Card 1 description", "default": "Not sure which size to choose? Send us your dog's measurements and we'll help you find the perfect fit." },
+    { "type": "text", "id": "card_2_title", "label": "Card 2 title", "default": "Order Support" },
+    { "type": "textarea", "id": "card_2_desc", "label": "Card 2 description", "default": "Questions about shipping, tracking, returns, or exchanges? We'll help you sort it out." },
+    { "type": "text", "id": "card_3_title", "label": "Card 3 title", "default": "Product Questions" },
+    { "type": "textarea", "id": "card_3_desc", "label": "Card 3 description", "default": "Need help choosing the right gear for your dog? Ask us anytime." },
+    { "type": "text", "id": "email_label", "label": "Email label", "default": "Prefer email?" },
+    { "type": "text", "id": "contact_email", "label": "Email address", "default": "hello@pawvoyage.com" },
+    { "type": "text", "id": "phone_label", "label": "Phone label", "default": "Call us" },
+    { "type": "text", "id": "contact_phone", "label": "Phone number", "default": "+1 (555) 123-4567" },
+
+    { "type": "header", "content": "Contact Form" },
+    { "type": "text", "id": "form_heading", "label": "Form heading", "default": "Send us a message" },
+    { "type": "textarea", "id": "form_subheading", "label": "Form subheading", "default": "Fill out the form below and we'll get back to you as soon as possible." },
+    { "type": "text", "id": "field_name", "label": "Name label", "default": "Name" },
+    { "type": "text", "id": "field_name_placeholder", "label": "Name placeholder", "default": "Your name" },
+    { "type": "text", "id": "field_email", "label": "Email label", "default": "Email" },
+    { "type": "text", "id": "field_email_placeholder", "label": "Email placeholder", "default": "you@email.com" },
+    { "type": "text", "id": "field_order", "label": "Order number label", "default": "Order Number" },
+    { "type": "text", "id": "field_order_optional", "label": "Optional text", "default": "optional" },
+    { "type": "text", "id": "field_order_placeholder", "label": "Order placeholder", "default": "e.g. #12345" },
+    { "type": "text", "id": "field_message", "label": "Message label", "default": "Message" },
+    { "type": "text", "id": "field_message_placeholder", "label": "Message placeholder", "default": "Tell us how we can help..." },
+    { "type": "text", "id": "form_button", "label": "Submit button text", "default": "Send Message" },
+    { "type": "text", "id": "form_trust_text", "label": "Form trust text", "default": "Your information is safe with us. We'll never share your details." },
+    { "type": "text", "id": "form_success", "label": "Success message", "default": "Thanks for reaching out! We'll reply within 24–48 hours." },
+
+    { "type": "header", "content": "Quick FAQ" },
+    { "type": "text", "id": "faq_heading", "label": "FAQ section heading", "default": "Quick answers before you message us" },
+    { "type": "url", "id": "faq_link", "label": "View all FAQs link" },
+    { "type": "text", "id": "faq_link_text", "label": "View all FAQs text", "default": "View all FAQs" },
+    { "type": "text", "id": "faq_q1", "label": "FAQ 1 question", "default": "How do I choose the right size?" },
+    { "type": "textarea", "id": "faq_a1", "label": "FAQ 1 answer", "default": "Measure your dog's chest girth (just behind the front legs) and compare to our size chart. When between sizes, choose the larger." },
+    { "type": "text", "id": "faq_q2", "label": "FAQ 2 question", "default": "How long does shipping take?" },
+    { "type": "textarea", "id": "faq_a2", "label": "FAQ 2 answer", "default": "Standard shipping takes 5–7 business days. Expedited options are available at checkout." },
+    { "type": "text", "id": "faq_q3", "label": "FAQ 3 question", "default": "What if the harness doesn't fit?" },
+    { "type": "textarea", "id": "faq_a3", "label": "FAQ 3 answer", "default": "No worries! We offer hassle-free exchanges within 30 days of purchase. Contact us with your order number." },
+    { "type": "text", "id": "faq_q4", "label": "FAQ 4 question", "default": "Can I return or exchange my order?" },
+    { "type": "textarea", "id": "faq_a4", "label": "FAQ 4 answer", "default": "Yes. We accept returns within 30 days if the item is unused and in original condition. See our returns policy for details." },
+
+    { "type": "header", "content": "Trust Strip" },
+    { "type": "text", "id": "trust_1_title", "label": "Trust 1 title", "default": "Secure Checkout" },
+    { "type": "text", "id": "trust_1_desc", "label": "Trust 1 description", "default": "Your payment is 100% secure" },
+    { "type": "text", "id": "trust_2_title", "label": "Trust 2 title", "default": "30-Day Easy Returns" },
+    { "type": "text", "id": "trust_2_desc", "label": "Trust 2 description", "default": "Love it or return it. No hassle." },
+    { "type": "text", "id": "trust_3_title", "label": "Trust 3 title", "default": "Fast Shipping" },
+    { "type": "text", "id": "trust_3_desc", "label": "Trust 3 description", "default": "Quick delivery, right to your door" },
+    { "type": "text", "id": "trust_4_title", "label": "Trust 4 title", "default": "Friendly Pet Support" },
+    { "type": "text", "id": "trust_4_desc", "label": "Trust 4 description", "default": "Real people who love pets" }
+  ],
+  "presets": [
+    { "name": "PV Contact Page" }
+  ]
+}
+{% endschema %}

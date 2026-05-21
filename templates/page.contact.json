@@ -1,11 +1,11 @@
 {
   "sections": {
-    "pv_contact": {
-      "type": "pv-contact",
+    "pawvoyage_contact": {
+      "type": "pawvoyage-contact-page",
       "settings": {}
     }
   },
   "order": [
-    "pv_contact"
+    "pawvoyage_contact"
   ]
 }
