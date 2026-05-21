@@ -1,0 +1,940 @@
+{%- comment -%}
+  PawVoyage Product Comparison Section
+  sections/pawvoyage-product-comparison.liquid
+  v1.0
+{%- endcomment -%}
+
+<section class="pvc-outer" id="pvc-{{ section.id }}" aria-label="Product Comparison">
+  <div class="pvc-wrap">
+
+    {%- comment -%} ── HEADER ── {%- endcomment -%}
+    <div class="pvc-header">
+      {%- if section.settings.eyebrow != blank -%}
+        <p class="pvc-eyebrow">
+          <svg class="pvc-eyebrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+          </svg>
+          {{ section.settings.eyebrow }}
+        </p>
+      {%- endif -%}
+      {%- if section.settings.heading != blank -%}
+        <h2 class="pvc-heading">{{ section.settings.heading }}</h2>
+      {%- endif -%}
+      {%- if section.settings.subheading != blank -%}
+        <p class="pvc-subheading">{{ section.settings.subheading }}</p>
+      {%- endif -%}
+    </div>
+
+    {%- comment -%} Mobile swipe hint {%- endcomment -%}
+    <p class="pvc-swipe-hint" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M5 9l-3 3 3 3M9 5l3-3 3 3M15 19l-3 3-3-3M19 9l3 3-3 3M2 12h20M12 2v20"/>
+      </svg>
+      Swipe to compare
+    </p>
+
+    {%- comment -%} ── TABLE ── {%- endcomment -%}
+    <div class="pvc-table-wrap" role="region" aria-label="Product comparison">
+      <table class="pvc-table">
+        <caption class="pvc-caption">PawVoyage No-Pull Harness vs competitors feature comparison</caption>
+
+        <thead>
+          <tr>
+            {%- comment -%} Features label cell {%- endcomment -%}
+            <th class="pvc-th pvc-th--label" scope="col">
+              <span class="pvc-features-label">FEATURES</span>
+            </th>
+
+            {%- comment -%} PawVoyage (highlighted) {%- endcomment -%}
+            <th class="pvc-th pvc-th--pawvoyage" scope="col">
+              <div class="pvc-col-header">
+                <span class="pvc-col-name">{{ section.settings.col1_name }}</span>
+                <div class="pvc-col-img-wrap">
+                  {%- if section.settings.pawvoyage_image != blank -%}
+                    {{
+                      section.settings.pawvoyage_image
+                      | image_url: width: 220
+                      | image_tag:
+                        loading: 'lazy',
+                        alt: section.settings.pawvoyage_image_alt,
+                        class: 'pvc-col-img',
+                        widths: '110, 160, 220'
+                    }}
+                  {%- else -%}
+                    <div class="pvc-col-img-placeholder pvc-col-img-placeholder--dark">
+                      <svg viewBox="0 0 60 60" fill="none" stroke="currentColor" stroke-width="1.2" opacity="0.5">
+                        <rect x="10" y="18" width="40" height="28" rx="6"/>
+                        <path d="M10 28h40M20 18v-4a6 6 0 0 1 6-6h8a6 6 0 0 1 6 6v4"/>
+                        <circle cx="22" cy="34" r="3"/><circle cx="38" cy="34" r="3"/>
+                      </svg>
+                    </div>
+                  {%- endif -%}
+                </div>
+              </div>
+            </th>
+
+            {%- comment -%} Column 2 {%- endcomment -%}
+            <th class="pvc-th pvc-th--competitor" scope="col">
+              <div class="pvc-col-header pvc-col-header--light">
+                <span class="pvc-col-name pvc-col-name--dark">{{ section.settings.col2_name }}</span>
+                <div class="pvc-col-img-wrap">
+                  {%- if section.settings.col2_image != blank -%}
+                    {{
+                      section.settings.col2_image
+                      | image_url: width: 220
+                      | image_tag:
+                        loading: 'lazy',
+                        alt: section.settings.col2_image_alt,
+                        class: 'pvc-col-img',
+                        widths: '110, 160, 220'
+                    }}
+                  {%- else -%}
+                    <div class="pvc-col-img-placeholder">
+                      <svg viewBox="0 0 60 60" fill="none" stroke="currentColor" stroke-width="1.2" opacity="0.35">
+                        <rect x="10" y="18" width="40" height="28" rx="6"/>
+                        <path d="M10 28h40M20 18v-4a6 6 0 0 1 6-6h8a6 6 0 0 1 6 6v4"/>
+                        <circle cx="22" cy="34" r="3"/><circle cx="38" cy="34" r="3"/>
+                      </svg>
+                    </div>
+                  {%- endif -%}
+                </div>
+              </div>
+            </th>
+
+            {%- comment -%} Column 3 {%- endcomment -%}
+            <th class="pvc-th pvc-th--competitor" scope="col">
+              <div class="pvc-col-header pvc-col-header--light">
+                <span class="pvc-col-name pvc-col-name--dark">{{ section.settings.col3_name }}</span>
+                <div class="pvc-col-img-wrap">
+                  {%- if section.settings.col3_image != blank -%}
+                    {{
+                      section.settings.col3_image
+                      | image_url: width: 220
+                      | image_tag:
+                        loading: 'lazy',
+                        alt: section.settings.col3_image_alt,
+                        class: 'pvc-col-img',
+                        widths: '110, 160, 220'
+                    }}
+                  {%- else -%}
+                    <div class="pvc-col-img-placeholder">
+                      <svg viewBox="0 0 60 60" fill="none" stroke="currentColor" stroke-width="1.2" opacity="0.35">
+                        <rect x="10" y="18" width="40" height="28" rx="6"/>
+                        <path d="M10 28h40M20 18v-4a6 6 0 0 1 6-6h8a6 6 0 0 1 6 6v4"/>
+                        <circle cx="22" cy="34" r="3"/><circle cx="38" cy="34" r="3"/>
+                      </svg>
+                    </div>
+                  {%- endif -%}
+                </div>
+              </div>
+            </th>
+          </tr>
+        </thead>
+
+        <tbody>
+          {%- assign row_count = 0 -%}
+          {%- for block in section.blocks -%}
+            {%- if block.type == 'comparison_row' -%}
+              {%- assign row_count = row_count | plus: 1 -%}
+            {%- endif -%}
+          {%- endfor -%}
+
+          {%- assign current_row = 0 -%}
+          {%- for block in section.blocks -%}
+            {%- if block.type == 'comparison_row' -%}
+              {%- assign current_row = current_row | plus: 1 -%}
+              {%- assign is_last = false -%}
+              {%- if current_row == row_count -%}{%- assign is_last = true -%}{%- endif -%}
+
+              <tr class="pvc-row{% cycle ' pvc-row--even', '' %}" {{ block.shopify_attributes }}>
+
+                {%- comment -%} Feature cell {%- endcomment -%}
+                <td class="pvc-td pvc-td--feature">
+                  <div class="pvc-feature">
+                    <div class="pvc-feature-icon" aria-hidden="true">
+                      {%- case block.settings.feature_icon -%}
+                        {%- when 'clip' -%}
+                          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/>
+                          </svg>
+                        {%- when 'pad' -%}
+                          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                          </svg>
+                        {%- when 'adjust' -%}
+                          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/>
+                          </svg>
+                        {%- when 'handle' -%}
+                          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+                          </svg>
+                        {%- when 'build' -%}
+                          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                          </svg>
+                        {%- when 'reflective' -%}
+                          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+                          </svg>
+                        {%- else -%}
+                          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                          </svg>
+                      {%- endcase -%}
+                    </div>
+                    <div class="pvc-feature-text">
+                      <strong class="pvc-feature-title">{{ block.settings.feature_title }}</strong>
+                      {%- if block.settings.feature_desc != blank -%}
+                        <span class="pvc-feature-desc">{{ block.settings.feature_desc }}</span>
+                      {%- endif -%}
+                    </div>
+                  </div>
+                </td>
+
+                {%- comment -%} PawVoyage status {%- endcomment -%}
+                <td class="pvc-td pvc-td--pawvoyage{% if is_last %} pvc-td--pv-last{% endif %}">
+                  {%- assign s1 = block.settings.pawvoyage_status -%}
+                  <div class="pvc-status{% if s1 == 'yes' %} pvc-status--yes{% elsif s1 == 'no' %} pvc-status--no{% else %} pvc-status--partial{% endif %}">
+                    {%- if s1 == 'yes' -%}
+                      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" style="width:22px;height:22px"><circle cx="12" cy="12" r="10" fill="#dcfce7"/><polyline points="20 6 9 17 4 12" stroke="#15803d" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                      <span>Yes</span>
+                    {%- elsif s1 == 'no' -%}
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                      <span>No</span>
+                    {%- else -%}
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/></svg>
+                      <span>{{ block.settings.pawvoyage_label }}</span>
+                    {%- endif -%}
+                  </div>
+                </td>
+
+                {%- comment -%} Column 2 status {%- endcomment -%}
+                <td class="pvc-td pvc-td--competitor">
+                  {%- assign s2 = block.settings.col2_status -%}
+                  <div class="pvc-status{% if s2 == 'yes' %} pvc-status--yes{% elsif s2 == 'no' %} pvc-status--no{% else %} pvc-status--partial{% endif %}">
+                    {%- if s2 == 'yes' -%}
+                      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" style="width:22px;height:22px"><circle cx="12" cy="12" r="10" fill="#dcfce7"/><polyline points="20 6 9 17 4 12" stroke="#15803d" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                      <span>Yes</span>
+                    {%- elsif s2 == 'no' -%}
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                      <span>No</span>
+                    {%- else -%}
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/></svg>
+                      <span>{{ block.settings.col2_label }}</span>
+                    {%- endif -%}
+                  </div>
+                </td>
+
+                {%- comment -%} Column 3 status {%- endcomment -%}
+                <td class="pvc-td pvc-td--competitor">
+                  {%- assign s3 = block.settings.col3_status -%}
+                  <div class="pvc-status{% if s3 == 'yes' %} pvc-status--yes{% elsif s3 == 'no' %} pvc-status--no{% else %} pvc-status--partial{% endif %}">
+                    {%- if s3 == 'yes' -%}
+                      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" style="width:22px;height:22px"><circle cx="12" cy="12" r="10" fill="#dcfce7"/><polyline points="20 6 9 17 4 12" stroke="#15803d" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                      <span>Yes</span>
+                    {%- elsif s3 == 'no' -%}
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                      <span>No</span>
+                    {%- else -%}
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/></svg>
+                      <span>{{ block.settings.col3_label }}</span>
+                    {%- endif -%}
+                  </div>
+                </td>
+
+              </tr>
+            {%- endif -%}
+          {%- endfor -%}
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</section>
+
+<style>
+/* ============================================================
+   PawVoyage Product Comparison — scoped to #pvc-{{ section.id }}
+   ============================================================ */
+#pvc-{{ section.id }} {
+  --pvc-green:       #12350e;
+  --pvc-green-mid:   #1d4d18;
+  --pvc-green-bg:    rgba(18,53,14,0.05);
+  --pvc-gold:        #c98a1a;
+  --pvc-cream:       #fdf8f0;
+  --pvc-cream-dk:    #f0e8d6;
+  --pvc-white:       #ffffff;
+  --pvc-text:        #1f241d;
+  --pvc-text-sec:    #4a5246;
+  --pvc-border:      rgba(31,36,29,0.09);
+  --pvc-yes:         #16a34a;
+  --pvc-no:          #dc2626;
+  --pvc-partial:     #d97706;
+  --pvc-radius:      16px;
+  --pvc-radius-sm:   10px;
+  --pvc-font:        'Inter', system-ui, -apple-system, sans-serif;
+}
+
+/* ── Outer ── */
+.pvc-outer {
+  background: var(--pvc-cream);
+  padding: 5rem 0 4.4rem;
+  overflow-x: hidden;
+}
+
+.pvc-wrap {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 3rem;
+}
+
+/* ── Header ── */
+.pvc-header {
+  margin-bottom: 2.4rem;
+}
+
+.pvc-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--pvc-font);
+  font-size: 1.1rem;
+  font-weight: 800;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+  color: var(--pvc-gold);
+  margin: 0 0 0.8rem;
+}
+
+.pvc-eyebrow-icon {
+  width: 13px;
+  height: 13px;
+  flex-shrink: 0;
+}
+
+.pvc-heading {
+  font-family: var(--pvc-font);
+  font-size: clamp(2.8rem, 3.5vw, 4rem);
+  font-weight: 900;
+  color: var(--pvc-green);
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  margin: 0 0 0.6rem;
+}
+
+.pvc-subheading {
+  font-size: 1.5rem;
+  color: var(--pvc-text-sec);
+  margin: 0;
+}
+
+/* ── Swipe hint (mobile only) ── */
+.pvc-swipe-hint {
+  display: none;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1.2rem;
+  color: var(--pvc-text-sec);
+  margin: 0 0 1.2rem;
+  font-style: italic;
+}
+
+.pvc-swipe-hint svg {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+}
+
+/* ── Table wrapper ── */
+.pvc-table-wrap {
+  border-radius: var(--pvc-radius);
+  overflow: hidden;
+  border: 1px solid var(--pvc-border);
+  box-shadow: 0 4px 24px rgba(18,53,14,0.07);
+}
+
+/* Caption visually hidden (accessible) */
+.pvc-caption {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ── Table base ── */
+.pvc-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--pvc-font);
+  background: var(--pvc-white);
+  table-layout: fixed;
+}
+
+/* ══════════════════════
+   HEADER ROW
+   ══════════════════════ */
+.pvc-th {
+  vertical-align: bottom;
+  padding: 0;
+  border-bottom: 1px solid var(--pvc-border);
+}
+
+/* Feature label cell */
+.pvc-th--label {
+  width: 28%;
+  background: var(--pvc-cream);
+  padding: 2rem 1.8rem;
+  text-align: left;
+  vertical-align: bottom;
+}
+
+.pvc-features-label {
+  font-size: 1.05rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--pvc-text-sec);
+}
+
+/* PawVoyage header */
+.pvc-th--pawvoyage {
+  width: 24%;
+  background: var(--pvc-green);
+  border-left: 2px solid var(--pvc-green);
+  border-right: 2px solid var(--pvc-green);
+  border-top: 2px solid var(--pvc-green);
+}
+
+/* Competitor header */
+.pvc-th--competitor {
+  width: 24%;
+  background: var(--pvc-cream);
+  border-right: 1px solid var(--pvc-border);
+}
+
+.pvc-th--competitor:last-child {
+  border-right: none;
+}
+
+/* Column header inner */
+.pvc-col-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.8rem 1.2rem 1.4rem;
+  text-align: center;
+}
+
+.pvc-col-header--light {
+  background: transparent;
+}
+
+.pvc-col-name {
+  font-family: var(--pvc-font);
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: var(--pvc-white);
+  line-height: 1.25;
+}
+
+.pvc-col-name--dark {
+  color: var(--pvc-green);
+}
+
+/* Product images in header */
+.pvc-col-img-wrap {
+  width: 80px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pvc-col-img {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+  display: block;
+}
+
+/* Placeholder */
+.pvc-col-img-placeholder {
+  width: 80px;
+  height: 80px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255,255,255,0.12);
+  color: var(--pvc-white);
+}
+
+.pvc-col-img-placeholder--dark {
+  background: rgba(255,255,255,0.12);
+  color: rgba(255,255,255,0.5);
+}
+
+.pvc-col-img-placeholder:not(.pvc-col-img-placeholder--dark) {
+  background: var(--pvc-cream-dk);
+  color: var(--pvc-text-sec);
+}
+
+.pvc-col-img-placeholder svg {
+  width: 50px;
+  height: 50px;
+}
+
+/* ══════════════════════
+   BODY ROWS
+   ══════════════════════ */
+.pvc-row {
+  border-bottom: 1px solid var(--pvc-border);
+  transition: background 0.15s;
+}
+
+.pvc-row:last-child {
+  border-bottom: none;
+}
+
+.pvc-row--even .pvc-td--feature,
+.pvc-row--even .pvc-td--competitor {
+  background: rgba(31,36,29,0.025);
+}
+
+.pvc-td {
+  padding: 1.4rem 1.2rem;
+  vertical-align: middle;
+}
+
+/* Feature cell */
+.pvc-td--feature {
+  background: var(--pvc-white);
+  border-right: 1px solid var(--pvc-border);
+}
+
+.pvc-row--even .pvc-td--feature {
+  background: rgba(31,36,29,0.02);
+}
+
+.pvc-feature {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.pvc-feature-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--pvc-cream-dk);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: var(--pvc-green);
+}
+
+.pvc-feature-icon svg {
+  width: 18px;
+  height: 18px;
+}
+
+.pvc-feature-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  min-width: 0;
+}
+
+.pvc-feature-title {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--pvc-text);
+  line-height: 1.3;
+  word-break: break-word;
+}
+
+.pvc-feature-desc {
+  font-size: 1.15rem;
+  color: var(--pvc-text-sec);
+  line-height: 1.4;
+}
+
+/* PawVoyage body cell */
+.pvc-td--pawvoyage {
+  background: var(--pvc-green-bg);
+  border-left: 2px solid var(--pvc-green);
+  border-right: 2px solid var(--pvc-green);
+  text-align: center;
+}
+
+/* Last PawVoyage cell — bottom border + radius */
+.pvc-td--pv-last {
+  border-bottom: 2px solid var(--pvc-green);
+}
+
+/* Competitor body cell */
+.pvc-td--competitor {
+  text-align: center;
+  border-right: 1px solid var(--pvc-border);
+  background: var(--pvc-white);
+}
+
+.pvc-td--competitor:last-child {
+  border-right: none;
+}
+
+.pvc-row--even .pvc-td--competitor {
+  background: rgba(31,36,29,0.02);
+}
+
+/* ══════════════════════
+   STATUS BADGES
+   ══════════════════════ */
+.pvc-status {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  font-size: 1.25rem;
+  font-weight: 700;
+  font-family: var(--pvc-font);
+}
+
+.pvc-status svg {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+}
+
+.pvc-status--yes {
+  color: #15803d;
+  font-weight: 800;
+  font-size: 1.3rem;
+  gap: 0.6rem;
+}
+
+.pvc-status--yes svg {
+  width: 22px;
+  height: 22px;
+  flex-shrink: 0;
+}
+
+.pvc-status--no {
+  color: var(--pvc-no);
+}
+
+.pvc-status--partial {
+  color: var(--pvc-partial);
+}
+
+/* ══════════════════════
+   TABLET ≤ 1099px
+   ══════════════════════ */
+@media screen and (max-width: 1099px) {
+  .pvc-wrap {
+    padding: 0 2rem;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
+  .pvc-outer { padding: 4rem 0 3.2rem; }
+
+  .pvc-table-wrap {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .pvc-table {
+    min-width: 640px;
+    table-layout: auto;
+  }
+
+  .pvc-th--label { width: 26%; }
+  .pvc-th--pawvoyage,
+  .pvc-th--competitor { width: auto; }
+
+  .pvc-td { padding: 1.2rem 1rem; }
+  .pvc-col-header { padding: 1.4rem 1rem 1.2rem; }
+  .pvc-feature-title { font-size: 1.2rem; }
+  .pvc-feature-desc { font-size: 1.05rem; }
+  .pvc-status { font-size: 1.15rem; }
+  .pvc-status svg { width: 18px; height: 18px; }
+
+  .pvc-col-img-wrap,
+  .pvc-col-img { width: 65px; height: 65px; }
+  .pvc-col-img-placeholder { width: 65px; height: 65px; }
+
+  .pvc-trust-strip { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* ══════════════════════
+   MOBILE ≤ 749px
+   ══════════════════════ */
+@media screen and (max-width: 749px) {
+  .pvc-outer { padding: 3.2rem 0 2.8rem; }
+
+  .pvc-wrap {
+    padding: 0 1.6rem;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
+  .pvc-heading { font-size: 2.6rem; }
+  .pvc-subheading { font-size: 1.35rem; }
+
+  /* Show swipe hint */
+  .pvc-swipe-hint { display: flex; }
+
+  /* Table horizontal scroll */
+  .pvc-table-wrap {
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    border-radius: var(--pvc-radius-sm);
+    max-width: 100%;
+  }
+
+  .pvc-table {
+    min-width: 520px;
+    table-layout: auto;
+  }
+
+  /* Sticky feature column */
+  .pvc-th--label,
+  .pvc-td--feature {
+    position: sticky;
+    left: 0;
+    z-index: 3;
+  }
+
+  .pvc-th--label {
+    background: var(--pvc-cream);
+    box-shadow: 2px 0 10px rgba(0,0,0,0.12);
+  }
+
+  .pvc-td--feature {
+    background: var(--pvc-white);
+    box-shadow: 2px 0 8px rgba(18,53,14,0.08);
+  }
+
+  .pvc-row--even .pvc-td--feature {
+    background: rgba(31,36,29,0.025);
+  }
+
+  /* Compact table cells */
+  .pvc-th--label { width: 36%; min-width: 150px; padding: 1.2rem 1rem; }
+  .pvc-th--pawvoyage,
+  .pvc-th--competitor { min-width: 110px; }
+
+  .pvc-col-header { padding: 1.2rem 0.8rem 1rem; gap: 0.7rem; }
+  .pvc-col-name { font-size: 1.15rem; }
+  .pvc-col-img-wrap,
+  .pvc-col-img { width: 54px; height: 54px; }
+  .pvc-col-img-placeholder { width: 54px; height: 54px; }
+  .pvc-col-img-placeholder svg { width: 36px; height: 36px; }
+
+  .pvc-td { padding: 1rem 0.8rem; }
+
+  .pvc-feature { gap: 0.7rem; }
+  .pvc-feature-icon { width: 30px; height: 30px; flex-shrink: 0; }
+  .pvc-feature-icon svg { width: 14px; height: 14px; }
+  .pvc-feature-title { font-size: 1.15rem; }
+  .pvc-feature-desc { font-size: 1rem; }
+
+  .pvc-status { font-size: 1.1rem; gap: 0.4rem; flex-direction: column; }
+  .pvc-status svg { width: 18px; height: 18px; }
+  .pvc-status span { font-size: 1rem; }
+
+  .pvc-features-label { font-size: 0.95rem; }
+}
+
+/* ── Very small ── */
+@media screen and (max-width: 389px) {
+  .pvc-wrap { padding: 0 1.2rem; }
+  .pvc-table { min-width: 460px; }
+  .pvc-th--label { min-width: 130px; }
+  .pvc-th--pawvoyage,
+  .pvc-th--competitor { min-width: 95px; }
+}
+</style>
+
+{% schema %}
+{
+  "name": "Product Comparison",
+  "tag": "section",
+  "class": "pvc-section",
+  "max_blocks": 8,
+  "settings": [
+    { "type": "header", "content": "Section Header" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow text", "default": "PAWVOYAGE VS. OTHERS" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "PawVoyage vs. The Rest" },
+    { "type": "text", "id": "subheading", "label": "Subheading", "default": "See the difference. Feel the control." },
+    { "type": "header", "content": "Column 1: PawVoyage" },
+    { "type": "text", "id": "col1_name", "label": "Column 1 name", "default": "PawVoyage No-Pull Harness" },
+    { "type": "image_picker", "id": "pawvoyage_image", "label": "PawVoyage product image" },
+    { "type": "text", "id": "pawvoyage_image_alt", "label": "PawVoyage image alt", "default": "PawVoyage No-Pull Tactical Harness" },
+    { "type": "header", "content": "Column 2: Traditional Harness" },
+    { "type": "text", "id": "col2_name", "label": "Column 2 name", "default": "Traditional Harness" },
+    { "type": "image_picker", "id": "col2_image", "label": "Column 2 product image" },
+    { "type": "text", "id": "col2_image_alt", "label": "Column 2 image alt", "default": "Traditional dog harness" },
+    { "type": "header", "content": "Column 3: Basic No-Pull" },
+    { "type": "text", "id": "col3_name", "label": "Column 3 name", "default": "Basic No-Pull Harness" },
+    { "type": "image_picker", "id": "col3_image", "label": "Column 3 product image" },
+    { "type": "text", "id": "col3_image_alt", "label": "Column 3 image alt", "default": "Basic no-pull dog harness" }
+  ],
+  "blocks": [
+    {
+      "type": "comparison_row",
+      "name": "Comparison Row",
+      "settings": [
+        {
+          "type": "select",
+          "id": "feature_icon",
+          "label": "Feature Icon",
+          "options": [
+            { "value": "clip",       "label": "Front Clip / Link" },
+            { "value": "pad",        "label": "Chest Pad / Heart" },
+            { "value": "adjust",     "label": "Adjustable / Sliders" },
+            { "value": "handle",     "label": "Top Handle / Lock" },
+            { "value": "build",      "label": "Tactical Build / Shield" },
+            { "value": "reflective", "label": "Reflective / Sun" },
+            { "value": "star",       "label": "Star (default)" }
+          ],
+          "default": "star"
+        },
+        { "type": "text", "id": "feature_title", "label": "Feature title", "default": "Feature Name" },
+        { "type": "text", "id": "feature_desc", "label": "Feature description", "default": "Short description of the feature" },
+        { "type": "header", "content": "PawVoyage Status" },
+        {
+          "type": "select",
+          "id": "pawvoyage_status",
+          "label": "PawVoyage status",
+          "options": [
+            { "value": "yes", "label": "Yes (green check)" },
+            { "value": "no",  "label": "No (red X)" },
+            { "value": "partial", "label": "Partial (orange circle)" }
+          ],
+          "default": "yes"
+        },
+        { "type": "text", "id": "pawvoyage_label", "label": "Partial label (if partial)", "default": "Limited" },
+        { "type": "header", "content": "Traditional Harness Status" },
+        {
+          "type": "select",
+          "id": "col2_status",
+          "label": "Traditional status",
+          "options": [
+            { "value": "yes", "label": "Yes (green check)" },
+            { "value": "no",  "label": "No (red X)" },
+            { "value": "partial", "label": "Partial (orange circle)" }
+          ],
+          "default": "no"
+        },
+        { "type": "text", "id": "col2_label", "label": "Partial label (if partial)", "default": "Sometimes" },
+        { "type": "header", "content": "Basic No-Pull Status" },
+        {
+          "type": "select",
+          "id": "col3_status",
+          "label": "Basic No-Pull status",
+          "options": [
+            { "value": "yes", "label": "Yes (green check)" },
+            { "value": "no",  "label": "No (red X)" },
+            { "value": "partial", "label": "Partial (orange circle)" }
+          ],
+          "default": "no"
+        },
+        { "type": "text", "id": "col3_label", "label": "Partial label (if partial)", "default": "Minimal" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product Comparison",
+      "blocks": [
+        {
+          "type": "comparison_row",
+          "settings": {
+            "feature_icon": "clip",
+            "feature_title": "No-Pull Front Clip",
+            "feature_desc": "Gently redirects pulling",
+            "pawvoyage_status": "yes",
+            "col2_status": "no",
+            "col3_status": "partial",
+            "col3_label": "Sometimes"
+          }
+        },
+        {
+          "type": "comparison_row",
+          "settings": {
+            "feature_icon": "pad",
+            "feature_title": "Padded Chest Comfort",
+            "feature_desc": "Soft padding prevents chafing",
+            "pawvoyage_status": "yes",
+            "col2_status": "no",
+            "col3_status": "partial",
+            "col3_label": "Minimal"
+          }
+        },
+        {
+          "type": "comparison_row",
+          "settings": {
+            "feature_icon": "adjust",
+            "feature_title": "Adjustable 4-Point Fit",
+            "feature_desc": "Perfect fit for more dogs",
+            "pawvoyage_status": "yes",
+            "col2_status": "partial",
+            "col2_label": "Limited",
+            "col3_status": "partial",
+            "col3_label": "Limited"
+          }
+        },
+        {
+          "type": "comparison_row",
+          "settings": {
+            "feature_icon": "handle",
+            "feature_title": "Top Handle",
+            "feature_desc": "Extra control when needed",
+            "pawvoyage_status": "yes",
+            "col2_status": "no",
+            "col3_status": "no"
+          }
+        },
+        {
+          "type": "comparison_row",
+          "settings": {
+            "feature_icon": "build",
+            "feature_title": "Durable Tactical Build",
+            "feature_desc": "Built for everyday adventure",
+            "pawvoyage_status": "yes",
+            "col2_status": "partial",
+            "col2_label": "Average",
+            "col3_status": "no"
+          }
+        },
+        {
+          "type": "comparison_row",
+          "settings": {
+            "feature_icon": "reflective",
+            "feature_title": "Reflective for Night Safety",
+            "feature_desc": "Better visibility in low light",
+            "pawvoyage_status": "yes",
+            "col2_status": "partial",
+            "col2_label": "Some",
+            "col3_status": "no"
+          }
+        }
+      ]
+    }
+  ],
+  "enabled_on": {
+    "templates": ["product", "page"]
+  }
+}
+{% endschema %}

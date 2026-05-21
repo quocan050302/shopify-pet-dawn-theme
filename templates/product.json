@@ -126,6 +126,92 @@
         "trust_4_desc": "30-day returns if the size isn't right"
       }
     },
+    "product-comparison": {
+      "type": "pawvoyage-product-comparison",
+      "blocks": {
+        "row-1": {
+          "type": "comparison_row",
+          "settings": {
+            "feature_icon": "clip",
+            "feature_title": "No-Pull Front Clip",
+            "feature_desc": "Gently redirects pulling",
+            "pawvoyage_status": "yes",
+            "col2_status": "no",
+            "col3_status": "partial",
+            "col3_label": "Sometimes"
+          }
+        },
+        "row-2": {
+          "type": "comparison_row",
+          "settings": {
+            "feature_icon": "pad",
+            "feature_title": "Padded Chest Comfort",
+            "feature_desc": "Soft padding prevents chafing",
+            "pawvoyage_status": "yes",
+            "col2_status": "no",
+            "col3_status": "partial",
+            "col3_label": "Minimal"
+          }
+        },
+        "row-3": {
+          "type": "comparison_row",
+          "settings": {
+            "feature_icon": "adjust",
+            "feature_title": "Adjustable 4-Point Fit",
+            "feature_desc": "Perfect fit for more dogs",
+            "pawvoyage_status": "yes",
+            "col2_status": "partial",
+            "col2_label": "Limited",
+            "col3_status": "partial",
+            "col3_label": "Limited"
+          }
+        },
+        "row-4": {
+          "type": "comparison_row",
+          "settings": {
+            "feature_icon": "handle",
+            "feature_title": "Top Handle",
+            "feature_desc": "Extra control when needed",
+            "pawvoyage_status": "yes",
+            "col2_status": "no",
+            "col3_status": "no"
+          }
+        },
+        "row-5": {
+          "type": "comparison_row",
+          "settings": {
+            "feature_icon": "build",
+            "feature_title": "Durable Tactical Build",
+            "feature_desc": "Built for everyday adventure",
+            "pawvoyage_status": "yes",
+            "col2_status": "partial",
+            "col2_label": "Average",
+            "col3_status": "no"
+          }
+        },
+        "row-6": {
+          "type": "comparison_row",
+          "settings": {
+            "feature_icon": "reflective",
+            "feature_title": "Reflective for Night Safety",
+            "feature_desc": "Better visibility in low light",
+            "pawvoyage_status": "yes",
+            "col2_status": "partial",
+            "col2_label": "Some",
+            "col3_status": "no"
+          }
+        }
+      },
+      "block_order": ["row-1", "row-2", "row-3", "row-4", "row-5", "row-6"],
+      "settings": {
+        "eyebrow": "PAWVOYAGE VS. OTHERS",
+        "heading": "PawVoyage vs. The Rest",
+        "subheading": "See the difference. Feel the control.",
+        "col1_name": "PawVoyage No-Pull Harness",
+        "col2_name": "Traditional Harness",
+        "col3_name": "Basic No-Pull Harness"
+      }
+    },
     "related-products": {
       "type": "related-products",
       "settings": {
@@ -149,6 +235,7 @@
     "main",
     "product-benefits",
     "size-fit-guide",
+    "product-comparison",
     "related-products"
   ]
 }
