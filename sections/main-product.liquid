@@ -88,10 +88,10 @@
 
   <div class="pv-pdp-outer">
     <div class="pv-pdp-wrap">
-      <div class="pv-pdp-top">
+      <div class="pv-product-grid">
 
-        <!-- ===== LEFT COLUMN: Gallery + Features + Reviews ===== -->
-        <div class="pv-left-col">
+        <!-- ===== LEFT COLUMN: Media Panel (Gallery + Reviews) ===== -->
+        <div class="pv-media-panel pv-left-col">
 
           <!-- Gallery -->
           <div class="pv-gallery-col">
@@ -256,53 +256,64 @@
                 <div class="pv-avatar">J</div><div class="pv-avatar">S</div><div class="pv-avatar">M</div><div class="pv-avatar">R</div><div class="pv-avatar">A</div>
               </div>
             </div>
-            <div class="pv-review-cards">
-              {%- assign r1_default = "Finally a harness that stops pulling without hurting my dog." -%}
-              {%- assign r2_default = "Super tough and comfortable. Perfect for our hikes." -%}
-              {%- assign r3_default = "Best harness we've ever used. Worth every penny." -%}
-              <div class="pv-mini-review">
-                {%- if section.settings.review_1_image != blank -%}
-                  <img src="{{ section.settings.review_1_image | image_url: width: 300 }}" alt="Customer photo" class="pv-mini-review-img" loading="lazy">
-                {%- elsif product.images[1] != blank -%}
-                  <img src="{{ product.images[1] | image_url: width: 300 }}" alt="Product" class="pv-mini-review-img" loading="lazy">
-                {%- endif -%}
-                <div class="pv-mini-review-body">
-                  <div class="pv-mini-review-stars">★★★★★</div>
-                  <p class="pv-mini-review-text">{{ section.settings.review_1_text | default: r1_default }}</p>
-                  <div class="pv-mini-review-author">{{ section.settings.review_1_author | default: 'James T.' }}</div>
+
+            <!-- Cards section: wrap adds positioning context for the fade overlay -->
+            <div class="pv-review-cards-wrap">
+              <div class="pv-review-cards" data-pv-review-scroll>
+                {%- assign r1_default = "Finally a harness that stops pulling without hurting my dog." -%}
+                {%- assign r2_default = "Super tough and comfortable. Perfect for our hikes." -%}
+                {%- assign r3_default = "Best harness we've ever used. Worth every penny." -%}
+                <div class="pv-mini-review">
+                  {%- if section.settings.review_1_image != blank -%}
+                    <img src="{{ section.settings.review_1_image | image_url: width: 300 }}" alt="Customer photo" class="pv-mini-review-img" loading="lazy">
+                  {%- elsif product.images[1] != blank -%}
+                    <img src="{{ product.images[1] | image_url: width: 300 }}" alt="Product" class="pv-mini-review-img" loading="lazy">
+                  {%- endif -%}
+                  <div class="pv-mini-review-body">
+                    <div class="pv-mini-review-stars">★★★★★</div>
+                    <p class="pv-mini-review-text">{{ section.settings.review_1_text | default: r1_default }}</p>
+                    <div class="pv-mini-review-author">{{ section.settings.review_1_author | default: 'James T.' }}</div>
+                  </div>
+                </div>
+                <div class="pv-mini-review">
+                  {%- if section.settings.review_2_image != blank -%}
+                    <img src="{{ section.settings.review_2_image | image_url: width: 300 }}" alt="Customer photo" class="pv-mini-review-img" loading="lazy">
+                  {%- elsif product.images[2] != blank -%}
+                    <img src="{{ product.images[2] | image_url: width: 300 }}" alt="Product" class="pv-mini-review-img" loading="lazy">
+                  {%- endif -%}
+                  <div class="pv-mini-review-body">
+                    <div class="pv-mini-review-stars">★★★★★</div>
+                    <p class="pv-mini-review-text">{{ section.settings.review_2_text | default: r2_default }}</p>
+                    <div class="pv-mini-review-author">{{ section.settings.review_2_author | default: 'Sarah M.' }}</div>
+                  </div>
+                </div>
+                <div class="pv-mini-review">
+                  {%- if section.settings.review_3_image != blank -%}
+                    <img src="{{ section.settings.review_3_image | image_url: width: 300 }}" alt="Customer photo" class="pv-mini-review-img" loading="lazy">
+                  {%- elsif product.images[3] != blank -%}
+                    <img src="{{ product.images[3] | image_url: width: 300 }}" alt="Product" class="pv-mini-review-img" loading="lazy">
+                  {%- endif -%}
+                  <div class="pv-mini-review-body">
+                    <div class="pv-mini-review-stars">★★★★★</div>
+                    <p class="pv-mini-review-text">{{ section.settings.review_3_text | default: r3_default }}</p>
+                    <div class="pv-mini-review-author">{{ section.settings.review_3_author | default: 'Michael R.' }}</div>
+                  </div>
                 </div>
               </div>
-              <div class="pv-mini-review">
-                {%- if section.settings.review_2_image != blank -%}
-                  <img src="{{ section.settings.review_2_image | image_url: width: 300 }}" alt="Customer photo" class="pv-mini-review-img" loading="lazy">
-                {%- elsif product.images[2] != blank -%}
-                  <img src="{{ product.images[2] | image_url: width: 300 }}" alt="Product" class="pv-mini-review-img" loading="lazy">
-                {%- endif -%}
-                <div class="pv-mini-review-body">
-                  <div class="pv-mini-review-stars">★★★★★</div>
-                  <p class="pv-mini-review-text">{{ section.settings.review_2_text | default: r2_default }}</p>
-                  <div class="pv-mini-review-author">{{ section.settings.review_2_author | default: 'Sarah M.' }}</div>
-                </div>
-              </div>
-              <div class="pv-mini-review">
-                {%- if section.settings.review_3_image != blank -%}
-                  <img src="{{ section.settings.review_3_image | image_url: width: 300 }}" alt="Customer photo" class="pv-mini-review-img" loading="lazy">
-                {%- elsif product.images[3] != blank -%}
-                  <img src="{{ product.images[3] | image_url: width: 300 }}" alt="Product" class="pv-mini-review-img" loading="lazy">
-                {%- endif -%}
-                <div class="pv-mini-review-body">
-                  <div class="pv-mini-review-stars">★★★★★</div>
-                  <p class="pv-mini-review-text">{{ section.settings.review_3_text | default: r3_default }}</p>
-                  <div class="pv-mini-review-author">{{ section.settings.review_3_author | default: 'Michael R.' }}</div>
-                </div>
-              </div>
+              <!-- Right-edge fade: hidden by JS when user scrolls to end -->
+              <div class="pv-cards-fade-right" aria-hidden="true"></div>
             </div>
+
+            <!-- Mobile swipe hint: JS hides when no overflow or at end -->
+            <p class="pv-cards-swipe-hint" aria-hidden="true">Swipe for more reviews →</p>
+
           </div><!-- end .pv-review-strip -->
 
-        </div><!-- end .pv-left-col -->
 
-        <!-- ===== RIGHT COLUMN: Purchase Card ===== -->
-        <div class="pv-purchase-col">
+        </div><!-- end .pv-media-panel -->
+
+        <!-- ===== RIGHT COLUMN: Info / Purchase Panel ===== -->
+        <div class="pv-info-panel pv-purchase-col">
           <div class="pv-offer-bar-new">
             <div class="pv-offer-bar-left">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
@@ -311,7 +322,7 @@
             <div class="pv-offer-bar-right">{{ section.settings.offer_bar_right | default: 'Save $30 Today!' }}</div>
           </div>
 
-          <section id="ProductInfo-{{ section.id }}" class="pv-card-body">
+          <section id="ProductInfo-{{ section.id }}" class="pv-card-body" style="flex:1;display:flex;flex-direction:column;">
 
             <!-- 1. Title -->
             <h1 class="pv-product-title">{{ product.title | escape }}</h1>
@@ -387,6 +398,10 @@
               {{ form | payment_terms }}
             {%- endform -%}
 
+          </section><!-- end #ProductInfo -->
+        </div><!-- end .pv-info-panel -->
+
+      </div><!-- end .pv-product-grid -->
     </div><!-- end .pv-pdp-wrap -->
   </div><!-- end .pv-pdp-outer -->
 
@@ -502,6 +517,153 @@
       }
     }
     if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', pvGalleryInit); } else { pvGalleryInit(); }
+  })();
+  </script>
+
+  <!-- PV Thumbnail Rail: Drag-to-scroll (desktop vertical + mobile horizontal, mouse + touch) -->
+  <script>
+  (function() {
+    'use strict';
+    function pvThumbDragInit() {
+
+      /*
+       * makeDraggable(el, axis)
+       * Adds mouse-drag AND touch-swipe scroll to a container.
+       * axis: 'x' = horizontal scroll   |  'y' = vertical scroll
+       *
+       * Key mobile fix: touchmove is registered as { passive: false }
+       * so we can call e.preventDefault() to stop the browser
+       * from treating a horizontal thumb-swipe as a vertical page scroll.
+       */
+      function makeDraggable(el, axis) {
+        if (!el) return;
+
+        /* ---- State ---- */
+        var isDragging  = false;
+        var startPos    = 0;
+        var startScroll = 0;
+        var moved       = false;
+        var touchStartX = 0;
+        var touchStartY = 0;
+        var isHorizIntent = null; /* null = undecided, true/false after first move */
+
+        /* ---- MOUSE drag (desktop) ---- */
+        el.addEventListener('mousedown', function(e) {
+          if (e.button !== 0) return;
+          isDragging  = true;
+          moved       = false;
+          startPos    = axis === 'x' ? e.pageX : e.pageY;
+          startScroll = axis === 'x' ? el.scrollLeft : el.scrollTop;
+          el.classList.add('is-dragging');
+          e.preventDefault();
+        });
+
+        window.addEventListener('mousemove', function(e) {
+          if (!isDragging) return;
+          var delta = (axis === 'x' ? e.pageX : e.pageY) - startPos;
+          if (Math.abs(delta) > 3) moved = true;
+          if (axis === 'x') el.scrollLeft = startScroll - delta;
+          else              el.scrollTop  = startScroll - delta;
+        });
+
+        window.addEventListener('mouseup', function() {
+          if (!isDragging) return;
+          isDragging = false;
+          el.classList.remove('is-dragging');
+        });
+
+        /* Block accidental click after drag */
+        el.addEventListener('click', function(e) {
+          if (moved) { e.stopPropagation(); e.preventDefault(); moved = false; }
+        }, true);
+
+        /* ---- TOUCH drag (mobile / tablet) ---- */
+        el.addEventListener('touchstart', function(e) {
+          var t = e.touches[0];
+          touchStartX    = t.clientX;
+          touchStartY    = t.clientY;
+          startScroll    = axis === 'x' ? el.scrollLeft : el.scrollTop;
+          isHorizIntent  = null;
+          moved          = false;
+        }, { passive: true });
+
+        /* non-passive → allows e.preventDefault() */
+        el.addEventListener('touchmove', function(e) {
+          var t      = e.touches[0];
+          var dx     = t.clientX - touchStartX;
+          var dy     = t.clientY - touchStartY;
+
+          /* Determine scroll intent on first significant move */
+          if (isHorizIntent === null && (Math.abs(dx) > 4 || Math.abs(dy) > 4)) {
+            isHorizIntent = Math.abs(dx) > Math.abs(dy);
+          }
+          if (isHorizIntent === null) return;
+
+          if (axis === 'x') {
+            if (!isHorizIntent) return; /* vertical swipe → let page scroll */
+            e.preventDefault();        /* horizontal swipe → scroll the strip */
+            el.scrollLeft = startScroll - dx;
+            moved = true;
+          } else {
+            if (isHorizIntent) return; /* horizontal swipe → ignore */
+            e.preventDefault();        /* vertical swipe → scroll the rail */
+            el.scrollTop = startScroll - dy;
+            moved = true;
+          }
+        }, { passive: false }); /* MUST be non-passive to call preventDefault */
+
+        el.addEventListener('touchend', function() {
+          isHorizIntent = null;
+        }, { passive: true });
+      }
+
+      /* ---- Desktop vertical thumb rail ---- */
+      document.querySelectorAll('.pv-thumb-rail').forEach(function(rail) {
+        makeDraggable(rail, 'y');
+        rail.style.cursor = 'grab';
+      });
+
+      /* ---- Mobile / tablet horizontal thumb strip ---- */
+      document.querySelectorAll('.pv-thumb-mobile-strip').forEach(function(strip) {
+        makeDraggable(strip, 'x');
+      });
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', pvThumbDragInit);
+    } else {
+      pvThumbDragInit();
+    }
+  })();
+  </script>
+  <script>
+  (function() {
+    'use strict';
+    function pvReviewScrollInit() {
+      var scrollers = document.querySelectorAll('[data-pv-review-scroll]');
+      scrollers.forEach(function(el) {
+        var wrap  = el.closest('.pv-review-cards-wrap') || el.parentElement;
+        var fade  = wrap && wrap.querySelector('.pv-cards-fade-right');
+        var hint  = el.closest('.pv-review-strip') && el.closest('.pv-review-strip').querySelector('.pv-cards-swipe-hint');
+
+        function update() {
+          var hasOverflow = el.scrollWidth > el.clientWidth + 4;
+          var atEnd       = el.scrollLeft + el.clientWidth >= el.scrollWidth - 8;
+          var hide        = !hasOverflow || atEnd;
+          if (fade) fade.classList.toggle('is-hidden', hide);
+          if (hint) hint.classList.toggle('is-hidden', hide);
+        }
+
+        el.addEventListener('scroll', update, { passive: true });
+        window.addEventListener('resize', update, { passive: true });
+        update();
+      });
+    }
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', pvReviewScrollInit);
+    } else {
+      pvReviewScrollInit();
+    }
   })();
   </script>
 
@@ -2808,6 +2970,8 @@
     flex-shrink: 0;
     margin-top: 0;
     display: block;
+    -webkit-overflow-scrolling: touch;
+    touch-action: pan-y pinch-zoom;
   }
   media-gallery[data-desktop-layout="thumbnail_slider"] .thumbnail-list {
     flex-direction: column !important;

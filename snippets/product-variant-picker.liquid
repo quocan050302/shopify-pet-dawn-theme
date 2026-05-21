@@ -55,19 +55,63 @@
             <button type="button" class="pv-psb-btn" onclick="document.getElementById('pv-size-guide-modal').showModal()">View Size Guide</button>
           </div>
         {% endif %}
-        <fieldset class="js product-form__input product-form__input--pill pv-fieldset-{{ option.name | handleize }}">
+
+        {%- liquid
+          assign is_color_option = false
+          if option.name == 'Color' or option.name == 'Màu sắc' or option.name == 'Màu'
+            assign is_color_option = true
+          endif
+        -%}
+
+        <fieldset class="js product-form__input product-form__input--pill pv-fieldset-{{ option.name | handleize }}{% if is_color_option %} pv-fieldset-is-color{% endif %}">
           <legend class="form__label pv-variant-label">
             <span class="pv-variant-name-wrap">
               <span class="pv-variant-name">{{ option.name }}:</span>
               <span class="pv-variant-selected" data-selected-value>{{ option.selected_value }}</span>
             </span>
           </legend>
-          {% render 'product-variant-options',
-            product: product,
-            option: option,
-            block: block,
-            picker_type: picker_type
-          %}
+
+          {%- if is_color_option -%}
+            {%- comment %} Color selector: premium horizontal scroll carousel {%- endcomment %}
+            <div class="pv-color-scroll-wrap" data-pv-color-wrap>
+              <div class="pv-scroll-fade-left" aria-hidden="true"></div>
+              <div class="pv-scroll-fade-right" aria-hidden="true"></div>
+              <button
+                type="button"
+                class="pv-scroll-arrow pv-scroll-arrow-prev"
+                aria-label="Scroll color options left"
+                data-pv-prev
+                tabindex="0"
+              >
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+              </button>
+              <button
+                type="button"
+                class="pv-scroll-arrow pv-scroll-arrow-next"
+                aria-label="Scroll color options right"
+                data-pv-next
+                tabindex="0"
+              >
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+              </button>
+              <div class="pv-color-scroll" data-pv-scroller role="list">
+                {% render 'product-variant-options',
+                  product: product,
+                  option: option,
+                  block: block,
+                  picker_type: picker_type
+                %}
+              </div>
+              <p class="pv-scroll-hint" aria-live="polite">Swipe to see more colors →</p>
+            </div>
+          {%- else -%}
+            {% render 'product-variant-options',
+              product: product,
+              option: option,
+              block: block,
+              picker_type: picker_type
+            %}
+          {%- endif -%}
         </fieldset>
       {%- else -%}
         <div class="product-form__input product-form__input--dropdown">
@@ -250,7 +294,7 @@
 
   <style>
     /* Variant Picker Custom Styles */
-    .pv-variant-label { display: flex; justify-content: space-between; align-items: center; width: 100%; margin-bottom: 1.2rem; }
+    .pv-variant-label { display: flex; justify-content: space-between; align-items: center; width: 100%; margin-bottom: 0.6rem; }
     .pv-variant-name-wrap { display: flex; align-items: baseline; }
     .pv-variant-name { font-size: 1.4rem; font-weight: 700; color: #1F241D; }
     .pv-variant-selected { font-size: 1.4rem; color: #4A5246; font-weight: 600; margin-left: 0.6rem; }
@@ -258,7 +302,249 @@
     .pv-size-guide-btn:hover { color: #12350E; }
     .pv-size-reassurance { font-size: 1.3rem; color: #6D7569; margin: 1.2rem 0 0; line-height: 1.5; font-style: italic; }
 
-    
+    /* ---- Color Scroll Carousel ---- */
+    .pv-fieldset-is-color {
+      border: none;
+      padding: 0;
+      margin: 0 0 1.4rem;
+      min-width: 0;
+      overflow: visible;
+    }
+
+    .pv-color-scroll-wrap {
+      position: relative;
+      max-width: 100%;
+      overflow: hidden; /* clips the fades */
+    }
+
+    .pv-color-scroll {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: nowrap;
+      gap: 8px;
+      overflow-x: auto;
+      overflow-y: hidden;
+      scroll-snap-type: x proximity;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+      padding: 4px 4px 8px 4px;
+      cursor: grab;
+    }
+
+    .pv-color-scroll::-webkit-scrollbar { display: none; }
+    .pv-color-scroll.is-grabbing { cursor: grabbing; }
+
+    /* Each swatch item — snap point */
+    .pv-color-scroll .pv-color-swatch-label,
+    .pv-color-scroll label {
+      flex: 0 0 auto !important;
+      width: 52px !important;
+      height: 52px !important;
+      border-radius: 10px !important;
+      border: 2px solid transparent !important;
+      cursor: pointer !important;
+      overflow: hidden !important;
+      position: relative !important;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.09) !important;
+      transition: border-color 0.15s, box-shadow 0.2s, transform 0.15s !important;
+      background: #f5edd8 !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      scroll-snap-align: start;
+      margin: 0 !important;
+    }
+
+    .pv-color-scroll .pv-color-swatch-label:hover,
+    .pv-color-scroll label:hover {
+      border-color: #D99A2B !important;
+      transform: scale(1.06) !important;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.14) !important;
+    }
+
+    /* Selected state */
+    .pv-color-scroll input[type="radio"]:checked + .pv-color-swatch-label,
+    .pv-color-scroll input[type="radio"]:checked + label {
+      border-color: #12350E !important;
+      box-shadow: 0 0 0 3px rgba(217,154,43,0.32), 0 4px 12px rgba(18,53,14,0.15) !important;
+    }
+
+    /* Checkmark badge on selected */
+    .pv-color-scroll input[type="radio"]:checked + .pv-color-swatch-label::after,
+    .pv-color-scroll input[type="radio"]:checked + label::after {
+      content: "";
+      position: absolute;
+      bottom: 3px;
+      right: 3px;
+      width: 13px;
+      height: 13px;
+      border-radius: 50%;
+      border: 2px solid white;
+      background-color: #12350E;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E");
+      background-size: 70%;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+
+    /* Disabled swatch */
+    .pv-color-scroll input[type="radio"].disabled + .pv-color-swatch-label,
+    .pv-color-scroll input[type="radio"]:disabled + .pv-color-swatch-label,
+    .pv-color-scroll input[type="radio"].disabled + label,
+    .pv-color-scroll input[type="radio"]:disabled + label {
+      opacity: 0.4 !important;
+      cursor: not-allowed !important;
+    }
+
+    /* Diagonal slash on disabled */
+    .pv-color-scroll input[type="radio"].disabled + .pv-color-swatch-label::before,
+    .pv-color-scroll input[type="radio"]:disabled + .pv-color-swatch-label::before,
+    .pv-color-scroll input[type="radio"].disabled + label::before,
+    .pv-color-scroll input[type="radio"]:disabled + label::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 3;
+      background: linear-gradient(
+        to bottom right,
+        transparent calc(50% - 1px),
+        rgba(80,70,60,0.5) calc(50% - 1px),
+        rgba(80,70,60,0.5) calc(50% + 1px),
+        transparent calc(50% + 1px)
+      );
+    }
+
+    /* Swatch images */
+    .pv-color-scroll .pv-swatch-img {
+      width: 100% !important;
+      height: 100% !important;
+      object-fit: cover !important;
+      display: block !important;
+      border-radius: 8px;
+    }
+
+    .pv-color-scroll .pv-swatch-text {
+      font-size: 1.05rem !important;
+      font-weight: 700 !important;
+      color: #1F241D !important;
+      text-align: center !important;
+      padding: 0.25rem !important;
+      line-height: 1.2 !important;
+    }
+
+    /* Focus ring for keyboard nav */
+    .pv-color-scroll label:focus-visible,
+    .pv-color-scroll .pv-color-swatch-label:focus-visible {
+      outline: 2px solid #D99A2B !important;
+      outline-offset: 2px !important;
+    }
+
+    /* ---- Fade overlays ---- */
+    .pv-scroll-fade-left,
+    .pv-scroll-fade-right {
+      position: absolute;
+      top: 0;
+      width: 48px;
+      height: calc(100% - 8px);
+      pointer-events: none;
+      z-index: 3;
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+
+    .pv-scroll-fade-left {
+      left: 0;
+      background: linear-gradient(to right, #ffffff 30%, rgba(255,255,255,0));
+    }
+
+    .pv-scroll-fade-right {
+      right: 0;
+      background: linear-gradient(to left, #ffffff 30%, rgba(255,255,255,0));
+    }
+
+    .pv-color-scroll-wrap.has-overflow-right .pv-scroll-fade-right { opacity: 1; }
+    .pv-color-scroll-wrap.has-overflow-left  .pv-scroll-fade-left  { opacity: 1; }
+
+    /* ---- Arrow buttons ---- */
+    .pv-scroll-arrow {
+      all: unset;
+      position: absolute;
+      top: 50%;
+      transform: translateY(calc(-50% - 4px));
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: #FFFFFF;
+      border: 1px solid rgba(31,36,29,0.15) !important;
+      box-shadow: 0 4px 12px rgba(7,31,6,0.14);
+      color: #12350E;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 4;
+      cursor: pointer;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s, background 0.15s, transform 0.15s;
+    }
+
+    .pv-scroll-arrow:hover {
+      background: #FFF7EA;
+      transform: translateY(calc(-50% - 4px)) scale(1.12);
+    }
+
+    .pv-scroll-arrow:focus-visible {
+      outline: 2px solid #D99A2B;
+      outline-offset: 2px;
+    }
+
+    .pv-scroll-arrow-prev { left: 2px; }
+    .pv-scroll-arrow-next { right: 2px; }
+
+    .pv-color-scroll-wrap.has-overflow-right .pv-scroll-arrow-next {
+      opacity: 1;
+      pointer-events: auto;
+      animation: pv-arrow-pulse 1.4s ease 0.6s 2;
+    }
+
+    .pv-color-scroll-wrap.has-overflow-left .pv-scroll-arrow-prev {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    @keyframes pv-arrow-pulse {
+      0%, 100% { transform: translateY(calc(-50% - 4px)) scale(1); }
+      50%       { transform: translateY(calc(-50% - 4px)) scale(1.2); box-shadow: 0 6px 18px rgba(7,31,6,0.22); }
+    }
+
+    /* ---- Scroll hint (mobile) ---- */
+    .pv-scroll-hint {
+      display: none;
+      font-size: 1.15rem;
+      color: #6F7568;
+      margin: 4px 0 0;
+      font-family: "Inter", sans-serif;
+    }
+
+    /* Mobile adjustments */
+    @media screen and (max-width: 749px) {
+      .pv-color-scroll label,
+      .pv-color-scroll .pv-color-swatch-label {
+        width: 56px !important;
+        height: 56px !important;
+        border-radius: 10px !important;
+      }
+
+      .pv-color-scroll-wrap.has-overflow-right .pv-scroll-hint {
+        display: block;
+      }
+
+      /* Arrows less necessary on touch — keep hidden on mobile */
+      .pv-scroll-arrow { display: none !important; }
+    }
+
+    /* ---- pre-size-box ---- */
     .pv-pre-size-box { display: flex; align-items: center; gap: 1.2rem; background: #FFF; border: 1px solid rgba(217,154,43,0.4); padding: 1.2rem; border-radius: 8px; margin-bottom: 1.6rem; }
     .pv-psb-icon { color: #D99A2B; flex-shrink: 0; display: flex; align-items: center; }
     .pv-psb-text { flex-grow: 1; }
@@ -321,4 +607,107 @@
     .pv-contact-btn { display: inline-block; background: #FFF7EA; color: #12350E; font-size: 1.4rem; font-weight: 700; padding: 1rem 2.4rem; border-radius: 999px; text-decoration: none; border: 1px solid rgba(18,53,14,0.1); transition: all 0.2s; }
     .pv-contact-btn:hover { background: #12350E; color: #FFF7EA; }
   </style>
+
+  <script>
+  /* ---- PawVoyage: Color Scroll Carousel — scoped IIFE ---- */
+  (function() {
+      'use strict';
+      function initColorScrollers() {
+        var wraps = document.querySelectorAll('[data-pv-color-wrap]');
+        wraps.forEach(function(wrap) {
+          var scroller = wrap.querySelector('[data-pv-scroller]');
+          var nextBtn  = wrap.querySelector('[data-pv-next]');
+          var prevBtn  = wrap.querySelector('[data-pv-prev]');
+          if (!scroller) return;
+
+          /* ---- Update scroll-state classes ---- */
+          function updateState() {
+            var atStart = scroller.scrollLeft <= 4;
+            var atEnd   = scroller.scrollLeft + scroller.clientWidth >= scroller.scrollWidth - 4;
+            var hasOverflow = scroller.scrollWidth > scroller.clientWidth + 4;
+
+            wrap.classList.toggle('has-overflow-right', hasOverflow && !atEnd);
+            wrap.classList.toggle('has-overflow-left',  hasOverflow && !atStart);
+          }
+
+          /* ---- Arrow click handlers ---- */
+          var step = 0;
+          function getStep() {
+            var labels = scroller.querySelectorAll('label');
+            if (labels.length) {
+              var lw = labels[0].offsetWidth + 8; /* swatch width + gap */
+              return lw * 3.5; /* ~3.5 swatches per click */
+            }
+            return scroller.clientWidth * 0.75;
+          }
+
+          if (nextBtn) nextBtn.addEventListener('click', function() {
+            scroller.scrollBy({ left: getStep(), behavior: 'smooth' });
+          });
+          if (prevBtn) prevBtn.addEventListener('click', function() {
+            scroller.scrollBy({ left: -getStep(), behavior: 'smooth' });
+          });
+
+          /* ---- Mouse drag-to-scroll ---- */
+          var isDragging = false, startX = 0, startScroll = 0;
+          scroller.addEventListener('mousedown', function(e) {
+            isDragging = true;
+            startX = e.pageX - scroller.offsetLeft;
+            startScroll = scroller.scrollLeft;
+            scroller.classList.add('is-grabbing');
+            e.preventDefault();
+          });
+          window.addEventListener('mousemove', function(e) {
+            if (!isDragging) return;
+            var x = e.pageX - scroller.offsetLeft;
+            scroller.scrollLeft = startScroll - (x - startX);
+          });
+          window.addEventListener('mouseup', function() {
+            if (isDragging) {
+              isDragging = false;
+              scroller.classList.remove('is-grabbing');
+              updateState();
+            }
+          });
+
+          /* ---- Horizontal wheel scroll (trackpad + mouse) ---- */
+          scroller.addEventListener('wheel', function(e) {
+            if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) return; /* already horizontal */
+            var hasHScroll = scroller.scrollWidth > scroller.clientWidth + 4;
+            if (!hasHScroll) return;
+            e.preventDefault();
+            scroller.scrollLeft += e.deltaY;
+          }, { passive: false });
+
+          /* ---- Scroll & resize listeners ---- */
+          scroller.addEventListener('scroll', updateState, { passive: true });
+          window.addEventListener('resize', updateState, { passive: true });
+
+          /* ---- Scroll selected swatch into view on variant change ---- */
+          document.addEventListener('variant:change', function() {
+            var selected = scroller.querySelector('input[type="radio"]:checked');
+            if (selected && selected.nextElementSibling) {
+              selected.nextElementSibling.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'nearest' });
+            }
+            updateState();
+          });
+
+          /* ---- Initial state ---- */
+          updateState();
+
+          /* ---- Scroll selected swatch into view on init ---- */
+          var initSelected = scroller.querySelector('input[type="radio"]:checked');
+          if (initSelected && initSelected.nextElementSibling) {
+            initSelected.nextElementSibling.scrollIntoView({ block: 'nearest', inline: 'nearest' });
+          }
+        });
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initColorScrollers);
+      } else {
+        initColorScrollers();
+      }
+  })();
+  </script>
 {%- endunless -%}
