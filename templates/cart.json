@@ -1,5 +1,57 @@
 {
   "sections": {
+    "empty-cart": {
+      "type": "pawvoyage-empty-cart",
+      "settings": {},
+      "blocks": {
+        "rec-xs": {
+          "type": "recommended_item",
+          "settings": {
+            "custom_title": "PawVoyage Harness \u2013 XS",
+            "custom_label": "Size XS",
+            "custom_rating_text": "\u2605\u2605\u2605\u2605\u2605 (1,247)",
+            "custom_price_text": "$49.99 USD"
+          }
+        },
+        "rec-s": {
+          "type": "recommended_item",
+          "settings": {
+            "custom_title": "PawVoyage Harness \u2013 S",
+            "custom_label": "Size S",
+            "custom_rating_text": "\u2605\u2605\u2605\u2605\u2605 (1,247)",
+            "custom_price_text": "$49.99 USD"
+          }
+        },
+        "rec-m": {
+          "type": "recommended_item",
+          "settings": {
+            "custom_title": "PawVoyage Harness \u2013 M",
+            "custom_label": "Size M",
+            "custom_rating_text": "\u2605\u2605\u2605\u2605\u2605 (1,247)",
+            "custom_price_text": "$49.99 USD"
+          }
+        },
+        "rec-l": {
+          "type": "recommended_item",
+          "settings": {
+            "custom_title": "PawVoyage Harness \u2013 L",
+            "custom_label": "Size L",
+            "custom_rating_text": "\u2605\u2605\u2605\u2605\u2605 (1,247)",
+            "custom_price_text": "$49.99 USD"
+          }
+        },
+        "rec-xl": {
+          "type": "recommended_item",
+          "settings": {
+            "custom_title": "PawVoyage Harness \u2013 XL",
+            "custom_label": "Size XL",
+            "custom_rating_text": "\u2605\u2605\u2605\u2605\u2605 (1,247)",
+            "custom_price_text": "$49.99 USD"
+          }
+        }
+      },
+      "block_order": ["rec-xs", "rec-s", "rec-m", "rec-l", "rec-xl"]
+    },
     "cart-items": {
       "type": "main-cart-items",
       "settings": {
@@ -18,13 +70,11 @@
       "blocks": {
         "subtotal": {
           "type": "subtotal",
-          "settings": {
-          }
+          "settings": {}
         },
         "buttons": {
           "type": "buttons",
-          "settings": {
-          }
+          "settings": {}
         }
       },
       "block_order": [
@@ -34,6 +84,7 @@
     }
   },
   "order": [
+    "empty-cart",
     "cart-items",
     "cart-footer"
   ]
