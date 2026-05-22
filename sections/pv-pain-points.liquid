@@ -14,30 +14,36 @@
       {%- endif -%}
     </div>
 
-    <div class="pv-pain__grid">
-      {%- for block in section.blocks -%}
-        {%- if block.type == 'pain_point' -%}
-          <div class="pv-pain__card" {{ block.shopify_attributes }}>
-            <div class="pv-pain__card-image-wrap">
-              {%- if block.settings.image != blank -%}
-                {{ block.settings.image | image_url: width: 900 | image_tag: loading: 'lazy', class: 'pv-pain__card-image', alt: block.settings.image_alt | default: block.settings.title }}
-              {%- else -%}
-                <div class="pv-pain__card-placeholder">
-                  {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+    <!-- Carousel wrapper (mobile) / grid (desktop) -->
+    <div class="pv-pain__carousel-wrap" id="pv-pain-wrap-{{ section.id }}">
+      <div class="pv-pain__grid" id="pv-pain-grid-{{ section.id }}">
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'pain_point' -%}
+            <div class="pv-pain__card{% if block.settings.image != blank %} pv-pain__card--has-image{% else %} pv-pain__card--no-image{% endif %}" {{ block.shopify_attributes }}>
+              <div class="pv-pain__card-image-wrap">
+                {%- if block.settings.image != blank -%}
+                  {{ block.settings.image | image_url: width: 900 | image_tag: loading: 'lazy', class: 'pv-pain__card-image', alt: block.settings.image_alt | default: block.settings.title }}
+                {%- else -%}
+                  <div class="pv-pain__card-placeholder">
+                    {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+                  </div>
+                {%- endif -%}
+              </div>
+              <div class="pv-pain__card-content">
+                <h3 class="pv-pain__card-title">{{ block.settings.title }}</h3>
+                <p class="pv-pain__card-text">{{ block.settings.description }}</p>
+                <div class="pv-pain__card-solution">
+                  <span class="pv-pain__solution-label">{{ block.settings.solution_label | default: 'PAWVOYAGE FIXES THIS:' }}</span>
+                  <span class="pv-pain__solution-text">{{ block.settings.solution }}</span>
                 </div>
-              {%- endif -%}
-            </div>
-            <div class="pv-pain__card-content">
-              <h3 class="pv-pain__card-title">{{ block.settings.title }}</h3>
-              <p class="pv-pain__card-text">{{ block.settings.description }}</p>
-              <div class="pv-pain__card-solution">
-                <span class="pv-pain__solution-label">{{ block.settings.solution_label | default: 'PAWVOYAGE FIXES THIS:' }}</span>
-                <span class="pv-pain__solution-text">{{ block.settings.solution }}</span>
               </div>
             </div>
-          </div>
-        {%- endif -%}
-      {%- endfor -%}
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+
+      <!-- Mobile dot pagination (hidden on desktop) -->
+      <div class="pv-pain__dots" id="pv-pain-dots-{{ section.id }}" aria-hidden="true"></div>
     </div>
 
     {%- if section.settings.show_cta and section.settings.cta_label != blank -%}
@@ -72,16 +78,132 @@
     color: #4A5246;
   }
   .pv-section-heading { color: #12350E; }
-  
+
+  /* ── Carousel wrapper ── */
+  .pv-pain__carousel-wrap {
+    position: relative;
+  }
+
+  /* ── Grid: desktop 3-col, mobile carousel ── */
   .pv-pain__grid {
     display: grid;
     grid-template-columns: 1fr;
     gap: 3.2rem;
   }
   @media screen and (min-width: 750px) {
-    .pv-pain__grid { grid-template-columns: repeat(3, 1fr); gap: 2.4rem; }
+    .pv-pain__grid {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2.4rem;
+    }
   }
-  
+
+  /* ── Mobile carousel overrides ── */
+  @media screen and (max-width: 749px) {
+
+    /* Carousel scroll track */
+    .pv-pain__grid {
+      display: flex;
+      flex-direction: row;
+      gap: 1.4rem;
+      overflow-x: scroll;
+      overflow-y: hidden;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      overscroll-behavior-x: contain;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+      padding: 0.4rem 1.6rem 1rem;
+      margin: 0 -1rem;
+      /* equal-height cards: stretch all to tallest */
+      align-items: stretch;
+    }
+    .pv-pain__grid::-webkit-scrollbar { display: none; }
+
+    /* Card: 85% width, full stretch height, flex column */
+    .pv-pain__card {
+      flex: 0 0 85%;
+      max-width: 85%;
+      scroll-snap-align: center;
+      height: auto;          /* let flex-stretch handle equal height */
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ── Image area ── */
+    .pv-pain__card-image-wrap {
+      width: 100%;
+      /* aspect-ratio for real images */
+      aspect-ratio: 16 / 9;
+      min-height: 110px;
+      max-height: 160px;
+      height: auto;
+      padding: 1.2rem 1.2rem 0;
+      flex-shrink: 0;
+    }
+    .pv-pain__card-image {
+      border-radius: 14px;
+      object-fit: cover;
+    }
+
+    /* Compact placeholder (no-image cards still show a small box) */
+    .pv-pain__card-placeholder {
+      border-radius: 14px;
+    }
+    .pv-pain__card-placeholder svg {
+      width: 32px;
+      height: 32px;
+    }
+
+    /* ── Card content ── */
+    .pv-pain__card-content {
+      padding: 1.6rem 1.6rem 1.8rem;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Title: 22px / tight leading */
+    .pv-pain__card-title {
+      font-size: 2.2rem;    /* ~22px at 10px base */
+      line-height: 1.15;
+      margin: 0 0 0.6rem;
+    }
+
+    /* Problem copy: 15px, clamped to 3 lines */
+    .pv-pain__card-text {
+      font-size: 1.5rem;
+      line-height: 1.45;
+      margin: 0 0 1.4rem;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    /* Solution block */
+    .pv-pain__card-solution {
+      margin-top: auto;
+      padding-top: 1.4rem;
+    }
+
+    /* Label: 11px, spaced uppercase */
+    .pv-pain__solution-label {
+      font-size: 1.1rem;
+      letter-spacing: 0.06em;
+      margin-bottom: 0.5rem;
+    }
+
+    /* Solution copy: 15px, clamped to 3 lines */
+    .pv-pain__solution-text {
+      font-size: 1.5rem;
+      line-height: 1.45;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+  }
+
   /* Card Design */
   .pv-pain__card {
     background: #FFFAF1;
@@ -100,7 +222,7 @@
       box-shadow: 0 20px 48px rgba(20, 45, 25, 0.08);
     }
   }
-  
+
   /* Card Image */
   .pv-pain__card-image-wrap {
     width: 100%;
@@ -132,7 +254,7 @@
     fill: #C4853A;
     opacity: 0.5;
   }
-  
+
   /* Card Content */
   .pv-pain__card-content {
     padding: 2.4rem;
@@ -175,7 +297,34 @@
     font-weight: 500;
     line-height: 1.5;
   }
-  
+
+  /* ── Dot pagination ── */
+  .pv-pain__dots {
+    display: none; /* hidden on desktop */
+    justify-content: center;
+    align-items: center;
+    gap: 7px;
+    margin-top: 1.6rem;
+  }
+  @media screen and (max-width: 749px) {
+    .pv-pain__dots { display: flex; }
+  }
+  .pv-pain__dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 999px;
+    background: rgba(18, 53, 14, 0.2);
+    transition: width 0.3s, background 0.3s;
+    flex-shrink: 0;
+    cursor: pointer;
+    border: none;
+    padding: 0;
+  }
+  .pv-pain__dot.is-active {
+    width: 24px;
+    background: #C4853A;
+  }
+
   /* CTA */
   .pv-pain__footer-cta {
     text-align: center;
@@ -220,6 +369,86 @@
     .pv-pain__cta { width: 100%; max-width: 320px; }
   }
 </style>
+
+<script>
+(function() {
+  'use strict';
+  function pvPainCarouselInit() {
+    var grid  = document.getElementById('pv-pain-grid-{{ section.id }}');
+    var dotsWrap = document.getElementById('pv-pain-dots-{{ section.id }}');
+    if (!grid || !dotsWrap) return;
+
+    var cards = Array.prototype.slice.call(grid.querySelectorAll('.pv-pain__card'));
+    if (!cards.length) return;
+
+    /* Only activate on mobile */
+    function isMobile() { return window.innerWidth < 750; }
+
+    /* Build dots */
+    function buildDots() {
+      dotsWrap.innerHTML = '';
+      if (!isMobile()) return;
+      cards.forEach(function(_, i) {
+        var dot = document.createElement('button');
+        dot.className = 'pv-pain__dot' + (i === 0 ? ' is-active' : '');
+        dot.setAttribute('aria-label', 'Go to card ' + (i + 1));
+        dot.addEventListener('click', function() {
+          cards[i].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+        });
+        dotsWrap.appendChild(dot);
+      });
+    }
+
+    function getDots() {
+      return Array.prototype.slice.call(dotsWrap.querySelectorAll('.pv-pain__dot'));
+    }
+
+    function setActive(idx) {
+      getDots().forEach(function(d, i) {
+        d.classList.toggle('is-active', i === idx);
+      });
+    }
+
+    /* IntersectionObserver: most-visible card = active dot */
+    var observer;
+    function observeCards() {
+      if (observer) observer.disconnect();
+      if (!isMobile()) return;
+      observer = new IntersectionObserver(function(entries) {
+        var best = -1, bestRatio = 0;
+        entries.forEach(function(entry) {
+          if (entry.intersectionRatio > bestRatio) {
+            bestRatio = entry.intersectionRatio;
+            best = cards.indexOf(entry.target);
+          }
+        });
+        if (best >= 0) setActive(best);
+      }, { root: grid, threshold: [0.5] });
+      cards.forEach(function(card) { observer.observe(card); });
+    }
+
+    buildDots();
+    observeCards();
+
+    /* Re-init on resize crossing the breakpoint */
+    var lastMobile = isMobile();
+    window.addEventListener('resize', function() {
+      var nowMobile = isMobile();
+      if (nowMobile !== lastMobile) {
+        lastMobile = nowMobile;
+        buildDots();
+        observeCards();
+      }
+    }, { passive: true });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', pvPainCarouselInit);
+  } else {
+    pvPainCarouselInit();
+  }
+})();
+</script>
 
 {% schema %}
 {
