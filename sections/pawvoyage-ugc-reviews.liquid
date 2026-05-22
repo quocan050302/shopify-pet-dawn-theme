@@ -17,7 +17,13 @@
   margin: 0 auto;
   padding: 0 1.6rem;
 }
-@media(max-width:749px){ #pvugc-{{ section.id }} .pvugc-wrap { padding: 0; } }
+@media(max-width:749px){
+  #pvugc-{{ section.id }} .pvugc-wrap { padding: 0; }
+  /* Restore side padding for text/header sections individually */
+  #pvugc-{{ section.id }} .pvugc-header,
+  #pvugc-{{ section.id }} .pvugc-stats,
+  #pvugc-{{ section.id }} .pvugc-bottom { padding-left: 1.6rem; padding-right: 1.6rem; }
+}
 
 /* ── Header ── */
 #pvugc-{{ section.id }} .pvugc-header { text-align: center; margin-bottom: 3.2rem; }
@@ -126,8 +132,15 @@
     min-width: 80vw;
   }
   #pvugc-{{ section.id }} .pvugc-track {
-    padding-left: 1.4rem;
-    padding-right: 1.4rem;
+    padding-left: 1.6rem;
+    padding-right: 1.6rem;
+    scroll-padding-left: 1.6rem;  /* align snap to left gutter */
+  }
+  /* Fix: Safari collapses padding-right in overflow-x containers */
+  #pvugc-{{ section.id }} .pvugc-track::after {
+    content: '';
+    flex: 0 0 1.6rem;
+    min-width: 1.6rem;
   }
 }
 
@@ -153,6 +166,16 @@
   gap: .7rem;
 }
 #pvugc-{{ section.id }} .pvugc-card-placeholder svg { width:32px; height:32px; opacity:.45; }
+
+/* Mobile: compact image — no distortion, taller than before */
+@media(max-width:749px){
+  #pvugc-{{ section.id }} .pvugc-card-img,
+  #pvugc-{{ section.id }} .pvugc-card-placeholder {
+    aspect-ratio: 4 / 3;
+    max-height: 200px;
+    object-fit: cover;   /* never squish or stretch */
+  }
+}
 
 /* ── Card body ── */
 #pvugc-{{ section.id }} .pvugc-card-body {
