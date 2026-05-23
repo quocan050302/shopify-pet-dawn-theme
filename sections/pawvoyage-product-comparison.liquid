@@ -49,7 +49,7 @@
             <th class="pvc-th pvc-th--pawvoyage" scope="col">
               <div class="pvc-col-header">
                 <span class="pvc-col-name">{{ section.settings.col1_name }}</span>
-                <div class="pvc-col-img-wrap">
+                <div class="pvc-col-img-wrap pvc-col-img-wrap--pv">
                   {%- if section.settings.pawvoyage_image != blank -%}
                     {{
                       section.settings.pawvoyage_image
@@ -60,6 +60,14 @@
                         class: 'pvc-col-img',
                         widths: '110, 160, 220'
                     }}
+                    <div class="pvc-img-zoom">
+                      <img
+                        src="{{ section.settings.pawvoyage_image | image_url: width: 480 }}"
+                        alt="{{ section.settings.pawvoyage_image_alt | escape }}"
+                        width="240" height="240"
+                        loading="lazy"
+                      >
+                    </div>
                   {%- else -%}
                     <div class="pvc-col-img-placeholder pvc-col-img-placeholder--dark">
                       <svg viewBox="0 0 60 60" fill="none" stroke="currentColor" stroke-width="1.2" opacity="0.5">
@@ -88,6 +96,14 @@
                         class: 'pvc-col-img',
                         widths: '110, 160, 220'
                     }}
+                    <div class="pvc-img-zoom">
+                      <img
+                        src="{{ section.settings.col2_image | image_url: width: 480 }}"
+                        alt="{{ section.settings.col2_image_alt | escape }}"
+                        width="240" height="240"
+                        loading="lazy"
+                      >
+                    </div>
                   {%- else -%}
                     <div class="pvc-col-img-placeholder">
                       <svg viewBox="0 0 60 60" fill="none" stroke="currentColor" stroke-width="1.2" opacity="0.35">
@@ -105,7 +121,7 @@
             <th class="pvc-th pvc-th--competitor" scope="col">
               <div class="pvc-col-header pvc-col-header--light">
                 <span class="pvc-col-name pvc-col-name--dark">{{ section.settings.col3_name }}</span>
-                <div class="pvc-col-img-wrap">
+                <div class="pvc-col-img-wrap pvc-col-img-wrap--last">
                   {%- if section.settings.col3_image != blank -%}
                     {{
                       section.settings.col3_image
@@ -116,6 +132,14 @@
                         class: 'pvc-col-img',
                         widths: '110, 160, 220'
                     }}
+                    <div class="pvc-img-zoom pvc-img-zoom--left">
+                      <img
+                        src="{{ section.settings.col3_image | image_url: width: 480 }}"
+                        alt="{{ section.settings.col3_image_alt | escape }}"
+                        width="240" height="240"
+                        loading="lazy"
+                      >
+                    </div>
                   {%- else -%}
                     <div class="pvc-col-img-placeholder">
                       <svg viewBox="0 0 60 60" fill="none" stroke="currentColor" stroke-width="1.2" opacity="0.35">
@@ -455,6 +479,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  position: relative;    /* anchor for zoom popup */
+  cursor: zoom-in;
 }
 
 .pvc-col-img {
@@ -462,6 +488,11 @@
   height: 80px;
   object-fit: contain;
   display: block;
+  transition: transform 0.2s ease;
+}
+
+.pvc-col-img-wrap:hover .pvc-col-img {
+  transform: scale(1.08);
 }
 
 /* Glow for PawVoyage image — stands out against dark green column bg */
@@ -470,6 +501,79 @@
     drop-shadow(0 0 10px rgba(255, 218, 90, 0.60))
     drop-shadow(0 0 26px rgba(212, 168, 67, 0.38))
     drop-shadow(0 5px 14px rgba(0, 0, 0, 0.55));
+}
+
+/* ── Zoom popup ── */
+.pvc-img-zoom {
+  position: absolute;
+  top: 50%;
+  left: calc(100% + 14px);   /* right of thumbnail by default */
+  transform: translateY(-50%) scale(0.88);
+  width: 200px;
+  height: 200px;
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow:
+    0 16px 48px rgba(18,53,14,0.18),
+    0 4px 12px rgba(18,53,14,0.12),
+    0 0 0 1px rgba(18,53,14,0.07);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px;
+  z-index: 999;
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    opacity 0.22s ease,
+    transform 0.22s ease;
+}
+
+/* Flip to left side for last column */
+.pvc-img-zoom--left {
+  left: auto;
+  right: calc(100% + 14px);
+}
+
+.pvc-col-img-wrap:hover .pvc-img-zoom {
+  opacity: 1;
+  transform: translateY(-50%) scale(1);
+  pointer-events: auto;
+}
+
+.pvc-img-zoom img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+  border-radius: 8px;
+}
+
+/* Arrow pointer — points from popup toward thumbnail */
+.pvc-img-zoom::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: -8px;
+  transform: translateY(-50%);
+  border: 8px solid transparent;
+  border-right-color: #ffffff;
+  border-left: none;
+  filter: drop-shadow(-2px 0 2px rgba(18,53,14,0.10));
+}
+
+.pvc-img-zoom--left::before {
+  left: auto;
+  right: -8px;
+  border-right-color: transparent;
+  border-left: 8px solid #ffffff;
+  filter: drop-shadow(2px 0 2px rgba(18,53,14,0.10));
+}
+
+/* Hide zoom on mobile — too cramped */
+@media (max-width: 749px) {
+  .pvc-img-zoom { display: none; }
+  .pvc-col-img-wrap { cursor: default; }
 }
 
 /* Placeholder */
