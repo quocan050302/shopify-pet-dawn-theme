@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "main": {
@@ -33,6 +42,38 @@
         "buy_buttons"
       ],
       "settings": {
+        "size_guide_image": "shopify://shop_images/ChatGPT_Image_19_37_01_23_thg_5_2026.png",
+        "size_guide_image_alt": "Dog measurement guide showing chest girth, back length, neck base, and neck to armpit",
+        "offer_bar_left": "LIMITED SPRING OFFER",
+        "offer_bar_right": "Save $30 Today!",
+        "short_description": "",
+        "overlay_headline_1": "Built for Adventure.",
+        "overlay_headline_2": "Designed for Comfort.",
+        "overlay_chip_1": "No-Pull Control",
+        "overlay_chip_2": "Secure & Adjustable",
+        "overlay_chip_3": "All-Day Comfort",
+        "overlay_review_text": "1,247+ Happy Dog Owners",
+        "benefit_1": "Stops pulling gently",
+        "benefit_2": "Comfortable long walks",
+        "benefit_3": "Tactical-grade durability",
+        "benefit_4": "Adjustable secure fit",
+        "trust_1": "30-Day Risk-Free Trial",
+        "trust_2": "Secure Checkout",
+        "trust_3": "Free Shipping",
+        "trust_4": "30-Day Returns",
+        "delivery_text": "Delivery: 7–12 business days",
+        "feature_1": "No-Pull Training",
+        "feature_2": "Tactical Durability",
+        "feature_3": "Breathable Comfort",
+        "feature_4": "Adventure Ready",
+        "review_count_text": "1,247+ reviews",
+        "review_dogs_text": "10,000+ Happy Dogs",
+        "review_1_text": "\"Finally a harness that stops pulling without hurting my dog.\"",
+        "review_1_author": "James T.",
+        "review_2_text": "\"Super tough and comfortable. Perfect for our hikes.\"",
+        "review_2_author": "Sarah M.",
+        "review_3_text": "\"Best harness we've ever used. Worth every penny.\"",
+        "review_3_author": "Michael R.",
         "enable_sticky_info": true,
         "color_scheme": "scheme-1",
         "media_size": "medium",
@@ -56,7 +97,9 @@
           "settings": {
             "icon_type": "leash",
             "title": "Better No-Pull Control",
-            "description": "Front clip helps redirect pulling so walks feel easier and calmer."
+            "description": "Front clip helps redirect pulling so walks feel easier and calmer.",
+            "image": "shopify://shop_images/ChatGPT_Image_22_01_24_23_thg_5_2026.png",
+            "image_alt": ""
           }
         },
         "card-2": {
@@ -64,7 +107,8 @@
           "settings": {
             "icon_type": "heart",
             "title": "Comfort-Focused Design",
-            "description": "Padded chest and soft materials help prevent rubbing and irritation."
+            "description": "Padded chest and soft materials help prevent rubbing and irritation.",
+            "image_alt": ""
           }
         },
         "card-3": {
@@ -72,7 +116,8 @@
           "settings": {
             "icon_type": "sliders",
             "title": "Secure & Adjustable Fit",
-            "description": "Multiple adjustment points create a snug and secure fit."
+            "description": "Multiple adjustment points create a snug and secure fit.",
+            "image_alt": ""
           }
         },
         "card-4": {
@@ -80,7 +125,8 @@
           "settings": {
             "icon_type": "diamond",
             "title": "Tactical Durability",
-            "description": "Built with tough materials for everyday use and outdoor adventures."
+            "description": "Built with tough materials for everyday use and outdoor adventures.",
+            "image_alt": ""
           }
         },
         "card-5": {
@@ -88,11 +134,18 @@
           "settings": {
             "icon_type": "compass",
             "title": "Ready for Every Adventure",
-            "description": "Perfect for walks, hikes, training, travel, and active dogs."
+            "description": "Perfect for walks, hikes, training, travel, and active dogs.",
+            "image_alt": ""
           }
         }
       },
-      "block_order": ["card-1", "card-2", "card-3", "card-4", "card-5"],
+      "block_order": [
+        "card-1",
+        "card-2",
+        "card-3",
+        "card-4",
+        "card-5"
+      ],
       "settings": {
         "eyebrow": "WHY DOG PARENTS CHOOSE PAWVOYAGE",
         "heading": "Why You'll Love It",
@@ -109,6 +162,7 @@
         "eyebrow": "SIZE & FIT GUIDE",
         "heading": "Find the Right Fit",
         "subheading": "A properly fitted harness ensures comfort, control, and safety on every walk.",
+        "guide_image_alt": "Dog wearing PawVoyage harness with measurement labels A and C",
         "instr_1_title": "Measure Chest Girth",
         "instr_1_desc": "Wrap the tape around the widest part of your dog's chest, just behind the front legs.",
         "instr_2_title": "Measure Neck Base",
@@ -136,7 +190,9 @@
             "feature_title": "No-Pull Front Clip",
             "feature_desc": "Gently redirects pulling",
             "pawvoyage_status": "yes",
+            "pawvoyage_label": "Limited",
             "col2_status": "no",
+            "col2_label": "Sometimes",
             "col3_status": "partial",
             "col3_label": "Sometimes"
           }
@@ -148,7 +204,9 @@
             "feature_title": "Padded Chest Comfort",
             "feature_desc": "Soft padding prevents chafing",
             "pawvoyage_status": "yes",
+            "pawvoyage_label": "Limited",
             "col2_status": "no",
+            "col2_label": "Sometimes",
             "col3_status": "partial",
             "col3_label": "Minimal"
           }
@@ -160,6 +218,7 @@
             "feature_title": "Adjustable 4-Point Fit",
             "feature_desc": "Perfect fit for more dogs",
             "pawvoyage_status": "yes",
+            "pawvoyage_label": "Limited",
             "col2_status": "partial",
             "col2_label": "Limited",
             "col3_status": "partial",
@@ -173,8 +232,11 @@
             "feature_title": "Top Handle",
             "feature_desc": "Extra control when needed",
             "pawvoyage_status": "yes",
+            "pawvoyage_label": "Limited",
             "col2_status": "no",
-            "col3_status": "no"
+            "col2_label": "Sometimes",
+            "col3_status": "no",
+            "col3_label": "Minimal"
           }
         },
         "row-5": {
@@ -184,9 +246,11 @@
             "feature_title": "Durable Tactical Build",
             "feature_desc": "Built for everyday adventure",
             "pawvoyage_status": "yes",
+            "pawvoyage_label": "Limited",
             "col2_status": "partial",
             "col2_label": "Average",
-            "col3_status": "no"
+            "col3_status": "no",
+            "col3_label": "Minimal"
           }
         },
         "row-6": {
@@ -196,20 +260,32 @@
             "feature_title": "Reflective for Night Safety",
             "feature_desc": "Better visibility in low light",
             "pawvoyage_status": "yes",
+            "pawvoyage_label": "Limited",
             "col2_status": "partial",
             "col2_label": "Some",
-            "col3_status": "no"
+            "col3_status": "no",
+            "col3_label": "Minimal"
           }
         }
       },
-      "block_order": ["row-1", "row-2", "row-3", "row-4", "row-5", "row-6"],
+      "block_order": [
+        "row-1",
+        "row-2",
+        "row-3",
+        "row-4",
+        "row-5",
+        "row-6"
+      ],
       "settings": {
         "eyebrow": "PAWVOYAGE VS. OTHERS",
         "heading": "PawVoyage vs. The Rest",
         "subheading": "See the difference. Feel the control.",
         "col1_name": "PawVoyage No-Pull Harness",
+        "pawvoyage_image_alt": "PawVoyage No-Pull Tactical Harness",
         "col2_name": "Traditional Harness",
-        "col3_name": "Basic No-Pull Harness"
+        "col2_image_alt": "Traditional dog harness",
+        "col3_name": "Basic No-Pull Harness",
+        "col3_image_alt": "Basic no-pull dog harness"
       }
     },
     "faq-support": {
@@ -258,12 +334,20 @@
           }
         }
       },
-      "block_order": ["faq-1", "faq-2", "faq-3", "faq-4", "faq-5", "faq-6"],
+      "block_order": [
+        "faq-1",
+        "faq-2",
+        "faq-3",
+        "faq-4",
+        "faq-5",
+        "faq-6"
+      ],
       "settings": {
         "eyebrow": "QUESTIONS? WE'RE HERE TO HELP",
         "heading": "Frequently Asked Questions",
         "help_text": "Can't find what you're looking for? Visit our",
         "help_link_text": "Help Center",
+        "help_link": "",
         "support_title": "Need Help?\nWe're here for you.",
         "support_1_title": "Real People",
         "support_1_desc": "Friendly support",
@@ -274,6 +358,7 @@
         "support_4_title": "30-Day Returns",
         "support_4_desc": "No hassle",
         "cta_text": "Contact Support",
+        "cta_link": "",
         "support_email": "help@pawvoyage.com"
       }
     },
