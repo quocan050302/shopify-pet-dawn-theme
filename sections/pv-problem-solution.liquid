@@ -1,0 +1,1539 @@
+{% comment %}
+  PawVoyage – Problem Solution Comparison Section
+  Section name: pv-problem-solution
+  Purpose: High-converting problem/solution comparison section
+{% endcomment %}
+
+{%- liquid
+  assign badge_text     = section.settings.badge_text
+  assign headline_1     = section.settings.headline_1
+  assign headline_2     = section.settings.headline_2
+  assign subtitle       = section.settings.subtitle
+  assign cta_heading    = section.settings.cta_heading
+  assign cta_text_body  = section.settings.cta_text_body
+  assign cta_label      = section.settings.cta_label
+  assign cta_link       = section.settings.cta_link
+-%}
+
+<section
+  class="pv-problem-solution"
+  aria-labelledby="pv-ps-main-heading"
+  data-section-id="{{ section.id }}"
+>
+  <div class="pv-problem-solution__inner">
+
+    {%- comment -%} ── HEADER ── {%- endcomment -%}
+    <header class="pv-ps-header">
+      <div class="pv-ps-badge" aria-hidden="false">
+        <svg class="pv-ps-badge-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false">
+          <path d="M12 2L3 6v6c0 5.25 3.75 10.15 9 11.35C17.25 22.15 21 17.25 21 12V6L12 2z" fill="currentColor" opacity=".18"/>
+          <path d="M12 2L3 6v6c0 5.25 3.75 10.15 9 11.35C17.25 22.15 21 17.25 21 12V6L12 2z" stroke="currentColor" stroke-width="1.5" fill="none"/>
+          <path d="M9 12l2 2 4-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        {{ badge_text | escape }}
+      </div>
+
+      <h2 class="pv-ps-title" id="pv-ps-main-heading">
+        <span class="pv-ps-title-line1">{{ headline_1 | escape }}</span>
+        <span class="pv-ps-title-highlight">{{ headline_2 | escape }}</span>
+      </h2>
+
+      <p class="pv-ps-subtitle">{{ subtitle | escape }}</p>
+    </header>
+
+    {%- comment -%} ── MAIN 3-COLUMN LAYOUT ── {%- endcomment -%}
+    <div class="pv-ps-layout">
+
+      {%- comment -%} LEFT PROOF CARD {%- endcomment -%}
+      <div class="pv-ps-proof-card">
+        {%- if section.settings.left_proof_image != blank -%}
+          {{
+            section.settings.left_proof_image
+            | image_url: width: 600
+            | image_tag:
+              loading: 'lazy',
+              class: 'pv-ps-proof-img',
+              alt: section.settings.left_proof_image.alt | default: 'Dog wearing PawVoyage harness'
+          }}
+        {%- else -%}
+          <div class="pv-ps-placeholder pv-ps-placeholder--proof" aria-label="Upload a proof image">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <rect x="3" y="3" width="18" height="18" rx="3" stroke="#C4B89A" stroke-width="1.5"/>
+              <circle cx="8.5" cy="8.5" r="1.5" fill="#C4B89A"/>
+              <path d="M3 16l5-5 4 4 3-3 6 5" stroke="#C4B89A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span>Upload image</span>
+          </div>
+        {%- endif -%}
+
+        <div class="pv-ps-trust-badge" aria-label="Trusted by 10,000+ Dog Owners Worldwide">
+          <div class="pv-ps-trust-shield">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false">
+              <path d="M12 2L3 6v6c0 5.25 3.75 10.15 9 11.35C17.25 22.15 21 17.25 21 12V6L12 2z" fill="rgba(255,247,234,0.15)" stroke="#D99A2B" stroke-width="1.5"/>
+              <path d="M9 12l2 2 4-4" stroke="#D99A2B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div class="pv-ps-trust-stars" aria-label="5 stars">
+            {%- for i in (1..5) -%}
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="#D99A2B" aria-hidden="true">
+                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+              </svg>
+            {%- endfor -%}
+          </div>
+          <p class="pv-ps-trust-label">Trusted by</p>
+          <p class="pv-ps-trust-count">10,000+</p>
+          <p class="pv-ps-trust-desc">Dog Owners Worldwide</p>
+        </div>
+      </div>
+
+      {%- comment -%} CENTER COMPARISON TABLE {%- endcomment -%}
+      <div class="pv-ps-table" role="region" aria-label="Problem and solution comparison">
+
+        {%- comment -%} TABLE COLUMN HEADERS {%- endcomment -%}
+        <div class="pv-ps-table-headers pv-ps-desktop-table-header">
+          <div class="pv-ps-table-header pv-ps-table-header--problem">
+            <span class="pv-ps-header-icon" aria-hidden="true">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                <circle cx="12" cy="12" r="10" fill="rgba(255,255,255,0.2)" stroke="white" stroke-width="1.5"/>
+                <path d="M15 9l-6 6M9 9l6 6" stroke="white" stroke-width="1.8" stroke-linecap="round"/>
+              </svg>
+            </span>
+            THE PROBLEM
+          </div>
+          <div class="pv-ps-table-header pv-ps-table-header--solution">
+            <span class="pv-ps-header-icon" aria-hidden="true">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                <circle cx="12" cy="12" r="10" fill="rgba(255,255,255,0.2)" stroke="white" stroke-width="1.5"/>
+                <path d="M8 12l3 3 5-5" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+            THE PAWVOYAGE SOLUTION
+          </div>
+        </div>
+
+        {%- comment -%} COMPARISON ROWS via blocks {%- endcomment -%}
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'comparison_row' -%}
+            {%- assign row_index = forloop.index -%}
+            <div class="pv-ps-row" {{ block.shopify_attributes }}>
+
+              {%- comment -%} PROBLEM CELL {%- endcomment -%}
+              <div class="pv-ps-cell pv-ps-cell--problem">
+                <div class="pv-ps-image-wrap">
+                  {%- if block.settings.problem_image != blank -%}
+                    {{
+                      block.settings.problem_image
+                      | image_url: width: 240
+                      | image_tag:
+                        loading: 'lazy',
+                        class: 'pv-ps-image',
+                        alt: block.settings.problem_image.alt | default: block.settings.problem_title
+                    }}
+                  {%- else -%}
+                    <div class="pv-ps-img-placeholder" aria-hidden="true">
+                      <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
+                        <rect x="3" y="3" width="18" height="18" rx="2" stroke="#C4B89A" stroke-width="1.2"/>
+                        <circle cx="8.5" cy="8.5" r="1.5" fill="#C4B89A"/>
+                        <path d="M3 16l5-5 4 4 3-3 6 5" stroke="#C4B89A" stroke-width="1.2" stroke-linecap="round"/>
+                      </svg>
+                    </div>
+                  {%- endif -%}
+                  <span class="pv-ps-status-icon pv-ps-status-icon--bad" aria-hidden="true">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+                      <circle cx="12" cy="12" r="10" fill="#B83A2E"/>
+                      <path d="M15 9l-6 6M9 9l6 6" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                  </span>
+                </div>
+                <div class="pv-ps-cell-text">
+                  <h3 class="pv-ps-cell-title">{{ block.settings.problem_title | escape }}</h3>
+                  <p class="pv-ps-cell-desc">{{ block.settings.problem_text | escape }}</p>
+                </div>
+              </div>
+
+              {%- comment -%} ARROW (desktop) {%- endcomment -%}
+              <div class="pv-ps-arrow" aria-hidden="true">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                  <path d="M5 12h14M13 6l6 6-6 6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+
+              {%- comment -%} SOLUTION CELL {%- endcomment -%}
+              <div class="pv-ps-cell pv-ps-cell--solution">
+                <div class="pv-ps-image-wrap">
+                  {%- if block.settings.solution_image != blank -%}
+                    {{
+                      block.settings.solution_image
+                      | image_url: width: 240
+                      | image_tag:
+                        loading: 'lazy',
+                        class: 'pv-ps-image',
+                        alt: block.settings.solution_image.alt | default: block.settings.solution_title
+                    }}
+                  {%- else -%}
+                    <div class="pv-ps-img-placeholder" aria-hidden="true">
+                      <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
+                        <rect x="3" y="3" width="18" height="18" rx="2" stroke="#C4B89A" stroke-width="1.2"/>
+                        <circle cx="8.5" cy="8.5" r="1.5" fill="#C4B89A"/>
+                        <path d="M3 16l5-5 4 4 3-3 6 5" stroke="#C4B89A" stroke-width="1.2" stroke-linecap="round"/>
+                      </svg>
+                    </div>
+                  {%- endif -%}
+                  <span class="pv-ps-status-icon pv-ps-status-icon--good" aria-hidden="true">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+                      <circle cx="12" cy="12" r="10" fill="#12350E"/>
+                      <path d="M8 12l3 3 5-5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  </span>
+                </div>
+                <div class="pv-ps-cell-text">
+                  <h3 class="pv-ps-cell-title pv-ps-cell-title--solution">{{ block.settings.solution_title | escape }}</h3>
+                  <p class="pv-ps-cell-desc">{{ block.settings.solution_text | escape }}</p>
+                </div>
+              </div>
+
+            </div>{%- comment -%}/.pv-ps-row{%- endcomment -%}
+          {%- endif -%}
+        {%- endfor -%}
+
+      </div>{%- comment -%}/.pv-ps-table{%- endcomment -%}
+
+
+
+
+      {%- comment -%} RIGHT CTA CARD {%- endcomment -%}
+      <div class="pv-ps-cta-card">
+        <div class="pv-ps-cta-inner">
+          <div class="pv-ps-cta-paw" aria-hidden="true">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none">
+              <ellipse cx="12" cy="17" rx="4" ry="3" fill="currentColor" opacity=".25"/>
+              <ellipse cx="12" cy="17" rx="4" ry="3" fill="currentColor"/>
+              <circle cx="7.5" cy="11" r="2" fill="currentColor"/>
+              <circle cx="16.5" cy="11" r="2" fill="currentColor"/>
+              <circle cx="10" cy="8" r="1.5" fill="currentColor"/>
+              <circle cx="14" cy="8" r="1.5" fill="currentColor"/>
+            </svg>
+          </div>
+
+          <h3 class="pv-ps-cta-heading">{{ cta_heading | escape }}</h3>
+          <p class="pv-ps-cta-body">{{ cta_text_body | escape }}</p>
+
+          <a
+            href="{{ cta_link }}"
+            class="pv-ps-cta-btn"
+            id="pv-ps-cta-button"
+            aria-label="{{ cta_label | escape }}"
+          >
+            {{ cta_label | escape }}
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
+
+          <div class="pv-ps-cta-guarantee">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M12 2L3 6v6c0 5.25 3.75 10.15 9 11.35C17.25 22.15 21 17.25 21 12V6L12 2z" fill="none" stroke="currentColor" stroke-width="1.5"/>
+              <path d="M9 12l2 2 4-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            30-Day Risk-Free Trial
+          </div>
+        </div>
+
+        <div class="pv-ps-cta-image-wrap">
+          {%- if section.settings.right_cta_image != blank -%}
+            {{
+              section.settings.right_cta_image
+              | image_url: width: 500
+              | image_tag:
+                loading: 'lazy',
+                class: 'pv-ps-cta-image',
+                alt: section.settings.right_cta_image.alt | default: 'Dog wearing PawVoyage harness outdoors'
+            }}
+          {%- else -%}
+            <div class="pv-ps-placeholder pv-ps-placeholder--cta" aria-label="Upload a CTA image">
+              <svg width="36" height="36" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <rect x="3" y="3" width="18" height="18" rx="3" stroke="#C4B89A" stroke-width="1.5"/>
+                <circle cx="8.5" cy="8.5" r="1.5" fill="#C4B89A"/>
+                <path d="M3 16l5-5 4 4 3-3 6 5" stroke="#C4B89A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              <span>Upload image</span>
+            </div>
+          {%- endif -%}
+        </div>
+      </div>{%- comment -%}/.pv-ps-cta-card{%- endcomment -%}
+
+    </div>{%- comment -%}/.pv-ps-layout{%- endcomment -%}
+
+    {%- comment -%} TRUST BAR {%- endcomment -%}
+    <div class="pv-ps-trustbar" role="list" aria-label="Trust indicators">
+
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'trust_item' -%}
+          <div class="pv-ps-trustbar-item" role="listitem" {{ block.shopify_attributes }}>
+            <span class="pv-ps-trustbar-icon" aria-hidden="true">
+              {%- case block.settings.icon -%}
+                {%- when 'shield' -%}
+                  <svg width="32" height="32" viewBox="0 0 24 24" fill="none">
+                    <path d="M12 2L3 6v6c0 5.25 3.75 10.15 9 11.35C17.25 22.15 21 17.25 21 12V6L12 2z" fill="rgba(18,53,14,.08)" stroke="#12350E" stroke-width="1.5"/>
+                    <path d="M9 12l2 2 4-4" stroke="#12350E" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                {%- when 'heart' -%}
+                  <svg width="32" height="32" viewBox="0 0 24 24" fill="none">
+                    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z" fill="rgba(18,53,14,.08)" stroke="#12350E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                {%- when 'return' -%}
+                  <svg width="32" height="32" viewBox="0 0 24 24" fill="none">
+                    <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" stroke="#12350E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M3 3v5h5" stroke="#12350E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                {%- when 'truck' -%}
+                  <svg width="32" height="32" viewBox="0 0 24 24" fill="none">
+                    <rect x="1" y="3" width="15" height="13" rx="1" stroke="#12350E" stroke-width="1.5"/>
+                    <path d="M16 8h4l3 3v5h-7V8z" stroke="#12350E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <circle cx="5.5" cy="18.5" r="2.5" stroke="#12350E" stroke-width="1.5"/>
+                    <circle cx="18.5" cy="18.5" r="2.5" stroke="#12350E" stroke-width="1.5"/>
+                  </svg>
+                {%- else -%}
+                  <svg width="32" height="32" viewBox="0 0 24 24" fill="none">
+                    <circle cx="12" cy="12" r="9" fill="rgba(18,53,14,.08)" stroke="#12350E" stroke-width="1.5"/>
+                    <path d="M8 12l3 3 5-5" stroke="#12350E" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+              {%- endcase -%}
+            </span>
+            <div class="pv-ps-trustbar-text">
+              <strong class="pv-ps-trustbar-title">{{ block.settings.title | escape }}</strong>
+              <span class="pv-ps-trustbar-desc">{{ block.settings.text | escape }}</span>
+            </div>
+          </div>
+        {%- endif -%}
+      {%- endfor -%}
+
+    </div>{%- comment -%}/.pv-ps-trustbar{%- endcomment -%}
+
+    {%- comment -%} ── MOBILE CARDS (hidden on desktop, shown on mobile) ── {%- endcomment -%}
+    <div class="pv-ps-mobile-stack" aria-label="Problem and solution pairs">
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'comparison_row' -%}
+          <div class="pv-ps-mobile-card" {{ block.shopify_attributes }}>
+
+            {%- comment -%} PROBLEM BLOCK {%- endcomment -%}
+            <div class="pv-ps-mobile-pair">
+              <div class="pv-ps-mobile-label pv-ps-mobile-label--problem">
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <circle cx="12" cy="12" r="10" fill="#B83A2E"/>
+                  <path d="M15 9l-6 6M9 9l6 6" stroke="white" stroke-width="2.2" stroke-linecap="round"/>
+                </svg>
+                Problem
+              </div>
+              <div class="pv-ps-mobile-content">
+                <div class="pv-ps-mobile-image-wrap">
+                  {%- if block.settings.problem_image != blank -%}
+                    {{
+                      block.settings.problem_image
+                      | image_url: width: 200
+                      | image_tag:
+                        loading: 'lazy',
+                        class: 'pv-ps-mobile-image',
+                        alt: block.settings.problem_image.alt | default: block.settings.problem_title
+                    }}
+                  {%- else -%}
+                    <div class="pv-ps-img-placeholder pv-ps-img-placeholder--mobile" aria-hidden="true">
+                      <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+                        <rect x="3" y="3" width="18" height="18" rx="2" stroke="#C4B89A" stroke-width="1.2"/>
+                        <circle cx="8.5" cy="8.5" r="1.5" fill="#C4B89A"/>
+                        <path d="M3 16l5-5 4 4 3-3 6 5" stroke="#C4B89A" stroke-width="1.2" stroke-linecap="round"/>
+                      </svg>
+                    </div>
+                  {%- endif -%}
+                </div>
+                <div class="pv-ps-mobile-text">
+                  <strong class="pv-ps-mobile-title">{{ block.settings.problem_title | escape }}</strong>
+                  <p class="pv-ps-mobile-desc">{{ block.settings.problem_text | escape }}</p>
+                </div>
+              </div>
+            </div>
+
+            {%- comment -%} DOWN ARROW {%- endcomment -%}
+            <div class="pv-ps-mobile-divider" aria-hidden="true">
+              <div class="pv-ps-mobile-arrow">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+                  <path d="M12 5v14M6 13l6 6 6-6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+            </div>
+
+            {%- comment -%} SOLUTION BLOCK {%- endcomment -%}
+            <div class="pv-ps-mobile-pair">
+              <div class="pv-ps-mobile-label pv-ps-mobile-label--solution">
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <circle cx="12" cy="12" r="10" fill="#12350E"/>
+                  <path d="M8 12l3 3 5-5" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                PawVoyage Solution
+              </div>
+              <div class="pv-ps-mobile-content">
+                <div class="pv-ps-mobile-image-wrap">
+                  {%- if block.settings.solution_image != blank -%}
+                    {{
+                      block.settings.solution_image
+                      | image_url: width: 200
+                      | image_tag:
+                        loading: 'lazy',
+                        class: 'pv-ps-mobile-image',
+                        alt: block.settings.solution_image.alt | default: block.settings.solution_title
+                    }}
+                  {%- else -%}
+                    <div class="pv-ps-img-placeholder pv-ps-img-placeholder--mobile" aria-hidden="true">
+                      <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+                        <rect x="3" y="3" width="18" height="18" rx="2" stroke="#C4B89A" stroke-width="1.2"/>
+                        <circle cx="8.5" cy="8.5" r="1.5" fill="#C4B89A"/>
+                        <path d="M3 16l5-5 4 4 3-3 6 5" stroke="#C4B89A" stroke-width="1.2" stroke-linecap="round"/>
+                      </svg>
+                    </div>
+                  {%- endif -%}
+                </div>
+                <div class="pv-ps-mobile-text">
+                  <strong class="pv-ps-mobile-title pv-ps-mobile-title--solution">{{ block.settings.solution_title | escape }}</strong>
+                  <p class="pv-ps-mobile-desc">{{ block.settings.solution_text | escape }}</p>
+                </div>
+              </div>
+            </div>
+
+          </div>{%- comment -%}/.pv-ps-mobile-card{%- endcomment -%}
+        {%- endif -%}
+      {%- endfor -%}
+    </div>{%- comment -%}/.pv-ps-mobile-stack{%- endcomment -%}
+
+    {%- comment -%} STANDALONE CTA — xuất hiện sau bảng (desktop) và sau mobile cards (mobile) {%- endcomment -%}
+    <div class="pv-ps-standalone-cta">
+      <a
+        href="{{ cta_link }}"
+        class="pv-ps-cta-btn pv-ps-standalone-btn"
+        id="pv-ps-standalone-cta-button"
+        aria-label="{{ cta_label | escape }}"
+      >
+        {{ cta_label | escape }}
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+      <div class="pv-ps-cta-guarantee">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M12 2L3 6v6c0 5.25 3.75 10.15 9 11.35C17.25 22.15 21 17.25 21 12V6L12 2z" fill="none" stroke="currentColor" stroke-width="1.5"/>
+          <path d="M9 12l2 2 4-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        30-Day Risk-Free Trial
+      </div>
+    </div>{%- comment -%}/.pv-ps-standalone-cta{%- endcomment -%}
+
+
+  </div>{%- comment -%}/.pv-problem-solution__inner{%- endcomment -%}
+</section>
+
+<style>
+/* ============================================================
+   PawVoyage — Problem Solution Comparison Section
+   Scoped to .pv-problem-solution
+   ============================================================ */
+
+/* ── TOKENS ── */
+.pv-problem-solution {
+  --pv-bg:           #FFF7EA;
+  --pv-card-bg:      #FFFFFF;
+  --pv-card-bg-alt:  #FAF3E7;
+  --pv-green:        #12350E;
+  --pv-green-dark:   #071F06;
+  --pv-gold:         #D99A2B;
+  --pv-red:          #B83A2E;
+  --pv-red-soft:     #C9483A;
+  --pv-text:         #1F241D;
+  --pv-muted:        #6F7568;
+  --pv-border:       rgba(31,36,29,0.12);
+  --pv-shadow:       0 18px 48px rgba(7,31,6,0.08);
+  --pv-radius:       20px;
+  --pv-radius-sm:    14px;
+}
+
+/* ── ROOT ── */
+.pv-problem-solution {
+  background: var(--pv-bg);
+  padding: 72px 48px 64px;
+  box-sizing: border-box;
+  position: relative;
+  font-family: var(--font-body-family), -apple-system, BlinkMacSystemFont, 'Inter', sans-serif;
+}
+
+.pv-problem-solution__inner {
+  max-width: 1500px;
+  margin: 0 auto;
+}
+
+/* ── HEADER ── */
+.pv-ps-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.pv-ps-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--pv-card-bg-alt);
+  border: 1px solid rgba(31,36,29,0.10);
+  border-radius: 999px;
+  padding: 7px 16px;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--pv-green);
+  margin-bottom: 22px;
+}
+
+.pv-ps-badge-icon {
+  color: var(--pv-green);
+  flex-shrink: 0;
+}
+
+.pv-ps-title {
+  font-size: clamp(42px, 4.5vw, 68px);
+  line-height: 1.0;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  margin: 0 auto 18px;
+  max-width: 900px;
+  font-family: inherit;
+}
+
+.pv-ps-title-line1 {
+  display: block;
+  color: var(--pv-green-dark);
+}
+
+.pv-ps-title-highlight {
+  display: block;
+  color: var(--pv-gold);
+  font-style: italic;
+}
+
+.pv-ps-subtitle {
+  color: #4F584B;
+  font-size: clamp(15px, 1.2vw, 19px);
+  line-height: 1.5;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+/* ── MAIN LAYOUT ── */
+.pv-ps-layout {
+  display: block;
+}
+
+/* Ẩn cột 1 (proof card) và cột 3 (CTA card) trên tất cả thiết bị */
+.pv-ps-proof-card,
+.pv-ps-cta-card {
+  display: none !important;
+}
+
+/* ── SHARED CARD BASE ── */
+.pv-ps-proof-card,
+.pv-ps-table,
+.pv-ps-cta-card {
+  border-radius: var(--pv-radius);
+  border: 1px solid var(--pv-border);
+  box-shadow: var(--pv-shadow);
+  overflow: hidden;
+}
+
+/* ── LEFT PROOF CARD ── */
+.pv-ps-proof-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background: var(--pv-card-bg-alt);
+  min-height: 520px;
+}
+
+.pv-ps-proof-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  position: absolute;
+  top: 0; left: 0;
+}
+
+.pv-ps-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  flex: 1;
+  background: var(--pv-card-bg-alt);
+  color: #C4B89A;
+  font-size: 12px;
+  min-height: 520px;
+}
+
+.pv-ps-placeholder--proof {
+  position: absolute;
+  height: 100%;
+}
+
+/* ── TRUST BADGE ── */
+.pv-ps-trust-badge {
+  position: absolute;
+  bottom: 28px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 78%;
+  background: var(--pv-green);
+  border-radius: 18px;
+  padding: 20px 16px;
+  text-align: center;
+  z-index: 2;
+  box-shadow: 0 8px 32px rgba(7,31,6,0.35);
+}
+
+.pv-ps-trust-shield {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(217,154,43,0.15);
+  border: 1px solid rgba(217,154,43,0.3);
+  margin: 0 auto 10px;
+}
+
+.pv-ps-trust-stars {
+  display: flex;
+  justify-content: center;
+  gap: 2px;
+  margin-bottom: 8px;
+}
+
+.pv-ps-trust-label {
+  color: rgba(255,247,234,0.7);
+  font-size: 12px;
+  margin: 0 0 2px;
+  font-weight: 500;
+}
+
+.pv-ps-trust-count {
+  color: #FFF7EA;
+  font-size: 30px;
+  font-weight: 900;
+  line-height: 1;
+  margin: 0 0 4px;
+  font-family: inherit;
+}
+
+.pv-ps-trust-desc {
+  color: rgba(255,247,234,0.75);
+  font-size: 12px;
+  margin: 0;
+  font-weight: 500;
+}
+
+/* ── CENTER TABLE ── */
+.pv-ps-table {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  background: var(--pv-card-bg);
+  position: relative;
+  max-width: 960px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+/* Headers span full 2-column width, themselves a 2-col grid */
+.pv-ps-table-headers {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-column: 1 / -1;
+}
+
+.pv-ps-table-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 52px;
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #fff;
+}
+
+.pv-ps-table-header--problem {
+  background: linear-gradient(135deg, #C9483A 0%, #B83A2E 100%);
+}
+
+.pv-ps-table-header--solution {
+  background: linear-gradient(135deg, #1a4515 0%, var(--pv-green) 100%);
+}
+
+.pv-ps-header-icon {
+  display: flex;
+  align-items: center;
+}
+
+/* ── ROWS ── */
+.pv-ps-row {
+  display: contents;
+}
+
+/* Divider line between rows */
+.pv-ps-cell {
+  position: relative;
+  display: grid;
+  grid-template-columns: 112px 1fr;
+  gap: 16px;
+  align-items: center;
+  padding: 18px 18px 18px 18px;
+  border-bottom: 1px solid rgba(31,36,29,0.09);
+  background: var(--pv-card-bg);
+  transition: background 0.2s;
+}
+
+.pv-ps-cell:last-child {
+  
+}
+
+.pv-ps-cell--problem {
+  border-right: 1px solid rgba(31,36,29,0.09);
+}
+
+.pv-ps-cell:hover {
+  background: #FAFAF8;
+}
+
+/* ── IMAGE WRAP ── */
+.pv-ps-image-wrap {
+  position: relative;
+  width: 112px;
+  height: 112px;
+  border-radius: var(--pv-radius-sm);
+  overflow: hidden;
+  background: var(--pv-card-bg-alt);
+  flex-shrink: 0;
+}
+
+.pv-ps-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.pv-ps-img-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--pv-card-bg-alt);
+}
+
+/* ── STATUS ICONS ── */
+.pv-ps-status-icon {
+  position: absolute;
+  top: 6px;
+  left: 6px;
+  width: 22px;
+  height: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  z-index: 2;
+  background: #fff;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+}
+
+/* ── CELL TEXT ── */
+.pv-ps-cell-text {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.pv-ps-cell-title {
+  font-family: inherit;
+  font-size: clamp(17px, 1.5vw, 19px);
+  font-weight: 700;
+  color: var(--pv-text);
+  line-height: 1.2;
+  margin: 0;
+}
+
+.pv-ps-cell-title--solution {
+  color: var(--pv-green);
+}
+
+.pv-ps-cell-desc {
+  font-size: clamp(13px, 1vw, 15px);
+  line-height: 1.45;
+  color: var(--pv-muted);
+  margin: 0;
+}
+
+/* ── CENTER DIVIDER ARROWS ── */
+.pv-ps-arrow {
+  display: none; /* hidden by default, shown via JS-free positioning trick */
+}
+
+/* Show arrows via pseudo-absolute on table — positioned at cell borders */
+.pv-ps-cell--problem::after {
+  content: '';
+  position: absolute;
+  right: -19px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: var(--pv-green);
+  z-index: 4;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none'%3E%3Cpath d='M5 12h14M13 6l6 6-6 6' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: center;
+  box-shadow: 0 3px 12px rgba(7,31,6,0.3);
+}
+
+/* ── STANDALONE CTA (below table) ── */
+.pv-ps-standalone-cta {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  margin-top: 24px;
+}
+
+.pv-ps-standalone-btn {
+  max-width: 380px;
+  width: 100%;
+}
+
+/* ── RIGHT CTA CARD (hidden) ── */
+.pv-ps-cta-card {
+  display: none;
+  flex-direction: column;
+  background: var(--pv-card-bg);
+}
+
+.pv-ps-cta-inner {
+  padding: 28px 24px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  flex: 0 0 auto;
+}
+
+.pv-ps-cta-paw {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: var(--pv-card-bg-alt);
+  border: 1px solid var(--pv-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--pv-green);
+}
+
+.pv-ps-cta-heading {
+  font-family: inherit;
+  font-size: clamp(24px, 2vw, 32px);
+  font-weight: 800;
+  color: var(--pv-green-dark);
+  line-height: 1.1;
+  margin: 0;
+}
+
+.pv-ps-cta-body {
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--pv-muted);
+  margin: 0;
+}
+
+.pv-ps-cta-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  height: 52px;
+  background: var(--pv-green);
+  color: var(--pv-bg);
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  border-radius: 10px;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+  box-shadow: 0 4px 18px rgba(18,53,14,0.28);
+}
+
+.pv-ps-cta-btn:hover,
+.pv-ps-cta-btn:focus-visible {
+  background: var(--pv-green-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(18,53,14,0.36);
+  outline: 2px solid var(--pv-gold);
+  outline-offset: 3px;
+}
+
+.pv-ps-cta-guarantee {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--pv-muted);
+}
+
+.pv-ps-cta-guarantee svg {
+  color: var(--pv-green);
+  flex-shrink: 0;
+}
+
+.pv-ps-cta-image-wrap {
+  flex: 1;
+  min-height: 200px;
+  overflow: hidden;
+  position: relative;
+}
+
+.pv-ps-cta-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
+}
+
+.pv-ps-placeholder--cta {
+  width: 100%;
+  height: 100%;
+  min-height: 200px;
+  background: var(--pv-card-bg-alt);
+  color: #C4B89A;
+  font-size: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+/* ── TRUST BAR ── */
+.pv-ps-trustbar {
+  display: none !important;
+  margin-top: 22px;
+  grid-template-columns: repeat(4, 1fr);
+  background: var(--pv-card-bg);
+  border: 1px solid var(--pv-border);
+  border-radius: 18px;
+  box-shadow: 0 4px 18px rgba(7,31,6,0.05);
+  padding: 0;
+  overflow: hidden;
+}
+
+.pv-ps-trustbar-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 20px 24px;
+  border-right: 1px solid var(--pv-border);
+  transition: background 0.2s;
+}
+
+.pv-ps-trustbar-item:last-child {
+  border-right: 0;
+}
+
+.pv-ps-trustbar-item:hover {
+  background: var(--pv-card-bg-alt);
+}
+
+.pv-ps-trustbar-icon {
+  flex-shrink: 0;
+  color: var(--pv-green);
+  display: flex;
+}
+
+.pv-ps-trustbar-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.pv-ps-trustbar-title {
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--pv-green);
+  line-height: 1.2;
+}
+
+.pv-ps-trustbar-desc {
+  font-size: 13px;
+  color: var(--pv-muted);
+  line-height: 1.3;
+}
+
+/* ── MOBILE CARDS (hidden on desktop) ── */
+.pv-ps-mobile-stack {
+  display: none;
+}
+
+/* ── SCROLL-DRIVEN / FADE-IN ANIMATIONS ── */
+@media (prefers-reduced-motion: no-preference) {
+  .pv-ps-proof-card,
+  .pv-ps-table,
+  .pv-ps-cta-card,
+  .pv-ps-trustbar {
+    animation: pvFadeUp 0.6s ease both;
+  }
+
+  .pv-ps-table {
+    animation-delay: 0.1s;
+  }
+
+  .pv-ps-cta-card {
+    animation-delay: 0.2s;
+  }
+
+  .pv-ps-trustbar {
+    animation-delay: 0.3s;
+  }
+
+  @keyframes pvFadeUp {
+    from {
+      opacity: 0;
+      transform: translateY(24px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .pv-ps-cell--problem::after {
+    animation: pvPulse 2.4s ease-in-out infinite;
+  }
+
+  @keyframes pvPulse {
+    0%, 100% { box-shadow: 0 3px 12px rgba(7,31,6,0.3); }
+    50%       { box-shadow: 0 3px 20px rgba(7,31,6,0.5); }
+  }
+}
+
+/* ============================================================
+   TABLET (750px – 1099px)
+   ============================================================ */
+@media screen and (min-width: 750px) and (max-width: 1099px) {
+  .pv-problem-solution {
+    padding: 56px 28px 48px;
+  }
+
+  .pv-ps-layout {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
+  .pv-ps-proof-card {
+    display: none; /* Hide proof card on tablet to save space */
+  }
+
+  /* CTA card — horizontal on tablet */
+  .pv-ps-cta-card {
+    flex-direction: row;
+    min-height: 200px;
+  }
+
+  .pv-ps-cta-inner {
+    flex: 1;
+    padding: 24px;
+  }
+
+  .pv-ps-cta-image-wrap {
+    flex: 0 0 240px;
+    min-height: 0;
+  }
+
+  /* Table — adjust image size */
+  .pv-ps-image-wrap {
+    width: 96px;
+    height: 96px;
+  }
+
+  .pv-ps-cell {
+    grid-template-columns: 96px 1fr;
+  }
+
+  .pv-ps-trustbar {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .pv-ps-trustbar-item:nth-child(2) {
+    border-right: 0;
+  }
+
+  .pv-ps-trustbar-item:nth-child(1),
+  .pv-ps-trustbar-item:nth-child(2) {
+    border-bottom: 1px solid var(--pv-border);
+  }
+}
+
+/* ============================================================
+   MOBILE (≤ 749px)
+   ============================================================ */
+@media screen and (max-width: 749px) {
+
+  .pv-problem-solution {
+    padding: 44px 16px 40px;
+  }
+
+  /* Header */
+  .pv-ps-title {
+    font-size: clamp(34px, 10vw, 48px);
+    line-height: 1;
+  }
+
+  .pv-ps-subtitle {
+    font-size: 15px;
+  }
+
+  .pv-ps-header {
+    margin-bottom: 28px;
+  }
+
+  /* Hide desktop layout columns, show mobile stack */
+  .pv-ps-layout {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  /* Hide the desktop table and proof card */
+  .pv-ps-table {
+    display: none;
+  }
+
+  .pv-ps-proof-card {
+    min-height: 280px;
+    aspect-ratio: 4/5;
+    order: 4;
+  }
+
+  /* Show mobile stack */
+  .pv-ps-mobile-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    order: 3;
+  }
+
+  /* CTA card above comparison on mobile */
+  .pv-ps-cta-card {
+    order: 1;
+  }
+
+  .pv-ps-cta-inner {
+    padding: 22px 18px 16px;
+    gap: 12px;
+  }
+
+  .pv-ps-cta-image-wrap {
+    min-height: 180px;
+  }
+
+  /* MOBILE CARDS */
+  .pv-ps-mobile-card {
+    background: var(--pv-card-bg);
+    border: 1px solid var(--pv-border);
+    border-radius: 18px;
+    padding: 14px;
+    box-shadow: 0 8px 28px rgba(7,31,6,0.08);
+  }
+
+  .pv-ps-mobile-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 11px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    border-radius: 999px;
+    padding: 4px 10px;
+    margin-bottom: 10px;
+  }
+
+  .pv-ps-mobile-label--problem {
+    background: rgba(184,58,46,0.10);
+    color: var(--pv-red);
+  }
+
+  .pv-ps-mobile-label--solution {
+    background: rgba(18,53,14,0.10);
+    color: var(--pv-green);
+  }
+
+  .pv-ps-mobile-content {
+    display: grid;
+    grid-template-columns: 86px 1fr;
+    gap: 12px;
+    align-items: flex-start;
+  }
+
+  .pv-ps-mobile-image-wrap {
+    width: 86px;
+    height: 86px;
+    border-radius: 12px;
+    overflow: hidden;
+    background: var(--pv-card-bg-alt);
+    flex-shrink: 0;
+  }
+
+  .pv-ps-mobile-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .pv-ps-img-placeholder--mobile {
+    width: 86px;
+    height: 86px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--pv-card-bg-alt);
+  }
+
+  .pv-ps-mobile-text {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .pv-ps-mobile-title {
+    font-family: inherit;
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--pv-text);
+    line-height: 1.2;
+    display: block;
+  }
+
+  .pv-ps-mobile-title--solution {
+    color: var(--pv-green);
+  }
+
+  .pv-ps-mobile-desc {
+    font-size: 13px;
+    line-height: 1.45;
+    color: var(--pv-muted);
+    margin: 0;
+  }
+
+  .pv-ps-mobile-divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 0;
+    position: relative;
+  }
+
+  .pv-ps-mobile-divider::before {
+    content: '';
+    position: absolute;
+    left: 0; right: 0; top: 50%;
+    height: 1px;
+    background: var(--pv-border);
+  }
+
+  .pv-ps-mobile-arrow {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: var(--pv-green);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Trust bar: 2x2 on mobile */
+  .pv-ps-trustbar {
+    grid-template-columns: repeat(2, 1fr);
+    padding: 0;
+    margin-top: 16px;
+  }
+
+  .pv-ps-trustbar-item {
+    padding: 16px 14px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    border-right: 1px solid var(--pv-border);
+    border-bottom: 1px solid var(--pv-border);
+  }
+
+  .pv-ps-trustbar-item:nth-child(2),
+  .pv-ps-trustbar-item:nth-child(4) {
+    border-right: 0;
+  }
+
+  .pv-ps-trustbar-item:nth-child(3),
+  .pv-ps-trustbar-item:nth-child(4) {
+    border-bottom: 0;
+  }
+
+  .pv-ps-trustbar-title {
+    font-size: 13px;
+  }
+
+  .pv-ps-trustbar-desc {
+    font-size: 12px;
+  }
+}
+</style>
+
+{% schema %}
+{
+  "name": "Problem vs. Solution",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section Header"
+    },
+    {
+      "type": "text",
+      "id": "badge_text",
+      "label": "Badge text",
+      "default": "WHY DOG OWNERS CHOOSE PAWVOYAGE"
+    },
+    {
+      "type": "text",
+      "id": "headline_1",
+      "label": "Headline – line 1 (dark green)",
+      "default": "Built to Solve Real Problems"
+    },
+    {
+      "type": "text",
+      "id": "headline_2",
+      "label": "Headline – line 2 (gold, italic)",
+      "default": "So Every Walk is Better"
+    },
+    {
+      "type": "textarea",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "From pulling and discomfort to flimsy gear that just doesn't last, PawVoyage is designed to make every adventure safer, easier, and more enjoyable."
+    },
+    {
+      "type": "header",
+      "content": "Left Trust Image Card"
+    },
+    {
+      "type": "image_picker",
+      "id": "left_proof_image",
+      "label": "Left proof image"
+    },
+    {
+      "type": "header",
+      "content": "Right CTA Card"
+    },
+    {
+      "type": "text",
+      "id": "cta_heading",
+      "label": "CTA heading",
+      "default": "Ready for\nBetter Walks?"
+    },
+    {
+      "type": "textarea",
+      "id": "cta_text_body",
+      "label": "CTA body text",
+      "default": "Join thousands of dog owners who enjoy calmer, happier, and more adventurous walks every day."
+    },
+    {
+      "type": "text",
+      "id": "cta_label",
+      "label": "CTA button label",
+      "default": "Shop PawVoyage Harness"
+    },
+    {
+      "type": "url",
+      "id": "cta_link",
+      "label": "CTA button link"
+    },
+    {
+      "type": "image_picker",
+      "id": "right_cta_image",
+      "label": "Right CTA image"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "comparison_row",
+      "name": "Comparison Row",
+      "settings": [
+        {
+          "type": "text",
+          "id": "problem_title",
+          "label": "Problem title",
+          "default": "Dog Pulls Too Hard"
+        },
+        {
+          "type": "textarea",
+          "id": "problem_text",
+          "label": "Problem description",
+          "default": "Every walk turns into a tug-of-war. Your arm aches and control is lost."
+        },
+        {
+          "type": "image_picker",
+          "id": "problem_image",
+          "label": "Problem image"
+        },
+        {
+          "type": "text",
+          "id": "solution_title",
+          "label": "Solution title",
+          "default": "Better No-Pull Control"
+        },
+        {
+          "type": "textarea",
+          "id": "solution_text",
+          "label": "Solution description",
+          "default": "Front clip redirects pulling force so walks become relaxed again."
+        },
+        {
+          "type": "image_picker",
+          "id": "solution_image",
+          "label": "Solution image"
+        }
+      ]
+    },
+    {
+      "type": "trust_item",
+      "name": "Trust Bar Item",
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "options": [
+            { "value": "shield", "label": "Shield / Check" },
+            { "value": "heart",  "label": "Heart" },
+            { "value": "return", "label": "Return Arrow" },
+            { "value": "truck",  "label": "Truck / Shipping" }
+          ],
+          "default": "shield"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Vet Recommended"
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Description",
+          "default": "Trusted by professionals"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Problem vs. Solution",
+      "blocks": [
+        {
+          "type": "comparison_row",
+          "settings": {
+            "problem_title": "Dog Pulls Too Hard",
+            "problem_text": "Every walk turns into a tug-of-war. Your arm aches and control is lost.",
+            "solution_title": "Better No-Pull Control",
+            "solution_text": "Front clip redirects pulling force so walks become relaxed again."
+          }
+        },
+        {
+          "type": "comparison_row",
+          "settings": {
+            "problem_title": "Collars Hurt the Neck",
+            "problem_text": "Standard collars put pressure on your dog's trachea and neck.",
+            "solution_title": "Comfort-Focused Fit",
+            "solution_text": "Padded, breathable design distributes pressure across the chest — not the neck."
+          }
+        },
+        {
+          "type": "comparison_row",
+          "settings": {
+            "problem_title": "Cheap Harnesses Shift & Rub",
+            "problem_text": "Flimsy harnesses rotate, chafe, and fall apart after a few months.",
+            "solution_title": "Secure & Adjustable Fit",
+            "solution_text": "Multiple adjustment points keep the harness secure, stable, and comfortable."
+          }
+        },
+        {
+          "type": "comparison_row",
+          "settings": {
+            "problem_title": "Poor Quality Doesn't Last",
+            "problem_text": "Low-quality gear wears out fast and can't handle daily adventures.",
+            "solution_title": "Tactical Durability",
+            "solution_text": "Built with tough materials for long-lasting performance in any condition."
+          }
+        },
+        {
+          "type": "trust_item",
+          "settings": {
+            "icon": "shield",
+            "title": "Vet Recommended",
+            "text": "Trusted by professionals"
+          }
+        },
+        {
+          "type": "trust_item",
+          "settings": {
+            "icon": "heart",
+            "title": "Loved by 10,000+ Dogs",
+            "text": "4.9/5 average rating"
+          }
+        },
+        {
+          "type": "trust_item",
+          "settings": {
+            "icon": "return",
+            "title": "30-Day Risk-Free Trial",
+            "text": "Love it or get your money back"
+          }
+        },
+        {
+          "type": "trust_item",
+          "settings": {
+            "icon": "truck",
+            "title": "Fast & Free Shipping",
+            "text": "On all orders over $50"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -80,120 +80,100 @@
           }
         }
       },
-      "block_order": [
-        "badge_1",
-        "badge_2",
-        "badge_3",
-        "badge_4"
-      ],
+      "block_order": ["badge_1", "badge_2", "badge_3", "badge_4"],
       "settings": {}
     },
-    "pv_pain": {
-      "type": "pv-pain-points",
+    "pv_problem_solution": {
+      "type": "pv-problem-solution",
       "blocks": {
-        "pain_1": {
-          "type": "pain_point",
+        "comp_row_1": {
+          "type": "comparison_row",
           "settings": {
-            "image_alt": "",
-            "title": "Dog Pulls Too Hard",
-            "description": "Every walk turns into a tug-of-war. Your arm aches, your dog is out of control, and walks stop being enjoyable.",
-            "solution_label": "PAWVOYAGE FIXES THIS:",
-            "solution": "Dual clip points redirect pulling force so walks become relaxed again."
+            "problem_title": "Dog Pulls Too Hard",
+            "problem_text": "Every walk turns into a tug-of-war. Your arm aches and control is lost.",
+            "solution_title": "Better No-Pull Control",
+            "solution_text": "Front clip redirects pulling force so walks become relaxed again."
           }
         },
-        "pain_2": {
-          "type": "pain_point",
+        "comp_row_2": {
+          "type": "comparison_row",
           "settings": {
-            "image_alt": "",
-            "title": "Collars Hurt the Neck",
-            "description": "Standard collars put dangerous pressure on your dog's trachea during pulling, causing long-term damage.",
-            "solution_label": "PAWVOYAGE FIXES THIS:",
-            "solution": "No-pull design distributes pressure across the chest - never the neck."
+            "problem_title": "Collars Hurt the Neck",
+            "problem_text": "Standard collars put pressure on your dog's trachea and neck.",
+            "solution_title": "Comfort-Focused Fit",
+            "solution_text": "Padded, breathable design distributes pressure across the chest — not the neck."
           }
         },
-        "pain_3": {
-          "type": "pain_point",
+        "comp_row_3": {
+          "type": "comparison_row",
           "settings": {
-            "image_alt": "",
-            "title": "Cheap Harnesses Shift & Rub",
-            "description": "Flimsy harnesses rotate, chafe, and fall apart after a few months - wasted money and an uncomfortable dog.",
-            "solution_label": "PAWVOYAGE FIXES THIS:",
-            "solution": "Tactical-grade construction with padded mesh stays secure all day."
+            "problem_title": "Cheap Harnesses Shift & Rub",
+            "problem_text": "Flimsy harnesses rotate, chafe, and fall apart after a few months.",
+            "solution_title": "Secure & Adjustable Fit",
+            "solution_text": "Multiple adjustment points keep the harness secure, stable, and comfortable."
+          }
+        },
+        "comp_row_4": {
+          "type": "comparison_row",
+          "settings": {
+            "problem_title": "Poor Quality Doesn't Last",
+            "problem_text": "Low-quality gear wears out fast and can't handle daily adventures.",
+            "solution_title": "Tactical Durability",
+            "solution_text": "Built with tough materials for long-lasting performance in any condition."
+          }
+        },
+        "trust_1": {
+          "type": "trust_item",
+          "settings": {
+            "icon": "shield",
+            "title": "Vet Recommended",
+            "text": "Trusted by professionals"
+          }
+        },
+        "trust_2": {
+          "type": "trust_item",
+          "settings": {
+            "icon": "heart",
+            "title": "Loved by 10,000+ Dogs",
+            "text": "4.9/5 average rating"
+          }
+        },
+        "trust_3": {
+          "type": "trust_item",
+          "settings": {
+            "icon": "return",
+            "title": "30-Day Risk-Free Trial",
+            "text": "Love it or get your money back"
+          }
+        },
+        "trust_4": {
+          "type": "trust_item",
+          "settings": {
+            "icon": "truck",
+            "title": "Fast & Free Shipping",
+            "text": "On all orders over $50"
           }
         }
       },
       "block_order": [
-        "pain_1",
-        "pain_2",
-        "pain_3"
+        "comp_row_1",
+        "comp_row_2",
+        "comp_row_3",
+        "comp_row_4",
+        "trust_1",
+        "trust_2",
+        "trust_3",
+        "trust_4"
       ],
       "settings": {
-        "eyebrow": "Sound Familiar?",
-        "heading": "Still Getting Pulled Down the Street?",
-        "subheading": "Most dog owners struggle with the same problems. Here's what we hear every day - and how PawVoyage solves it.",
-        "show_cta": true,
-        "cta_link": ""
-      }
-    },
-    "pv_benefits": {
-      "type": "pv-benefits",
-      "blocks": {
-        "ben_1": {
-          "type": "benefit",
-          "settings": {
-            "image_alt": "",
-            "icon_type": "no_pull",
-            "title": "Better No-Pull Control",
-            "description": "Front and back clip options help redirect pulling force so you can guide your dog with more confidence.",
-            "microcopy": "More control, less struggle"
-          }
-        },
-        "ben_2": {
-          "type": "benefit",
-          "settings": {
-            "image_alt": "",
-            "icon_type": "comfort",
-            "title": "Comfort-Focused Fit",
-            "description": "Soft padding and an ergonomic chest design help reduce neck pressure and support longer daily walks.",
-            "microcopy": "Made for everyday comfort"
-          }
-        },
-        "ben_3": {
-          "type": "benefit",
-          "settings": {
-            "image_alt": "",
-            "icon_type": "durable",
-            "title": "Tactical Durability",
-            "description": "Durable webbing, secure buckles, and reinforced structure are built for active dogs and outdoor adventures.",
-            "microcopy": "Built for real movement"
-          }
-        },
-        "ben_4": {
-          "type": "benefit",
-          "settings": {
-            "image_alt": "",
-            "icon_type": "travel",
-            "title": "Travel-Ready Design",
-            "description": "A secure fit, easy handling, and adventure-ready build make it ideal for walks, hikes, trips, and daily outings.",
-            "microcopy": "Ready wherever you go"
-          }
-        }
-      },
-      "block_order": [
-        "ben_1",
-        "ben_2",
-        "ben_3",
-        "ben_4"
-      ],
-      "settings": {
-        "eyebrow": "WHY PAWVOYAGE",
-        "heading_before": "Built to Make Every Walk Feel",
-        "heading_highlight": "Calmer, Safer",
-        "heading_after": ", and Easier.",
-        "subheading": "From strong pullers to everyday explorers, PawVoyage is designed to help you stay in control while keeping your dog comfortable and secure.",
-        "show_cta": true,
+        "badge_text": "WHY DOG OWNERS CHOOSE PAWVOYAGE",
+        "headline_1": "Built to Solve Real Problems",
+        "headline_2": "So Every Walk is Better",
+        "subtitle": "From pulling and discomfort to flimsy gear that just doesn't last, PawVoyage is designed to make every adventure safer, easier, and more enjoyable.",
+        "cta_heading": "Ready for Better Walks?",
+        "cta_text_body": "Join thousands of dog owners who enjoy calmer, happier, and more adventurous walks every day.",
         "cta_label": "Shop PawVoyage Harness",
-        "cta_link": ""
+        "cta_link": "/collections/all"
       }
     },
     "pv_featured": {
@@ -230,13 +210,7 @@
           }
         }
       },
-      "block_order": [
-        "feat_1",
-        "feat_2",
-        "feat_3",
-        "feat_4",
-        "feat_5"
-      ],
+      "block_order": ["feat_1", "feat_2", "feat_3", "feat_4", "feat_5"],
       "disabled": true,
       "settings": {
         "product": "",
@@ -419,17 +393,10 @@
           }
         }
       },
-      "block_order": [
-        "row_1",
-        "row_2",
-        "row_3",
-        "row_4",
-        "row_5",
-        "row_6"
-      ],
+      "block_order": ["row_1", "row_2", "row_3", "row_4", "row_5", "row_6"],
       "settings": {
         "eyebrow_text": "DESIGNED DIFFERENT. BUILT BETTER.",
-        "heading": "PawVoyage vs.\nThe Rest",
+        "heading": "PawVoyage vs. The Rest",
         "subheading": "See why dog owners choose the tactical no-pull harness that actually works.",
         "seo_body": "",
         "pawvoyage_col_title": "PawVoyage No-Pull Harness",
@@ -499,13 +466,7 @@
           }
         }
       },
-      "block_order": [
-        "rev_1",
-        "rev_2",
-        "rev_3",
-        "rev_4",
-        "rev_5"
-      ],
+      "block_order": ["rev_1", "rev_2", "rev_3", "rev_4", "rev_5"],
       "settings": {
         "eyebrow_text": "REAL DOGS. REAL RESULTS.",
         "heading": "Loved by 10,000+ Dog Owners",
@@ -698,8 +659,7 @@
   "order": [
     "pv_hero",
     "pv_trust",
-    "pv_pain",
-    "pv_benefits",
+    "pv_problem_solution",
     "pv_featured",
     "pv_featured_product",
     "pv_comparison",
