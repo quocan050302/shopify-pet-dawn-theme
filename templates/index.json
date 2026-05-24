@@ -28,6 +28,7 @@
         "cta_link": "shopify://collections/all",
         "guarantee_text": "30-Day Guarantee",
         "shipping_text": "Free Shipping",
+        "trust_loved_text": "Loved by 10,000+",
         "callout_1_text": "No-Pull Front Clip",
         "callout_2_text": "Adjustable 4-Point Fit",
         "callout_3_text": "Padded Chest Fit",
@@ -80,7 +81,12 @@
           }
         }
       },
-      "block_order": ["badge_1", "badge_2", "badge_3", "badge_4"],
+      "block_order": [
+        "badge_1",
+        "badge_2",
+        "badge_3",
+        "badge_4"
+      ],
       "settings": {}
     },
     "pv_problem_solution": {
@@ -91,8 +97,10 @@
           "settings": {
             "problem_title": "Dog Pulls Too Hard",
             "problem_text": "Every walk turns into a tug-of-war. Your arm aches and control is lost.",
+            "problem_image": "shopify://shop_images/copy_100__s_a_thanh_cho_202605242136.jpg",
             "solution_title": "Better No-Pull Control",
-            "solution_text": "Front clip redirects pulling force so walks become relaxed again."
+            "solution_text": "Front clip redirects pulling force so walks become relaxed again.",
+            "solution_image": "shopify://shop_images/ChatGPT_Image_22_01_24_23_thg_5_2026.png"
           }
         },
         "comp_row_2": {
@@ -100,8 +108,10 @@
           "settings": {
             "problem_title": "Collars Hurt the Neck",
             "problem_text": "Standard collars put pressure on your dog's trachea and neck.",
+            "problem_image": "shopify://shop_images/Copy_image_borderless_remove_X_202605242136.jpg",
             "solution_title": "Comfort-Focused Fit",
-            "solution_text": "Padded, breathable design distributes pressure across the chest — not the neck."
+            "solution_text": "Padded, breathable design distributes pressure across the chest — not the neck.",
+            "solution_image": "shopify://shop_images/copy__nh_nay_100___zoom_202605232215.jpg"
           }
         },
         "comp_row_3": {
@@ -109,8 +119,10 @@
           "settings": {
             "problem_title": "Cheap Harnesses Shift & Rub",
             "problem_text": "Flimsy harnesses rotate, chafe, and fall apart after a few months.",
+            "problem_image": "shopify://shop_images/Copy_image_borderless_remove_X_202605242136_1.jpg",
             "solution_title": "Secure & Adjustable Fit",
-            "solution_text": "Multiple adjustment points keep the harness secure, stable, and comfortable."
+            "solution_text": "Multiple adjustment points keep the harness secure, stable, and comfortable.",
+            "solution_image": "shopify://shop_images/copy_100___tran_vi_n__202605232222.jpg"
           }
         },
         "comp_row_4": {
@@ -118,8 +130,10 @@
           "settings": {
             "problem_title": "Poor Quality Doesn't Last",
             "problem_text": "Low-quality gear wears out fast and can't handle daily adventures.",
+            "problem_image": "shopify://shop_images/Copy_image_borderless_202605242136.jpg",
             "solution_title": "Tactical Durability",
-            "solution_text": "Built with tough materials for long-lasting performance in any condition."
+            "solution_text": "Built with tough materials for long-lasting performance in any condition.",
+            "solution_image": "shopify://shop_images/copy_100___tran_vi_n__202605232222_1.jpg"
           }
         },
         "trust_1": {
@@ -210,7 +224,13 @@
           }
         }
       },
-      "block_order": ["feat_1", "feat_2", "feat_3", "feat_4", "feat_5"],
+      "block_order": [
+        "feat_1",
+        "feat_2",
+        "feat_3",
+        "feat_4",
+        "feat_5"
+      ],
       "disabled": true,
       "settings": {
         "product": "",
@@ -300,6 +320,7 @@
         "cta_label": "Shop The Harness",
         "cta_link": "/products/pawvoyage-no-pull-tactical-dog-harness",
         "trust_microcopy": "Secure checkout • 30-day easy returns • Free shipping today",
+        "fallback_image": "shopify://shop_images/ChatGPT_Image_21_57_42_24_thg_5_2026.png",
         "fallback_title": "PawVoyage No-Pull Tactical Dog Harness",
         "fallback_price": "$49.99",
         "fallback_compare_price": "$79.99"
@@ -393,7 +414,14 @@
           }
         }
       },
-      "block_order": ["row_1", "row_2", "row_3", "row_4", "row_5", "row_6"],
+      "block_order": [
+        "row_1",
+        "row_2",
+        "row_3",
+        "row_4",
+        "row_5",
+        "row_6"
+      ],
       "settings": {
         "eyebrow_text": "DESIGNED DIFFERENT. BUILT BETTER.",
         "heading": "PawVoyage vs. The Rest",
@@ -402,8 +430,11 @@
         "pawvoyage_col_title": "PawVoyage No-Pull Harness",
         "traditional_col_title": "Traditional Harness",
         "basic_col_title": "Basic No-Pull Harness",
+        "pawvoyage_image": "shopify://shop_images/Copy_full_image_transparent_202605232257-Photoroom.png",
         "pawvoyage_image_alt": "PawVoyage No-Pull Harness",
+        "traditional_image": "shopify://shop_images/Copy_full_image_transparent_202605232300.png",
         "traditional_image_alt": "Traditional Harness",
+        "basic_image": "shopify://shop_images/Copy_full_image_transparent_202605232300_1_-Photoroom.png",
         "basic_image_alt": "Basic No-Pull Harness"
       }
     },
@@ -466,7 +497,13 @@
           }
         }
       },
-      "block_order": ["rev_1", "rev_2", "rev_3", "rev_4", "rev_5"],
+      "block_order": [
+        "rev_1",
+        "rev_2",
+        "rev_3",
+        "rev_4",
+        "rev_5"
+      ],
       "settings": {
         "eyebrow_text": "REAL DOGS. REAL RESULTS.",
         "heading": "Loved by 10,000+ Dog Owners",
