@@ -65,13 +65,55 @@
     rgba(250,247,240,0.00) 75%
   );
 }
+/* ── MOBILE HERO COMPLETE OVERRIDE (max-width 749px) ── */
 @media (max-width: 749px) {
+  /* Root section: flat cream bg, no min-height, no overflow needed for bg image */
+  #pvhc-{{ section.id }} {
+    display: block;
+    min-height: unset !important;
+    background: #FFF7EA;
+    overflow: visible;
+    padding: 0;
+  }
+
+  /* Hide desktop bg + overlay completely on mobile */
+  #pvhc-{{ section.id }} .pvhc-bg,
   #pvhc-{{ section.id }} .pvhc-overlay {
+    display: none !important;
+  }
+
+  /* Content wrap: just the top text area */
+  #pvhc-{{ section.id }} .pvhc-wrap {
+    padding: 22px 24px 0;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Hide benefit strip (bottom strip) — replaced by trust bar */
+  #pvhc-{{ section.id }} .pvhc-strip { display: none !important; }
+
+  /* Hide desktop callouts */
+  #pvhc-{{ section.id }} .pvhc-callouts { display: none !important; }
+}
+
+/* Keep original overlay on desktop only */
+@media (min-width: 750px) {
+  #pvhc-{{ section.id }} .pvhc-overlay {
+    display: block !important;
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
     background: linear-gradient(
-      to bottom,
-      rgba(250,247,240,0.96) 0%,
-      rgba(250,247,240,0.85) 45%,
-      rgba(250,247,240,0.00) 65%
+      to right,
+      #FAF7F0 0%,
+      #FAF7F0 28%,
+      rgba(250,247,240,0.96) 35%,
+      rgba(250,247,240,0.88) 42%,
+      rgba(250,247,240,0.65) 50%,
+      rgba(250,247,240,0.30) 58%,
+      rgba(250,247,240,0.08) 66%,
+      rgba(250,247,240,0.00) 75%
     );
   }
 }
@@ -85,8 +127,12 @@
   width: 100%;
   padding: 6rem 2rem;
 }
+@media (min-width: 750px) {
+  #pvhc-{{ section.id }} .pvhc-wrap { padding: 6rem 2rem; }
+}
+/* Mobile: override the 6rem base rule above */
 @media (max-width: 749px) {
-  #pvhc-{{ section.id }} .pvhc-wrap { padding: 1.6rem 1.6rem 12rem; }
+  #pvhc-{{ section.id }} .pvhc-wrap { padding: 16px 20px 0 !important; }
 }
 
 /* Left column */
@@ -151,9 +197,19 @@
 }
 #pvhc-{{ section.id }} .pvhc-headline-accent { color: #1A5C1E; }
 @media (max-width: 749px) {
+  /* Tighten social proof margin */
+  #pvhc-{{ section.id }} .pvhc-proof { margin-bottom: 8px; }
+
   #pvhc-{{ section.id }} .pvhc-headline {
-    font-size: clamp(44px, 11vw, 64px);
-    margin-bottom: 0.8rem;
+    font-size: clamp(38px, 11vw, 49px);
+    margin-top: 0;
+    margin-bottom: 6px;
+    line-height: 0.95;
+  }
+  /* Reset browser <p> default margins inside Shopify richtext headline */
+  #pvhc-{{ section.id }} .pvhc-headline p {
+    margin: 0;
+    padding: 0;
   }
 }
 
@@ -169,12 +225,13 @@
 @media (max-width: 749px) {
   #pvhc-{{ section.id }} .pvhc-sub {
     font-size: 1.4rem;
-    margin-bottom: 1.2rem;
+    margin-top: 0;
+    margin-bottom: 14px;
     line-height: 1.4;
   }
 }
 
-/* Benefit icon row */
+/* Benefit icon row — Desktop */
 #pvhc-{{ section.id }} .pvhc-benefits {
   display: flex;
   gap: 2rem;
@@ -200,26 +257,40 @@
   flex-shrink: 0;
 }
 #pvhc-{{ section.id }} .pvhc-ben-icon svg { width: 16px; height: 16px; stroke: #133316; }
+
+/* ── Mobile benefit grid (3-col) ── */
 @media (max-width: 749px) {
   #pvhc-{{ section.id }} .pvhc-benefits {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 0.8rem;
-    margin-bottom: 1.6rem;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-bottom: 20px;
+    flex-wrap: unset;
   }
   #pvhc-{{ section.id }} .pvhc-ben {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 7px;
     font-size: 1.15rem;
-    background: rgba(255,255,255,0.7);
-    padding: 0.6rem 0.8rem;
-    border-radius: 8px;
-    border: 1px solid rgba(19,51,22,0.06);
-    gap: 0.5rem;
+    font-weight: 800;
+    color: #1F241D;
+    background: none;
+    padding: 0;
+    border: none;
   }
-  #pvhc-{{ section.id }} .pvhc-ben-icon { width: 22px; height: 22px; }
-  #pvhc-{{ section.id }} .pvhc-ben-icon svg { width: 12px; height: 12px; }
+  #pvhc-{{ section.id }} .pvhc-ben-icon {
+    width: 46px;
+    height: 46px;
+    background: #FFFFFF;
+    border-radius: 50%;
+    box-shadow: 0 4px 14px rgba(7,31,6,0.09);
+    flex-shrink: 0;
+  }
+  #pvhc-{{ section.id }} .pvhc-ben-icon svg { width: 20px; height: 20px; stroke: #12350E; }
 }
 
-/* CTA */
+/* CTA — Desktop */
 #pvhc-{{ section.id }} .pvhc-cta-wrap { margin-bottom: 1.4rem; }
 #pvhc-{{ section.id }} .pvhc-cta {
   display: inline-flex;
@@ -244,9 +315,9 @@
   box-shadow: 0 16px 36px rgba(19,51,22,.30);
   color: #fff;
 }
+/* Hide default CTA wrap on mobile — replaced by .pvhc-mobile-cta */
 @media (max-width: 749px) {
-  #pvhc-{{ section.id }} .pvhc-cta { width: 100%; justify-content: center; font-size: 1.55rem; padding: 1.2rem 2rem; }
-  #pvhc-{{ section.id }} .pvhc-cta-wrap { margin-bottom: 0.8rem; }
+  #pvhc-{{ section.id }} .pvhc-cta-wrap { display: none !important; }
 }
 
 /* Guarantee microcopy */
@@ -336,7 +407,7 @@
   flex-shrink: 0;
 }
 
-/* ── BENEFIT STRIP ── */
+/* ── BENEFIT STRIP (desktop) ── */
 #pvhc-{{ section.id }} .pvhc-strip {
   position: absolute;
   bottom: 0;
@@ -360,35 +431,6 @@
   gap: 1.6rem;
   pointer-events: auto;
   box-shadow: 0 8px 32px rgba(19,51,22,.08);
-}
-@media (max-width: 749px) {
-  #pvhc-{{ section.id }} .pvhc-strip-inner {
-    display: flex;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    gap: 1.2rem;
-    padding: 0 1.6rem 1.6rem 1.6rem;
-    background: transparent;
-    border: none;
-    box-shadow: none;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
-  }
-  #pvhc-{{ section.id }} .pvhc-strip-inner::-webkit-scrollbar { display: none; }
-  #pvhc-{{ section.id }} .pvhc-strip {
-    padding: 0;
-  }
-  #pvhc-{{ section.id }} .pvhc-strip-item {
-    flex: 0 0 80vw;
-    scroll-snap-align: start;
-    background: rgba(255,255,255,0.95);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border: 1px solid rgba(255,255,255,.6);
-    border-radius: 16px;
-    padding: 1.4rem 1.6rem;
-    box-shadow: 0 8px 32px rgba(19,51,22,.08);
-  }
 }
 #pvhc-{{ section.id }} .pvhc-strip-item {
   display: flex;
@@ -417,6 +459,149 @@
   color: #4A5748;
   line-height: 1.45;
   margin: 0;
+}
+
+/* ── MOBILE-ONLY NEW ELEMENTS ── */
+/* Mobile image card */
+@media (max-width: 749px) {
+  #pvhc-{{ section.id }} .pvhc-mobile-img-wrap {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 3 / 3;   /* shorter — landscape vs portrait */
+    overflow: hidden;
+    display: block;
+    margin-top: 4px;
+    border-radius: 16px;
+    overflow: hidden;
+  }
+  #pvhc-{{ section.id }} .pvhc-mobile-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+    display: block;
+  }
+  /* Bottom gradient so CTA reads over image */
+  #pvhc-{{ section.id }} .pvhc-mobile-img-wrap::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 120px;
+    background: linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(7,31,6,0.45) 100%);
+    pointer-events: none;
+  }
+  /* Floating badge on image */
+  #pvhc-{{ section.id }} .pvhc-mobile-badge {
+    position: absolute;
+    left: 20px;
+    top: 40%;
+    transform: translateY(-50%);
+    background: #FFFFFF;
+    color: #12350E;
+    border-radius: 999px;
+    padding: 10px 18px;
+    font-size: 13px;
+    font-weight: 800;
+    line-height: 1;
+    box-shadow: 0 10px 28px rgba(7,31,6,0.18);
+    white-space: nowrap;
+    pointer-events: none;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  #pvhc-{{ section.id }} .pvhc-mobile-badge-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #D99A2B;
+    flex-shrink: 0;
+  }
+  /* Mobile CTA — overlaps bottom of image */
+  #pvhc-{{ section.id }} .pvhc-mobile-cta {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: -24px 20px 0;
+    min-height: 48px;
+    border-radius: 14px;
+    background: #12350E;
+    color: #FFF7EA;
+    font-size: 1.55rem;
+    font-weight: 900;
+    text-decoration: none;
+    letter-spacing: -.02em;
+    box-shadow: 0 12px 28px rgba(7,31,6,0.26);
+    position: relative;
+    z-index: 2;
+    transition: background 0.2s ease, transform 0.2s ease;
+  }
+  #pvhc-{{ section.id }} .pvhc-mobile-cta:hover,
+  #pvhc-{{ section.id }} .pvhc-mobile-cta:active {
+    background: #1A4A20;
+    transform: translateY(-2px);
+    color: #FFF7EA;
+  }
+  /* Trust bar below CTA */
+  #pvhc-{{ section.id }} .pvhc-mobile-trustbar {
+    margin-top: -8px;
+    padding: 30px 16px 20px;
+    background: #FFF7EA;
+    border-radius: 20px 20px 0 0;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    position: relative;
+    z-index: 1;
+  }
+  #pvhc-{{ section.id }} .pvhc-mobile-trust-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    text-align: center;
+    font-size: 1.15rem;
+    font-weight: 800;
+    color: #1F241D;
+    padding: 0 6px;
+    line-height: 1.25;
+  }
+  #pvhc-{{ section.id }} .pvhc-mobile-trust-item + .pvhc-mobile-trust-item {
+    border-left: 1px solid rgba(31,36,29,0.12);
+  }
+  #pvhc-{{ section.id }} .pvhc-mobile-trust-icon {
+    width: 28px;
+    height: 28px;
+    color: #D99A2B;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  #pvhc-{{ section.id }} .pvhc-mobile-trust-icon svg {
+    width: 22px;
+    height: 22px;
+    stroke: #D99A2B;
+    fill: none;
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  /* Hide these on mobile — they only exist for desktop */
+  #pvhc-{{ section.id }} .pvhc-mobile-img-wrap,
+  #pvhc-{{ section.id }} .pvhc-mobile-cta,
+  #pvhc-{{ section.id }} .pvhc-mobile-trustbar {
+    /* Show on mobile */
+  }
+}
+/* Hide mobile-only elements on desktop */
+@media (min-width: 750px) {
+  #pvhc-{{ section.id }} .pvhc-mobile-img-wrap,
+  #pvhc-{{ section.id }} .pvhc-mobile-cta,
+  #pvhc-{{ section.id }} .pvhc-mobile-trustbar {
+    display: none !important;
+  }
 }
 
 /* ── STICKY ATC — Floating Card ── */
@@ -841,7 +1026,64 @@
     </div><!-- /pvhc-left -->
   </div><!-- /pvhc-wrap -->
 
-  <!-- Benefit strip -->
+  <!-- ===== MOBILE-ONLY BLOCKS ===== -->
+  <!-- Mobile lifestyle image card -->
+  {%- assign m_img = section.settings.mobile_background_image | default: section.settings.desktop_background_image -%}
+  {%- if m_img != blank -%}
+  <div class="pvhc-mobile-img-wrap" aria-hidden="true">
+    <img
+      class="pvhc-mobile-img"
+      src="{{ m_img | image_url: width: 900 }}"
+      srcset="{{ m_img | image_url: width: 600 }} 600w, {{ m_img | image_url: width: 900 }} 900w"
+      sizes="100vw"
+      alt="Dog wearing PawVoyage no-pull tactical harness on an outdoor walk."
+      loading="eager"
+      fetchpriority="high"
+      width="{{ m_img.width }}"
+      height="{{ m_img.height }}"
+    >
+    {%- if section.settings.callout_1_text != blank -%}
+    <div class="pvhc-mobile-badge">
+      <span class="pvhc-mobile-badge-dot"></span>
+      {{ section.settings.callout_1_text }}
+    </div>
+    {%- endif -%}
+  </div>
+  {%- endif -%}
+
+  <!-- Mobile CTA (overlaps bottom of image) -->
+  <a
+    href="{{ section.settings.cta_link | default: '#' }}"
+    class="pvhc-mobile-cta"
+    aria-label="{{ section.settings.cta_text | default: 'Get Calmer Walks' }}"
+  >
+    {{ section.settings.cta_text | default: 'Get Calmer Walks →' }}
+  </a>
+
+  <!-- Mobile trust bar -->
+  <div class="pvhc-mobile-trustbar" role="list" aria-label="Trust badges">
+    <div class="pvhc-mobile-trust-item" role="listitem">
+      <span class="pvhc-mobile-trust-icon">
+        <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4" stroke-width="2"/></svg>
+      </span>
+      {{ section.settings.guarantee_text | default: '30-Day Guarantee' }}
+    </div>
+    <div class="pvhc-mobile-trust-item" role="listitem">
+      <span class="pvhc-mobile-trust-icon">
+        <svg viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13" rx="1"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+      </span>
+      {{ section.settings.shipping_text | default: 'Free Shipping' }}
+    </div>
+    <div class="pvhc-mobile-trust-item" role="listitem">
+      <span class="pvhc-mobile-trust-icon">
+        <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+      </span>
+      {{ section.settings.trust_loved_text | default: 'Loved by 10,000+' }}
+    </div>
+  </div>
+  <!-- /MOBILE-ONLY BLOCKS -->
+
+  <!-- Benefit strip (desktop only — hidden on mobile via CSS) -->
   <div class="pvhc-strip" aria-label="Product highlights">
     <div class="pvhc-strip-inner">
       <div class="pvhc-strip-item">
@@ -1114,6 +1356,7 @@
     { "type": "url", "id": "cta_link", "label": "CTA link" },
     { "type": "text", "id": "guarantee_text", "label": "Guarantee text", "default": "30-Day Guarantee" },
     { "type": "text", "id": "shipping_text", "label": "Shipping text", "default": "Free Shipping" },
+    { "type": "text", "id": "trust_loved_text", "label": "Trust bar: Loved by text (mobile)", "default": "Loved by 10,000+" },
 
     { "type": "header", "content": "Feature Callout Labels" },
     { "type": "text", "id": "callout_1_text", "label": "Callout 1", "default": "No-Pull Front Clip" },
