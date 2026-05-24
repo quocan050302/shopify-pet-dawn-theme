@@ -78,65 +78,34 @@
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
   border-radius: 20px;
+  padding-top: 2rem;
+  margin-top: -2rem;
+  padding-bottom: 1rem;
 }
-#pvct-{{ section.id }} .pvct-scroll-hint { display: none; }
-
-/* ── Hide desktop table on mobile, show mobile cards ── */
-#pvct-{{ section.id }} .pvct-table-wrap { display: block; }
-#pvct-{{ section.id }} .pvct-mobile-cards { display: none; }
 @media(max-width:899px){
-  #pvct-{{ section.id }} .pvct-table-wrap { display: none; }
-  #pvct-{{ section.id }} .pvct-mobile-cards { display: flex; flex-direction: column; gap: 1.2rem; padding: 0; }
+  #pvct-{{ section.id }} .pvct-outer {
+    padding: 0 1.6rem;
+  }
+  #pvct-{{ section.id }} .pvct-img-zoom {
+    display: none !important;
+  }
+  #pvct-{{ section.id }} .pvct-col-img-wrap {
+    pointer-events: none;
+  }
 }
-
-/* ── Mobile feature cards ── */
-#pvct-{{ section.id }} .pvct-mob-card {
-  background: #fff;
-  border: 1px solid rgba(19,51,22,.09);
-  border-radius: 16px;
-  overflow: hidden;
-  box-shadow: 0 4px 16px rgba(19,51,22,.06);
-}
-#pvct-{{ section.id }} .pvct-mob-feat {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  padding: 1.4rem 1.6rem;
-  background: #FAF7F0;
-  border-bottom: 1px solid rgba(19,51,22,.08);
-}
-#pvct-{{ section.id }} .pvct-mob-feat .pvct-feat-icon {
-  width: 32px; height: 32px;
-  background: rgba(19,51,22,.08);
-  border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  flex-shrink: 0;
-}
-#pvct-{{ section.id }} .pvct-mob-feat .pvct-feat-icon svg { width:14px; height:14px; stroke:#133316; stroke-width:1.8; }
-#pvct-{{ section.id }} .pvct-mob-feat-title { font-size: 1.35rem; font-weight: 800; color: #133316; margin: 0 0 .15rem; }
-#pvct-{{ section.id }} .pvct-mob-feat-desc  { font-size: 1.1rem; color: #6B7568; margin: 0; line-height: 1.3; }
-#pvct-{{ section.id }} .pvct-mob-rows { display: flex; flex-direction: column; }
-#pvct-{{ section.id }} .pvct-mob-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem 1.6rem;
-  border-bottom: 1px solid rgba(19,51,22,.05);
-  font-size: 1.25rem;
-}
-#pvct-{{ section.id }} .pvct-mob-row:last-child { border-bottom: none; }
-#pvct-{{ section.id }} .pvct-mob-row-label { font-size: 1.2rem; color: #4A5748; font-weight: 600; }
-#pvct-{{ section.id }} .pvct-mob-row.pvct-mob-pv-row { background: rgba(19,51,22,.03); }
 
 /* ── Table grid ── */
 #pvct-{{ section.id }} .pvct-table {
-  min-width: 620px;
+  min-width: 780px;
   border-radius: 20px;
-  overflow: hidden;
   box-shadow: 0 8px 36px rgba(19,51,22,.09);
   background: #fff;
   border: 1px solid rgba(19,51,22,.09);
 }
+#pvct-{{ section.id }} .pvct-head-cell:first-child { border-top-left-radius: 19px; }
+#pvct-{{ section.id }} .pvct-head-cell:last-child { border-top-right-radius: 19px; }
+#pvct-{{ section.id }} .pvct-row:last-child > div:first-child { border-bottom-left-radius: 19px; }
+#pvct-{{ section.id }} .pvct-row:last-child > div:last-child { border-bottom-right-radius: 19px; }
 
 /* Column grid inside table: [features] [pv] [trad] [basic] */
 #pvct-{{ section.id }} .pvct-row {
@@ -160,17 +129,105 @@
 }
 #pvct-{{ section.id }} .pvct-head-cell.pvct-pv-col {
   background: #133316;
+  position: relative;
+  border-top-left-radius: 18px;
+  border-top-right-radius: 18px;
+  box-shadow: 0 -8px 24px rgba(212, 168, 67, 0.12), inset 0 2px 0 rgba(212, 168, 67, 0.4), inset 2px 0 0 rgba(212, 168, 67, 0.4), inset -2px 0 0 rgba(212, 168, 67, 0.4);
+  z-index: 2;
 }
-#pvct-{{ section.id }} .pvct-head-empty {
-  background: #FAF7F0;
+
+/* ── Best Badge ── */
+#pvct-{{ section.id }} .pvct-best-badge {
+  background: #D4A843;
+  color: #133316;
+  font-size: 1.1rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  padding: 0.4rem 1.4rem;
+  border-radius: 999px;
+  position: absolute;
+  top: -14px;
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  box-shadow: 0 4px 12px rgba(212, 168, 67, 0.3);
 }
-/* Images */
+
+/* ── Images & Zoom ── */
+#pvct-{{ section.id }} .pvct-col-img-wrap {
+  position: relative;
+  width: 90px; height: 90px;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  border-radius: 12px;
+  transition: background 0.3s ease;
+}
+#pvct-{{ section.id }} .pvct-col-img-wrap:hover,
+#pvct-{{ section.id }} .pvct-col-img-wrap:focus {
+  background: rgba(19,51,22,0.04);
+  outline: none;
+}
+#pvct-{{ section.id }} .pvct-pv-col .pvct-col-img-wrap:hover,
+#pvct-{{ section.id }} .pvct-pv-col .pvct-col-img-wrap:focus {
+  background: rgba(255,255,255,0.08);
+}
+
 #pvct-{{ section.id }} .pvct-col-img {
-  width: 80px; height: 80px;
+  width: 100%; height: 100%;
   object-fit: contain;
   border-radius: 10px;
-  background: rgba(255,255,255,.12);
+  background: rgba(19,51,22,0.06);
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease;
 }
+#pvct-{{ section.id }} .pvct-pv-col .pvct-col-img {
+  background: transparent;
+  /* Glow, brighter, contrast */
+  filter: drop-shadow(0 0 16px rgba(212, 168, 67, 0.3)) brightness(1.2) contrast(1.1);
+}
+#pvct-{{ section.id }} .pvct-col-img-wrap--pv {
+  background: radial-gradient(circle, rgba(212,168,67,0.18) 0%, rgba(212,168,67,0) 65%);
+}
+
+#pvct-{{ section.id }} .pvct-col-img-wrap:hover .pvct-col-img,
+#pvct-{{ section.id }} .pvct-col-img-wrap:focus .pvct-col-img {
+  transform: scale(1.08);
+  box-shadow: 0 8px 24px rgba(19,51,22,0.12);
+}
+
+/* ── Zoom Preview Modal ── */
+#pvct-{{ section.id }} .pvct-img-zoom {
+  position: absolute;
+  top: 50%;
+  left: calc(100% + 14px);
+  transform: translateY(-50%) scale(0.9);
+  width: 220px; height: 220px;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 20px 48px rgba(19,51,22,0.18), 0 0 0 1px rgba(19,51,22,0.06);
+  padding: 12px;
+  z-index: 100;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s;
+}
+#pvct-{{ section.id }} .pvct-img-zoom--left {
+  left: auto;
+  right: calc(100% + 14px);
+}
+#pvct-{{ section.id }} .pvct-col-img-wrap:hover .pvct-img-zoom,
+#pvct-{{ section.id }} .pvct-col-img-wrap:focus .pvct-img-zoom {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(-50%) scale(1);
+}
+#pvct-{{ section.id }} .pvct-img-zoom img {
+  width: 100%; height: 100%;
+  object-fit: contain;
+  border-radius: 8px;
+}
+
 #pvct-{{ section.id }} .pvct-col-img-ph {
   width: 80px; height: 80px;
   border-radius: 10px;
@@ -178,20 +235,23 @@
   display: flex; align-items: center; justify-content: center;
 }
 #pvct-{{ section.id }} .pvct-col-img-ph svg { width:28px; height:28px; stroke:#8A9486; }
+
 #pvct-{{ section.id }} .pvct-col-title {
   font-size: 1.45rem;
   font-weight: 800;
   line-height: 1.3;
   color: #133316;
+  margin: 0;
 }
 #pvct-{{ section.id }} .pvct-pv-col .pvct-col-title { color: #fff; }
-#pvct-{{ section.id }} .pvct-col-sub {
+
+#pvct-{{ section.id }} .pvct-pv-microcopy {
   font-size: 1.2rem;
-  color: #6B7568;
-  margin: 0;
-  line-height: 1.3;
+  color: rgba(255,255,255,0.75);
+  margin: 0.4rem 0 0;
+  line-height: 1.35;
+  font-weight: 500;
 }
-#pvct-{{ section.id }} .pvct-pv-col .pvct-col-sub { color: rgba(255,255,255,.75); }
 
 /* ── Data rows ── */
 #pvct-{{ section.id }} .pvct-feat-col {
@@ -212,7 +272,15 @@
 }
 /* PawVoyage column highlight */
 #pvct-{{ section.id }} .pvct-cell.pvct-pv-col {
-  background: rgba(19,51,22,.04);
+  background: rgba(19,51,22,.03);
+  position: relative;
+  z-index: 2;
+  box-shadow: inset 2px 0 0 rgba(212, 168, 67, 0.4), inset -2px 0 0 rgba(212, 168, 67, 0.4);
+}
+#pvct-{{ section.id }} .pvct-row:last-child .pvct-cell.pvct-pv-col {
+  border-bottom-left-radius: 18px;
+  border-bottom-right-radius: 18px;
+  box-shadow: inset 0 -2px 0 rgba(212, 168, 67, 0.4), inset 2px 0 0 rgba(212, 168, 67, 0.4), inset -2px 0 0 rgba(212, 168, 67, 0.4);
 }
 
 /* ── Status indicators ── */
@@ -283,31 +351,47 @@
 
           <!-- PawVoyage -->
           <div class="pvct-head-cell pvct-pv-col" role="columnheader">
-            {%- if pv_img != blank -%}
-              <img class="pvct-col-img" src="{{ pv_img | image_url: width: 200 }}" alt="{{ section.settings.pawvoyage_image_alt | default: 'PawVoyage No-Pull Harness' | escape }}" width="80" height="80" loading="lazy">
-            {%- else -%}
-              <div class="pvct-col-img-ph"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></div>
-            {%- endif -%}
+            <div class="pvct-best-badge">Best Choice</div>
+            <div class="pvct-col-img-wrap pvct-col-img-wrap--pv" tabindex="0" role="button" aria-haspopup="true">
+              {%- if pv_img != blank -%}
+                <img class="pvct-col-img pvct-col-img--pv" src="{{ pv_img | image_url: width: 200 }}" alt="{{ section.settings.pawvoyage_image_alt | default: 'PawVoyage No-Pull Harness' | escape }}" width="80" height="80" loading="lazy">
+                <div class="pvct-img-zoom">
+                  <img src="{{ pv_img | image_url: width: 480 }}" alt="{{ section.settings.pawvoyage_image_alt | default: 'PawVoyage No-Pull Harness' | escape }}" width="240" height="240" loading="lazy">
+                </div>
+              {%- else -%}
+                <div class="pvct-col-img-ph"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></div>
+              {%- endif -%}
+            </div>
             <p class="pvct-col-title">{{ section.settings.pawvoyage_col_title | default: 'PawVoyage No-Pull Harness' }}</p>
           </div>
 
           <!-- Traditional -->
           <div class="pvct-head-cell" role="columnheader">
-            {%- if tr_img != blank -%}
-              <img class="pvct-col-img" src="{{ tr_img | image_url: width: 200 }}" alt="{{ section.settings.traditional_image_alt | default: 'Traditional Harness' | escape }}" width="80" height="80" loading="lazy">
-            {%- else -%}
-              <div class="pvct-col-img-ph"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></div>
-            {%- endif -%}
+            <div class="pvct-col-img-wrap" tabindex="0" role="button" aria-haspopup="true">
+              {%- if tr_img != blank -%}
+                <img class="pvct-col-img" src="{{ tr_img | image_url: width: 200 }}" alt="{{ section.settings.traditional_image_alt | default: 'Traditional Harness' | escape }}" width="80" height="80" loading="lazy">
+                <div class="pvct-img-zoom">
+                  <img src="{{ tr_img | image_url: width: 480 }}" alt="{{ section.settings.traditional_image_alt | default: 'Traditional Harness' | escape }}" width="240" height="240" loading="lazy">
+                </div>
+              {%- else -%}
+                <div class="pvct-col-img-ph"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></div>
+              {%- endif -%}
+            </div>
             <p class="pvct-col-title">{{ section.settings.traditional_col_title | default: 'Traditional Harness' }}</p>
           </div>
 
           <!-- Basic -->
           <div class="pvct-head-cell" role="columnheader">
-            {%- if ba_img != blank -%}
-              <img class="pvct-col-img" src="{{ ba_img | image_url: width: 200 }}" alt="{{ section.settings.basic_image_alt | default: 'Basic No-Pull Harness' | escape }}" width="80" height="80" loading="lazy">
-            {%- else -%}
-              <div class="pvct-col-img-ph"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></div>
-            {%- endif -%}
+            <div class="pvct-col-img-wrap" tabindex="0" role="button" aria-haspopup="true">
+              {%- if ba_img != blank -%}
+                <img class="pvct-col-img" src="{{ ba_img | image_url: width: 200 }}" alt="{{ section.settings.basic_image_alt | default: 'Basic No-Pull Harness' | escape }}" width="80" height="80" loading="lazy">
+                <div class="pvct-img-zoom pvct-img-zoom--left">
+                  <img src="{{ ba_img | image_url: width: 480 }}" alt="{{ section.settings.basic_image_alt | default: 'Basic No-Pull Harness' | escape }}" width="240" height="240" loading="lazy">
+                </div>
+              {%- else -%}
+                <div class="pvct-col-img-ph"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></div>
+              {%- endif -%}
+            </div>
             <p class="pvct-col-title">{{ section.settings.basic_col_title | default: 'Basic No-Pull Harness' }}</p>
           </div>
         </div><!-- /header row -->
@@ -395,82 +479,7 @@
     </div><!-- /pvct-scroll -->
   </div><!-- /pvct-table-wrap -->
 
-  <!-- ══ MOBILE STACKED CARDS ══ -->
-  <div class="pvct-mobile-cards">
-    {%- for block in section.blocks -%}
-      {%- if block.type == 'comparison_row' -%}
-      {%- liquid
-        assign pv_st  = block.settings.pawvoyage_status   | default: 'yes'
-        assign tr_st  = block.settings.traditional_status | default: 'no'
-        assign ba_st  = block.settings.basic_status       | default: 'no'
-        assign pv_val = block.settings.pawvoyage_value    | default: 'Yes'
-        assign tr_val = block.settings.traditional_value  | default: 'No'
-        assign ba_val = block.settings.basic_value        | default: 'No'
-      -%}
-      <div class="pvct-mob-card" {{ block.shopify_attributes }}>
-        <!-- Feature header -->
-        <div class="pvct-mob-feat">
-          <div class="pvct-feat-icon">
-            {%- case block.settings.icon -%}
-              {%- when 'shield' -%}<svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-              {%- when 'comfort' -%}<svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>
-              {%- when 'sliders' -%}<svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/></svg>
-              {%- when 'handle' -%}<svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>
-              {%- when 'diamond' -%}<svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 22 8.5 22 15.5 12 22 2 15.5 2 8.5 12 2"/><line x1="12" y1="22" x2="12" y2="15.5"/><polyline points="22 8.5 12 15.5 2 8.5"/></svg>
-              {%- when 'moon' -%}<svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
-              {%- else -%}<svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-            {%- endcase -%}
-          </div>
-          <div>
-            <p class="pvct-mob-feat-title">{{ block.settings.feature_title }}</p>
-            {%- if block.settings.feature_description != blank -%}
-              <p class="pvct-mob-feat-desc">{{ block.settings.feature_description }}</p>
-            {%- endif -%}
-          </div>
-        </div>
-        <!-- Comparison rows -->
-        <div class="pvct-mob-rows">
-          <div class="pvct-mob-row pvct-mob-pv-row">
-            <span class="pvct-mob-row-label">{{ section.settings.pawvoyage_col_title | default: 'PawVoyage' }}</span>
-            <span class="pvct-status pvct-{{ pv_st }}">
-              <span class="pvct-status-icon">
-                {%- if pv_st == 'yes' -%}<svg viewBox="0 0 24 24" fill="none"><polyline points="20 6 9 17 4 12"/></svg>
-                {%- elsif pv_st == 'no' -%}<svg viewBox="0 0 24 24" fill="none"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-                {%- else -%}<svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="5" stroke-width="2"/></svg>
-                {%- endif -%}
-              </span>
-              <span class="pvct-status-text">{{ pv_val }}</span>
-            </span>
-          </div>
-          <div class="pvct-mob-row">
-            <span class="pvct-mob-row-label">{{ section.settings.traditional_col_title | default: 'Traditional' }}</span>
-            <span class="pvct-status pvct-{{ tr_st }}">
-              <span class="pvct-status-icon">
-                {%- if tr_st == 'yes' -%}<svg viewBox="0 0 24 24" fill="none"><polyline points="20 6 9 17 4 12"/></svg>
-                {%- elsif tr_st == 'no' -%}<svg viewBox="0 0 24 24" fill="none"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-                {%- else -%}<svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="5" stroke-width="2"/></svg>
-                {%- endif -%}
-              </span>
-              <span class="pvct-status-text">{{ tr_val }}</span>
-            </span>
-          </div>
-          <div class="pvct-mob-row">
-            <span class="pvct-mob-row-label">{{ section.settings.basic_col_title | default: 'Basic' }}</span>
-            <span class="pvct-status pvct-{{ ba_st }}">
-              <span class="pvct-status-icon">
-                {%- if ba_st == 'yes' -%}<svg viewBox="0 0 24 24" fill="none"><polyline points="20 6 9 17 4 12"/></svg>
-                {%- elsif ba_st == 'no' -%}<svg viewBox="0 0 24 24" fill="none"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-                {%- else -%}<svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="5" stroke-width="2"/></svg>
-                {%- endif -%}
-              </span>
-              <span class="pvct-status-text">{{ ba_val }}</span>
-            </span>
-          </div>
-        </div>
-      </div>
-      {%- endif -%}
-    {%- endfor -%}
-  </div><!-- /pvct-mobile-cards -->
+  </div><!-- /pvct-table-wrap -->
 
 </div><!-- /pvct-outer -->
 </section>

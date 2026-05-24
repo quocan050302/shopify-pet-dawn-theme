@@ -164,13 +164,11 @@
 
   /* Floating Badges */
   .pv-featured__floating-badges {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 1.2rem;
-    margin-top: 2.4rem;
+    display: block;
+    margin-top: 0;
   }
   .pvf-floating-badge {
+    position: absolute;
     display: inline-flex;
     align-items: center;
     gap: 0.8rem;
@@ -186,6 +184,7 @@
     color: #0f3b18;
     z-index: 3;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    animation: pvf-float 6s ease-in-out infinite;
   }
   .pvf-floating-badge-icon {
     font-size: 1.6rem;
@@ -195,21 +194,20 @@
     justify-content: center;
   }
 
+  /* Default mobile positions */
+  .pvf-floating-badge--1 { top: 10%; left: 4%; animation-delay: 0s; }
+  .pvf-floating-badge--2 { top: 45%; right: 4%; animation-delay: 1.5s; }
+  .pvf-floating-badge--3 { bottom: 12%; left: 8%; animation-delay: 3s; }
+
   @media screen and (min-width: 990px) {
-    .pv-featured__floating-badges {
-      display: block;
-      margin-top: 0;
-    }
     .pvf-floating-badge {
-      position: absolute;
       font-size: 1.5rem;
       padding: 1.2rem 1.8rem;
       box-shadow: 0 16px 40px rgba(20, 45, 25, 0.12);
-      animation: pvf-float 6s ease-in-out infinite;
     }
-    .pvf-floating-badge--1 { top: 12%; left: -6%; animation-delay: 0s; }
-    .pvf-floating-badge--2 { top: 45%; right: -6%; animation-delay: 1.5s; }
-    .pvf-floating-badge--3 { bottom: 15%; left: -4%; animation-delay: 3s; }
+    .pvf-floating-badge--1 { top: 12%; left: -6%; }
+    .pvf-floating-badge--2 { top: 45%; right: -6%; }
+    .pvf-floating-badge--3 { bottom: 15%; left: -4%; }
 
     .pvf-floating-badge:hover {
       animation-play-state: paused;
@@ -270,10 +268,9 @@
     /* Image: landscape ratio on mobile → less space, content visible sooner */
     .pv-featured__img { aspect-ratio: 3/2; }
 
-    /* Floating badges: smaller, tighter row below image */
-    .pv-featured__floating-badges { gap: .8rem; margin-top: 1.4rem; }
-    .pvf-floating-badge { font-size: 1.25rem; padding: .9rem 1.3rem; gap: .6rem; }
-    .pvf-floating-badge-icon { font-size: 1.35rem; }
+    /* Floating badges: scale down for mobile */
+    .pvf-floating-badge { font-size: 1.15rem; padding: .7rem 1.2rem; gap: .5rem; }
+    .pvf-floating-badge-icon { font-size: 1.25rem; }
 
     /* Info column: tighter spacing */
     .pv-featured__eyebrow { margin-bottom: 1.2rem; font-size: 1.1rem; }
