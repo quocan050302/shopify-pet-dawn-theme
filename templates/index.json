@@ -679,6 +679,7 @@
         "mini_benefit_1": "Reduces pulling instantly",
         "mini_benefit_2": "Safe & gentle on your dog",
         "mini_benefit_3": "Recommended by trainers",
+        "sidebar_image": "shopify://shop_images/copy_100__202605252053.jpg",
         "sidebar_image_alt": "Dog wearing PawVoyage harness",
         "sidebar_title": "Still need help?",
         "sidebar_text": "Our team is here for you and your dog!",
@@ -698,7 +699,12 @@
         "guarantee_cta_text": "Shop With Confidence",
         "guarantee_cta_link": "",
         "proof_label": "Backed by thousands of dog owners who trust PawVoyage",
-        "proof_rating_text": "4.9/5 from 1,247 reviews"
+        "proof_rating_text": "4.9/5 from 1,247 reviews",
+        "proof_avatar_2": "shopify://shop_images/ChatGPT_Image_22_27_16_21_thg_5_2026.png",
+        "proof_avatar_3": "shopify://shop_images/Woman_smiling_with_dog_202605252039.jpg",
+        "proof_avatar_4": "shopify://shop_images/Woman_holding_Corgi_dog_202605252039.jpg",
+        "proof_avatar_5": "shopify://shop_images/Man_hiking_with_German_Shepherd_202605252039.jpg",
+        "proof_avatar_6": "shopify://shop_images/Man_walking_with_Labrador_Retriever_202605252039.jpg"
       }
     }
   },

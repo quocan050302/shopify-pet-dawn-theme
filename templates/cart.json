@@ -1,56 +1,98 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "empty-cart": {
       "type": "pawvoyage-empty-cart",
-      "settings": {},
       "blocks": {
         "rec-xs": {
           "type": "recommended_item",
+          "disabled": true,
           "settings": {
-            "custom_title": "PawVoyage Harness \u2013 XS",
+            "product": "",
+            "custom_title": "PawVoyage Harness – XS",
             "custom_label": "Size XS",
-            "custom_rating_text": "\u2605\u2605\u2605\u2605\u2605 (1,247)",
+            "custom_rating_text": "★★★★★ (1,247)",
             "custom_price_text": "$49.99 USD"
           }
         },
         "rec-s": {
           "type": "recommended_item",
           "settings": {
-            "custom_title": "PawVoyage Harness \u2013 S",
+            "product": "",
+            "custom_image": "shopify://shop_images/1619142631465.jpg",
+            "custom_title": "PawVoyage Harness – S",
             "custom_label": "Size S",
-            "custom_rating_text": "\u2605\u2605\u2605\u2605\u2605 (1,247)",
+            "custom_rating_text": "★★★★★ (1,247)",
             "custom_price_text": "$49.99 USD"
           }
         },
         "rec-m": {
           "type": "recommended_item",
           "settings": {
-            "custom_title": "PawVoyage Harness \u2013 M",
+            "product": "",
+            "custom_image": "shopify://shop_images/1619142630889.jpg",
+            "custom_title": "PawVoyage Harness – M",
             "custom_label": "Size M",
-            "custom_rating_text": "\u2605\u2605\u2605\u2605\u2605 (1,247)",
+            "custom_rating_text": "★★★★★ (1,247)",
             "custom_price_text": "$49.99 USD"
           }
         },
         "rec-l": {
           "type": "recommended_item",
           "settings": {
-            "custom_title": "PawVoyage Harness \u2013 L",
+            "product": "",
+            "custom_image": "shopify://shop_images/1619142631467.jpg",
+            "custom_title": "PawVoyage Harness – L",
             "custom_label": "Size L",
-            "custom_rating_text": "\u2605\u2605\u2605\u2605\u2605 (1,247)",
+            "custom_rating_text": "★★★★★ (1,247)",
             "custom_price_text": "$49.99 USD"
           }
         },
         "rec-xl": {
           "type": "recommended_item",
           "settings": {
-            "custom_title": "PawVoyage Harness \u2013 XL",
+            "product": "",
+            "custom_image": "shopify://shop_images/1619142631170.jpg",
+            "custom_title": "PawVoyage Harness – XL",
             "custom_label": "Size XL",
-            "custom_rating_text": "\u2605\u2605\u2605\u2605\u2605 (1,247)",
+            "custom_rating_text": "★★★★★ (1,247)",
             "custom_price_text": "$49.99 USD"
           }
         }
       },
-      "block_order": ["rec-xs", "rec-s", "rec-m", "rec-l", "rec-xl"]
+      "block_order": [
+        "rec-xs",
+        "rec-s",
+        "rec-m",
+        "rec-l",
+        "rec-xl"
+      ],
+      "settings": {
+        "eyebrow": "Your best friend is waiting",
+        "hero_heading": "Your cart is looking a little lonely.",
+        "hero_subtext": "Looks like you haven't added anything yet. Let's fix that—your adventure buddy is waiting!",
+        "cta_text": "Continue Shopping",
+        "cta_link": "",
+        "hero_image": "shopify://shop_images/ChatGPT_Image_11_00_34_25_thg_5_2026-Photoroom.png",
+        "speech_bubble": "I was hoping for something awesome...",
+        "trust_1": "30-Day Risk-Free Trial",
+        "trust_2": "Fast & Free Shipping Over $50",
+        "trust_3": "Loved by 10,000+ Dog Owners",
+        "recs_heading": "You might also love",
+        "atc_text": "Add to Cart",
+        "email_headline": "Wait! Before you go...",
+        "email_subtext": "Get 10% OFF your first order when you join the PawPack.",
+        "email_placeholder": "Enter your email",
+        "email_btn": "Get 10% OFF"
+      }
     },
     "cart-items": {
       "type": "main-cart-items",
@@ -62,11 +104,6 @@
     },
     "cart-footer": {
       "type": "main-cart-footer",
-      "settings": {
-        "color_scheme": "scheme-1",
-        "padding_top": 20,
-        "padding_bottom": 40
-      },
       "blocks": {
         "subtotal": {
           "type": "subtotal",
@@ -80,7 +117,12 @@
       "block_order": [
         "subtotal",
         "buttons"
-      ]
+      ],
+      "settings": {
+        "color_scheme": "scheme-1",
+        "padding_top": 20,
+        "padding_bottom": 40
+      }
     }
   },
   "order": [
