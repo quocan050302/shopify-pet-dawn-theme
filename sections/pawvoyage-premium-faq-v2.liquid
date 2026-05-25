@@ -285,34 +285,9 @@
               </span>
             </button>
             <div class="pvfaq2-panel" id="{{ panel_id }}" role="region" aria-labelledby="{{ btn_id }}">
-              {%- assign has_faq_img = false -%}
-              {%- if block.settings.optional_image != blank -%}{%- assign has_faq_img = true -%}{%- endif -%}
-              {%- assign section_img = section.settings.open_faq_image -%}
-              {%- assign show_sec_img = false -%}
-              {%- if section_img != blank -%}{%- assign show_sec_img = true -%}{%- endif -%}
-              <div class="pvfaq2-answer-inner">
-                {%- if has_faq_img -%}
-                  <img class="pvfaq2-faq-img" src="{{ block.settings.optional_image | image_url: width: 300 }}" alt="{{ block.settings.optional_image_alt | default: block.settings.question | escape }}" width="120" height="130" loading="lazy">
-                {%- elsif show_sec_img -%}
-                  <img class="pvfaq2-faq-img" src="{{ section_img | image_url: width: 300 }}" alt="{{ section.settings.open_faq_image_alt | default: 'PawVoyage Harness' | escape }}" width="120" height="130" loading="lazy">
-                {%- else -%}
-                  <div class="pvfaq2-faq-img-placeholder"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></div>
-                {%- endif -%}
+              <div class="pvfaq2-answer-inner no-img">
                 <p class="pvfaq2-answer-text">{{ block.settings.answer | default: 'Answer goes here.' }}</p>
               </div>
-              {%- assign b1 = block.settings.mini_benefit_1 -%}
-              {%- assign b2 = block.settings.mini_benefit_2 -%}
-              {%- assign b3 = block.settings.mini_benefit_3 -%}
-              {%- if b1 == blank -%}{%- assign b1 = section.settings.mini_benefit_1 -%}{%- endif -%}
-              {%- if b2 == blank -%}{%- assign b2 = section.settings.mini_benefit_2 -%}{%- endif -%}
-              {%- if b3 == blank -%}{%- assign b3 = section.settings.mini_benefit_3 -%}{%- endif -%}
-              {%- if b1 != blank or b2 != blank or b3 != blank -%}
-              <div class="pvfaq2-mini-benefits">
-                {%- if b1 != blank -%}<div class="pvfaq2-mini-ben"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>{{ b1 }}</div>{%- endif -%}
-                {%- if b2 != blank -%}<div class="pvfaq2-mini-ben"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>{{ b2 }}</div>{%- endif -%}
-                {%- if b3 != blank -%}<div class="pvfaq2-mini-ben"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>{{ b3 }}</div>{%- endif -%}
-              </div>
-              {%- endif -%}
             </div>
           </div>
         {%- endif -%}
