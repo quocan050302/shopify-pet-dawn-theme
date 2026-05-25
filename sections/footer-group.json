@@ -1,9 +1,46 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "name": "t:sections.footer.name",
   "type": "footer",
   "sections": {
     "pv_premium_footer": {
       "type": "pawvoyage-premium-footer",
+      "blocks": {
+        "menu_shop": {
+          "type": "link_list",
+          "settings": {
+            "heading": "Shop",
+            "menu": "main-menu"
+          }
+        },
+        "menu_support": {
+          "type": "link_list",
+          "settings": {
+            "heading": "Support",
+            "menu": "footer"
+          }
+        },
+        "menu_company": {
+          "type": "link_list",
+          "settings": {
+            "heading": "Company",
+            "menu": "footer"
+          }
+        }
+      },
+      "block_order": [
+        "menu_shop",
+        "menu_support",
+        "menu_company"
+      ],
       "settings": {
         "newsletter_eyebrow": "WALK BETTER. TOGETHER.",
         "newsletter_heading": "Join 10,000+ Dog Owners Creating Calmer Walks.",
@@ -11,6 +48,7 @@
         "newsletter_subheading": "Get walking tips, exclusive offers, and product updates.",
         "newsletter_placeholder": "Enter your email address",
         "newsletter_button_text": "Join the Pack",
+        "newsletter_image": "shopify://shop_images/Copy_image_fill_border_202605252208.jpg",
         "trust_1_title": "Secure Checkout",
         "trust_1_desc": "100% safe & protected",
         "trust_2_title": "30-Day Risk-Free Trial",
@@ -21,26 +59,18 @@
         "trust_4_desc": "Real people, here to help",
         "brand_name": "PawVoyage",
         "brand_desc": "Premium dog gear designed for calmer, safer, and more comfortable walks.",
+        "social_instagram": "",
+        "social_facebook": "",
+        "social_tiktok": "",
+        "social_youtube": "",
+        "social_email": "",
         "proof_rating": "4.9/5 from 1,247+ reviews",
         "proof_count": "10,000+ Happy Dog Owners",
         "payment_enable": true
-      },
-      "blocks": {
-        "menu_shop": {
-          "type": "link_list",
-          "settings": { "heading": "Shop", "menu": "main-menu" }
-        },
-        "menu_support": {
-          "type": "link_list",
-          "settings": { "heading": "Support", "menu": "footer" }
-        },
-        "menu_company": {
-          "type": "link_list",
-          "settings": { "heading": "Company", "menu": "footer" }
-        }
-      },
-      "block_order": ["menu_shop", "menu_support", "menu_company"]
+      }
     }
   },
-  "order": ["pv_premium_footer"]
+  "order": [
+    "pv_premium_footer"
+  ]
 }
