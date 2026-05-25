@@ -506,6 +506,12 @@
   font-family: inherit;
 }
 
+@media (max-width: 749px) {
+  .pv-ps-title {
+    font-size: clamp(3rem, 8vw, 4.2rem);
+  }
+}
+
 .pv-ps-title-line1 {
   display: block;
   color: var(--pv-green-dark);
@@ -1106,10 +1112,7 @@
   }
 
   /* Header */
-  .pv-ps-title {
-    font-size: clamp(34px, 10vw, 48px);
-    line-height: 1;
-  }
+  
 
   .pv-ps-subtitle {
     font-size: 15px;
