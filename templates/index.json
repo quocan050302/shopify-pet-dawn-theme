@@ -435,7 +435,11 @@
         "traditional_image": "shopify://shop_images/Copy_full_image_transparent_202605232300.png",
         "traditional_image_alt": "Traditional Harness",
         "basic_image": "shopify://shop_images/Copy_full_image_transparent_202605232300_1_-Photoroom.png",
-        "basic_image_alt": "Basic No-Pull Harness"
+        "basic_image_alt": "Basic No-Pull Harness",
+        "cta_heading": "Ready for calmer walks?",
+        "cta_text": "Choose the harness built for control, comfort, and everyday adventures.",
+        "cta_label": "Shop PawVoyage Harness",
+        "cta_link": ""
       }
     },
     "pv_reviews": {
@@ -444,6 +448,7 @@
         "rev_1": {
           "type": "review_card",
           "settings": {
+            "review_image": "shopify://shop_images/Copy_image_borderless_202605252005.jpg",
             "review_image_alt": "Customer review photo",
             "rating": 5,
             "review_text": "Max used to pull so hard I could barely keep up. After one walk with PawVoyage, it was night and day.",
@@ -455,6 +460,7 @@
         "rev_2": {
           "type": "review_card",
           "settings": {
+            "review_image": "shopify://shop_images/Copy_image_fill_border_202605252005.jpg",
             "review_image_alt": "Customer review photo",
             "rating": 5,
             "review_text": "Finally a harness that fits perfectly and doesn’t chafe. Super comfortable and super strong!",
@@ -466,6 +472,7 @@
         "rev_3": {
           "type": "review_card",
           "settings": {
+            "review_image": "shopify://shop_images/Copy_image_fill_border_202605252005_4.jpg",
             "review_image_alt": "Customer review photo",
             "rating": 5,
             "review_text": "The front clip makes all the difference. Our walks are calmer and so much more enjoyable now.",
@@ -477,6 +484,7 @@
         "rev_4": {
           "type": "review_card",
           "settings": {
+            "review_image": "shopify://shop_images/Copy_image_fill_border_202605252005_3.jpg",
             "review_image_alt": "Customer review photo",
             "rating": 5,
             "review_text": "Love the handle and how easy it is to put on. It’s our go-to harness for every adventure.",
@@ -488,6 +496,7 @@
         "rev_5": {
           "type": "review_card",
           "settings": {
+            "review_image": "shopify://shop_images/Copy_image_fill_border_202605252005_2.jpg",
             "review_image_alt": "Customer review photo",
             "rating": 5,
             "review_text": "Durable, secure, and stylish. Worth every penny! My dog looks and feels like a K9.",
