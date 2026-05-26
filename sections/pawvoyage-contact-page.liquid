@@ -56,7 +56,7 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 4rem 3.5rem 4rem 4.5rem;
+  padding: 3rem 2.5rem 3rem 3.5rem;
 }
 .pvcp-hero-eyebrow {
   display: inline-flex;
@@ -104,7 +104,7 @@
 .pvcp-hero-right {
   position: relative;
   overflow: hidden;
-  min-height: 320px;
+  min-height: 300px;
 }
 .pvcp-hero-right::before {
   content: '';
@@ -524,22 +524,41 @@
    RESPONSIVE — Mobile (≤ 749px)
    ══════════════════════════════ */
 @media (max-width: 749px) {
-  .pvcp-hero-wrap { padding: 1.2rem 1.2rem 0; }
-  .pvcp-hero { min-height: unset; border-radius: 14px; }
-  .pvcp-hero-left { padding: 2rem 1.8rem 2.2rem; min-height: unset; }
-  .pvcp-hero-heading { font-size: 2.8rem; }
-  .pvcp-hero-sub { font-size: 1.35rem; }
-  .pvcp-page-wrap { padding: 0 1.6rem; }
-  .pvcp-main { padding: 3.2rem 0; }
-  .pvcp-form-card { padding: 2rem 1.6rem; }
+  .pvcp-hero-wrap { padding: 1rem 1rem 0; }
+  .pvcp-hero {
+    grid-template-columns: 1fr;
+    min-height: unset;
+    border-radius: 14px;
+  }
+  .pvcp-hero-right { display: none; }
+  .pvcp-hero-left {
+    padding: 2rem 1.6rem 2.2rem;
+    min-height: unset;
+    position: relative;
+    z-index: 1;
+    background: none;
+  }
+  .pvcp-hero-heading { font-size: 2.6rem; }
+  .pvcp-hero-sub { font-size: 1.3rem; }
+  .pvcp-page-wrap { padding: 0 1.4rem; }
+  .pvcp-main { padding: 2.8rem 0; }
+  /* Swap column order on mobile: form first, support cards second */
+  .pvcp-main-grid {
+    display: flex;
+    flex-direction: column;
+  }
+  .pvcp-form-card { order: 0; }
+  .pvcp-main-grid > div:not(.pvcp-form-card) { order: 1; }
+  .pvcp-form-card { padding: 2rem 1.4rem; }
   .pvcp-form-row { grid-template-columns: 1fr; gap: 0; }
-  .pvcp-faq { padding: 3rem 0; }
+  .pvcp-faq { padding: 2.6rem 0; }
   .pvcp-faq-header { flex-direction: column; align-items: flex-start; gap: 1rem; }
   .pvcp-faq-row { grid-template-columns: 1fr; }
   .pvcp-trust { display: none; }
   .pvcp-contact-info { flex-wrap: wrap; gap: 1.2rem; }
   .pvcp-form-submit { font-size: 1.4rem; padding: 1.2rem; }
 }
+
 
 @media (max-width: 480px) {
   .pvcp-trust-grid { grid-template-columns: 1fr; }

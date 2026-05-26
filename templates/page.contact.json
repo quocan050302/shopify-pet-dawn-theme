@@ -1,8 +1,68 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "pawvoyage_contact": {
       "type": "pawvoyage-contact-page",
-      "settings": {}
+      "settings": {
+        "hero_image": "shopify://shop_images/ChatGPT_Image_11_32_33_26_thg_5_2026.png",
+        "hero_image_alt": "A happy dog wearing a PawVoyage harness",
+        "hero_eyebrow": "WE'RE HERE TO HELP",
+        "hero_heading": "Contact PawVoyage",
+        "hero_subheading": "Have a question about sizing, shipping, returns, or your order? Our support team is ready to help you and your pup.",
+        "hero_badge": "We usually reply within 24–48 hours.",
+        "support_heading": "How can we help?",
+        "card_1_title": "Sizing Help",
+        "card_1_desc": "Not sure which size to choose? Send us your dog's measurements and we'll help you find the perfect fit.",
+        "card_2_title": "Order Support",
+        "card_2_desc": "Questions about shipping, tracking, returns, or exchanges? We'll help you sort it out.",
+        "card_3_title": "Product Questions",
+        "card_3_desc": "Need help choosing the right gear for your dog? Ask us anytime.",
+        "email_label": "Prefer email?",
+        "contact_email": "hello@pawvoyage.com",
+        "phone_label": "Call us",
+        "contact_phone": "+1 (555) 123-4567",
+        "form_heading": "Send us a message",
+        "form_subheading": "Fill out the form below and we'll get back to you as soon as possible.",
+        "field_name": "Name",
+        "field_name_placeholder": "Your name",
+        "field_email": "Email",
+        "field_email_placeholder": "you@email.com",
+        "field_order": "Order Number",
+        "field_order_optional": "optional",
+        "field_order_placeholder": "e.g. #12345",
+        "field_message": "Message",
+        "field_message_placeholder": "Tell us how we can help...",
+        "form_button": "Send Message",
+        "form_trust_text": "Your information is safe with us. We'll never share your details.",
+        "form_success": "Thanks for reaching out! We'll reply within 24–48 hours.",
+        "faq_heading": "Quick answers before you message us",
+        "faq_link": "",
+        "faq_link_text": "View all FAQs",
+        "faq_q1": "How do I choose the right size?",
+        "faq_a1": "Measure your dog's chest girth (just behind the front legs) and compare to our size chart. When between sizes, choose the larger.",
+        "faq_q2": "How long does shipping take?",
+        "faq_a2": "Standard shipping takes 5–7 business days. Expedited options are available at checkout.",
+        "faq_q3": "What if the harness doesn't fit?",
+        "faq_a3": "No worries! We offer hassle-free exchanges within 30 days of purchase. Contact us with your order number.",
+        "faq_q4": "Can I return or exchange my order?",
+        "faq_a4": "Yes. We accept returns within 30 days if the item is unused and in original condition. See our returns policy for details.",
+        "trust_1_title": "Secure Checkout",
+        "trust_1_desc": "Your payment is 100% secure",
+        "trust_2_title": "30-Day Easy Returns",
+        "trust_2_desc": "Love it or return it. No hassle.",
+        "trust_3_title": "Fast Shipping",
+        "trust_3_desc": "Quick delivery, right to your door",
+        "trust_4_title": "Friendly Pet Support",
+        "trust_4_desc": "Real people who love pets"
+      }
     }
   },
   "order": [
