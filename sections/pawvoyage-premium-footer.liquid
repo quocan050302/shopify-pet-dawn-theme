@@ -1,662 +1,872 @@
 {%- liquid
-  assign nl_img   = section.settings.newsletter_image
-  assign av1      = section.settings.proof_avatar_1
-  assign av2      = section.settings.proof_avatar_2
-  assign av3      = section.settings.proof_avatar_3
-  assign av4      = section.settings.proof_avatar_4
-  assign av5      = section.settings.proof_avatar_5
+  assign nl_img     = section.settings.newsletter_image
+  assign shimmer_on = section.settings.enable_shimmer
+  assign av1        = section.settings.proof_avatar_1
+  assign av2        = section.settings.proof_avatar_2
+  assign av3        = section.settings.proof_avatar_3
+  assign av4        = section.settings.proof_avatar_4
+  assign av5        = section.settings.proof_avatar_5
+
+  assign raw_heading   = section.settings.newsletter_heading   | default: 'Join 10,000+ Dog Owners Creating Calmer Walks.'
+  assign raw_highlight = section.settings.newsletter_highlight | default: 'Calmer Walks.'
 -%}
 
 {%- style -%}
-/* ══════════════════════════════════════════════
-   PawVoyage Premium Footer — scoped to section
-   ══════════════════════════════════════════════ */
+/* ═══════════════════════════════════════════════════════════
+   PawVoyage Premium Footer v3 — Compact Luxury Rebuild
+   Scoped to: #pvf-{{ section.id }}
+   ═══════════════════════════════════════════════════════════ */
 
-/* ── RESET / BASE ── */
+#pvf-{{ section.id }},
 #pvf-{{ section.id }} *,
 #pvf-{{ section.id }} *::before,
 #pvf-{{ section.id }} *::after { box-sizing: border-box; }
 
+/* ── TOKENS ── */
 #pvf-{{ section.id }} {
-  --pvf-green:  #12241A;
-  --pvf-green2: #1A3024;
-  --pvf-gold:   #D4A843;
-  --pvf-gold2:  #EBBB5A;
-  --pvf-cream:  #FFF8EE;
-  --pvf-muted:  rgba(255,248,238,0.55);
-  --pvf-border: rgba(255,248,238,0.10);
-  --pvf-radius: 20px;
-  font-family: var(--font-body-family), -apple-system, BlinkMacSystemFont, 'Inter', sans-serif;
-  background: var(--pvf-green);
-  color: var(--pvf-cream);
+  --g:       #06170f;
+  --g2:      #0b2a1c;
+  --g3:      #123625;
+  --gold:    #d7a53f;
+  --gold2:   #e8bb5c;
+  --cream:   #f6f2e8;
+  --muted:   rgba(255,255,255,0.72);
+  --dim:     rgba(255,255,255,0.45);
+  --dimmer:  rgba(255,255,255,0.28);
+  --bdr:     rgba(255,255,255,0.08);
+  --bdr-g:   rgba(215,165,63,0.22);
+  --r:       16px;
+  --r-card:  24px;
+  font-family: var(--font-body-family, -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif);
+  background: linear-gradient(135deg, var(--g) 0%, var(--g2) 45%, var(--g3) 100%);
+  color: var(--cream);
   position: relative;
   overflow: hidden;
 }
 
-/* Ambient glow blobs */
-#pvf-{{ section.id }}::before,
-#pvf-{{ section.id }}::after {
+/* Ambient radial glow */
+#pvf-{{ section.id }}::before {
   content: '';
   position: absolute;
-  border-radius: 50%;
+  top: -30%; left: -10%;
+  width: 70%; height: 160%;
+  background: radial-gradient(ellipse, rgba(215,165,63,0.06) 0%, transparent 65%);
   pointer-events: none;
   z-index: 0;
 }
-#pvf-{{ section.id }}::before {
-  width: 700px; height: 700px;
-  background: radial-gradient(ellipse, rgba(30,80,40,0.30) 0%, transparent 70%);
-  top: -200px; left: -200px;
-}
 #pvf-{{ section.id }}::after {
-  width: 600px; height: 600px;
-  background: radial-gradient(ellipse, rgba(212,168,67,0.07) 0%, transparent 70%);
-  bottom: 0; right: -100px;
+  content: '';
+  position: absolute;
+  bottom: -20%; right: -10%;
+  width: 55%; height: 120%;
+  background: radial-gradient(ellipse, rgba(18,54,37,0.45) 0%, transparent 65%);
+  pointer-events: none;
+  z-index: 0;
 }
 
-/* ── INNER WRAPPER ── */
+/* ── WRAP ── */
 #pvf-{{ section.id }} .pvf-wrap {
   position: relative;
   z-index: 1;
-  max-width: 1500px;
+  max-width: 1600px;
   margin: 0 auto;
-  padding: 48px 24px 28px;
+  padding: 48px 40px 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
 }
 @media (max-width: 749px) {
-  #pvf-{{ section.id }} .pvf-wrap { padding: 36px 16px 20px; }
-  /* Newsletter card: full-width, no overflow */
-  #pvf-{{ section.id }} .pvf-nl {
-    overflow: hidden;
-    margin-bottom: 24px;
+  #pvf-{{ section.id }} .pvf-wrap {
+    padding: 24px 18px 18px;
+    gap: 18px;
   }
-  /* Hide right image pane on mobile */
-  #pvf-{{ section.id }} .pvf-nl__right { display: none; }
-  /* Left pane compact */
-  #pvf-{{ section.id }} .pvf-nl__left { padding: 28px 20px 24px; }
-  /* Heading smaller on mobile */
-  #pvf-{{ section.id }} .pvf-nl__heading { font-size: clamp(2.2rem, 6vw, 3rem); }
-  /* Input row: icon+input on top row, button full-width below */
-  #pvf-{{ section.id }} .pvf-nl__input-row {
-    flex-wrap: wrap;
-    border-radius: 12px;
-    overflow: hidden;
-    gap: 0;
+}
+
+/* ══════════════════════════════════════════════════════
+   1. NEWSLETTER CTA — Horizontal 2-Column
+   ══════════════════════════════════════════════════════ */
+
+/* Outer section wrapper */
+#pvf-{{ section.id }} .pvf-nl {
+  position: relative;
+  width: 100%;
+}
+/* Ambient amber glow behind card */
+#pvf-{{ section.id }} .pvf-nl::before {
+  content: '';
+  position: absolute;
+  inset: -20px -5%;
+  background: radial-gradient(ellipse 60% 120% at 50% 50%, rgba(215,165,63,0.06) 0%, transparent 68%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ── 2-COLUMN CARD ── */
+#pvf-{{ section.id }} .pvf-nl__card {
+  position: relative;
+  z-index: 1;
+  margin: 0 auto;
+  padding: 36px 48px;
+  border-radius: 24px;
+  background: rgba(255,255,255,0.032);
+  border: 1px solid rgba(255,255,255,0.08);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow:
+    0 2px 0 rgba(215,165,63,0.10),
+    0 18px 52px rgba(0,0,0,0.32),
+    inset 0 1px 0 rgba(255,255,255,0.05);
+  /* 2-column grid: left 55% / right 45% */
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(320px, .9fr);
+  align-items: center;
+  gap: 48px;
+  min-height: 0;
+}
+/* Gold shimmer top line */
+#pvf-{{ section.id }} .pvf-nl__card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 8%; right: 8%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(215,165,63,0.46) 50%, transparent);
+  pointer-events: none;
+  border-radius: 1px;
+}
+
+/* ── LEFT: COPY ── */
+#pvf-{{ section.id }} .pvf-nl__copy {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+  text-align: left;
+  min-width: 0;
+}
+
+/* Label */
+#pvf-{{ section.id }} .pvf-nl__label {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--gold);
+  opacity: 0.90;
+  line-height: 1;
+}
+#pvf-{{ section.id }} .pvf-nl__label svg {
+  width: 12px; height: 12px;
+  fill: var(--gold);
+  flex-shrink: 0;
+}
+
+/* Headline */
+#pvf-{{ section.id }} .pvf-nl__headline {
+  font-family: var(--font-heading-family, Georgia, 'Times New Roman', serif);
+  font-size: clamp(30px, 3.4vw, 52px);
+  font-weight: 800;
+  line-height: 1.2;
+  letter-spacing: -0.028em;
+  color: #f5f2e8;
+  margin: 0;
+  max-width: 620px;
+}
+#pvf-{{ section.id }} .pvf-nl__accent {
+  color: var(--gold);
+  text-shadow: 0 0 24px rgba(215,165,63,0.22);
+}
+
+/* Shimmer */
+#pvf-{{ section.id }} .pvf-nl__shimmer {
+  position: relative;
+  display: inline;
+  color: #f5f2e8;
+  filter: brightness(1.08);
+}
+{% if shimmer_on %}
+#pvf-{{ section.id }} .pvf-nl__shimmer::after {
+  content: '';
+  position: absolute;
+  inset: -2px -4px;
+  border-radius: 4px;
+  background: linear-gradient(105deg, transparent 15%, rgba(215,165,63,0.28) 50%, transparent 85%);
+  background-size: 250% 100%;
+  animation: pvf-shimmer 3.8s ease-in-out infinite;
+  pointer-events: none;
+}
+{% endif %}
+
+/* Description */
+#pvf-{{ section.id }} .pvf-nl__desc {
+  font-size: 16px;
+  color: var(--muted);
+  line-height: 1.52;
+  margin: 0;
+  max-width: 500px;
+}
+
+/* ── RIGHT: ACTIONS ── */
+#pvf-{{ section.id }} .pvf-nl__actions {
+  display: flex;
+  flex-direction: column;
+  gap: 11px;
+  min-width: 0;
+}
+
+/* Form */
+#pvf-{{ section.id }} .pvf-nl__form {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  width: 100%;
+}
+#pvf-{{ section.id }} .pvf-nl__row {
+  display: flex;
+  gap: 8px;
+  width: 100%;
+  height: 56px;
+}
+
+/* Input */
+#pvf-{{ section.id }} .pvf-nl__input-wrap {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+}
+#pvf-{{ section.id }} .pvf-nl__icon {
+  position: absolute;
+  left: 16px;
+  display: flex;
+  align-items: center;
+  pointer-events: none;
+}
+#pvf-{{ section.id }} .pvf-nl__icon svg {
+  width: 15px; height: 15px;
+  stroke: rgba(215,165,63,0.42);
+}
+#pvf-{{ section.id }} .pvf-nl__input {
+  width: 100%;
+  height: 56px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.10);
+  border-radius: 16px;
+  padding: 0 16px 0 44px;
+  color: var(--cream);
+  font-size: 15px;
+  font-family: inherit;
+  outline: none;
+  -webkit-appearance: none;
+  appearance: none;
+  transition: border-color 0.25s, box-shadow 0.25s;
+}
+#pvf-{{ section.id }} .pvf-nl__input::placeholder { color: rgba(255,255,255,0.42); }
+#pvf-{{ section.id }} .pvf-nl__input:focus {
+  border-color: rgba(215,165,63,0.46);
+  box-shadow: 0 0 0 3px rgba(215,165,63,0.09);
+}
+
+/* Button */
+#pvf-{{ section.id }} .pvf-nl__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 56px;
+  width: 170px;
+  flex-shrink: 0;
+  background: linear-gradient(180deg, #e0b24c 0%, #c9942f 100%);
+  color: #111;
+  font-size: 15px;
+  font-weight: 700;
+  font-family: inherit;
+  border: none;
+  border-radius: 16px;
+  cursor: pointer;
+  white-space: nowrap;
+  letter-spacing: 0.01em;
+  position: relative;
+  overflow: hidden;
+  transition: background 0.25s, box-shadow 0.25s, transform 0.15s;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.20), inset 0 -2px 0 rgba(0,0,0,0.12);
+}
+#pvf-{{ section.id }} .pvf-nl__btn::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(115deg, transparent 30%, rgba(255,255,255,0.16) 50%, transparent 70%);
+  opacity: 0;
+  transition: opacity 0.25s;
+}
+#pvf-{{ section.id }} .pvf-nl__btn:hover::before { opacity: 1; }
+#pvf-{{ section.id }} .pvf-nl__btn:hover {
+  background: linear-gradient(180deg, #ebbc5a 0%, #d7a53f 100%);
+  box-shadow: 0 0 20px rgba(215,165,63,0.40), inset 0 1px 0 rgba(255,255,255,0.22);
+  transform: translateY(-1px);
+}
+#pvf-{{ section.id }} .pvf-nl__btn:active { transform: translateY(0); }
+#pvf-{{ section.id }} .pvf-nl__btn:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 3px;
+}
+
+/* Form messages */
+#pvf-{{ section.id }} .pvf-nl__msg {
+  display: flex; align-items: center; gap: 6px;
+  font-size: 13px; margin-top: 6px;
+}
+#pvf-{{ section.id }} .pvf-nl__msg--success { color: #6fd98c; }
+#pvf-{{ section.id }} .pvf-nl__msg--error   { color: #f07070; }
+#pvf-{{ section.id }} .pvf-nl__msg svg { width: 13px; height: 13px; flex-shrink: 0; }
+
+/* Trust row */
+#pvf-{{ section.id }} .pvf-nl__trust {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 5px 14px;
+  width: 100%;
+}
+#pvf-{{ section.id }} .pvf-nl__trust-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 12px;
+  color: rgba(255,255,255,0.52);
+  white-space: nowrap;
+}
+#pvf-{{ section.id }} .pvf-nl__trust-icon {
+  width: 13px; height: 13px;
+  border-radius: 50%;
+  border: 1px solid rgba(215,165,63,0.30);
+  background: rgba(215,165,63,0.07);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+#pvf-{{ section.id }} .pvf-nl__trust-icon svg {
+  width: 7px; height: 7px;
+  stroke: var(--gold);
+}
+
+/* Proof row */
+#pvf-{{ section.id }} .pvf-nl__proof {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  flex-wrap: wrap;
+  opacity: 0.68;
+}
+#pvf-{{ section.id }} .pvf-nl__proof-stars {
+  color: var(--gold);
+  font-size: 1.2rem;
+  letter-spacing: 1px;
+  line-height: 1;
+  filter: drop-shadow(0 0 4px rgba(215,165,63,0.30));
+}
+#pvf-{{ section.id }} .pvf-nl__proof-text {
+  font-size: 12px;
+  color: rgba(255,255,255,0.68);
+  line-height: 1;
+}
+
+/* ── MOBILE ── */
+@media (max-width: 749px) {
+  #pvf-{{ section.id }} .pvf-nl__card {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 20px;
+    padding: 24px 18px;
+    border-radius: 18px;
+    min-height: auto;
   }
-  #pvf-{{ section.id }} .pvf-nl__email-icon { flex-shrink: 0; }
+  #pvf-{{ section.id }} .pvf-nl__copy {
+    align-items: center;
+    text-align: center;
+  }
+  #pvf-{{ section.id }} .pvf-nl__headline {
+    font-size: clamp(28px, 8vw, 36px);
+    line-height: 1.03;
+    max-width: 100%;
+  }
+  #pvf-{{ section.id }} .pvf-nl__desc {
+    font-size: 15px;
+    max-width: 100%;
+  }
+  #pvf-{{ section.id }} .pvf-nl__row {
+    flex-direction: column;
+    height: auto;
+    gap: 10px;
+  }
   #pvf-{{ section.id }} .pvf-nl__input {
-    flex: 1;
-    min-width: 0;
-    padding: 15px 12px 15px 0;
-    font-size: 1.4rem;
+    height: 54px;
+    border-radius: 14px;
   }
   #pvf-{{ section.id }} .pvf-nl__btn {
     width: 100%;
-    flex-shrink: 0;
-    border-radius: 0;
-    padding: 14px 20px;
-    font-size: 1.5rem;
-    letter-spacing: .05em;
-    border-top: 1px solid rgba(0,0,0,0.10);
-    box-shadow: inset 0 1px 0 rgba(255,255,255,0.20), 0 -1px 0 rgba(0,0,0,0.10);
+    height: 54px;
+    border-radius: 14px;
+  }
+  #pvf-{{ section.id }} .pvf-nl__trust {
+    justify-content: center;
+  }
+  #pvf-{{ section.id }} .pvf-nl__proof {
+    justify-content: center;
   }
 }
 
-/* ══════════════════════════════════════════
-   1. NEWSLETTER HERO
-   ══════════════════════════════════════════ */
-#pvf-{{ section.id }} .pvf-nl {
-  display: grid;
-  grid-template-columns: 1fr;
-  border-radius: var(--pvf-radius);
-  overflow: hidden;
-  background: var(--pvf-green2);
-  border: 1px solid var(--pvf-border);
-  box-shadow: 0 24px 64px rgba(0,0,0,0.40);
-  margin-bottom: 32px;
-}
-@media (min-width: 860px) {
-  #pvf-{{ section.id }} .pvf-nl { grid-template-columns: 1fr 1fr; }
-}
+/* ══════════════════════════════════════════════════════
+   2. MAIN FOOTER ROW — 4-COLUMN
+   ══════════════════════════════════════════════════════ */
 
-/* Left pane */
-#pvf-{{ section.id }} .pvf-nl__left {
-  padding: 44px 48px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-@media (max-width: 859px) {
-  #pvf-{{ section.id }} .pvf-nl__left { padding: 32px 24px 28px; }
-}
-
-/* Eyebrow */
-#pvf-{{ section.id }} .pvf-nl__eyebrow {
-  font-size: 1.15rem;
-  font-weight: 800;
-  letter-spacing: .14em;
-  text-transform: uppercase;
-  color: var(--pvf-gold);
-  margin: 0 0 14px;
-  display: flex;
-  align-items: center;
-  gap: .5rem;
-}
-
-/* Heading */
-#pvf-{{ section.id }} .pvf-nl__heading {
-  font-size: clamp(2.6rem, 3.8vw, 4.0rem);
-  font-weight: 900;
-  font-family: var(--font-body-family), -apple-system, BlinkMacSystemFont, 'Inter', sans-serif;
-  color: var(--pvf-cream);
-  line-height: 1.10;
-  letter-spacing: -.02em;
-  margin: 0 0 16px;
-}
-#pvf-{{ section.id }} .pvf-nl__heading-accent { color: var(--pvf-gold); }
-
-/* Subheading */
-#pvf-{{ section.id }} .pvf-nl__sub {
-  font-size: 1.55rem;
-  color: var(--pvf-muted);
-  line-height: 1.55;
-  margin: 0 0 28px;
-  font-weight: 400;
-}
-
-/* Input row */
-#pvf-{{ section.id }} .pvf-nl__input-row {
-  display: flex;
-  align-items: stretch;
-  background: rgba(255,248,238,0.07);
-  border: 1px solid rgba(255,248,238,0.18);
-  border-radius: 12px;
-  overflow: hidden;
-  backdrop-filter: blur(8px);
-  transition: border-color .2s;
-}
-#pvf-{{ section.id }} .pvf-nl__input-row:focus-within {
-  border-color: rgba(212,168,67,0.55);
-}
-
-/* Email icon */
-#pvf-{{ section.id }} .pvf-nl__email-icon {
-  display: flex;
-  align-items: center;
-  padding: 0 14px 0 16px;
-  color: var(--pvf-muted);
-  flex-shrink: 0;
-}
-#pvf-{{ section.id }} .pvf-nl__email-icon svg { width: 18px; height: 18px; }
-
-/* Input field */
-#pvf-{{ section.id }} .pvf-nl__input {
-  flex: 1;
-  background: transparent;
-  border: none;
-  outline: none;
-  color: var(--pvf-cream);
-  font-size: 1.5rem;
-  font-family: inherit;
-  padding: 16px 12px 16px 0;
-  min-width: 0;
-}
-#pvf-{{ section.id }} .pvf-nl__input::placeholder { color: rgba(255,248,238,0.38); }
-
-/* CTA Button */
-#pvf-{{ section.id }} .pvf-nl__btn {
-  background: linear-gradient(180deg, #E8B93A 0%, #C9971E 100%);
-  color: #12241A;
-  font-size: 1.45rem;
-  font-weight: 900;
-  padding: 1rem;
-  border: none;
-  cursor: pointer;
-  white-space: nowrap;
-  letter-spacing: .04em;
-  transition: background .2s, box-shadow .2s, transform .1s;
-  flex-shrink: 0;
-  line-height: 1;
-  box-shadow: inset 0 1px 0 rgba(255,255,255,0.25), inset 0 -2px 0 rgba(0,0,0,0.15);
-}
-#pvf-{{ section.id }} .pvf-nl__btn:hover {
-  background: linear-gradient(180deg, #EBBB5A 0%, #D4A843 100%);
-  box-shadow: inset 0 1px 0 rgba(255,255,255,0.30), inset 0 -2px 0 rgba(0,0,0,0.15), 0 0 20px rgba(212,168,67,0.35);
-  transform: translateY(-1px);
-}
-
-/* Success / error */
-#pvf-{{ section.id }} .pvf-nl__msg {
-  display: flex; align-items: center; gap: .6rem;
-  font-size: 1.3rem; margin-top: 10px; padding: 0 2px;
-}
-#pvf-{{ section.id }} .pvf-nl__msg--success { color: #6FD98C; }
-#pvf-{{ section.id }} .pvf-nl__msg--error   { color: #F07070; }
-
-/* No-spam */
-#pvf-{{ section.id }} .pvf-nl__trust {
-  display: flex;
-  align-items: center;
-  gap: .5rem;
-  font-size: 1.2rem;
-  color: var(--pvf-muted);
-  margin-top: 12px;
-}
-#pvf-{{ section.id }} .pvf-nl__trust svg { width: 14px; height: 14px; flex-shrink: 0; opacity: .7; }
-
-/* Right pane: image */
-#pvf-{{ section.id }} .pvf-nl__right {
-  position: relative;
-  min-height: 300px;
-  overflow: hidden;
-}
-@media (max-width: 859px) {
-  #pvf-{{ section.id }} .pvf-nl__right { min-height: 240px; }
-}
-#pvf-{{ section.id }} .pvf-nl__img {
-  width: 100%; height: 100%;
-  object-fit: cover;
-  object-position: center top;
-  display: block;
-}
-#pvf-{{ section.id }} .pvf-nl__img-overlay {
-  position: absolute; inset: 0;
-  background: linear-gradient(to right, var(--pvf-green2) 0%, rgba(26,48,36,0.10) 35%, transparent 60%);
-  pointer-events: none;
-}
-@media (max-width: 859px) {
-  #pvf-{{ section.id }} .pvf-nl__img-overlay {
-    background: linear-gradient(to bottom, rgba(26,48,36,0.60) 0%, transparent 50%);
-  }
-}
-#pvf-{{ section.id }} .pvf-nl__placeholder {
-  width: 100%; height: 100%; min-height: 300px;
-  background: linear-gradient(135deg, #1E3828 0%, #2A4A34 100%);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 6rem; opacity: .35;
-}
-
-/* ══════════════════════════════════════════
-   2. TRUST BAR
-   ══════════════════════════════════════════ */
-#pvf-{{ section.id }} .pvf-trust {
-  display: none !important; /* hidden per user request */
-  grid-template-columns: 1fr 1fr;
-  gap: 1px;
-  background: var(--pvf-border);
-  border: 1px solid var(--pvf-border);
-  border-radius: 16px;
-  overflow: hidden;
-  margin-bottom: 40px;
-}
-@media (min-width: 860px) {
-  #pvf-{{ section.id }} .pvf-trust { grid-template-columns: repeat(4, 1fr); }
-}
-#pvf-{{ section.id }} .pvf-trust__item {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  padding: 22px 24px;
-  background: rgba(255,248,238,0.025);
-  transition: background .2s;
-}
-#pvf-{{ section.id }} .pvf-trust__item:hover { background: rgba(255,248,238,0.045); }
-#pvf-{{ section.id }} .pvf-trust__icon {
-  width: 42px; height: 42px;
-  border-radius: 50%;
-  background: rgba(212,168,67,0.12);
-  border: 1px solid rgba(212,168,67,0.22);
-  display: flex; align-items: center; justify-content: center;
-  flex-shrink: 0;
-  box-shadow: 0 0 16px rgba(212,168,67,0.10);
-}
-#pvf-{{ section.id }} .pvf-trust__icon svg { width: 20px; height: 20px; stroke: var(--pvf-gold); }
-#pvf-{{ section.id }} .pvf-trust__text { display: flex; flex-direction: column; gap: 2px; }
-#pvf-{{ section.id }} .pvf-trust__title { font-size: 1.3rem; font-weight: 700; color: var(--pvf-cream); line-height: 1.2; }
-#pvf-{{ section.id }} .pvf-trust__desc  { font-size: 1.15rem; color: var(--pvf-muted); }
-@media (max-width: 480px) {
-  #pvf-{{ section.id }} .pvf-trust__item { padding: 16px 14px; gap: 10px; }
-  #pvf-{{ section.id }} .pvf-trust__icon { width: 34px; height: 34px; }
-  #pvf-{{ section.id }} .pvf-trust__icon svg { width: 16px; height: 16px; }
-  #pvf-{{ section.id }} .pvf-trust__title { font-size: 1.2rem; }
-  #pvf-{{ section.id }} .pvf-trust__desc { display: none; }
-}
-
-/* ══════════════════════════════════════════
-   3. MAIN COLUMNS
-   ══════════════════════════════════════════ */
 #pvf-{{ section.id }} .pvf-main {
   display: grid;
-  grid-template-columns: 1fr;
-  gap: 36px;
-  padding-bottom: 32px;
-  border-bottom: 1px solid var(--pvf-border);
-  margin-bottom: 24px;
+  grid-template-columns: 1.4fr 1fr 1fr 1fr;
+  gap: 24px;
+  padding-bottom: 20px;
 }
-@media (min-width: 860px) {
-  #pvf-{{ section.id }} .pvf-main {
-    grid-template-columns: 2fr 1fr 1fr 1fr 1.7fr;
-    gap: 28px;
-    align-items: start;
-  }
-}
-@media (max-width: 749px) {
+@media (max-width: 860px) {
   #pvf-{{ section.id }} .pvf-main {
     grid-template-columns: 1fr 1fr;
     gap: 20px 16px;
   }
-  #pvf-{{ section.id }} .pvf-brand,
-  #pvf-{{ section.id }} .pvf-proof-card {
-    grid-column: 1 / -1;
+}
+@media (max-width: 560px) {
+  #pvf-{{ section.id }} .pvf-main {
+    grid-template-columns: 1fr;
+    gap: 0;
+    border-bottom: none;
+    padding-bottom: 0;
   }
-  #pvf-{{ section.id }} .pvf-proof-card { display: none; }
 }
 
 /* Brand column */
-#pvf-{{ section.id }} .pvf-brand { display: flex; flex-direction: column; }
-#pvf-{{ section.id }} .pvf-brand__logo {
-  display: flex; align-items: center; gap: 10px;
-  margin-bottom: 14px;
+#pvf-{{ section.id }} .pvf-brand {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 }
-#pvf-{{ section.id }} .pvf-brand__logo-icon {
-  width: 38px; height: 38px;
-  background: rgba(212,168,67,0.15);
-  border: 1px solid rgba(212,168,67,0.30);
-  border-radius: 10px;
-  display: flex; align-items: center; justify-content: center;
-}
-#pvf-{{ section.id }} .pvf-brand__logo-icon svg { width: 22px; height: 22px; fill: var(--pvf-gold); }
-#pvf-{{ section.id }} .pvf-brand__name {
-  font-size: 2.2rem; font-weight: 900; color: var(--pvf-cream);
-  letter-spacing: -.02em;
-}
-#pvf-{{ section.id }} .pvf-brand__desc {
-  font-size: 1.35rem; color: var(--pvf-muted); line-height: 1.6;
-  max-width: 280px; margin: 0 0 22px;
+@media (max-width: 860px) {
+  #pvf-{{ section.id }} .pvf-brand { grid-column: 1 / -1; }
 }
 
-/* Social icons */
-#pvf-{{ section.id }} .pvf-socials { display: flex; flex-wrap: wrap; gap: 10px; }
-#pvf-{{ section.id }} .pvf-social {
-  width: 38px; height: 38px;
-  border-radius: 50%;
-  border: 1px solid rgba(255,248,238,0.18);
-  background: rgba(255,248,238,0.06);
+/* Logo row */
+#pvf-{{ section.id }} .pvf-brand__logo {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+#pvf-{{ section.id }} .pvf-brand__logo-mark {
+  width: 32px; height: 32px;
+  background: rgba(215,165,63,0.12);
+  border: 1px solid rgba(215,165,63,0.28);
+  border-radius: 9px;
   display: flex; align-items: center; justify-content: center;
-  color: var(--pvf-muted);
+  flex-shrink: 0;
+}
+#pvf-{{ section.id }} .pvf-brand__logo-mark svg {
+  width: 18px; height: 18px;
+  fill: var(--gold);
+}
+#pvf-{{ section.id }} .pvf-brand__name {
+  font-size: 1.9rem;
+  font-weight: 900;
+  color: var(--cream);
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+
+/* Brand description */
+#pvf-{{ section.id }} .pvf-brand__desc {
+  font-size: 15px;
+  color: var(--muted);
+  line-height: 1.6;
+  max-width: 260px;
+  margin: 0;
+}
+
+/* Socials */
+#pvf-{{ section.id }} .pvf-socials {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 2px;
+}
+#pvf-{{ section.id }} .pvf-social {
+  width: 34px; height: 34px;
+  border-radius: 50%;
+  border: 1px solid var(--bdr);
+  background: rgba(255,255,255,0.04);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--muted);
   text-decoration: none;
-  transition: border-color .2s, background .2s, color .2s, box-shadow .2s;
+  transition: border-color 0.2s, background 0.2s, color 0.2s, box-shadow 0.2s;
+  flex-shrink: 0;
 }
 #pvf-{{ section.id }} .pvf-social:hover {
-  border-color: var(--pvf-gold);
-  background: rgba(212,168,67,0.12);
-  color: var(--pvf-gold);
-  box-shadow: 0 0 14px rgba(212,168,67,0.20);
+  border-color: var(--gold);
+  background: rgba(215,165,63,0.10);
+  color: var(--gold);
+  box-shadow: 0 0 12px rgba(215,165,63,0.20);
 }
-#pvf-{{ section.id }} .pvf-social svg { width: 17px; height: 17px; }
+#pvf-{{ section.id }} .pvf-social svg { width: 15px; height: 15px; }
 
 /* Menu columns */
-#pvf-{{ section.id }} .pvf-col-title {
-  font-size: 1.15rem; font-weight: 800;
-  letter-spacing: .12em; text-transform: uppercase;
-  color: var(--pvf-cream); margin: 0 0 18px;
-}
-#pvf-{{ section.id }} .pvf-menu {
-  list-style: none; padding: 0; margin: 0;
-  display: flex; flex-direction: column; gap: 12px;
-}
-#pvf-{{ section.id }} .pvf-menu a {
-  font-size: 1.4rem; color: var(--pvf-muted);
-  text-decoration: none; font-weight: 400;
-  transition: color .18s; display: inline-block;
-}
-#pvf-{{ section.id }} .pvf-menu a:hover { color: var(--pvf-gold); }
+#pvf-{{ section.id }} .pvf-col {}
 
-/* Social Proof Card */
-#pvf-{{ section.id }} .pvf-proof-card {
-  background: rgba(255,248,238,0.04);
-  border: 1px solid rgba(255,248,238,0.10);
-  border-radius: 22px;
-  padding: 24px 22px;
-  box-shadow: 0 12px 40px rgba(0,0,0,0.30);
-  backdrop-filter: blur(12px);
-  position: relative;
-  overflow: hidden;
+/* Accordion toggle (mobile) */
+#pvf-{{ section.id }} .pvf-col__title {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--cream);
+  margin: 0 0 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: default;
 }
-#pvf-{{ section.id }} .pvf-proof-card::before {
-  content: '';
-  position: absolute; top: -60px; right: -60px;
-  width: 200px; height: 200px;
-  background: radial-gradient(ellipse, rgba(212,168,67,0.08) 0%, transparent 70%);
-  pointer-events: none;
-}
-#pvf-{{ section.id }} .pvf-proof__stars {
-  font-size: 2.4rem; color: var(--pvf-gold);
-  letter-spacing: 2px; line-height: 1; margin-bottom: 6px;
-}
-#pvf-{{ section.id }} .pvf-proof__rating {
-  font-size: 1.35rem; font-weight: 700; color: var(--pvf-cream);
-  margin-bottom: 18px; line-height: 1.3;
-}
-#pvf-{{ section.id }} .pvf-proof__avatars {
-  display: flex; align-items: center; margin-bottom: 12px;
-}
-#pvf-{{ section.id }} .pvf-proof__avatar {
-  width: 38px; height: 38px;
+#pvf-{{ section.id }} .pvf-col__toggle {
+  display: none;
+  width: 20px; height: 20px;
   border-radius: 50%;
-  border: 2.5px solid var(--pvf-green);
-  object-fit: cover;
-  margin-left: -10px;
-  background: #2A4A34;
-  display: block;
+  border: 1px solid var(--bdr);
+  background: rgba(255,255,255,0.05);
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: border-color 0.2s, background 0.2s;
 }
-#pvf-{{ section.id }} .pvf-proof__avatar:first-child { margin-left: 0; }
-#pvf-{{ section.id }} .pvf-proof__avatar-placeholder {
-  width: 38px; height: 38px;
-  border-radius: 50%;
-  border: 2.5px solid var(--pvf-green);
-  background: rgba(212,168,67,0.15);
-  margin-left: -10px;
-  display: flex; align-items: center; justify-content: center;
-  flex-shrink: 0; font-size: 1.5rem;
+#pvf-{{ section.id }} .pvf-col__toggle svg {
+  width: 10px; height: 10px;
+  stroke: var(--muted);
+  transition: transform 0.25s;
 }
-#pvf-{{ section.id }} .pvf-proof__avatar-placeholder:first-child { margin-left: 0; }
-#pvf-{{ section.id }} .pvf-proof__count {
-  font-size: 1.3rem; font-weight: 700; color: var(--pvf-cream);
-}
-
-/* ══════════════════════════════════════════
-   4. BOTTOM BAR
-   ══════════════════════════════════════════ */
-#pvf-{{ section.id }} .pvf-bottom {
-  display: flex; flex-direction: column;
-  gap: 14px; align-items: center; text-align: center;
-}
-@media (min-width: 860px) {
-  #pvf-{{ section.id }} .pvf-bottom {
-    flex-direction: row; justify-content: space-between;
-    text-align: left; gap: 16px;
+@media (max-width: 560px) {
+  #pvf-{{ section.id }} .pvf-col {
+    border-bottom: 1px solid var(--bdr);
+  }
+  #pvf-{{ section.id }} .pvf-col__title {
+    margin: 0;
+    padding: 14px 0;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+  }
+  #pvf-{{ section.id }} .pvf-col__toggle { display: flex; }
+  #pvf-{{ section.id }} .pvf-col.pvf-col--open .pvf-col__toggle svg {
+    transform: rotate(180deg);
   }
 }
+
+/* Menu list */
+#pvf-{{ section.id }} .pvf-menu {
+  list-style: none; padding: 0; margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 11px;
+}
+@media (max-width: 560px) {
+  #pvf-{{ section.id }} .pvf-menu {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+    padding-bottom: 0;
+    gap: 0;
+  }
+  #pvf-{{ section.id }} .pvf-col.pvf-col--open .pvf-menu {
+    max-height: 320px;
+    padding-bottom: 14px;
+  }
+  #pvf-{{ section.id }} .pvf-menu li + li {
+    margin-top: 11px;
+  }
+}
+
+#pvf-{{ section.id }} .pvf-menu a {
+  font-size: 15px;
+  color: var(--muted);
+  text-decoration: none;
+  font-weight: 400;
+  transition: color 0.18s;
+  display: inline-block;
+}
+#pvf-{{ section.id }} .pvf-menu a:hover { color: var(--gold); }
+
+/* ══════════════════════════════════════════════════════
+   3. COMPACT TRUST BAR
+   ══════════════════════════════════════════════════════ */
+
+#pvf-{{ section.id }} .pvf-trust-bar {
+  display: flex;
+  align-items: center;
+  gap: 16px 24px;
+  flex-wrap: wrap;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid var(--bdr);
+  border-radius: var(--r);
+  padding: 14px 18px;
+  width: 100%;
+}
+#pvf-{{ section.id }} .pvf-trust-bar__stars {
+  font-size: 1.5rem;
+  color: var(--gold);
+  letter-spacing: 1px;
+  filter: drop-shadow(0 0 5px rgba(215,165,63,0.35));
+  flex-shrink: 0;
+  line-height: 1;
+}
+#pvf-{{ section.id }} .pvf-trust-bar__rating {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--cream);
+  flex-shrink: 0;
+  line-height: 1.2;
+}
+#pvf-{{ section.id }} .pvf-trust-bar__rating small {
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--dim);
+  margin-left: 2px;
+}
+#pvf-{{ section.id }} .pvf-trust-bar__divider {
+  width: 1px;
+  height: 20px;
+  background: var(--bdr);
+  flex-shrink: 0;
+}
+@media (max-width: 560px) {
+  #pvf-{{ section.id }} .pvf-trust-bar__divider { display: none; }
+}
+#pvf-{{ section.id }} .pvf-trust-bar__item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+#pvf-{{ section.id }} .pvf-trust-bar__avatars {
+  display: flex;
+  align-items: center;
+}
+#pvf-{{ section.id }} .pvf-trust-bar__avatar {
+  width: 26px; height: 26px;
+  border-radius: 50%;
+  border: 2px solid var(--g2);
+  object-fit: cover;
+  margin-left: -7px;
+  background: #1b4030;
+  display: block;
+  flex-shrink: 0;
+}
+#pvf-{{ section.id }} .pvf-trust-bar__avatar:first-child { margin-left: 0; }
+#pvf-{{ section.id }} .pvf-trust-bar__avatar-ph {
+  width: 26px; height: 26px;
+  border-radius: 50%;
+  border: 2px solid var(--g2);
+  background: rgba(215,165,63,0.12);
+  margin-left: -7px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.1rem;
+  flex-shrink: 0;
+}
+#pvf-{{ section.id }} .pvf-trust-bar__avatar-ph:first-child { margin-left: 0; }
+#pvf-{{ section.id }} .pvf-trust-bar__count {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--cream);
+  margin-left: 8px;
+  white-space: nowrap;
+}
+#pvf-{{ section.id }} .pvf-trust-bar__count small {
+  font-weight: 400;
+  color: var(--dim);
+  font-size: 13px;
+  margin-left: 2px;
+}
+
+/* ══════════════════════════════════════════════════════
+   4. BOTTOM BAR
+   ══════════════════════════════════════════════════════ */
+
+#pvf-{{ section.id }} .pvf-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  padding-top: 18px;
+  border-top: 1px solid var(--bdr);
+  flex-wrap: wrap;
+}
+@media (max-width: 560px) {
+  #pvf-{{ section.id }} .pvf-bottom {
+    flex-direction: column;
+    text-align: center;
+    gap: 12px;
+  }
+}
+
 #pvf-{{ section.id }} .pvf-bottom__copy {
-  font-size: 1.3rem; color: rgba(255,248,238,0.40);
-}
-#pvf-{{ section.id }} .pvf-bottom__accept {
-  display: flex; align-items: center; gap: 10px;
-  flex-wrap: wrap; justify-content: center;
-}
-#pvf-{{ section.id }} .pvf-bottom__accept-label {
-  font-size: 1.25rem; color: rgba(255,248,238,0.40); white-space: nowrap;
+  font-size: 13px;
+  color: rgba(255,255,255,0.35);
+  line-height: 1.4;
+  flex-shrink: 0;
 }
 #pvf-{{ section.id }} .pvf-payments {
-  display: flex; flex-wrap: wrap; gap: 6px;
-  align-items: center; justify-content: center;
-  list-style: none; padding: 0; margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 5px;
+  list-style: none;
+  padding: 0; margin: 0;
 }
 #pvf-{{ section.id }} .pvf-payments li {
-  background: #fff; border-radius: 5px;
+  background: rgba(255,255,255,0.92);
+  border-radius: 4px;
   display: flex; align-items: center; justify-content: center;
   padding: 2px 4px;
 }
 #pvf-{{ section.id }} .pvf-payments li svg,
-#pvf-{{ section.id }} .pvf-payments li img { height: 22px; width: auto; display: block; }
+#pvf-{{ section.id }} .pvf-payments li img {
+  height: 20px; width: auto; display: block;
+}
+
+/* ── ANIMATIONS ── */
+@keyframes pvf-shimmer {
+  0%   { background-position: 200% center; }
+  100% { background-position: -200% center; }
+}
+#pvf-{{ section.id }} .pvf-wrap {
+  animation: pvf-fadein 0.65s cubic-bezier(0.22,1,0.36,1) both;
+}
+@keyframes pvf-fadein {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Visually hidden */
+#pvf-{{ section.id }} .pvf-sr {
+  position: absolute; width: 1px; height: 1px;
+  padding: 0; overflow: hidden;
+  clip: rect(0,0,0,0);
+  white-space: nowrap; border: 0;
+}
 {%- endstyle -%}
 
 <footer id="pvf-{{ section.id }}" role="contentinfo" aria-label="Site footer">
   <div class="pvf-wrap">
 
-    <!-- ══ NEWSLETTER HERO ══ -->
-    <div class="pvf-nl" aria-label="Email newsletter signup">
+    <!-- ══ 1. NEWSLETTER CTA — 2-Column Horizontal ══ -->
+    <div class="pvf-nl" aria-label="Newsletter signup">
+      <div class="pvf-nl__card">
 
-      <!-- LEFT: copy + form -->
-      <div class="pvf-nl__left">
-        <p class="pvf-nl__eyebrow">
-          🐾 {{ section.settings.newsletter_eyebrow | default: 'WALK BETTER. TOGETHER.' }}
-        </p>
-
-        <h2 class="pvf-nl__heading">
-          {%- assign raw_heading   = section.settings.newsletter_heading | default: 'Join 10,000+ Dog Owners Creating Calmer Walks.' -%}
-          {%- assign raw_highlight = section.settings.newsletter_highlight | default: 'Calmer Walks.' -%}
-          {%- if raw_highlight != blank and raw_heading contains raw_highlight -%}
-            {{ raw_heading | replace: raw_highlight, '<span class="pvf-nl__heading-accent">' | append: raw_highlight | append: '</span>' }}
-          {%- else -%}
-            {{ raw_heading }}
-          {%- endif -%}
-        </h2>
-
-        <p class="pvf-nl__sub">{{ section.settings.newsletter_subheading | default: 'Get walking tips, exclusive offers, and product updates.' }}</p>
-
-        <!-- Shopify newsletter form -->
-        {%- form 'customer', id: "PVFNewsletterForm-{{ section.id }}", class: 'pvf-nl__form' -%}
-          <input type="hidden" name="contact[tags]" value="newsletter">
-          <div class="pvf-nl__input-row">
-            <span class="pvf-nl__email-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/>
-              </svg>
-            </span>
-            <label for="PVFEmailInput-{{ section.id }}" class="visually-hidden">{{ section.settings.newsletter_placeholder | default: 'Enter your email address' }}</label>
-            <input
-              id="PVFEmailInput-{{ section.id }}"
-              type="email"
-              name="contact[email]"
-              class="pvf-nl__input"
-              value="{{ form.email }}"
-              aria-required="true"
-              autocorrect="off"
-              autocapitalize="off"
-              autocomplete="email"
-              {%- if form.errors -%}autofocus aria-invalid="true" aria-describedby="PVFNewsletterError-{{ section.id }}"{%- endif -%}
-              {%- if form.posted_successfully? -%}aria-describedby="PVFNewsletterSuccess-{{ section.id }}"{%- endif -%}
-              placeholder="{{ section.settings.newsletter_placeholder | default: 'Enter your email address' }}"
-              required
-            >
-            <button type="submit" class="pvf-nl__btn" name="commit" id="PVFSubscribeBtn-{{ section.id }}">
-              {{ section.settings.newsletter_button_text | default: 'Join the Pack →' }}
-            </button>
+        <!-- LEFT: COPY -->
+        <div class="pvf-nl__copy">
+          <!-- Label -->
+          <div class="pvf-nl__label">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 3C6.6 3 5.5 4.1 5.5 5.5S6.6 8 8 8s2.5-1.1 2.5-2.5S9.4 3 8 3zm8 0c-1.4 0-2.5 1.1-2.5 2.5S14.6 8 16 8s2.5-1.1 2.5-2.5S17.4 3 16 3zM5.5 9C4.1 9 3 10.1 3 11.5S4.1 14 5.5 14 8 12.9 8 11.5 6.9 9 5.5 9zm13 0C17.1 9 16 10.1 16 11.5S17.1 14 18.5 14 21 12.9 21 11.5 19.9 9 18.5 9zM12 10c-2.8 0-5 2.2-5 5 0 2.2 1.4 4.1 3.3 4.8L12 21l1.7-1.2C15.6 19.1 17 17.2 17 15c0-2.8-2.2-5-5-5z"/></svg>
+            <span>{{ section.settings.newsletter_eyebrow | default: 'WALK BETTER. TOGETHER.' }}</span>
           </div>
+          <!-- Headline -->
+          <h2 class="pvf-nl__headline">
+            {%- if raw_highlight != blank and raw_heading contains raw_highlight -%}
+              {%- assign before_hl = raw_heading | split: raw_highlight | first -%}
+              {%- assign after_hl  = raw_heading | remove_first: before_hl | remove_first: raw_highlight -%}
+              {%- assign shimmer_word = '10,000+' -%}
+              {%- if before_hl contains shimmer_word -%}
+                {%- assign pb = before_hl | split: shimmer_word -%}
+                {{- pb | first -}}<span class="pvf-nl__shimmer">{{ shimmer_word }}</span>{{- pb | last -}}<span class="pvf-nl__accent">{{ raw_highlight }}</span>{{- after_hl -}}
+              {%- else -%}
+                {{- before_hl -}}<span class="pvf-nl__accent">{{ raw_highlight }}</span>{{- after_hl -}}
+              {%- endif -%}
+            {%- else -%}
+              {{ raw_heading }}
+            {%- endif -%}
+          </h2>
+          <!-- Description -->
+          <p class="pvf-nl__desc">{{ section.settings.newsletter_subheading | default: 'Get walking tips, exclusive offers, and product updates.' }}</p>
+        </div><!-- /pvf-nl__copy -->
 
-          {%- if form.errors -%}
-            <p class="pvf-nl__msg pvf-nl__msg--error" id="PVFNewsletterError-{{ section.id }}" role="alert">
-              <svg viewBox="0 0 14 14" fill="currentColor"><path d="M7 0C3.134 0 0 3.134 0 7s3.134 7 7 7 7-3.134 7-7-3.134-7-7-7zm.7 10.5H6.3v-1.4h1.4v1.4zm0-2.8H6.3V3.5h1.4v4.2z"/></svg>
-              {{ form.errors.translated_fields['email'] | capitalize }} {{ form.errors.messages['email'] }}
-            </p>
-          {%- endif -%}
-          {%- if form.posted_successfully? -%}
-            <p class="pvf-nl__msg pvf-nl__msg--success" id="PVFNewsletterSuccess-{{ section.id }}" role="status">
-              <svg viewBox="0 0 14 14" fill="currentColor"><path d="M7 0C3.134 0 0 3.134 0 7s3.134 7 7 7 7-3.134 7-7-3.134-7-7-7zm3.15 4.55L6.65 8.05l-2.8-2.8L2.8 6.3l3.85 3.85L11.2 5.6l-1.05-1.05z"/></svg>
-              Thanks for subscribing!
-            </p>
-          {%- endif -%}
-        {%- endform -%}
+        <!-- RIGHT: ACTIONS -->
+        <div class="pvf-nl__actions">
+          <!-- Form -->
+          {%- form 'customer', id: "PVFForm-{{ section.id }}", class: 'pvf-nl__form', novalidate: 'novalidate' -%}
+            <input type="hidden" name="contact[tags]" value="newsletter">
+            <div class="pvf-nl__row">
+              <div class="pvf-nl__input-wrap">
+                <span class="pvf-nl__icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="2" y="4" width="20" height="16" rx="3" ry="3"/><path d="M2 7l10 7 10-7"/>
+                  </svg>
+                </span>
+                <label for="PVFEmail-{{ section.id }}" class="pvf-sr">{{ section.settings.newsletter_placeholder | default: 'Enter your email address' }}</label>
+                <input
+                  id="PVFEmail-{{ section.id }}"
+                  type="email"
+                  name="contact[email]"
+                  class="pvf-nl__input"
+                  value="{{ form.email }}"
+                  placeholder="{{ section.settings.newsletter_placeholder | default: 'Enter your email address' }}"
+                  aria-required="true"
+                  autocomplete="email"
+                  autocorrect="off"
+                  autocapitalize="off"
+                  {%- if form.errors %}autofocus aria-invalid="true" aria-describedby="PVFErr-{{ section.id }}"{%- endif %}
+                  {%- if form.posted_successfully? %}aria-describedby="PVFOk-{{ section.id }}"{%- endif %}
+                  required
+                >
+              </div>
+              <button type="submit" name="commit" id="PVFBtn-{{ section.id }}" class="pvf-nl__btn">
+                {{ section.settings.newsletter_button_text | default: 'Join the Pack' }}
+              </button>
+            </div>
+            {%- if form.errors -%}
+              <p class="pvf-nl__msg pvf-nl__msg--error" id="PVFErr-{{ section.id }}" role="alert">
+                <svg viewBox="0 0 14 14" fill="currentColor" aria-hidden="true"><path d="M7 0C3.134 0 0 3.134 0 7s3.134 7 7 7 7-3.134 7-7-3.134-7-7-7zm.7 10.5H6.3v-1.4h1.4v1.4zm0-2.8H6.3V3.5h1.4v4.2z"/></svg>
+                {{ form.errors.translated_fields['email'] | capitalize }} {{ form.errors.messages['email'] }}
+              </p>
+            {%- endif -%}
+            {%- if form.posted_successfully? -%}
+              <p class="pvf-nl__msg pvf-nl__msg--success" id="PVFOk-{{ section.id }}" role="status">
+                <svg viewBox="0 0 14 14" fill="currentColor" aria-hidden="true"><path d="M7 0C3.134 0 0 3.134 0 7s3.134 7 7 7 7-3.134 7-7-3.134-7-7-7zm3.15 4.55L6.65 8.05l-2.8-2.8L2.8 6.3l3.85 3.85L11.2 5.6l-1.05-1.05z"/></svg>
+                Thanks for subscribing! 🐾
+              </p>
+            {%- endif -%}
+          {%- endform -%}
+          <!-- Trust row -->
+          <div class="pvf-nl__trust" role="list" aria-label="Newsletter benefits">
+            <span class="pvf-nl__trust-item" role="listitem">
+              <span class="pvf-nl__trust-icon" aria-hidden="true"><svg viewBox="0 0 10 10" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"><path d="M2 5l2 2 4-4"/></svg></span>
+              {{ section.settings.trust_item_1 | default: 'No spam' }}
+            </span>
+            <span class="pvf-nl__trust-item" role="listitem">
+              <span class="pvf-nl__trust-icon" aria-hidden="true"><svg viewBox="0 0 10 10" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"><path d="M2 5l2 2 4-4"/></svg></span>
+              {{ section.settings.trust_item_2 | default: 'Unsubscribe anytime' }}
+            </span>
+            <span class="pvf-nl__trust-item" role="listitem">
+              <span class="pvf-nl__trust-icon" aria-hidden="true"><svg viewBox="0 0 10 10" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"><path d="M2 5l2 2 4-4"/></svg></span>
+              {{ section.settings.trust_item_3 | default: 'Exclusive member deals' }}
+            </span>
+          </div>
+          <!-- Rating proof -->
+          <div class="pvf-nl__proof" aria-label="Customer rating">
+            <span class="pvf-nl__proof-stars" aria-hidden="true">★★★★★</span>
+            <span class="pvf-nl__proof-text">{{ section.settings.proof_rating | default: '4.9/5' }} &middot; {{ section.settings.proof_reviews | default: '1,247+ reviews' }}</span>
+          </div>
+        </div><!-- /pvf-nl__actions -->
 
-        <p class="pvf-nl__trust" aria-label="Privacy assurance">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-          </svg>
-          No spam. Unsubscribe anytime.
-        </p>
-      </div>
-
-      <!-- RIGHT: dog lifestyle image -->
-      <div class="pvf-nl__right" aria-hidden="true">
-        {%- if nl_img != blank -%}
-          <img
-            class="pvf-nl__img"
-            src="{{ nl_img | image_url: width: 900 }}"
-            srcset="{{ nl_img | image_url: width: 600 }} 600w, {{ nl_img | image_url: width: 900 }} 900w, {{ nl_img | image_url: width: 1200 }} 1200w"
-            sizes="(max-width: 859px) 100vw, 50vw"
-            alt="{{ nl_img.alt | escape | default: 'Happy dog on a walk' }}"
-            width="{{ nl_img.width }}"
-            height="{{ nl_img.height }}"
-            loading="lazy"
-          >
-        {%- else -%}
-          <div class="pvf-nl__placeholder" aria-hidden="true">🐕</div>
-        {%- endif -%}
-        <div class="pvf-nl__img-overlay"></div>
-      </div>
-
+      </div><!-- /pvf-nl__card -->
     </div><!-- /pvf-nl -->
 
-    <!-- ══ TRUST BAR ══ -->
-    <div class="pvf-trust" role="list" aria-label="Trust features">
-
-      <div class="pvf-trust__item" role="listitem">
-        <div class="pvf-trust__icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/>
-          </svg>
-        </div>
-        <div class="pvf-trust__text">
-          <span class="pvf-trust__title">{{ section.settings.trust_1_title | default: 'Secure Checkout' }}</span>
-          <span class="pvf-trust__desc">{{ section.settings.trust_1_desc | default: '100% safe & protected' }}</span>
-        </div>
-      </div>
-
-      <div class="pvf-trust__item" role="listitem">
-        <div class="pvf-trust__icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
-          </svg>
-        </div>
-        <div class="pvf-trust__text">
-          <span class="pvf-trust__title">{{ section.settings.trust_2_title | default: '30-Day Risk-Free Trial' }}</span>
-          <span class="pvf-trust__desc">{{ section.settings.trust_2_desc | default: 'Love it or return it.' }}</span>
-        </div>
-      </div>
-
-      <div class="pvf-trust__item" role="listitem">
-        <div class="pvf-trust__icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <rect x="1" y="3" width="15" height="13"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/>
-          </svg>
-        </div>
-        <div class="pvf-trust__text">
-          <span class="pvf-trust__title">{{ section.settings.trust_3_title | default: 'Free Shipping' }}</span>
-          <span class="pvf-trust__desc">{{ section.settings.trust_3_desc | default: 'On all orders' }}</span>
-        </div>
-      </div>
-
-      <div class="pvf-trust__item" role="listitem">
-        <div class="pvf-trust__icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.91a16 16 0 0 0 6.14 6.14l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7a2 2 0 0 1 1.72 2z"/>
-          </svg>
-        </div>
-        <div class="pvf-trust__text">
-          <span class="pvf-trust__title">{{ section.settings.trust_4_title | default: 'Pet-Friendly Support' }}</span>
-          <span class="pvf-trust__desc">{{ section.settings.trust_4_desc | default: 'Real people, here to help' }}</span>
-        </div>
-      </div>
-
-    </div><!-- /pvf-trust -->
-
-    <!-- ══ MAIN COLUMNS ══ -->
+    <!-- ══ 2. MAIN FOOTER ROW ══ -->
     <div class="pvf-main">
 
-      <!-- Brand column -->
+      <!-- Brand -->
       <div class="pvf-brand">
         <div class="pvf-brand__logo">
-          <div class="pvf-brand__logo-icon" aria-hidden="true">
+          <div class="pvf-brand__logo-mark" aria-hidden="true">
             <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
               <path d="M8 3C6.6 3 5.5 4.1 5.5 5.5S6.6 8 8 8s2.5-1.1 2.5-2.5S9.4 3 8 3zm8 0c-1.4 0-2.5 1.1-2.5 2.5S14.6 8 16 8s2.5-1.1 2.5-2.5S17.4 3 16 3zM5.5 9C4.1 9 3 10.1 3 11.5S4.1 14 5.5 14 8 12.9 8 11.5 6.9 9 5.5 9zm13 0C17.1 9 16 10.1 16 11.5S17.1 14 18.5 14 21 12.9 21 11.5 19.9 9 18.5 9zM12 10c-2.8 0-5 2.2-5 5 0 2.2 1.4 4.1 3.3 4.8L12 21l1.7-1.2C15.6 19.1 17 17.2 17 15c0-2.8-2.2-5-5-5z"/>
             </svg>
@@ -666,44 +876,51 @@
         <p class="pvf-brand__desc">{{ section.settings.brand_desc | default: 'Premium dog gear designed for calmer, safer, and more comfortable walks.' }}</p>
         <nav class="pvf-socials" aria-label="Social media links">
           {%- if section.settings.social_instagram != blank -%}
-          <a href="{{ section.settings.social_instagram }}" class="pvf-social" aria-label="Instagram" rel="noopener noreferrer" target="_blank">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
-            </svg>
-          </a>
+            <a href="{{ section.settings.social_instagram }}" class="pvf-social" aria-label="Instagram" rel="noopener noreferrer" target="_blank">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+              </svg>
+            </a>
           {%- endif -%}
           {%- if section.settings.social_facebook != blank -%}
-          <a href="{{ section.settings.social_facebook }}" class="pvf-social" aria-label="Facebook" rel="noopener noreferrer" target="_blank">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
-          </a>
+            <a href="{{ section.settings.social_facebook }}" class="pvf-social" aria-label="Facebook" rel="noopener noreferrer" target="_blank">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+            </a>
           {%- endif -%}
           {%- if section.settings.social_tiktok != blank -%}
-          <a href="{{ section.settings.social_tiktok }}" class="pvf-social" aria-label="TikTok" rel="noopener noreferrer" target="_blank">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.31 6.31 0 0 0-.79-.05A6.34 6.34 0 0 0 3.15 15.2a6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.34-6.34V8.9a8.18 8.18 0 0 0 4.77 1.52V7.0a4.86 4.86 0 0 1-1.01-.31z"/></svg>
-          </a>
+            <a href="{{ section.settings.social_tiktok }}" class="pvf-social" aria-label="TikTok" rel="noopener noreferrer" target="_blank">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.27 6.27 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.34-6.34V8.9a8.18 8.18 0 0 0 4.77 1.52V7.0a4.85 4.85 0 0 1-1.01-.31z"/></svg>
+            </a>
           {%- endif -%}
           {%- if section.settings.social_youtube != blank -%}
-          <a href="{{ section.settings.social_youtube }}" class="pvf-social" aria-label="YouTube" rel="noopener noreferrer" target="_blank">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58A2.78 2.78 0 0 0 3.41 19.6C5.12 20 12 20 12 20s6.88 0 8.59-.4a2.78 2.78 0 0 0 1.95-1.95A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58zM9.75 15.02V8.98L15.5 12l-5.75 3.02z"/></svg>
-          </a>
-          {%- endif -%}
-          {%- if section.settings.social_email != blank -%}
-          <a href="mailto:{{ section.settings.social_email }}" class="pvf-social" aria-label="Email us">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/>
-            </svg>
-          </a>
+            <a href="{{ section.settings.social_youtube }}" class="pvf-social" aria-label="YouTube" rel="noopener noreferrer" target="_blank">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58A2.78 2.78 0 0 0 3.41 19.6C5.12 20 12 20 12 20s6.88 0 8.59-.4a2.78 2.78 0 0 0 1.95-1.95A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58zM9.75 15.02V8.98L15.5 12l-5.75 3.02z"/></svg>
+            </a>
           {%- endif -%}
         </nav>
       </div>
 
-      <!-- Menu columns (from blocks) -->
+      <!-- Menu columns from blocks -->
       {%- for block in section.blocks -%}
         {%- if block.type == 'link_list' -%}
-          <div class="pvf-col" {{ block.shopify_attributes }}>
-            <h3 class="pvf-col-title">{{ block.settings.heading | default: block.settings.menu.title | upcase }}</h3>
+          <div class="pvf-col" id="pvf-col-{{ block.id }}" {{ block.shopify_attributes }}>
+            <h3
+              class="pvf-col__title"
+              id="pvf-col-title-{{ block.id }}"
+              aria-controls="pvf-col-menu-{{ block.id }}"
+              aria-expanded="false"
+              role="button"
+              tabindex="0"
+            >
+              {{ block.settings.heading | default: block.settings.menu.title | upcase }}
+              <span class="pvf-col__toggle" aria-hidden="true">
+                <svg viewBox="0 0 10 6" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6">
+                  <path d="M1 1l4 4 4-4"/>
+                </svg>
+              </span>
+            </h3>
             {%- if block.settings.menu != blank -%}
-              <ul class="pvf-menu" role="list">
+              <ul class="pvf-menu" id="pvf-col-menu-{{ block.id }}" role="list">
                 {%- for link in block.settings.menu.links -%}
                   <li role="listitem"><a href="{{ link.url }}">{{ link.title }}</a></li>
                 {%- endfor -%}
@@ -713,63 +930,87 @@
         {%- endif -%}
       {%- endfor -%}
 
-      <!-- Social Proof Card -->
-      <div class="pvf-proof-card" aria-label="Customer reviews">
-        <div class="pvf-proof__stars" aria-label="5 out of 5 stars">★★★★★</div>
-        <p class="pvf-proof__rating">{{ section.settings.proof_rating | default: '4.9/5 from 1,247+ reviews' }}</p>
-
-        <div class="pvf-proof__avatars" aria-label="Customer avatars">
-          {%- if av1 != blank -%}
-            <img class="pvf-proof__avatar" src="{{ av1 | image_url: width: 80 }}" alt="Happy customer" width="38" height="38" loading="lazy">
-          {%- else -%}
-            <span class="pvf-proof__avatar-placeholder" aria-hidden="true">🐾</span>
-          {%- endif -%}
-          {%- if av2 != blank -%}
-            <img class="pvf-proof__avatar" src="{{ av2 | image_url: width: 80 }}" alt="Happy customer" width="38" height="38" loading="lazy">
-          {%- else -%}
-            <span class="pvf-proof__avatar-placeholder" aria-hidden="true">🐾</span>
-          {%- endif -%}
-          {%- if av3 != blank -%}
-            <img class="pvf-proof__avatar" src="{{ av3 | image_url: width: 80 }}" alt="Happy customer" width="38" height="38" loading="lazy">
-          {%- else -%}
-            <span class="pvf-proof__avatar-placeholder" aria-hidden="true">🐾</span>
-          {%- endif -%}
-          {%- if av4 != blank -%}
-            <img class="pvf-proof__avatar" src="{{ av4 | image_url: width: 80 }}" alt="Happy customer" width="38" height="38" loading="lazy">
-          {%- else -%}
-            <span class="pvf-proof__avatar-placeholder" aria-hidden="true">🐾</span>
-          {%- endif -%}
-          {%- if av5 != blank -%}
-            <img class="pvf-proof__avatar" src="{{ av5 | image_url: width: 80 }}" alt="Happy customer" width="38" height="38" loading="lazy">
-          {%- else -%}
-            <span class="pvf-proof__avatar-placeholder" aria-hidden="true">🐾</span>
-          {%- endif -%}
-        </div>
-
-        <p class="pvf-proof__count">{{ section.settings.proof_count | default: '10,000+ Happy Dog Owners' }}</p>
-      </div>
-
     </div><!-- /pvf-main -->
 
-    <!-- ══ BOTTOM BAR ══ -->
+    <!-- ══ 3. COMPACT TRUST BAR — HIDDEN ══ -->
+    <div class="pvf-trust-bar" role="region" aria-label="Customer trust and reviews" style="display:none">
+
+      <div class="pvf-trust-bar__stars" aria-label="5 stars out of 5">★★★★★</div>
+
+      <div class="pvf-trust-bar__rating">
+        {{ section.settings.proof_rating | default: '4.9/5' }}
+        <small>{{ section.settings.proof_reviews | default: '· 1,247+ reviews' }}</small>
+      </div>
+
+      <div class="pvf-trust-bar__divider" aria-hidden="true"></div>
+
+      <div class="pvf-trust-bar__item">
+        <div class="pvf-trust-bar__avatars" aria-label="Customer photos">
+          {%- if av1 != blank -%}
+            <img class="pvf-trust-bar__avatar" src="{{ av1 | image_url: width: 60 }}" alt="Happy customer" width="26" height="26" loading="lazy">
+          {%- else -%}
+            <span class="pvf-trust-bar__avatar-ph" aria-hidden="true">🐾</span>
+          {%- endif -%}
+          {%- if av2 != blank -%}
+            <img class="pvf-trust-bar__avatar" src="{{ av2 | image_url: width: 60 }}" alt="Happy customer" width="26" height="26" loading="lazy">
+          {%- else -%}
+            <span class="pvf-trust-bar__avatar-ph" aria-hidden="true">🐾</span>
+          {%- endif -%}
+          {%- if av3 != blank -%}
+            <img class="pvf-trust-bar__avatar" src="{{ av3 | image_url: width: 60 }}" alt="Happy customer" width="26" height="26" loading="lazy">
+          {%- else -%}
+            <span class="pvf-trust-bar__avatar-ph" aria-hidden="true">🐾</span>
+          {%- endif -%}
+          {%- if av4 != blank -%}
+            <img class="pvf-trust-bar__avatar" src="{{ av4 | image_url: width: 60 }}" alt="Happy customer" width="26" height="26" loading="lazy">
+          {%- else -%}
+            <span class="pvf-trust-bar__avatar-ph" aria-hidden="true">🐾</span>
+          {%- endif -%}
+        </div>
+        <span class="pvf-trust-bar__count">
+          {{ section.settings.proof_count | default: '10,000+' }}
+          <small>{{ section.settings.proof_count_label | default: 'happy dog owners' }}</small>
+        </span>
+      </div>
+
+    </div><!-- /pvf-trust-bar -->
+
+    <!-- ══ 4. BOTTOM BAR ══ -->
     <div class="pvf-bottom">
       <p class="pvf-bottom__copy">
         &copy; {{ 'now' | date: '%Y' }} {{ section.settings.brand_name | default: shop.name }}. All rights reserved.
       </p>
-      <div class="pvf-bottom__accept">
-        <span class="pvf-bottom__accept-label">We accept</span>
-        {%- if section.settings.payment_enable -%}
-          <ul class="pvf-payments" role="list" aria-label="Accepted payment methods">
-            {%- for type in shop.enabled_payment_types -%}
-              <li role="listitem">{{ type | payment_type_svg_tag: class: 'icon icon--full-color' }}</li>
-            {%- endfor -%}
-          </ul>
-        {%- endif -%}
-      </div>
+      {%- if section.settings.payment_enable -%}
+        <ul class="pvf-payments" role="list" aria-label="Accepted payment methods">
+          {%- for type in shop.enabled_payment_types -%}
+            <li role="listitem">{{ type | payment_type_svg_tag: class: 'icon icon--full-color' }}</li>
+          {%- endfor -%}
+        </ul>
+      {%- endif -%}
     </div>
 
   </div><!-- /pvf-wrap -->
 </footer>
+
+<script>
+(function() {
+  var titles = document.querySelectorAll('#pvf-{{ section.id }} .pvf-col__title');
+  if (!titles.length) return;
+  function isMobile() { return window.innerWidth <= 560; }
+  titles.forEach(function(title) {
+    function toggle(e) {
+      if (!isMobile()) return;
+      var col = title.closest('.pvf-col');
+      var expanded = col.classList.toggle('pvf-col--open');
+      title.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+    }
+    title.addEventListener('click', toggle);
+    title.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(e); }
+    });
+  });
+})();
+</script>
 
 {% schema %}
 {
@@ -777,63 +1018,189 @@
   "tag": "section",
   "class": "section",
   "settings": [
-    { "type": "header",    "content": "Newsletter Hero" },
-    { "type": "text",      "id": "newsletter_eyebrow",     "label": "Eyebrow text",                         "default": "WALK BETTER. TOGETHER." },
-    { "type": "text",      "id": "newsletter_heading",     "label": "Heading",                              "default": "Join 10,000+ Dog Owners Creating Calmer Walks." },
-    { "type": "text",      "id": "newsletter_highlight",   "label": "Gold highlight phrase in heading",     "default": "Calmer Walks.", "info": "Must match a phrase in the heading exactly." },
-    { "type": "textarea",  "id": "newsletter_subheading",  "label": "Subheading",                           "default": "Get walking tips, exclusive offers, and product updates." },
-    { "type": "text",      "id": "newsletter_placeholder", "label": "Input placeholder",                    "default": "Enter your email address" },
-    { "type": "text",      "id": "newsletter_button_text", "label": "Button text",                          "default": "Join the Pack →" },
-    { "type": "image_picker", "id": "newsletter_image",   "label": "Right-side dog image",                 "info": "Upload a lifestyle dog photo. Recommended: 900×700px." },
-
-    { "type": "header", "content": "Trust Bar" },
-    { "type": "text", "id": "trust_1_title", "label": "Trust 1 — Title",       "default": "Secure Checkout" },
-    { "type": "text", "id": "trust_1_desc",  "label": "Trust 1 — Description", "default": "100% safe & protected" },
-    { "type": "text", "id": "trust_2_title", "label": "Trust 2 — Title",       "default": "30-Day Risk-Free Trial" },
-    { "type": "text", "id": "trust_2_desc",  "label": "Trust 2 — Description", "default": "Love it or return it." },
-    { "type": "text", "id": "trust_3_title", "label": "Trust 3 — Title",       "default": "Free Shipping" },
-    { "type": "text", "id": "trust_3_desc",  "label": "Trust 3 — Description", "default": "On all orders" },
-    { "type": "text", "id": "trust_4_title", "label": "Trust 4 — Title",       "default": "Pet-Friendly Support" },
-    { "type": "text", "id": "trust_4_desc",  "label": "Trust 4 — Description", "default": "Real people, here to help" },
-
-    { "type": "header",    "content": "Brand Column" },
-    { "type": "text",      "id": "brand_name", "label": "Brand name",        "default": "PawVoyage", "info": "Defaults to store name if blank." },
-    { "type": "textarea",  "id": "brand_desc", "label": "Brand description", "default": "Premium dog gear designed for calmer, safer, and more comfortable walks." },
-
-    { "type": "header", "content": "Social Links" },
+    {
+      "type": "header",
+      "content": "📧 Newsletter"
+    },
+    {
+      "type": "text",
+      "id": "newsletter_eyebrow",
+      "label": "Eyebrow label",
+      "default": "WALK BETTER. TOGETHER."
+    },
+    {
+      "type": "text",
+      "id": "newsletter_heading",
+      "label": "Headline",
+      "default": "Join 10,000+ Dog Owners Creating Calmer Walks."
+    },
+    {
+      "type": "text",
+      "id": "newsletter_highlight",
+      "label": "Gold highlight phrase",
+      "default": "Calmer Walks.",
+      "info": "Must match exact text in headline."
+    },
+    {
+      "type": "textarea",
+      "id": "newsletter_subheading",
+      "label": "Description",
+      "default": "Get walking tips, exclusive offers, and product updates."
+    },
+    {
+      "type": "text",
+      "id": "newsletter_placeholder",
+      "label": "Input placeholder",
+      "default": "Enter your email address"
+    },
+    {
+      "type": "text",
+      "id": "newsletter_button_text",
+      "label": "Button text",
+      "default": "Join the Pack"
+    },
+    {
+      "type": "image_picker",
+      "id": "newsletter_image",
+      "label": "Right-side lifestyle image",
+      "info": "Recommended: 900×600px lifestyle dog photo."
+    },
+    {
+      "type": "header",
+      "content": "✅ Trust Notes"
+    },
+    {
+      "type": "text",
+      "id": "trust_item_1",
+      "label": "Trust item 1",
+      "default": "No spam"
+    },
+    {
+      "type": "text",
+      "id": "trust_item_2",
+      "label": "Trust item 2",
+      "default": "Unsubscribe anytime"
+    },
+    {
+      "type": "text",
+      "id": "trust_item_3",
+      "label": "Trust item 3",
+      "default": "Exclusive member deals"
+    },
+    {
+      "type": "header",
+      "content": "🏢 Brand"
+    },
+    {
+      "type": "text",
+      "id": "brand_name",
+      "label": "Brand name",
+      "default": "PawVoyage",
+      "info": "Defaults to store name if blank."
+    },
+    {
+      "type": "textarea",
+      "id": "brand_desc",
+      "label": "Brand description",
+      "default": "Premium dog gear designed for calmer, safer, and more comfortable walks."
+    },
+    {
+      "type": "header",
+      "content": "🔗 Social Links"
+    },
     { "type": "url",  "id": "social_instagram", "label": "Instagram URL" },
     { "type": "url",  "id": "social_facebook",  "label": "Facebook URL" },
     { "type": "url",  "id": "social_tiktok",    "label": "TikTok URL" },
     { "type": "url",  "id": "social_youtube",   "label": "YouTube URL" },
-    { "type": "text", "id": "social_email",     "label": "Contact email address" },
-
-    { "type": "header", "content": "Social Proof Card" },
-    { "type": "text", "id": "proof_rating", "label": "Rating text", "default": "4.9/5 from 1,247+ reviews" },
-    { "type": "text", "id": "proof_count",  "label": "Count text",  "default": "10,000+ Happy Dog Owners" },
-    { "type": "image_picker", "id": "proof_avatar_1", "label": "Customer avatar 1", "info": "Small square customer photo." },
-    { "type": "image_picker", "id": "proof_avatar_2", "label": "Customer avatar 2" },
-    { "type": "image_picker", "id": "proof_avatar_3", "label": "Customer avatar 3" },
-    { "type": "image_picker", "id": "proof_avatar_4", "label": "Customer avatar 4" },
-    { "type": "image_picker", "id": "proof_avatar_5", "label": "Customer avatar 5" },
-
-    { "type": "header",   "content": "Bottom Bar" },
-    { "type": "checkbox", "id": "payment_enable", "label": "Show payment icons", "default": true }
+    {
+      "type": "header",
+      "content": "⭐ Social Proof"
+    },
+    {
+      "type": "text",
+      "id": "proof_rating",
+      "label": "Rating display",
+      "default": "4.9/5"
+    },
+    {
+      "type": "text",
+      "id": "proof_reviews",
+      "label": "Review count",
+      "default": "· 1,247+ reviews"
+    },
+    {
+      "type": "text",
+      "id": "proof_count",
+      "label": "Community count",
+      "default": "10,000+"
+    },
+    {
+      "type": "text",
+      "id": "proof_count_label",
+      "label": "Community count label",
+      "default": "happy dog owners"
+    },
+    {
+      "type": "image_picker",
+      "id": "proof_avatar_1",
+      "label": "Customer avatar 1"
+    },
+    {
+      "type": "image_picker",
+      "id": "proof_avatar_2",
+      "label": "Customer avatar 2"
+    },
+    {
+      "type": "image_picker",
+      "id": "proof_avatar_3",
+      "label": "Customer avatar 3"
+    },
+    {
+      "type": "image_picker",
+      "id": "proof_avatar_4",
+      "label": "Customer avatar 4"
+    },
+    {
+      "type": "header",
+      "content": "⚙️ Options"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_shimmer",
+      "label": "Enable shimmer on 10,000+",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "payment_enable",
+      "label": "Show payment icons",
+      "default": true
+    }
   ],
   "blocks": [
     {
       "type": "link_list",
-      "name": "Footer menu column",
+      "name": "Footer menu",
       "settings": [
-        { "type": "text",      "id": "heading", "label": "Column heading", "info": "Leave blank to use the menu title." },
-        { "type": "link_list", "id": "menu",    "label": "Navigation menu" }
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Column heading",
+          "info": "Leave blank to use the menu title."
+        },
+        {
+          "type": "link_list",
+          "id": "menu",
+          "label": "Navigation menu"
+        }
       ]
     }
   ],
   "default": {
     "blocks": [
       { "type": "link_list", "settings": { "heading": "Shop",    "menu": "main-menu" } },
-      { "type": "link_list", "settings": { "heading": "Support", "menu": "footer"    } },
-      { "type": "link_list", "settings": { "heading": "Company", "menu": "footer"    } }
+      { "type": "link_list", "settings": { "heading": "Support", "menu": "footer" } },
+      { "type": "link_list", "settings": { "heading": "Company", "menu": "footer" } }
     ]
   }
 }
