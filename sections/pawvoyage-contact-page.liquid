@@ -33,23 +33,30 @@
 /* ══════════════════════════════
    1. HERO
    ══════════════════════════════ */
+.pvcp-hero-wrap {
+  padding: 2.4rem 2.4rem 0;
+  max-width: 1200px;
+  margin: 0 auto;
+}
 .pvcp-hero {
   position: relative;
   overflow: hidden;
   background: var(--pvcp-cream);
-  min-height: 420px;
+  min-height: 360px;
   display: grid;
   grid-template-columns: 1fr 1fr;
+  border-radius: 20px;
+  border: 1px solid rgba(26,51,16,0.09);
+  box-shadow: 0 4px 24px rgba(26,51,16,0.07);
 }
 
-/* Left text pane */
 .pvcp-hero-left {
   position: relative;
   z-index: 2;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 5rem 4rem 5rem 6rem;
+  padding: 4rem 3.5rem 4rem 4.5rem;
 }
 .pvcp-hero-eyebrow {
   display: inline-flex;
@@ -94,11 +101,10 @@
 }
 .pvcp-hero-badge svg { width: 18px; height: 18px; stroke: var(--pvcp-gold); flex-shrink: 0; }
 
-/* Right image pane */
 .pvcp-hero-right {
   position: relative;
   overflow: hidden;
-  min-height: 420px;
+  min-height: 320px;
 }
 .pvcp-hero-right::before {
   content: '';
@@ -118,7 +124,7 @@
 .pvcp-hero-placeholder {
   width: 100%;
   height: 100%;
-  min-height: 420px;
+  min-height: 320px;
   background: linear-gradient(135deg, #D5C9B5 0%, #C2B89A 100%);
   display: flex;
   align-items: center;
@@ -498,13 +504,14 @@
    RESPONSIVE — Tablet (≤ 990px)
    ══════════════════════════════ */
 @media (max-width: 990px) {
-  .pvcp-hero { grid-template-columns: 1fr; min-height: 380px; }
+  .pvcp-hero-wrap { padding: 1.6rem 1.6rem 0; }
+  .pvcp-hero { grid-template-columns: 1fr; min-height: 300px; border-radius: 16px; }
   .pvcp-hero-left {
-    padding: 4rem 3rem;
+    padding: 3.2rem 2.4rem;
     background: linear-gradient(to bottom, var(--pvcp-cream) 70%, transparent);
   }
   .pvcp-hero-right { position: absolute; inset: 0; z-index: 0; }
-  .pvcp-hero-left { position: relative; z-index: 2; min-height: 380px; }
+  .pvcp-hero-left { position: relative; z-index: 2; min-height: 300px; }
   .pvcp-hero-right::before {
     background: linear-gradient(to bottom, var(--pvcp-cream) 20%, rgba(250,247,242,0.6) 60%, transparent);
   }
@@ -517,7 +524,8 @@
    RESPONSIVE — Mobile (≤ 749px)
    ══════════════════════════════ */
 @media (max-width: 749px) {
-  .pvcp-hero { min-height: unset; }
+  .pvcp-hero-wrap { padding: 1.2rem 1.2rem 0; }
+  .pvcp-hero { min-height: unset; border-radius: 14px; }
   .pvcp-hero-left { padding: 2rem 1.8rem 2.2rem; min-height: unset; }
   .pvcp-hero-heading { font-size: 2.8rem; }
   .pvcp-hero-sub { font-size: 1.35rem; }
@@ -548,7 +556,8 @@
 <div id="pvcp-{{ section.id }}">
 
   {%- comment -%} ══ 1. HERO ══ {%- endcomment -%}
-  <section class="pvcp-hero" aria-label="{{ section.settings.hero_heading | default: 'Contact us' | escape }}">
+  <div class="pvcp-hero-wrap">
+    <section class="pvcp-hero" aria-label="{{ section.settings.hero_heading | default: 'Contact us' | escape }}">
     <div class="pvcp-hero-left">
       <div class="pvcp-hero-eyebrow" aria-hidden="true">
         <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
@@ -584,7 +593,8 @@
         </div>
       {%- endif -%}
     </div>
-  </section>
+    </section>
+  </div>
 
   {%- comment -%} ══ 2. MAIN CONTACT AREA ══ {%- endcomment -%}
   <section class="pvcp-main" aria-label="Contact options">
