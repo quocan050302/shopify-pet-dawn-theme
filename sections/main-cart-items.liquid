@@ -4,6 +4,7 @@
 {{ 'component-price.css' | asset_url | stylesheet_tag }}
 {{ 'component-discounts.css' | asset_url | stylesheet_tag }}
 {{ 'quantity-popover.css' | asset_url | stylesheet_tag }}
+{{ 'pawvoyage-cart-premium.css' | asset_url | stylesheet_tag }}
 
 {%- style -%}
   .section-{{ section.id }}-padding {
@@ -25,25 +26,60 @@
 
 <script src="{{ 'quantity-popover.js' | asset_url }}" defer="defer"></script>
 
-<cart-items class="gradient color-{{ section.settings.color_scheme }} isolate{% if cart == empty %} is-empty{% else %} section-{{ section.id }}-padding{% endif %}">
+{%- assign pv_threshold = 3000 -%}
+{%- assign pv_cart_cents = cart.total_price -%}
+{%- assign pv_remaining = pv_threshold | minus: pv_cart_cents -%}
+{%- if pv_remaining < 0 -%}{%- assign pv_remaining = 0 -%}{%- endif -%}
+{%- assign pv_pct = pv_cart_cents | times: 100 | divided_by: pv_threshold -%}
+{%- if pv_pct > 100 -%}{%- assign pv_pct = 100 -%}{%- endif -%}
+{%- assign pv_free = false -%}
+{%- if pv_cart_cents >= pv_threshold -%}{%- assign pv_free = true -%}{%- endif -%}
+
+<cart-items class="pv-cart-page gradient color-{{ section.settings.color_scheme }} isolate{% if cart == empty %} is-empty{% else %} section-{{ section.id }}-padding{% endif %}">
   <div class="page-width">
-    <div class="title-wrapper-with-link">
-      <h1 class="title title--primary">{{ 'sections.cart.title' | t }}</h1>
-      <a href="{{ routes.all_products_collection_url }}" class="underlined-link">
-        {{- 'general.continue_shopping' | t -}}
+    <div class="title-wrapper-with-link pv-cart-header">
+      <div class="pv-cart-header__left">
+        <h1 class="title title--primary">Your Cart</h1>
+        <span class="pv-cart-header__icon" aria-hidden="true">
+          <svg width="52" height="52" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- bag body -->
+            <rect x="14" y="28" width="52" height="42" rx="7" fill="#e8c99a"/>
+            <!-- bag handle -->
+            <path d="M28 28 C28 18 52 18 52 28" stroke="#c4985a" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+            <!-- paw center -->
+            <ellipse cx="40" cy="52" rx="8" ry="7" fill="#c4985a" opacity="0.9"/>
+            <!-- paw toes -->
+            <ellipse cx="30" cy="44" rx="4" ry="5" fill="#c4985a" opacity="0.85"/>
+            <ellipse cx="50" cy="44" rx="4" ry="5" fill="#c4985a" opacity="0.85"/>
+            <ellipse cx="35" cy="40" rx="3.5" ry="4.5" fill="#c4985a" opacity="0.75"/>
+            <ellipse cx="45" cy="40" rx="3.5" ry="4.5" fill="#c4985a" opacity="0.75"/>
+            <!-- leaf left -->
+            <path d="M14 30 Q4 22 8 12 Q16 18 14 30Z" fill="#4a8c3f" opacity="0.85"/>
+            <path d="M14 30 Q10 20 8 12" stroke="#3a6e30" stroke-width="1.2" fill="none"/>
+            <!-- leaf right -->
+            <path d="M62 35 Q72 24 72 12 Q62 16 62 35Z" fill="#5a9e50" opacity="0.75"/>
+            <path d="M62 35 Q68 22 72 12" stroke="#3a6e30" stroke-width="1.2" fill="none"/>
+          </svg>
+        </span>
+      </div>
+      <a href="{{ routes.all_products_collection_url }}" class="pv-continue-btn">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
+        <span class="pv-continue-text">Continue Shopping</span>
       </a>
+
     </div>
 
+
     <div class="cart__warnings">
-      <h1 class="cart__empty-text">{{ 'sections.cart.empty' | t }}</h1>
+      <h1 class="cart__empty-text">Your cart is currently empty.</h1>
       <a href="{{ routes.all_products_collection_url }}" class="button">
-        {{ 'general.continue_shopping' | t }}
+        Continue Shopping
       </a>
 
       {%- if shop.customer_accounts_enabled and customer == null -%}
-        <h2 class="cart__login-title">{{ 'sections.cart.login.title' | t }}</h2>
+        <h2 class="cart__login-title">Have an account?</h2>
         <p class="cart__login-paragraph">
-          {{ 'sections.cart.login.paragraph_html' | t: link: routes.account_login_url }}
+          <a href="{{ routes.account_login_url }}">Log in</a> to check out faster.
         </p>
       {%- endif -%}
     </div>
@@ -54,25 +90,25 @@
           {%- if cart != empty -%}
             <table class="cart-items">
               <caption class="visually-hidden">
-                {{ 'sections.cart.title' | t }}
+                Your Cart
               </caption>
               <thead>
                 <tr>
                   <th class="caption-with-letter-spacing" colspan="2" scope="col">
-                    {{ 'sections.cart.headings.product' | t }}
+                    Product
                   </th>
                   <th class="medium-hide large-up-hide right caption-with-letter-spacing" colspan="1" scope="col">
-                    {{ 'sections.cart.headings.total' | t }}
+                    Total
                   </th>
                   <th
                     class="cart-items__heading--wide cart-items__heading--quantity small-hide caption-with-letter-spacing"
                     colspan="1"
                     scope="col"
                   >
-                    {{ 'sections.cart.headings.quantity' | t }}
+                    Quantity
                   </th>
                   <th class="small-hide right caption-with-letter-spacing" colspan="1" scope="col">
-                    {{ 'sections.cart.headings.total' | t }}
+                    Total
                   </th>
                 </tr>
               </thead>
@@ -83,7 +119,7 @@
                     class="cart-item {% if item.parent_relationship.parent != null %}cart-item__nested-line{% endif %}"
                     id="CartItem-{{ item.index | plus: 1 }}"
                     {% if item.parent_relationship.parent != null %}
-                      aria-label="{{- 'products.product.nested_label' | t: title: item.product.title, parent_title: item.parent_relationship.parent.title | escape -}}"
+                      aria-label="{{- item.product.title | escape -}} - {{ item.parent_relationship.parent.title | escape }}"
                     {% endif %}
                   >
                     <td class="cart-item__media">
@@ -113,13 +149,13 @@
                       {%- if item.original_price != item.final_price -%}
                         <div class="cart-item__discounted-prices">
                           <span class="visually-hidden">
-                            {{ 'products.product.price.regular_price' | t }}
+                            Regular price
                           </span>
                           <s class="cart-item__old-price product-option">
                             {{- item.original_price | money -}}
                           </s>
                           <span class="visually-hidden">
-                            {{ 'products.product.price.sale_price' | t }}
+                            Sale price
                           </span>
                           <strong class="cart-item__final-price product-option">
                             {{ item.final_price | money }}
@@ -167,7 +203,7 @@
                         <p class="product-option">{{ item.selling_plan_allocation.selling_plan.name }}</p>
                       {%- endif -%}
 
-                      <ul class="discounts list-unstyled" role="list" aria-label="{{ 'customer.order.discount' | t }}">
+                      <ul class="discounts list-unstyled" role="list" aria-label="Discounts">
                         {%- for discount in item.line_level_discount_allocations -%}
                           <li class="discounts__discount">
                             {{- 'icon-discount.svg' | inline_asset_content -}}
@@ -183,7 +219,7 @@
                         {%- if item.original_line_price != item.final_line_price -%}
                           <dl class="cart-item__discounted-prices">
                             <dt class="visually-hidden">
-                              {{ 'products.product.price.regular_price' | t }}
+                              Regular price
                             </dt>
                             <dd>
                               <s class="cart-item__old-price price price--end">
@@ -191,7 +227,7 @@
                               </s>
                             </dd>
                             <dt class="visually-hidden">
-                              {{ 'products.product.price.sale_price' | t }}
+                              Sale price
                             </dt>
                             <dd class="price price--end">
                               {{ item.final_line_price | money }}
@@ -223,7 +259,7 @@
                       <quantity-popover>
                         <div class="cart-item__quantity-wrapper quantity-popover-wrapper">
                           <label class="visually-hidden" for="Quantity-{{ item.index | plus: 1 }}">
-                            {{ 'products.product.quantity.label' | t }}
+                            Quantity
                           </label>
                           <div class="quantity-popover-container{% if has_qty_rules or has_vol_pricing %} quantity-popover-container--hover{% endif %}">
                             {%- if has_qty_rules or has_vol_pricing -%}
@@ -246,7 +282,7 @@
                                 {% endif %}
                               >
                                 <span class="visually-hidden">
-                                  {{- 'products.product.quantity.decrease' | t: product: item.product.title | escape -}}
+                                  Decrease quantity for {{ item.product.title | escape }}
                                 </span>
                                 <span class="svg-wrapper">
                                   {{- 'icon-minus.svg' | inline_asset_content -}}
@@ -267,7 +303,7 @@
                                 {% endif %}
                                 step="{{ item.variant.quantity_rule.increment }}"
                                 {% # theme-check-enable %}
-                                aria-label="{{ 'products.product.quantity.input_label' | t: product: item.product.title | escape }}"
+                                aria-label="Quantity for {{ item.product.title | escape }}"
                                 id="Quantity-{{ item.index | plus: 1 }}"
                                 data-index="{{ item.index | plus: 1 }}"
                                 {% if can_update_quantity == false %}
@@ -283,7 +319,7 @@
                                 {% endif %}
                               >
                                 <span class="visually-hidden">
-                                  {{- 'products.product.quantity.increase' | t: product: item.product.title | escape -}}
+                                  Increase quantity for {{ item.product.title | escape }}
                                 </span>
                                 <span class="svg-wrapper">
                                   {{- 'icon-plus.svg' | inline_asset_content -}}
@@ -302,7 +338,7 @@
                             <a
                               href="{{ item.url_to_remove }}"
                               class="button button--tertiary"
-                              aria-label="{{ 'sections.cart.remove_title' | t: title: item.title | escape }}"
+                              aria-label="Remove {{ item.title | escape }} from cart"
                             >
                               <span class="svg-wrapper">
                                 {{- 'icon-remove.svg' | inline_asset_content -}}
@@ -319,9 +355,9 @@
                             {{- 'icon-info.svg' | inline_asset_content -}}
                             <span>
                               {%- if has_vol_pricing -%}
-                                {{ 'products.product.volume_pricing.note' | t }}
+                                Volume pricing available
                               {%- elsif has_qty_rules -%}
-                                {{ 'products.product.quantity.note' | t }}
+                                Quantity rules apply
                               {%- endif -%}
                             </span>
                           </button>
@@ -334,39 +370,30 @@
                           >
                             {%- if has_qty_rules == false -%}
                               <span class="volume-pricing-label caption">
-                                {{- 'products.product.volume_pricing.title' | t -}}
+                                Volume pricing
                               </span>
                             {%- endif -%}
                             <div class="quantity__rules caption">
                               {%- if item.variant.quantity_rule.increment > 1 -%}
                                 <span class="divider">
-                                  {{-
-                                    'products.product.quantity.multiples_of'
-                                    | t: quantity: item.variant.quantity_rule.increment
-                                  -}}
+                                  Multiples of {{ item.variant.quantity_rule.increment }}
                                 </span>
                               {%- endif -%}
                               {%- if item.variant.quantity_rule.min > 1 -%}
                                 <span class="divider">
-                                  {{-
-                                    'products.product.quantity.min_of'
-                                    | t: quantity: item.variant.quantity_rule.min
-                                  -}}
+                                  Min. of {{ item.variant.quantity_rule.min }}
                                 </span>
                               {%- endif -%}
                               {%- if item.variant.quantity_rule.max != null -%}
                                 <span class="divider">
-                                  {{-
-                                    'products.product.quantity.max_of'
-                                    | t: quantity: item.variant.quantity_rule.max
-                                  -}}
+                                  Max. of {{ item.variant.quantity_rule.max }}
                                 </span>
                               {%- endif -%}
                             </div>
                             <button
                               class="button-close button button--tertiary large-up-hide"
                               type="button"
-                              aria-label="{{ 'accessibility.close' | t }}"
+                              aria-label="Close"
                             >
                               <span class="svg-wrapper">
                                 {{- 'icon-close.svg' | inline_asset_content -}}
@@ -378,7 +405,7 @@
                                   <li>
                                     <span>{{ item.variant.quantity_rule.min }}+</span>
                                     {%- assign price = item.variant.price | money_with_currency -%}
-                                    <span> {{ 'sections.quick_order_list.each' | t: money: price }}</span>
+                                    <span> {{ price }} each</span>
                                   </li>
                                   {%- for price_break in item.variant.quantity_price_breaks -%}
                                     <li>
@@ -387,7 +414,7 @@
                                         <span aria-hidden="true">+</span></span
                                       >
                                       {%- assign price = price_break.price | money_with_currency -%}
-                                      <span> {{ 'sections.quick_order_list.each' | t: money: price }}</span>
+                                      <span> {{ price }} each</span>
                                     </li>
                                   {%- endfor -%}
                                 </ul>
@@ -451,9 +478,75 @@
         aria-hidden="true"
         role="status"
       >
-        {{ 'accessibility.loading' | t }}
+        Loading...
       </p>
     </form>
+
+    
+
+    <script>
+    (function(){
+      'use strict';
+
+      /* ── 1. Remove critical-hidden from #cart after AJAX renders ── */
+      var wrap = document.getElementById('main-cart-items');
+      if(wrap){
+        new MutationObserver(function(){
+          var f = document.getElementById('cart');
+          if(f && f.classList.contains('critical-hidden')){
+            f.classList.remove('critical-hidden');
+          }
+        }).observe(wrap, { childList: true, subtree: true });
+      }
+
+      /* ── 2. Sync #pv-bar-total with the cart-footer total ──────────
+         BUG FIXED: Do NOT use characterData:true on document.body —
+         our own bar.textContent write would re-trigger the observer
+         → infinite loop → browser freeze.
+         Use childList only (Dawn AJAX replaces entire DOM nodes).
+         Add an isSyncing guard for double safety.
+      ──────────────────────────────────────────────────────────────── */
+      var bar = document.getElementById('pv-bar-total');
+      if(!bar) return;
+
+      var isSyncing = false;
+      var lastRaw   = '';
+
+      function syncBarTotal(){
+        if(isSyncing) return;
+
+        /* Prefer cart-footer section; fall back to anywhere on page */
+        var el = document.querySelector('#shopify-section-cart-footer .totals__total-value')
+              || document.querySelector('.totals__total-value');
+        if(!el) return;
+
+        /* Strip trailing ISO currency code e.g. " USD" */
+        var raw = el.textContent.trim().replace(/\s+[A-Z]{3}$/, '').trim();
+        if(!raw || raw === lastRaw) return; /* no change — skip DOM write */
+        lastRaw = raw;
+
+        isSyncing = true;
+        var currencySpan = bar.querySelector('.pv-cbar__currency');
+        bar.textContent  = raw + '\u00a0'; /* NBSP keeps span from wrapping */
+        if(currencySpan) bar.appendChild(currencySpan);
+        isSyncing = false;
+      }
+
+      /* Watch for childList mutations only — safe, no self-triggering */
+      new MutationObserver(syncBarTotal)
+        .observe(document.body, { childList: true, subtree: true });
+
+      /* Run once on load */
+      if(document.readyState === 'loading'){
+        document.addEventListener('DOMContentLoaded', syncBarTotal);
+      } else {
+        syncBarTotal();
+      }
+
+    })();
+    </script>
+
+
   </div>
 </cart-items>
 

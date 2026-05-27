@@ -26,104 +26,104 @@
     <div class="cart__footer isolate section-{{ section.id }}-padding">
       {%- if settings.show_cart_note -%}
         <cart-note class="cart__note field">
-          <label for="Cart-note">{{ 'sections.cart.note' | t }}</label>
+          <label for="Cart-note">Order Note</label>
           <textarea
             class="text-area field__input"
             name="note"
             form="cart"
             id="Cart-note"
-            placeholder="{{ 'sections.cart.note' | t }}"
+            placeholder="Add a note to your order..."
           >{{ cart.note }}</textarea>
         </cart-note>
       {%- endif -%}
+
+      {%- comment -%} Free shipping progress variables {%- endcomment -%}
+      {%- assign cf_threshold = 3000 -%}
+      {%- assign cf_total     = cart.total_price -%}
+      {%- assign cf_remaining = cf_threshold | minus: cf_total -%}
+      {%- if cf_remaining < 0 -%}{%- assign cf_remaining = 0 -%}{%- endif -%}
+      {%- assign cf_pct       = cf_total | times: 100 | divided_by: cf_threshold -%}
+      {%- if cf_pct > 100 -%}{%- assign cf_pct = 100 -%}{%- endif -%}
+      {%- assign cf_free      = false -%}
+      {%- if cf_total >= cf_threshold -%}{%- assign cf_free = true -%}{%- endif -%}
 
       <div class="cart__blocks">
         {% for block in section.blocks %}
           {%- case block.type -%}
             {%- when '@app' -%}
               {% render block %}
+
             {%- when 'subtotal' -%}
               <div class="js-contents" {{ block.shopify_attributes }}>
-                <div>
-                  {%- if cart.cart_level_discount_applications.size > 0 -%}
-                    <ul class="discounts list-unstyled" role="list" aria-label="{{ 'customer.order.discount' | t }}">
-                      {%- for discount in cart.cart_level_discount_applications -%}
-                        <li class="discounts__discount discounts__discount--position">
-                          {{- 'icon-discount.svg' | inline_asset_content -}}
-                          {{ discount.title | escape }}
-                          (-{{ discount.total_allocated_amount | money }})
-                        </li>
-                      {%- endfor -%}
-                    </ul>
+
+                {%- comment -%} Cart-level discounts — logic untouched {%- endcomment -%}
+                {%- if cart.cart_level_discount_applications.size > 0 -%}
+                  <ul class="discounts list-unstyled pv-cf-discounts" role="list" aria-label="{{ 'customer.order.discount' | t }}">
+                    {%- for discount in cart.cart_level_discount_applications -%}
+                      <li class="discounts__discount discounts__discount--position">
+                        {{- 'icon-discount.svg' | inline_asset_content -}}
+                        {{ discount.title | escape }}
+                        (-{{ discount.total_allocated_amount | money }})
+                      </li>
+                    {%- endfor -%}
+                  </ul>
+                {%- endif -%}
+
+                {%- comment -%} Free shipping progress bar {%- endcomment -%}
+                <div class="pv-cf-ship" aria-label="Free shipping progress">
+                  {%- if cf_free -%}
+                    <div class="pv-cf-ship__msg pv-cf-ship__msg--free">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+                      You've unlocked <strong>Free Shipping</strong>! 🎉
+                    </div>
+                  {%- else -%}
+                    {%- assign cf_rem_d = cf_remaining | divided_by: 100 -%}
+                    {%- assign cf_rem_c = cf_remaining | modulo: 100 -%}
+                    <div class="pv-cf-ship__msg">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+                      Add <strong>${{ cf_rem_d }}.{{ cf_rem_c | prepend: '00' | slice: -2, 2 }}</strong> more for <strong>Free Shipping</strong>
+                    </div>
                   {%- endif -%}
+                  <div class="pv-cf-ship__track">
+                    <div class="pv-cf-ship__fill" style="width: {{ cf_pct }}%"></div>
+                  </div>
                 </div>
 
-                <div class="totals">
-                  <h2 class="totals__total">{{ 'sections.cart.estimated_total' | t }}</h2>
-                  <p class="totals__total-value">{{ cart.total_price | money_with_currency }}</p>
+                {%- comment -%} Totals row {%- endcomment -%}
+                <div class="pv-cf-totals">
+                  <div class="pv-cf-totals__row">
+                    <span class="pv-cf-totals__label">Estimated Total</span>
+                    <p class="totals__total-value pv-cf-totals__value">{{ cart.total_price | money_with_currency }}</p>
+                  </div>
+                  <p class="pv-cf-totals__note">
+                    Taxes{% if shop.shipping_policy.body != blank %}, <a href="{{ shop.shipping_policy.url }}" class="pv-cf-link">shipping</a>{% else %}, shipping{% endif %} &amp; discounts calculated at checkout
+                  </p>
                 </div>
 
-                <small class="tax-note caption-large rte">
-                  {%- if cart.duties_included and cart.taxes_included -%}
-                    {%- if shop.shipping_policy.body == blank -%}
-                      {{ 'sections.cart.duties_and_taxes_included_shipping_at_checkout_without_policy' | t }}
-                    {%- else -%}
-                      {{
-                        'sections.cart.duties_and_taxes_included_shipping_at_checkout_with_policy_html'
-                        | t: link: shop.shipping_policy.url
-                      }}
-                    {%- endif -%}
-                  {%- elsif cart.duties_included == false and cart.taxes_included -%}
-                    {%- if shop.shipping_policy.body == blank -%}
-                      {{ 'sections.cart.taxes_included_shipping_at_checkout_without_policy' | t }}
-                    {%- else -%}
-                      {{
-                        'sections.cart.taxes_included_shipping_at_checkout_with_policy_html'
-                        | t: link: shop.shipping_policy.url
-                      }}
-                    {%- endif -%}
-                  {%- elsif cart.duties_included and cart.taxes_included == false -%}
-                    {%- if shop.shipping_policy.body == blank -%}
-                      {{ 'sections.cart.duties_included_taxes_at_checkout_shipping_at_checkout_without_policy' | t }}
-                    {%- else -%}
-                      {{
-                        'sections.cart.duties_included_taxes_at_checkout_shipping_at_checkout_with_policy_html'
-                        | t: link: shop.shipping_policy.url
-                      }}
-                    {%- endif -%}
-                  {%- elsif cart.duties_included == false and cart.taxes_included == false -%}
-                    {%- if shop.shipping_policy.body == blank -%}
-                      {{ 'sections.cart.taxes_at_checkout_shipping_at_checkout_without_policy' | t }}
-                    {%- else -%}
-                      {{
-                        'sections.cart.taxes_at_checkout_shipping_at_checkout_with_policy_html'
-                        | t: link: shop.shipping_policy.url
-                      }}
-                    {%- endif -%}
-                  {%- endif -%}
-                </small>
               </div>
+
             {%- else -%}
-              <div class="cart__ctas" {{ block.shopify_attributes }}>
+              {%- comment -%} Checkout button — all logic preserved {%- endcomment -%}
+              <div class="cart__ctas pv-cf-ctas" {{ block.shopify_attributes }}>
                 <button
                   type="submit"
                   id="checkout"
-                  class="cart__checkout-button button"
+                  class="cart__checkout-button pv-cf-checkout-btn"
                   name="checkout"
-                  {% if cart == empty %}
-                    disabled
-                  {% endif %}
+                  {% if cart == empty %}disabled{% endif %}
                   form="cart"
                 >
-                  {{ 'sections.cart.checkout' | t }}
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><polyline points="12 8 16 12 12 16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+                  Checkout
                 </button>
               </div>
 
               {%- if additional_checkout_buttons -%}
-                <div class="cart__dynamic-checkout-buttons additional-checkout-buttons">
+                <div class="cart__dynamic-checkout-buttons additional-checkout-buttons pv-cf-dynamic">
                   {{ content_for_additional_checkout_buttons }}
                 </div>
               {%- endif -%}
+
           {%- endcase -%}
         {% endfor %}
 
@@ -132,6 +132,7 @@
     </div>
   </div>
 </div>
+
 
 {% schema %}
 {
