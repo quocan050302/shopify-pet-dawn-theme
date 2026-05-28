@@ -28,7 +28,7 @@
         "tiktok": "TikTok"
       }
     },
-    "continue_shopping": "Tiếp tục mua sắm",
+    "continue_shopping": "Continue shopping",
     "pagination": {
       "label": "Phân trang",
       "page": "Trang {{ number }}",
@@ -36,13 +36,13 @@
       "previous": "Trang trước"
     },
     "search": {
-      "search": "Tìm kiếm",
-      "reset": "Xóa cụm từ tìm kiếm"
+      "search": "Search",
+      "reset": "Clear search term"
     },
     "cart": {
-      "view": "Xem giỏ hàng ({{ count }})",
-      "item_added": "Mặt hàng đã thêm vào giỏ hàng",
-      "view_empty_cart": "Xem giỏ hàng"
+      "view": "View my cart ({{ count }})",
+      "item_added": "Item added to your cart",
+      "view_empty_cart": "View my cart"
     },
     "share": {
       "copy_to_clipboard": "Sao chép liên kết",
@@ -106,10 +106,10 @@
   },
   "products": {
     "product": {
-      "add_to_cart": "Thêm vào giỏ hàng",
-      "description": "Mô tả",
-      "on_sale": "Giảm giá",
-      "product_variants": "Mẫu mã sản phẩm",
+      "add_to_cart": "Add to Cart",
+      "description": "Description",
+      "on_sale": "Sale",
+      "product_variants": "Product variants",
       "quantity": {
         "label": "Số lượng",
         "input_label": "Số lượng của {{ product }}",
@@ -130,10 +130,10 @@
         "sale_price": "Giá ưu đãi",
         "unit_price": "Đơn giá"
       },
-      "share": "Chia sẻ sản phẩm này",
-      "sold_out": "Đã bán hết",
-      "unavailable": "Không có sẵn",
-      "vendor": "Nhà cung cấp",
+      "share": "Share this product",
+      "sold_out": "Sold Out",
+      "unavailable": "Unavailable",
+      "vendor": "Vendor",
       "video_exit_message": "{{ title }} mở video toàn màn hình ở cùng một cửa sổ.",
       "xr_button": "Xem tại không gian của bạn",
       "xr_button_label": "Xem tại không gian của bạn, tải mặt hàng trong cửa sổ thực tế ảo tăng cường",
@@ -159,16 +159,16 @@
       "nested_label": "{{ title }} cho {{ parent_title }}",
       "view_full_details": "Xem toàn bộ chi tiết",
       "shipping_policy_html": "<a href=\"{{ link }}\">Phí vận chuyển</a> được tính khi thanh toán.",
-      "choose_options": "Chọn các tùy chọn",
-      "choose_product_options": "Chọn tùy chọn cho {{ product_name }}",
-      "value_unavailable": "{{ option_value }} - Không khả dụng",
-      "variant_sold_out_or_unavailable": "Mẫu mã đã bán hết hoặc không còn hàng",
-      "inventory_in_stock": "Còn hàng",
-      "inventory_in_stock_show_count": "Còn {{ quantity }} hàng lưu kho",
-      "inventory_low_stock": "Sắp hết hàng",
-      "inventory_low_stock_show_count": "Sắp hết hàng: Còn {{ quantity }}",
-      "inventory_out_of_stock": "Hết hàng",
-      "inventory_out_of_stock_continue_selling": "Còn hàng",
+      "choose_options": "Choose options",
+      "choose_product_options": "Choose options for {{ product_name }}",
+      "value_unavailable": "{{ option_value }} - Unavailable",
+      "variant_sold_out_or_unavailable": "Variant sold out or unavailable",
+      "inventory_in_stock": "In Stock",
+      "inventory_in_stock_show_count": "{{ quantity }} in stock",
+      "inventory_low_stock": "Low stock",
+      "inventory_low_stock_show_count": "Low stock: {{ quantity }} remaining",
+      "inventory_out_of_stock": "Out of stock",
+      "inventory_out_of_stock_continue_selling": "In Stock",
       "sku": "SKU",
       "volume_pricing": {
         "title": "Định giá theo số lượng",
@@ -247,7 +247,7 @@
       "pages": "Trang"
     },
     "cart": {
-      "cart": "Giỏ hàng"
+      "cart": "Cart"
     },
     "contact": {
       "form": {
@@ -268,11 +268,11 @@
   },
   "sections": {
     "header": {
-      "announcement": "Thông báo",
+      "announcement": "Announcement",
       "menu": "Menu",
       "cart_count": {
-        "one": "{{ count }} mặt hàng",
-        "other": "{{ count }} mặt hàng"
+        "one": "{{ count }} item",
+        "other": "{{ count }} items"
       }
     },
     "cart": {
@@ -280,7 +280,7 @@
       "caption": "Các mặt hàng trong giỏ hàng",
       "remove_title": "Xóa {{ title }}",
       "note": "Hướng dẫn đặc biệt của đơn hàng",
-      "checkout": "Thanh toán",
+      "checkout": "Checkout",
       "empty": "Giỏ hàng của bạn đang trống",
       "cart_error": "Đã xảy ra lỗi khi cập nhật giỏ hàng. Vui lòng thử lại.",
       "cart_quantity_error_html": "Bạn chỉ có thể thêm {{ quantity }} mặt hàng này vào giỏ hàng.",
