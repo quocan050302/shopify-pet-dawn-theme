@@ -71,35 +71,47 @@
                   </ul>
                 {%- endif -%}
 
-                {%- comment -%} Free shipping progress bar {%- endcomment -%}
-                <div class="pv-cf-ship" aria-label="Free shipping progress">
+                {%- comment -%} Merged: Free shipping status + Estimated Total card {%- endcomment -%}
+                <div class="pv-cf-summary">
+
+                  {%- comment -%} Top: ship status {%- endcomment -%}
                   {%- if cf_free -%}
-                    <div class="pv-cf-ship__msg pv-cf-ship__msg--free">
-                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-                      You've unlocked <strong>Free Shipping</strong>! 🎉
+                    <div class="pv-cf-summary__ship pv-cf-summary__ship--free" role="status" aria-label="You've unlocked free shipping">
+                      <span class="pv-cf-ship__icon-wrap" aria-hidden="true">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13" rx="1"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+                      </span>
+                      <span class="pv-cf-summary__ship-text">
+                        <span class="pv-cf-summary__ship-label">Free Shipping Unlocked</span>
+                      </span>
+                      <span class="pv-cf-summary__ship-badge" aria-hidden="true">🎉</span>
                     </div>
                   {%- else -%}
                     {%- assign cf_rem_d = cf_remaining | divided_by: 100 -%}
                     {%- assign cf_rem_c = cf_remaining | modulo: 100 -%}
-                    <div class="pv-cf-ship__msg">
+                    <div class="pv-cf-summary__ship">
                       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
-                      Add <strong>${{ cf_rem_d }}.{{ cf_rem_c | prepend: '00' | slice: -2, 2 }}</strong> more for <strong>Free Shipping</strong>
+                      <span>Add <strong>${{ cf_rem_d }}.{{ cf_rem_c | prepend: '00' | slice: -2, 2 }}</strong> more for <strong>Free Shipping</strong></span>
+                      <span class="pv-cf-summary__pct">{{ cf_pct }}%</span>
+                    </div>
+                    <div class="pv-cf-summary__track">
+                      <div class="pv-cf-summary__fill" style="width: {{ cf_pct }}%"></div>
                     </div>
                   {%- endif -%}
-                  <div class="pv-cf-ship__track">
-                    <div class="pv-cf-ship__fill" style="width: {{ cf_pct }}%"></div>
-                  </div>
-                </div>
 
-                {%- comment -%} Totals row {%- endcomment -%}
-                <div class="pv-cf-totals">
-                  <div class="pv-cf-totals__row">
-                    <span class="pv-cf-totals__label">Estimated Total</span>
-                    <p class="totals__total-value pv-cf-totals__value">{{ cart.total_price | money_with_currency }}</p>
+                  {%- comment -%} Divider {%- endcomment -%}
+                  <div class="pv-cf-summary__divider"></div>
+
+                  {%- comment -%} Bottom: total + note {%- endcomment -%}
+                  <div class="pv-cf-summary__totals">
+                    <div class="pv-cf-totals__row">
+                      <span class="pv-cf-totals__label">Estimated Total</span>
+                      <p class="totals__total-value pv-cf-totals__value">{{ cart.total_price | money_with_currency }}</p>
+                    </div>
+                    <p class="pv-cf-totals__note">
+                      Taxes{% if shop.shipping_policy.body != blank %}, <a href="{{ shop.shipping_policy.url }}" class="pv-cf-link">shipping</a>{% else %}, shipping{% endif %} &amp; discounts calculated at checkout
+                    </p>
                   </div>
-                  <p class="pv-cf-totals__note">
-                    Taxes{% if shop.shipping_policy.body != blank %}, <a href="{{ shop.shipping_policy.url }}" class="pv-cf-link">shipping</a>{% else %}, shipping{% endif %} &amp; discounts calculated at checkout
-                  </p>
+
                 </div>
 
               </div>

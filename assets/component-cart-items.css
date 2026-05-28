@@ -62,7 +62,7 @@ cart-items .title-wrapper-with-link {
 
 .cart-item__details > * {
   margin: 0;
-  max-width: 30rem;
+  max-width: 35rem;
 }
 
 .cart-item__details > * + * {
@@ -299,7 +299,7 @@ cart-remove-button .icon-remove {
 
   .cart-items td {
     vertical-align: top;
-    padding-top: 4rem;
+    padding-top: 6rem;
   }
 
   .cart-items .cart-item__nested-line td {
@@ -311,7 +311,8 @@ cart-remove-button .icon-remove {
   }
 
   .cart-item > td + td {
-    padding-left: 4rem;
+    padding-left: 0;
+    padding-right: 4rem;
   }
 
   .cart-item__details {

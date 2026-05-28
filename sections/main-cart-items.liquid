@@ -20,6 +20,117 @@
   }
 {%- endstyle -%}
 
+{%- comment -%} ── Cart layout overrides: PRODUCT | PRICE | QUANTITY | TOTAL ── {%- endcomment -%}
+<style>
+  /* ── In Stock badge ───────────────────────────────────────────── */
+  .pv-instock-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: none;
+    border: none;
+    padding: 0;
+    color: #1a5c28;
+    font-size: 1.2rem;
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: 0.01em;
+    white-space: nowrap;
+    margin-top: 0.6rem;
+  }
+
+  /* Pulsing dot */
+  .pv-instock-dot {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 10px;
+    height: 10px;
+    flex-shrink: 0;
+  }
+  .pv-instock-dot::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background: #1a5c28;
+    opacity: 0.25;
+    animation: pv-dot-ping 1.6s cubic-bezier(0, 0, 0.2, 1) infinite;
+  }
+  .pv-instock-dot::after {
+    content: '';
+    position: relative;
+    z-index: 1;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #1a5c28;
+    flex-shrink: 0;
+  }
+  @keyframes pv-dot-ping {
+    0%   { transform: scale(1);   opacity: 0.25; }
+    70%  { transform: scale(2.2); opacity: 0; }
+    100% { transform: scale(2.2); opacity: 0; }
+  }
+
+  /* ── Unit-price column (desktop only) ────────────────────────── */
+  .cart-item__unit-price {
+    vertical-align: middle;
+    text-align: center;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    white-space: nowrap;
+    color: #133316;
+    font-size: 1.5rem;
+    font-weight: 600;
+  }
+  .cart-item__unit-price .pv-unit-price__old {
+    display: block;
+    font-size: 1.2rem;
+    text-decoration: line-through;
+    opacity: 0.55;
+    font-weight: 400;
+  }
+  .cart-item__unit-price .pv-unit-price__sale {
+    display: block;
+    color: #133316;
+    font-weight: 700;
+  }
+
+  /* ── Mobile inline price (hidden on desktop) ──────────────────── */
+  .pv-mobile-unit-price {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #133316;
+    margin-top: 0.4rem;
+  }
+  .pv-mobile-unit-price .pv-unit-price__old {
+    font-size: 1.2rem;
+    text-decoration: line-through;
+    opacity: 0.55;
+    margin-right: 4px;
+    font-weight: 400;
+  }
+  @media screen and (min-width: 750px) {
+    .pv-mobile-unit-price { display: none; }
+    .cart-item__unit-price { display: table-cell; }
+  }
+  @media screen and (max-width: 749px) {
+    .pv-mobile-unit-price { display: block; }
+    .cart-item__unit-price { display: none; }
+    /* Keep mobile grid working with the extra hidden td */
+    .cart-item__unit-price[aria-hidden="true"] { display: none; }
+  }
+
+  /* ── PRICE header cell ───────────────────────────────────────── */
+  .cart-items__heading--price {
+    text-align: center;
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+</style>
+
 {%- unless settings.cart_type == 'drawer' -%}
   <script src="{{ 'cart.js' | asset_url }}" defer="defer"></script>
 {%- endunless -%}
@@ -100,6 +211,9 @@
                   <th class="medium-hide large-up-hide right caption-with-letter-spacing" colspan="1" scope="col">
                     Total
                   </th>
+                  <th class="cart-items__heading--price small-hide caption-with-letter-spacing" colspan="1" scope="col">
+                    Price
+                  </th>
                   <th
                     class="cart-items__heading--wide cart-items__heading--quantity small-hide caption-with-letter-spacing"
                     colspan="1"
@@ -146,26 +260,21 @@
 
                       <a href="{{ item.url }}" class="cart-item__name h4 break">{{ item.product.title | escape }}</a>
 
-                      {%- if item.original_price != item.final_price -%}
-                        <div class="cart-item__discounted-prices">
-                          <span class="visually-hidden">
-                            Regular price
-                          </span>
-                          <s class="cart-item__old-price product-option">
-                            {{- item.original_price | money -}}
-                          </s>
-                          <span class="visually-hidden">
-                            Sale price
-                          </span>
-                          <strong class="cart-item__final-price product-option">
-                            {{ item.final_price | money }}
-                          </strong>
-                        </div>
-                      {%- else -%}
-                        <div class="product-option">
+                      {%- comment -%} In Stock badge — pulsing dot, no background {%- endcomment -%}
+                      <span class="pv-instock-badge" aria-label="In Stock">
+                        <span class="pv-instock-dot" aria-hidden="true"></span>
+                        In Stock
+                      </span>
+
+                      {%- comment -%} Mobile-only inline unit price (hidden on desktop via CSS) {%- endcomment -%}
+                      <div class="pv-mobile-unit-price">
+                        {%- if item.original_price != item.final_price -%}
+                          <span class="pv-unit-price__old">{{ item.original_price | money }}</span>
+                          <span class="pv-unit-price__sale">{{ item.final_price | money }}</span>
+                        {%- else -%}
                           {{ item.original_price | money }}
-                        </div>
-                      {%- endif -%}
+                        {%- endif -%}
+                      </div>
 
                       {%- if item.product.has_only_default_variant == false
                         or item.properties.size != 0
@@ -243,6 +352,19 @@
                           {% render 'unit-price', price: item.unit_price, measurement: item.unit_price_measurement %}
                         {%- endif -%}
                       </div>
+                    </td>
+
+                    {%- comment -%} ── PRICE column: unit price, desktop only ── {%- endcomment -%}
+                    <td class="cart-item__unit-price small-hide" aria-label="Unit price for {{ item.product.title | escape }}">
+                      {%- if item.original_price != item.final_price -%}
+                        <span class="pv-unit-price__old">{{ item.original_price | money }}</span>
+                        <span class="pv-unit-price__sale">{{ item.final_price | money }}</span>
+                      {%- else -%}
+                        {{ item.original_price | money }}
+                      {%- endif -%}
+                      {%- if item.variant.available and item.unit_price_measurement -%}
+                        {% render 'unit-price', price: item.unit_price, measurement: item.unit_price_measurement %}
+                      {%- endif -%}
                     </td>
                     {%- liquid
                       assign has_qty_rules = false

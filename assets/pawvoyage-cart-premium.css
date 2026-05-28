@@ -28,63 +28,142 @@ body:has(.pv-cbar) {
   color: #1f6b2a;
 }
 
-/* Free shipping bar */
-.pv-cf-ship {
-  background: #f5f3ef;
-  border-radius: 12px;
-  padding: 12px 16px;
-  margin-bottom: 18px;
-}
-.pv-cf-ship__msg {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 1.35rem;
-  color: rgba(20, 45, 25, 0.7);
-  margin-bottom: 10px;
-}
-.pv-cf-ship__msg svg {
-  flex-shrink: 0;
-  color: rgba(20, 45, 25, 0.5);
-}
-.pv-cf-ship__msg strong {
-  color: #0d2211;
-}
-.pv-cf-ship__msg--free {
-  color: #1f6b2a;
-  font-weight: 600;
-}
-.pv-cf-ship__msg--free svg {
-  color: #1f6b2a;
-}
-.pv-cf-ship__track {
-  height: 6px;
-  background: rgba(20, 45, 25, 0.12);
-  border-radius: 99px;
-  overflow: hidden;
-}
-.pv-cf-ship__fill {
-  height: 100%;
-  background: linear-gradient(90deg, #2a7230, #4fa855);
-  border-radius: 99px;
-  transition: width 0.4s ease;
-  min-width: 4px;
-}
-
-/* Totals card */
-.pv-cf-totals {
+/* ── Merged summary card: ship status + totals ── */
+.pv-cf-summary {
   background: #fff;
-  border: 1px solid rgba(20, 45, 25, 0.08);
-  border-radius: 14px;
-  padding: 18px 20px 14px;
+  border: 1px solid rgba(20, 45, 25, 0.09);
+  border-radius: 16px;
+  overflow: hidden;
   margin-bottom: 16px;
 }
+
+/* Top strip: ship status — progress state */
+.pv-cf-summary__ship {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 11px 16px;
+  background: #f5f3ef;
+  font-size: 1.3rem;
+  color: rgba(20, 45, 25, 0.7);
+}
+.pv-cf-summary__ship svg {
+  flex-shrink: 0;
+  color: rgba(20, 45, 25, 0.45);
+}
+.pv-cf-summary__ship strong {
+  color: #0d2211;
+  font-weight: 700;
+}
+.pv-cf-summary__pct {
+  margin-left: auto;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #1f6b2a;
+}
+
+/* Top strip: ship status — unlocked (soft green tint) */
+.pv-cf-summary__ship--free {
+  position: relative;
+  overflow: hidden;
+  background: rgba(42, 130, 60, 0.09);
+  color: #1a5c20;
+  font-weight: 700;
+  gap: 11px;
+  padding: 12px 16px;
+  border-bottom: 1px solid rgba(42, 130, 60, 0.12);
+}
+.pv-cf-summary__ship--free::before {
+  content: none;
+}
+.pv-cf-ship__icon-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: rgba(26, 92, 32, 0.12);
+  flex-shrink: 0;
+  position: relative;
+  z-index: 1;
+}
+.pv-cf-ship__icon-wrap svg {
+  color: #1a5c20;
+  display: block;
+}
+.pv-cf-summary__ship-text {
+  flex: 1;
+  position: relative;
+  z-index: 1;
+}
+.pv-cf-summary__ship-label {
+  font-size: 1.35rem;
+  font-weight: 800;
+  display: block;
+  letter-spacing: -0.01em;
+}
+.pv-cf-summary__ship-badge {
+  font-size: 1.5rem;
+  line-height: 1;
+  position: relative;
+  z-index: 1;
+  animation: pv-ship-bounce 1.5s ease-in-out infinite alternate;
+}
+@keyframes pv-ship-shimmer {
+  0%   { background-position: -100% 0; }
+  100% { background-position: 200%  0; }
+}
+@keyframes pv-ship-bounce {
+  0%   { transform: translateY(0) scale(1); }
+  100% { transform: translateY(-2px) scale(1.08); }
+}
+
+/* Progress bar (only shown in progress state) */
+.pv-cf-summary__track {
+  height: 5px;
+  background: rgba(20, 45, 25, 0.1);
+  overflow: hidden;
+}
+.pv-cf-summary__fill {
+  height: 100%;
+  background: linear-gradient(90deg, #2a7230, #4fa855);
+  border-radius: 0 99px 99px 0;
+  transition: width 0.5s cubic-bezier(.4,0,.2,1);
+  min-width: 6px;
+  position: relative;
+  overflow: hidden;
+}
+.pv-cf-summary__fill::after {
+  content: '';
+  position: absolute;
+  top: 0; bottom: 0; width: 40%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.35), transparent);
+  animation: pv-fill-shimmer 1.8s ease-in-out infinite;
+}
+@keyframes pv-fill-shimmer {
+  0%   { left: -40%; }
+  100% { left: 120%; }
+}
+
+/* Divider between ship strip and totals */
+.pv-cf-summary__divider {
+  height: 1px;
+  background: rgba(20, 45, 25, 0.07);
+}
+
+/* Bottom: totals area */
+.pv-cf-summary__totals {
+  padding: 16px 18px 14px;
+}
+
+/* Keep existing totals label/value/note styles working */
 .pv-cf-totals__row {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 12px;
-  margin-bottom: 8px;
+  margin-bottom: 7px;
 }
 .pv-cf-totals__label {
   font-size: 1.5rem;
@@ -100,7 +179,7 @@ body:has(.pv-cbar) {
 }
 .pv-cf-totals__note {
   font-size: 1.2rem;
-  color: rgba(20, 45, 25, 0.5);
+  color: rgba(20, 45, 25, 0.45);
   margin: 0;
   line-height: 1.5;
 }
