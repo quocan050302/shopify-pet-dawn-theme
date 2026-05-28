@@ -596,6 +596,13 @@
 }
 #pvf-{{ section.id }} .pvf-menu a:hover { color: var(--gold); }
 
+/* Long link (Do Not Sell...) wraps cleanly */
+#pvf-{{ section.id }} .pvf-menu__wrap a {
+  white-space: normal;
+  line-height: 1.45;
+  font-size: 13.5px;
+}
+
 /* ══════════════════════════════════════════════════════
    3. COMPACT TRUST BAR
    ══════════════════════════════════════════════════════ */
@@ -903,6 +910,8 @@
       <!-- Menu columns from blocks -->
       {%- for block in section.blocks -%}
         {%- if block.type == 'link_list' -%}
+          {%- assign block_heading_lower = block.settings.heading | downcase -%}
+
           <div class="pvf-col" id="pvf-col-{{ block.id }}" {{ block.shopify_attributes }}>
             <h3
               class="pvf-col__title"
@@ -919,13 +928,35 @@
                 </svg>
               </span>
             </h3>
-            {%- if block.settings.menu != blank -%}
+
+            {%- if block_heading_lower == 'support' -%}
+              {%- comment -%} Hardcoded Support policy links {%- endcomment -%}
+              <nav aria-label="Support links">
+                <ul class="pvf-menu" id="pvf-col-menu-{{ block.id }}" role="list">
+                  <li role="listitem"><a href="{{ shop.shipping_policy.url }}">Shipping Policy</a></li>
+                  <li role="listitem"><a href="{{ shop.refund_policy.url }}">Return &amp; Refund Policy</a></li>
+                </ul>
+              </nav>
+
+            {%- elsif block_heading_lower == 'company' -%}
+              {%- comment -%} Hardcoded Company / Legal policy links {%- endcomment -%}
+              <nav aria-label="Company and legal links">
+                <ul class="pvf-menu" id="pvf-col-menu-{{ block.id }}" role="list">
+                  <li role="listitem"><a href="{{ shop.privacy_policy.url }}">Privacy Policy</a></li>
+                  <li role="listitem"><a href="{{ shop.terms_of_service.url }}">Terms of Service</a></li>
+                  <li role="listitem" class="pvf-menu__wrap"><a href="/pages/data-sharing-opt-out">Do Not Sell or Share My Personal Information</a></li>
+                </ul>
+              </nav>
+
+            {%- elsif block.settings.menu != blank -%}
+              {%- comment -%} Default: render from Shopify nav menu (e.g. Shop) {%- endcomment -%}
               <ul class="pvf-menu" id="pvf-col-menu-{{ block.id }}" role="list">
                 {%- for link in block.settings.menu.links -%}
                   <li role="listitem"><a href="{{ link.url }}">{{ link.title }}</a></li>
                 {%- endfor -%}
               </ul>
             {%- endif -%}
+
           </div>
         {%- endif -%}
       {%- endfor -%}
