@@ -46,6 +46,8 @@
       {%- if cf_pct > 100 -%}{%- assign cf_pct = 100 -%}{%- endif -%}
       {%- assign cf_free      = false -%}
       {%- if cf_total >= cf_threshold -%}{%- assign cf_free = true -%}{%- endif -%}
+      {%- assign cf_rem_d = cf_remaining | divided_by: 100 -%}
+      {%- assign cf_rem_c = cf_remaining | modulo: 100 -%}
 
       <div class="cart__blocks">
         {% for block in section.blocks %}
@@ -133,6 +135,68 @@
   </div>
 </div>
 
+
+{%- comment -%} ── MOBILE FIXED BOTTOM BAR (CSS/UI only — all Shopify logic intact) ── {%- endcomment -%}
+<div class="cart-mobile-fixed-bar" aria-label="Mobile checkout bar" role="region">
+  <div class="cart-mobile-fixed-top">
+    <div>
+      <span class="cart-mobile-label">Estimated Total</span>
+      <strong class="cart-mobile-total">{{ cart.total_price | money_with_currency }}</strong>
+    </div>
+    <div class="cart-mobile-free-shipping">
+      {%- if cf_free -%}
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+        Free Shipping!
+      {%- else -%}
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+        <span>Add ${{ cf_rem_d }}.{{ cf_rem_c | prepend: '00' | slice: -2, 2 }} for Free Shipping</span>
+      {%- endif -%}
+    </div>
+  </div>
+
+  <div class="cart-mobile-fixed-actions">
+    {%- comment -%} Checkout button — all attributes/logic preserved {%- endcomment -%}
+    <button
+      type="submit"
+      id="checkout-mobile-bar"
+      class="cart__checkout-button pv-cf-checkout-btn cart-mobile-checkout-btn"
+      name="checkout"
+      {% if cart == empty %}disabled{% endif %}
+      form="cart"
+    >
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><polyline points="12 8 16 12 12 16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+      Checkout
+    </button>
+
+    {%- if additional_checkout_buttons -%}
+      <div class="cart__dynamic-checkout-buttons additional-checkout-buttons cart-mobile-paypal-wrap">
+        {{ content_for_additional_checkout_buttons }}
+      </div>
+    {%- endif -%}
+  </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  var bar = document.querySelector('.cart-mobile-fixed-bar');
+  if (!bar) return;
+
+  function toggleMobileCartBar() {
+    if (window.innerWidth > 768) {
+      bar.classList.remove('is-hidden-at-bottom');
+      return;
+    }
+    var scrollPosition = window.scrollY + window.innerHeight;
+    var pageHeight = document.documentElement.scrollHeight;
+    var nearBottom = scrollPosition >= pageHeight - 120;
+    bar.classList.toggle('is-hidden-at-bottom', nearBottom);
+  }
+
+  window.addEventListener('scroll', toggleMobileCartBar, { passive: true });
+  window.addEventListener('resize', toggleMobileCartBar);
+  toggleMobileCartBar();
+});
+</script>
 
 {% schema %}
 {

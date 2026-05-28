@@ -136,6 +136,7 @@ body:has(.pv-cbar) {
     box-shadow 0.15s !important;
   letter-spacing: 0.01em !important;
   text-decoration: none !important;
+  margin: auto;
 }
 .pv-cf-checkout-btn:hover {
   background: #226b28 !important;
@@ -353,19 +354,53 @@ body:has(.pv-cbar) {
   text-decoration: underline !important;
   text-underline-offset: 3px !important;
 }
-/* Unit price */
-.pv-cart-page .cart-item__details .product-option {
-  font-size: 1.35rem;
-  color: rgba(20, 45, 25, 0.6);
-  margin: 0;
+}
+
+/* ── Variant options: horizontal badge row ────────────────────────────────── */
+
+/* The <dl> wrapper becomes a flex row */
+.pv-cart-page .cart-item__details dl {
   display: flex;
   flex-wrap: wrap;
-  gap: 3px;
+  gap: 10px;
+  margin: 6px 0 4px;
+  padding: 0;
 }
-.pv-cart-page .cart-item__details .product-option dt,
-.pv-cart-page .cart-item__details .product-option dd {
+
+/* Each option pair <div class="product-option"> → pill badge */
+.pv-cart-page .cart-item__details dl .product-option {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: rgba(17, 97, 31, 0.07);
+  border: 1px solid rgba(17, 97, 31, 0.18);
+  border-radius: 50px;
+  padding: 3px 10px 3px 8px;
+  font-size: 1.25rem;
+  line-height: 1.3;
+  flex-wrap: nowrap;
+  white-space: nowrap;
+  margin-right: 4px;
+}
+
+/* Label (dt): "Color:", "Size:" — muted */
+.pv-cart-page .cart-item__details dl .product-option dt {
   margin: 0;
   display: inline;
+  font-weight: 600;
+  color: rgba(15, 59, 24, 0.55);
+  font-size: 1.15rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+/* Value (dd): "A", "Set1" — bold green */
+.pv-cart-page .cart-item__details dl .product-option dd {
+  margin: 0;
+  display: inline;
+  font-weight: 800;
+  color: #0f3b18;
+  font-size: 1.3rem;
 }
 /* Price block (discounted) */
 .pv-cart-page .cart-item__discounted-prices {
@@ -811,31 +846,182 @@ body:has(.pv-cbar) {
     height: 40px !important;
   }
 
-  /* Fixed bar: compact single-column */
+  /* Hide desktop fixed bar on mobile — replaced by cart-mobile-fixed-bar */
   .pv-cbar {
-    padding: 10px 12px;
+    display: none !important;
   }
-  .pv-cbar__inner {
-    grid-template-columns: 1fr;
-    gap: 10px;
+}
+
+/* ==========================================================================
+   MOBILE COMPACT FIXED BOTTOM CHECKOUT BAR
+   Only active on max-width: 768px
+   All Shopify cart logic is untouched — this is CSS/layout only.
+   ========================================================================== */
+
+/* Hide fixed bar on desktop — it's mobile-only */
+.cart-mobile-fixed-bar {
+  display: none;
+}
+
+@media screen and (max-width: 768px) {
+  /* ── Body padding so the page scrolls clear of the bar ── */
+  body:has(.cart-mobile-fixed-bar) {
+    /* padding-bottom: calc(130px + env(safe-area-inset-bottom)); */
   }
-  .pv-cbar__trust {
+
+  /* ── Fixed bar wrapper ── */
+  .cart-mobile-fixed-bar {
     display: none;
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 9999;
+    background: #fffaf3;
+    border-top: 1px solid rgba(20, 60, 30, 0.1);
+    box-shadow: 0 -10px 28px rgba(0, 0, 0, 0.1);
+    padding: 10px 14px calc(10px + env(safe-area-inset-bottom));
+    transform: translateY(0);
+    transition:
+      transform 0.28s ease,
+      opacity 0.28s ease;
   }
-  .pv-cbar__total {
-    border-bottom: 1px solid rgba(20, 60, 30, 0.09);
-    padding-bottom: 10px;
+
+  .cart-mobile-fixed-bar.is-hidden-at-bottom {
+    transform: translateY(110%);
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  /* ── Top row: Estimated Total + Free Shipping status ── */
+  .cart-mobile-fixed-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     gap: 12px;
+    margin-bottom: 8px;
   }
-  .pv-cbar__total-icon {
-    width: 38px;
-    height: 38px;
+
+  .cart-mobile-label {
+    display: block;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    color: rgba(20, 45, 25, 0.55);
+    margin-bottom: 2px;
   }
-  .pv-cbar__total-price {
-    font-size: 2rem;
+
+  .cart-mobile-total {
+    display: block;
+    font-size: 20px;
+    font-weight: 900;
+    color: #0f3b18;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
   }
-  .pv-cbar__checkout {
-    min-height: 50px !important;
-    font-size: 1.6rem !important;
+
+  .cart-mobile-free-shipping {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 12px;
+    font-weight: 800;
+    color: #12752a;
+    white-space: nowrap;
+    background: rgba(18, 117, 42, 0.08);
+    border-radius: 50px;
+    padding: 5px 10px;
+    flex-shrink: 0;
+  }
+
+  .cart-mobile-free-shipping svg {
+    flex-shrink: 0;
+  }
+
+  /* ── Action row: Checkout + PayPal ── */
+  .cart-mobile-fixed-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    align-items: stretch;
+  }
+
+  /* When no PayPal button, stretch checkout full width */
+  .cart-mobile-fixed-actions:only-child,
+  .cart-mobile-fixed-actions > button:only-child {
+    grid-column: 1 / -1;
+  }
+
+  /* Checkout button */
+  .cart-mobile-checkout-btn {
+    width: 100% !important;
+    min-height: 48px !important;
+    border-radius: 999px !important;
+    background: #11611f !important;
+    color: #fff !important;
+    font-size: 15px !important;
+    font-weight: 800 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 7px !important;
+    box-shadow: 0 4px 14px rgba(15, 77, 27, 0.25) !important;
+    letter-spacing: 0.01em !important;
+    transition:
+      background 0.18s,
+      transform 0.15s !important;
+    border: none !important;
+    cursor: pointer !important;
+  }
+
+  .cart-mobile-checkout-btn:hover {
+    background: #176a25 !important;
+    transform: translateY(-1px) !important;
+  }
+
+  .cart-mobile-checkout-btn:active {
+    transform: translateY(0) !important;
+  }
+
+  .cart-mobile-checkout-btn[disabled] {
+    opacity: 0.45 !important;
+    cursor: not-allowed !important;
+    transform: none !important;
+  }
+
+  .cart-mobile-checkout-btn svg {
+    flex-shrink: 0;
+    pointer-events: none;
+  }
+
+  /* PayPal / dynamic buttons wrapper */
+  .cart-mobile-paypal-wrap {
+    width: 100%;
+  }
+
+  /* Remove the "or" divider that desktop uses — not needed in compact bar */
+  .cart-mobile-paypal-wrap::before {
+    display: none !important;
+  }
+
+  .cart-mobile-paypal-wrap .shopify-payment-button {
+    width: 100%;
+  }
+
+  .cart-mobile-paypal-wrap .shopify-payment-button__button {
+    border-radius: 999px !important;
+    min-height: 48px !important;
+    width: 100% !important;
+  }
+
+  /* If PayPal is the only dynamic button, no grid needed */
+  .cart-mobile-paypal-wrap .shopify-payment-button__button--unbranded {
+    border-radius: 999px !important;
+  }
+
+  /* ── Extra padding on cart page itself ── */
+  .template-cart .cart__footer-wrapper {
+    padding-bottom: 8px;
   }
 }
