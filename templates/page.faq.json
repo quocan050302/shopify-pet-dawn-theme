@@ -1,0 +1,9 @@
+{
+  "sections": {
+    "pawvoyage_faq": {
+      "type": "pawvoyage-faq-page",
+      "settings": {}
+    }
+  },
+  "order": ["pawvoyage_faq"]
+}

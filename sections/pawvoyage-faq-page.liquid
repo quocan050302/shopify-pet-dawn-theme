@@ -1,0 +1,716 @@
+{%- style -%}
+/* ═══════════════════════════════════════════════════════════
+   PawVoyage Premium FAQ Page
+   Scoped to: #pvfaq-{{ section.id }}
+   ═══════════════════════════════════════════════════════════ */
+
+#pvfaq-{{ section.id }},
+#pvfaq-{{ section.id }} *,
+#pvfaq-{{ section.id }} *::before,
+#pvfaq-{{ section.id }} *::after { box-sizing: border-box; }
+
+#pvfaq-{{ section.id }} {
+  --green:      #0f3b18;
+  --green-mid:  #1a5c2a;
+  --green-lite: rgba(15,59,24,0.07);
+  --green-bdr:  rgba(15,59,24,0.14);
+  --gold:       #c9942f;
+  --cream:      #f8f5ee;
+  --cream-dk:   #efe9d8;
+  --text:       #1a2a1e;
+  --muted:      #5a6b5e;
+  --white:      #ffffff;
+  --radius:     16px;
+  --radius-sm:  10px;
+  --shadow:     0 1px 3px rgba(15,59,24,0.08), 0 4px 12px rgba(15,59,24,0.06);
+  font-family: var(--font-body-family, -apple-system, BlinkMacSystemFont, 'Inter', sans-serif);
+  background: var(--cream);
+  color: var(--text);
+}
+
+/* ── HERO ── */
+#pvfaq-{{ section.id }} .pvfaq-hero {
+  background: linear-gradient(135deg, #06170f 0%, #0b2a1c 50%, #123625 100%);
+  padding: 72px 24px 56px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+#pvfaq-{{ section.id }} .pvfaq-hero::before {
+  content: '';
+  position: absolute;
+  top: -30%; left: 10%;
+  width: 80%; height: 160%;
+  background: radial-gradient(ellipse, rgba(201,148,47,0.07) 0%, transparent 65%);
+  pointer-events: none;
+}
+#pvfaq-{{ section.id }} .pvfaq-hero__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(201,148,47,0.85);
+  margin: 0 0 18px;
+}
+#pvfaq-{{ section.id }} .pvfaq-hero__title {
+  font-size: clamp(30px, 5vw, 52px);
+  font-weight: 800;
+  color: #f5f2e8;
+  margin: 0 0 16px;
+  line-height: 1.12;
+  letter-spacing: -0.025em;
+}
+#pvfaq-{{ section.id }} .pvfaq-hero__subtitle {
+  font-size: clamp(15px, 2vw, 18px);
+  color: rgba(255,255,255,0.68);
+  max-width: 520px;
+  margin: 0 auto 30px;
+  line-height: 1.65;
+}
+#pvfaq-{{ section.id }} .pvfaq-hero__trust {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 20px;
+  justify-content: center;
+  align-items: center;
+}
+#pvfaq-{{ section.id }} .pvfaq-hero__trust-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  color: rgba(255,255,255,0.75);
+}
+#pvfaq-{{ section.id }} .pvfaq-hero__trust-item svg {
+  width: 13px; height: 13px;
+  stroke: var(--gold);
+  flex-shrink: 0;
+}
+#pvfaq-{{ section.id }} .pvfaq-hero__trust-sep {
+  width: 4px; height: 4px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.25);
+  flex-shrink: 0;
+}
+@media (max-width: 560px) {
+  #pvfaq-{{ section.id }} .pvfaq-hero { padding: 48px 18px 36px; }
+  #pvfaq-{{ section.id }} .pvfaq-hero__trust-sep { display: none; }
+}
+
+/* ── CONTENT WRAP ── */
+#pvfaq-{{ section.id }} .pvfaq-wrap {
+  max-width: 820px;
+  margin: 0 auto;
+  padding: 56px 24px 72px;
+}
+@media (max-width: 560px) {
+  #pvfaq-{{ section.id }} .pvfaq-wrap { padding: 32px 16px 56px; }
+}
+
+/* ── CATEGORY TABS ── */
+#pvfaq-{{ section.id }} .pvfaq-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+  margin-bottom: 40px;
+}
+#pvfaq-{{ section.id }} .pvfaq-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 9px 18px;
+  border-radius: 50px;
+  border: 1.5px solid var(--green-bdr);
+  background: var(--white);
+  color: var(--muted);
+  font-size: 13.5px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+  font-family: inherit;
+}
+#pvfaq-{{ section.id }} .pvfaq-tab:hover {
+  border-color: var(--green-mid);
+  color: var(--green-mid);
+  background: var(--green-lite);
+}
+#pvfaq-{{ section.id }} .pvfaq-tab.pvfaq-tab--active {
+  background: var(--green);
+  border-color: var(--green);
+  color: #f5f2e8;
+  box-shadow: 0 4px 14px rgba(15,59,24,0.22);
+}
+#pvfaq-{{ section.id }} .pvfaq-tab svg {
+  width: 14px; height: 14px;
+  flex-shrink: 0;
+}
+@media (max-width: 560px) {
+  #pvfaq-{{ section.id }} .pvfaq-tabs { gap: 6px; }
+  #pvfaq-{{ section.id }} .pvfaq-tab { padding: 8px 14px; font-size: 13px; }
+}
+
+/* ── CATEGORY SECTION ── */
+#pvfaq-{{ section.id }} .pvfaq-cat {
+  display: none;
+}
+#pvfaq-{{ section.id }} .pvfaq-cat.pvfaq-cat--active {
+  display: block;
+}
+#pvfaq-{{ section.id }} .pvfaq-cat__heading {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--green);
+  margin: 0 0 20px;
+  letter-spacing: -0.01em;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+#pvfaq-{{ section.id }} .pvfaq-cat__heading-icon {
+  width: 32px; height: 32px;
+  background: var(--green-lite);
+  border: 1px solid var(--green-bdr);
+  border-radius: var(--radius-sm);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+#pvfaq-{{ section.id }} .pvfaq-cat__heading-icon svg {
+  width: 16px; height: 16px;
+  stroke: var(--green-mid);
+}
+
+/* ── ACCORDION ── */
+#pvfaq-{{ section.id }} .pvfaq-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+#pvfaq-{{ section.id }} .pvfaq-item {
+  background: var(--white);
+  border: 1.5px solid var(--green-bdr);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+#pvfaq-{{ section.id }} .pvfaq-item.pvfaq-item--open {
+  border-color: rgba(15,59,24,0.28);
+  box-shadow: 0 2px 8px rgba(15,59,24,0.10), 0 8px 24px rgba(15,59,24,0.08);
+}
+#pvfaq-{{ section.id }} .pvfaq-q {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 18px 22px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  font-family: inherit;
+  -webkit-tap-highlight-color: transparent;
+}
+#pvfaq-{{ section.id }} .pvfaq-q__text {
+  font-size: 15.5px;
+  font-weight: 600;
+  color: var(--text);
+  line-height: 1.45;
+  flex: 1;
+  transition: color 0.18s;
+}
+#pvfaq-{{ section.id }} .pvfaq-item--open .pvfaq-q__text {
+  color: var(--green);
+}
+#pvfaq-{{ section.id }} .pvfaq-q__icon {
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  border: 1.5px solid var(--green-bdr);
+  background: var(--green-lite);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  transition: background 0.2s, border-color 0.2s, transform 0.28s cubic-bezier(0.34,1.56,0.64,1);
+}
+#pvfaq-{{ section.id }} .pvfaq-q__icon svg {
+  width: 12px; height: 12px;
+  stroke: var(--green-mid);
+  transition: stroke 0.2s;
+}
+#pvfaq-{{ section.id }} .pvfaq-item--open .pvfaq-q__icon {
+  background: var(--green);
+  border-color: var(--green);
+  transform: rotate(180deg);
+}
+#pvfaq-{{ section.id }} .pvfaq-item--open .pvfaq-q__icon svg {
+  stroke: #f5f2e8;
+}
+
+/* Answer */
+#pvfaq-{{ section.id }} .pvfaq-a {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.36s cubic-bezier(0.4,0,0.2,1);
+}
+#pvfaq-{{ section.id }} .pvfaq-a__inner {
+  padding: 0 22px 20px 22px;
+  font-size: 15px;
+  color: var(--muted);
+  line-height: 1.72;
+  border-top: 1px solid var(--green-bdr);
+  padding-top: 16px;
+}
+#pvfaq-{{ section.id }} .pvfaq-a__inner a {
+  color: var(--green-mid);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+@media (max-width: 560px) {
+  #pvfaq-{{ section.id }} .pvfaq-q { padding: 16px 18px; }
+  #pvfaq-{{ section.id }} .pvfaq-q__text { font-size: 14.5px; }
+  #pvfaq-{{ section.id }} .pvfaq-a__inner { padding: 14px 18px 18px; }
+}
+
+/* ── CTA BLOCK ── */
+#pvfaq-{{ section.id }} .pvfaq-cta {
+  margin-top: 52px;
+  background: linear-gradient(135deg, #06170f 0%, #0b2a1c 60%, #123625 100%);
+  border-radius: 24px;
+  padding: 44px 40px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+#pvfaq-{{ section.id }} .pvfaq-cta::before {
+  content: '';
+  position: absolute;
+  top: -40%; right: -5%;
+  width: 50%; height: 180%;
+  background: radial-gradient(ellipse, rgba(201,148,47,0.07) 0%, transparent 65%);
+  pointer-events: none;
+}
+#pvfaq-{{ section.id }} .pvfaq-cta__icon {
+  width: 52px; height: 52px;
+  background: rgba(201,148,47,0.12);
+  border: 1px solid rgba(201,148,47,0.28);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 18px;
+}
+#pvfaq-{{ section.id }} .pvfaq-cta__icon svg { width: 24px; height: 24px; stroke: #c9942f; }
+#pvfaq-{{ section.id }} .pvfaq-cta__heading {
+  font-size: clamp(20px, 3vw, 28px);
+  font-weight: 800;
+  color: #f5f2e8;
+  margin: 0 0 12px;
+  letter-spacing: -0.02em;
+}
+#pvfaq-{{ section.id }} .pvfaq-cta__text {
+  font-size: 15px;
+  color: rgba(255,255,255,0.65);
+  margin: 0 0 26px;
+  line-height: 1.6;
+  max-width: 440px;
+  margin-left: auto;
+  margin-right: auto;
+}
+#pvfaq-{{ section.id }} .pvfaq-cta__btns {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: center;
+  align-items: center;
+}
+#pvfaq-{{ section.id }} .pvfaq-cta__btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: linear-gradient(180deg, #e0b24c 0%, #c9942f 100%);
+  color: #111;
+  font-size: 15px;
+  font-weight: 700;
+  font-family: inherit;
+  padding: 14px 30px;
+  border-radius: 50px;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 4px 16px rgba(201,148,47,0.30);
+  transition: transform 0.15s, box-shadow 0.2s;
+}
+#pvfaq-{{ section.id }} .pvfaq-cta__btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(201,148,47,0.40);
+}
+#pvfaq-{{ section.id }} .pvfaq-cta__btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: rgba(255,255,255,0.65);
+  font-size: 14px;
+  font-weight: 600;
+  font-family: inherit;
+  text-decoration: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px 4px;
+  transition: color 0.18s;
+}
+#pvfaq-{{ section.id }} .pvfaq-cta__btn-secondary:hover { color: rgba(255,255,255,0.9); }
+@media (max-width: 560px) {
+  #pvfaq-{{ section.id }} .pvfaq-cta { padding: 32px 22px; border-radius: 18px; }
+  #pvfaq-{{ section.id }} .pvfaq-cta__btn-primary { width: 100%; justify-content: center; }
+}
+{%- endstyle -%}
+
+{%- liquid
+  assign cat_icons = 'M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2M9 5a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2M9 5a2 2 0 0 0 2-2h2a2 2 0 0 0 2 2,M1 3h22v13a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V3zM16 8h4l3 3v5h-7V8z M5.5 18.5a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5zM18.5 18.5a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z,M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z,M1 6l11 7L23 6,M4 12v3c0 1.1.9 2 2 2h4' | split: ','
+-%}
+
+<div id="pvfaq-{{ section.id }}" itemscope itemtype="https://schema.org/FAQPage">
+
+  <!-- ══ HERO ══ -->
+  <div class="pvfaq-hero">
+    <p class="pvfaq-hero__eyebrow" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+      Help Center
+    </p>
+    <h1 class="pvfaq-hero__title">{{ section.settings.hero_heading | default: 'Frequently Asked Questions' }}</h1>
+    <p class="pvfaq-hero__subtitle">{{ section.settings.hero_subtitle | default: 'Everything you need to know about PawVoyage, shipping, returns, sizing, and product care.' }}</p>
+    <div class="pvfaq-hero__trust" role="list" aria-label="Trust highlights">
+      <span class="pvfaq-hero__trust-item" role="listitem">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        Secure Checkout
+      </span>
+      <span class="pvfaq-hero__trust-sep" aria-hidden="true"></span>
+      <span class="pvfaq-hero__trust-item" role="listitem">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13" rx="1"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+        Free Shipping Today
+      </span>
+      <span class="pvfaq-hero__trust-sep" aria-hidden="true"></span>
+      <span class="pvfaq-hero__trust-item" role="listitem">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        30-Day Easy Returns
+      </span>
+    </div>
+  </div>
+
+  <!-- ══ FAQ CONTENT ══ -->
+  <div class="pvfaq-wrap">
+
+    <!-- Category Tabs -->
+    <nav class="pvfaq-tabs" role="tablist" aria-label="FAQ categories" id="pvfaq-tabs-{{ section.id }}">
+      {%- assign categories = 'product,shipping,returns,payments,support' | split: ',' -%}
+      {%- assign cat_labels = 'Product & Sizing,Shipping & Delivery,Returns & Refunds,Payments & Security,Order Support' | split: ',' -%}
+      {%- for cat in categories -%}
+        <button
+          class="pvfaq-tab{% if forloop.first %} pvfaq-tab--active{% endif %}"
+          role="tab"
+          aria-selected="{% if forloop.first %}true{% else %}false{% endif %}"
+          aria-controls="pvfaq-cat-{{ cat }}-{{ section.id }}"
+          id="pvfaq-tab-{{ cat }}-{{ section.id }}"
+          data-cat="{{ cat }}"
+          type="button"
+        >
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="{{ cat_icons[forloop.index0] }}"/>
+          </svg>
+          {{ cat_labels[forloop.index0] }}
+        </button>
+      {%- endfor -%}
+    </nav>
+
+    <!-- ── Category: Product & Sizing ── -->
+    <section class="pvfaq-cat pvfaq-cat--active" id="pvfaq-cat-product-{{ section.id }}" role="tabpanel" aria-labelledby="pvfaq-tab-product-{{ section.id }}">
+      <h2 class="pvfaq-cat__heading">
+        <span class="pvfaq-cat__heading-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2M9 5a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2M9 5a2 2 0 0 0 2-2h2a2 2 0 0 0 2 2"/></svg>
+        </span>
+        Product &amp; Sizing
+      </h2>
+      <div class="pvfaq-list">
+        {%- assign p_qs = section.settings.p_q1 | append: '||' | append: section.settings.p_q2 | append: '||' | append: section.settings.p_q3 | append: '||' | append: section.settings.p_q4 | append: '||' | append: section.settings.p_q5 | split: '||' -%}
+        {%- assign p_as = section.settings.p_a1 | append: '||' | append: section.settings.p_a2 | append: '||' | append: section.settings.p_a3 | append: '||' | append: section.settings.p_a4 | append: '||' | append: section.settings.p_a5 | split: '||' -%}
+        {%- for q in p_qs -%}
+          {%- if q != blank -%}
+            <div class="pvfaq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+              <button class="pvfaq-q" aria-expanded="false" type="button">
+                <span class="pvfaq-q__text" itemprop="name">{{ q }}</span>
+                <span class="pvfaq-q__icon" aria-hidden="true"><svg viewBox="0 0 12 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 1l5 5 5-5"/></svg></span>
+              </button>
+              <div class="pvfaq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+                <div class="pvfaq-a__inner" itemprop="text">{{ p_as[forloop.index0] }}</div>
+              </div>
+            </div>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    </section>
+
+    <!-- ── Category: Shipping & Delivery ── -->
+    <section class="pvfaq-cat" id="pvfaq-cat-shipping-{{ section.id }}" role="tabpanel" aria-labelledby="pvfaq-tab-shipping-{{ section.id }}" hidden>
+      <h2 class="pvfaq-cat__heading">
+        <span class="pvfaq-cat__heading-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13" rx="1"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+        </span>
+        Shipping &amp; Delivery
+      </h2>
+      <div class="pvfaq-list">
+        {%- assign s_qs = section.settings.s_q1 | append: '||' | append: section.settings.s_q2 | append: '||' | append: section.settings.s_q3 | append: '||' | append: section.settings.s_q4 | split: '||' -%}
+        {%- assign s_as = section.settings.s_a1 | append: '||' | append: section.settings.s_a2 | append: '||' | append: section.settings.s_a3 | append: '||' | append: section.settings.s_a4 | split: '||' -%}
+        {%- for q in s_qs -%}
+          {%- if q != blank -%}
+            <div class="pvfaq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+              <button class="pvfaq-q" aria-expanded="false" type="button">
+                <span class="pvfaq-q__text" itemprop="name">{{ q }}</span>
+                <span class="pvfaq-q__icon" aria-hidden="true"><svg viewBox="0 0 12 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 1l5 5 5-5"/></svg></span>
+              </button>
+              <div class="pvfaq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+                <div class="pvfaq-a__inner" itemprop="text">{{ s_as[forloop.index0] }}</div>
+              </div>
+            </div>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    </section>
+
+    <!-- ── Category: Returns & Refunds ── -->
+    <section class="pvfaq-cat" id="pvfaq-cat-returns-{{ section.id }}" role="tabpanel" aria-labelledby="pvfaq-tab-returns-{{ section.id }}" hidden>
+      <h2 class="pvfaq-cat__heading">
+        <span class="pvfaq-cat__heading-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </span>
+        Returns &amp; Refunds
+      </h2>
+      <div class="pvfaq-list">
+        {%- assign r_qs = section.settings.r_q1 | append: '||' | append: section.settings.r_q2 | append: '||' | append: section.settings.r_q3 | append: '||' | append: section.settings.r_q4 | split: '||' -%}
+        {%- assign r_as = section.settings.r_a1 | append: '||' | append: section.settings.r_a2 | append: '||' | append: section.settings.r_a3 | append: '||' | append: section.settings.r_a4 | split: '||' -%}
+        {%- for q in r_qs -%}
+          {%- if q != blank -%}
+            <div class="pvfaq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+              <button class="pvfaq-q" aria-expanded="false" type="button">
+                <span class="pvfaq-q__text" itemprop="name">{{ q }}</span>
+                <span class="pvfaq-q__icon" aria-hidden="true"><svg viewBox="0 0 12 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 1l5 5 5-5"/></svg></span>
+              </button>
+              <div class="pvfaq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+                <div class="pvfaq-a__inner" itemprop="text">{{ r_as[forloop.index0] }}</div>
+              </div>
+            </div>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    </section>
+
+    <!-- ── Category: Payments & Security ── -->
+    <section class="pvfaq-cat" id="pvfaq-cat-payments-{{ section.id }}" role="tabpanel" aria-labelledby="pvfaq-tab-payments-{{ section.id }}" hidden>
+      <h2 class="pvfaq-cat__heading">
+        <span class="pvfaq-cat__heading-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+        </span>
+        Payments &amp; Security
+      </h2>
+      <div class="pvfaq-list">
+        {%- assign pay_qs = section.settings.pay_q1 | append: '||' | append: section.settings.pay_q2 | append: '||' | append: section.settings.pay_q3 | append: '||' | append: section.settings.pay_q4 | split: '||' -%}
+        {%- assign pay_as = section.settings.pay_a1 | append: '||' | append: section.settings.pay_a2 | append: '||' | append: section.settings.pay_a3 | append: '||' | append: section.settings.pay_a4 | split: '||' -%}
+        {%- for q in pay_qs -%}
+          {%- if q != blank -%}
+            <div class="pvfaq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+              <button class="pvfaq-q" aria-expanded="false" type="button">
+                <span class="pvfaq-q__text" itemprop="name">{{ q }}</span>
+                <span class="pvfaq-q__icon" aria-hidden="true"><svg viewBox="0 0 12 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 1l5 5 5-5"/></svg></span>
+              </button>
+              <div class="pvfaq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+                <div class="pvfaq-a__inner" itemprop="text">{{ pay_as[forloop.index0] }}</div>
+              </div>
+            </div>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    </section>
+
+    <!-- ── Category: Order Support ── -->
+    <section class="pvfaq-cat" id="pvfaq-cat-support-{{ section.id }}" role="tabpanel" aria-labelledby="pvfaq-tab-support-{{ section.id }}" hidden>
+      <h2 class="pvfaq-cat__heading">
+        <span class="pvfaq-cat__heading-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92V19a2 2 0 0 1-2.18 2A19.79 19.79 0 0 1 11.38 17 19.45 19.45 0 0 1 5 10.62 19.78 19.78 0 0 1 3 4.18 2 2 0 0 1 5 2h2.09A2 2 0 0 1 9 3.72 12.84 12.84 0 0 0 9.7 6.5a2 2 0 0 1-.45 2.11L8.09 9.77A16 16 0 0 0 14.23 15.91l1.16-1.16a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.78.7A2 2 0 0 1 22 16.92z"/></svg>
+        </span>
+        Order Support
+      </h2>
+      <div class="pvfaq-list">
+        {%- assign os_qs = section.settings.os_q1 | append: '||' | append: section.settings.os_q2 | append: '||' | append: section.settings.os_q3 | append: '||' | append: section.settings.os_q4 | split: '||' -%}
+        {%- assign os_as = section.settings.os_a1 | append: '||' | append: section.settings.os_a2 | append: '||' | append: section.settings.os_a3 | append: '||' | append: section.settings.os_a4 | split: '||' -%}
+        {%- for q in os_qs -%}
+          {%- if q != blank -%}
+            <div class="pvfaq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+              <button class="pvfaq-q" aria-expanded="false" type="button">
+                <span class="pvfaq-q__text" itemprop="name">{{ q }}</span>
+                <span class="pvfaq-q__icon" aria-hidden="true"><svg viewBox="0 0 12 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 1l5 5 5-5"/></svg></span>
+              </button>
+              <div class="pvfaq-a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+                <div class="pvfaq-a__inner" itemprop="text">{{ os_as[forloop.index0] }}</div>
+              </div>
+            </div>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    </section>
+
+    <!-- ══ CTA BLOCK ══ -->
+    <div class="pvfaq-cta" role="complementary" aria-label="Contact support">
+      <div class="pvfaq-cta__icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+      </div>
+      <h2 class="pvfaq-cta__heading">{{ section.settings.cta_heading | default: 'Still have questions?' }}</h2>
+      <p class="pvfaq-cta__text">{{ section.settings.cta_text | default: 'Our support team is here to help you choose the right fit for your dog.' }}</p>
+      <div class="pvfaq-cta__btns">
+        <a href="{{ section.settings.cta_btn_url | default: '/pages/contact' }}" class="pvfaq-cta__btn-primary">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          {{ section.settings.cta_btn_text | default: 'Contact Us' }}
+        </a>
+        <a href="{{ section.settings.cta_shop_url | default: '/collections/all' }}" class="pvfaq-cta__btn-secondary">
+          {{ section.settings.cta_shop_text | default: 'Continue Shopping' }}
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+      </div>
+    </div>
+
+  </div><!-- /pvfaq-wrap -->
+</div><!-- /pvfaq -->
+
+<script>
+(function(){
+  'use strict';
+  var root = document.getElementById('pvfaq-{{ section.id }}');
+  if (!root) return;
+
+  /* ── Tab switching ── */
+  var tabs = root.querySelectorAll('.pvfaq-tab');
+  var panels = root.querySelectorAll('.pvfaq-cat');
+
+  tabs.forEach(function(tab){
+    tab.addEventListener('click', function(){
+      var cat = tab.getAttribute('data-cat');
+      tabs.forEach(function(t){
+        t.classList.remove('pvfaq-tab--active');
+        t.setAttribute('aria-selected','false');
+      });
+      panels.forEach(function(p){
+        p.classList.remove('pvfaq-cat--active');
+        p.hidden = true;
+        /* close all accordions in hidden panels */
+        p.querySelectorAll('.pvfaq-item--open').forEach(function(item){
+          item.classList.remove('pvfaq-item--open');
+          item.querySelector('.pvfaq-a').style.maxHeight = '0';
+          item.querySelector('.pvfaq-q').setAttribute('aria-expanded','false');
+        });
+      });
+      tab.classList.add('pvfaq-tab--active');
+      tab.setAttribute('aria-selected','true');
+      var panel = root.querySelector('#pvfaq-cat-' + cat + '-{{ section.id }}');
+      if (panel) { panel.classList.add('pvfaq-cat--active'); panel.hidden = false; }
+    });
+  });
+
+  /* ── Accordion ── */
+  root.addEventListener('click', function(e){
+    var btn = e.target.closest('.pvfaq-q');
+    if (!btn) return;
+    var item = btn.closest('.pvfaq-item');
+    var answer = item.querySelector('.pvfaq-a');
+    var isOpen = item.classList.contains('pvfaq-item--open');
+
+    /* Close all in same list */
+    var list = item.closest('.pvfaq-list');
+    list.querySelectorAll('.pvfaq-item--open').forEach(function(openItem){
+      openItem.classList.remove('pvfaq-item--open');
+      openItem.querySelector('.pvfaq-a').style.maxHeight = '0';
+      openItem.querySelector('.pvfaq-q').setAttribute('aria-expanded','false');
+    });
+
+    if (!isOpen) {
+      item.classList.add('pvfaq-item--open');
+      answer.style.maxHeight = answer.scrollHeight + 'px';
+      btn.setAttribute('aria-expanded','true');
+    }
+  });
+})();
+</script>
+
+{% schema %}
+{
+  "name": "PV FAQ Page",
+  "tag": "div",
+  "class": "section",
+  "settings": [
+    { "type": "header", "content": "Hero" },
+    { "type": "text",     "id": "hero_heading",  "label": "Heading",    "default": "Frequently Asked Questions" },
+    { "type": "textarea", "id": "hero_subtitle", "label": "Subtitle",   "default": "Everything you need to know about PawVoyage, shipping, returns, sizing, and product care." },
+    { "type": "header", "content": "CTA Block" },
+    { "type": "text",     "id": "cta_heading",   "label": "Heading",    "default": "Still have questions?" },
+    { "type": "textarea", "id": "cta_text",      "label": "Body text",  "default": "Our support team is here to help you choose the right fit for your dog." },
+    { "type": "text",     "id": "cta_btn_text",  "label": "Button label","default": "Contact Us" },
+    { "type": "url",      "id": "cta_btn_url",   "label": "Button URL" },
+    { "type": "text",     "id": "cta_shop_text", "label": "Secondary link text", "default": "Continue Shopping" },
+    { "type": "url",      "id": "cta_shop_url",  "label": "Secondary link URL" },
+    { "type": "header", "content": "Product & Sizing FAQs" },
+    { "type": "text",     "id": "p_q1", "label": "Q1", "default": "How do I choose the right harness size?" },
+    { "type": "textarea", "id": "p_a1", "label": "A1", "default": "Measure your dog's chest girth — the widest point behind the front legs. Compare to our size chart on the product page. When between sizes, we recommend sizing up for comfort." },
+    { "type": "text",     "id": "p_q2", "label": "Q2", "default": "What if my dog is between sizes?" },
+    { "type": "textarea", "id": "p_a2", "label": "A2", "default": "Always choose the larger size. The PawVoyage harness has multiple adjustment points so it can be tightened to fit snugly and safely." },
+    { "type": "text",     "id": "p_q3", "label": "Q3", "default": "Is the PawVoyage harness adjustable?" },
+    { "type": "textarea", "id": "p_a3", "label": "A3", "default": "Yes! Every harness features fully adjustable chest and belly straps for a secure, custom fit. It's designed to work for dogs with deep chests, slim waists, and everything in between." },
+    { "type": "text",     "id": "p_q4", "label": "Q4", "default": "Is it suitable for dogs that pull?" },
+    { "type": "textarea", "id": "p_a4", "label": "A4", "default": "Absolutely. The PawVoyage No-Pull Tactical Harness features a front clip attachment that redirects pulling behavior and helps you maintain calm, controlled walks." },
+    { "type": "text",     "id": "p_q5", "label": "Q5", "default": "Is the harness comfortable for daily walks?" },
+    { "type": "textarea", "id": "p_a5", "label": "A5", "default": "Yes. It's padded with soft mesh lining that prevents chafing, and the wide straps distribute pressure evenly — making it comfortable even on long daily walks." },
+    { "type": "header", "content": "Shipping & Delivery FAQs" },
+    { "type": "text",     "id": "s_q1", "label": "Q1", "default": "How long does shipping take?" },
+    { "type": "textarea", "id": "s_a1", "label": "A1", "default": "Standard shipping within the US takes 5–7 business days. Expedited options (2–3 business days) are available at checkout." },
+    { "type": "text",     "id": "s_q2", "label": "Q2", "default": "Do you offer free shipping?" },
+    { "type": "textarea", "id": "s_a2", "label": "A2", "default": "Yes! We offer free standard shipping on all orders over $50 within the United States." },
+    { "type": "text",     "id": "s_q3", "label": "Q3", "default": "Where do you ship?" },
+    { "type": "textarea", "id": "s_a3", "label": "A3", "default": "We currently ship to all 50 US states. International shipping may be available — contact us for details." },
+    { "type": "text",     "id": "s_q4", "label": "Q4", "default": "How can I track my order?" },
+    { "type": "textarea", "id": "s_a4", "label": "A4", "default": "Once your order ships, you'll receive a confirmation email with a tracking number. You can use it on the carrier's website to see real-time delivery updates." },
+    { "type": "header", "content": "Returns & Refunds FAQs" },
+    { "type": "text",     "id": "r_q1", "label": "Q1", "default": "What is your return policy?" },
+    { "type": "textarea", "id": "r_a1", "label": "A1", "default": "We accept returns within 30 days of delivery for unused items in original condition and packaging. See our full Return & Refund Policy for details." },
+    { "type": "text",     "id": "r_q2", "label": "Q2", "default": "Can I exchange for a different size?" },
+    { "type": "textarea", "id": "r_a2", "label": "A2", "default": "Yes! Email us at support@pawvoyage.com with your order number and desired size. We'll guide you through a hassle-free exchange within 30 days of purchase." },
+    { "type": "text",     "id": "r_q3", "label": "Q3", "default": "How do I request a refund?" },
+    { "type": "textarea", "id": "r_a3", "label": "A3", "default": "Email support@pawvoyage.com with your order number and the reason for your return. Once we receive and inspect the item, approved refunds are processed within 5–10 business days to your original payment method." },
+    { "type": "text",     "id": "r_q4", "label": "Q4", "default": "What if my item arrives damaged?" },
+    { "type": "textarea", "id": "r_a4", "label": "A4", "default": "We're sorry to hear that! Please contact us within 48 hours of delivery with a photo of the damage. We'll send a replacement or issue a full refund right away." },
+    { "type": "header", "content": "Payments & Security FAQs" },
+    { "type": "text",     "id": "pay_q1", "label": "Q1", "default": "Is checkout secure?" },
+    { "type": "textarea", "id": "pay_a1", "label": "A1", "default": "Yes. All transactions are processed through Shopify's secure, SSL-encrypted checkout. Your payment data is never stored on our servers." },
+    { "type": "text",     "id": "pay_q2", "label": "Q2", "default": "What payment methods do you accept?" },
+    { "type": "textarea", "id": "pay_a2", "label": "A2", "default": "We accept all major credit cards (Visa, Mastercard, American Express, Discover), PayPal, Apple Pay, Google Pay, and Shop Pay." },
+    { "type": "text",     "id": "pay_q3", "label": "Q3", "default": "Can I pay with PayPal?" },
+    { "type": "textarea", "id": "pay_a3", "label": "A3", "default": "Absolutely. PayPal is available at checkout, including PayPal Pay Later options where eligible." },
+    { "type": "text",     "id": "pay_q4", "label": "Q4", "default": "Will my payment information be safe?" },
+    { "type": "textarea", "id": "pay_a4", "label": "A4", "default": "Yes. We use industry-standard encryption and never store credit card details. All payment processing is handled by Shopify and PayPal's secure systems." },
+    { "type": "header", "content": "Order Support FAQs" },
+    { "type": "text",     "id": "os_q1", "label": "Q1", "default": "Can I change or cancel my order?" },
+    { "type": "textarea", "id": "os_a1", "label": "A1", "default": "Orders can be changed or cancelled within 1 hour of placement. After that, they may already be in processing. Email us immediately at support@pawvoyage.com and we'll do our best to help." },
+    { "type": "text",     "id": "os_q2", "label": "Q2", "default": "I entered the wrong shipping address. What should I do?" },
+    { "type": "textarea", "id": "os_a2", "label": "A2", "default": "Contact us as soon as possible at support@pawvoyage.com with your order number and the correct address. If your order hasn't shipped yet, we can update it for you." },
+    { "type": "text",     "id": "os_q3", "label": "Q3", "default": "How do I contact support?" },
+    { "type": "textarea", "id": "os_a3", "label": "A3", "default": "You can reach us by email at support@pawvoyage.com or through our Contact Us page. We respond to all inquiries within 24–48 hours." },
+    { "type": "text",     "id": "os_q4", "label": "Q4", "default": "When will I receive a response?" },
+    { "type": "textarea", "id": "os_a4", "label": "A4", "default": "Our support team replies within 24–48 hours on business days (Monday–Friday). Emails sent on weekends will be answered the following business day." }
+  ],
+  "presets": [
+    {
+      "name": "PV FAQ Page"
+    }
+  ]
+}
+{% endschema %}
