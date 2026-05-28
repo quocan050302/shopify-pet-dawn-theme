@@ -84,17 +84,39 @@
           >
             <span>
               {%- if product.selected_or_first_available_variant == null -%}
-                {{ 'products.product.unavailable' | t }}
+                Unavailable
               {%- elsif product.selected_or_first_available_variant.available == false or quantity_rule_soldout -%}
                 {% if product.available %}Unavailable{% else %}Sold Out{% endif %}
               {%- else -%}
-                {{ 'products.product.add_to_cart' | t }}
+                Add to Cart
               {%- endif -%}
             </span>
             {%- render 'loading-spinner' -%}
           </button>
           {%- if show_dynamic_checkout -%}
-            {{ form | payment_button }}
+            <div data-pv-payment-btns>
+              {{ form | payment_button }}
+            </div>
+            <script>
+            (function(){
+              function fixPaymentText(root){
+                root.querySelectorAll('a, span, div').forEach(function(el){
+                  if(el.childNodes.length === 1 && el.childNodes[0].nodeType === 3){
+                    var txt = el.childNodes[0].nodeValue.trim();
+                    if(txt.indexOf('t\u00f9y ch\u1ecdn') !== -1 || txt.indexOf('thanh to\u00e1n kh\u00e1c') !== -1){
+                      el.childNodes[0].nodeValue = 'More payment options';
+                    }
+                  }
+                });
+              }
+              var wrap = document.querySelector('[data-pv-payment-btns]');
+              if(wrap){
+                fixPaymentText(wrap);
+                var obs = new MutationObserver(function(){ fixPaymentText(wrap); });
+                obs.observe(wrap, {childList:true, subtree:true, characterData:true});
+              }
+            })();
+            </script>
           {%- endif -%}
         </div>
       {%- endform -%}
