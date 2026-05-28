@@ -25,7 +25,7 @@
         "benefit_2": "Padded Comfort",
         "benefit_3": "Built for Adventure",
         "cta_text": "Get Calmer Walks →",
-        "cta_link": "shopify://collections/all",
+        "cta_link": "shopify://products/pawvoyage-no-pull-tactical-dog-harness",
         "guarantee_text": "30-Day Guarantee",
         "shipping_text": "Free Shipping",
         "trust_loved_text": "Loved by 10,000+",
@@ -187,7 +187,7 @@
         "cta_heading": "Ready for Better Walks?",
         "cta_text_body": "Join thousands of dog owners who enjoy calmer, happier, and more adventurous walks every day.",
         "cta_label": "Shop PawVoyage Harness",
-        "cta_link": "/collections/all"
+        "cta_link": "shopify://products/pawvoyage-no-pull-tactical-dog-harness"
       }
     },
     "pv_featured": {
@@ -318,7 +318,7 @@
         "eyebrow": "BEST SELLER",
         "subheading": "Designed for dog owners who want more control, more comfort, and less pulling on every walk.",
         "cta_label": "Shop The Harness",
-        "cta_link": "/products/pawvoyage-no-pull-tactical-dog-harness",
+        "cta_link": "shopify://products/pawvoyage-no-pull-tactical-dog-harness",
         "trust_microcopy": "Secure checkout • 30-day easy returns • Free shipping today",
         "fallback_image": "shopify://shop_images/ChatGPT_Image_21_57_42_24_thg_5_2026.png",
         "fallback_title": "PawVoyage No-Pull Tactical Dog Harness",
@@ -686,7 +686,7 @@
         "contact_chat_link": "",
         "contact_chat_title": "Live Chat",
         "contact_chat_text": "Chat with our team",
-        "contact_email": "hello@pawvoyage.com",
+        "contact_email": "",
         "contact_email_title": "Email Us",
         "contact_help_link": "",
         "contact_help_title": "Help Center",
@@ -697,7 +697,7 @@
         "guarantee_heading": "Try PawVoyage Risk-Free for 30 Days",
         "guarantee_text": "We're confident you and your dog will love it. If not, return it within 30 days for a full refund — no questions asked.",
         "guarantee_cta_text": "Shop With Confidence",
-        "guarantee_cta_link": "",
+        "guarantee_cta_link": "shopify://products/pawvoyage-no-pull-tactical-dog-harness",
         "proof_label": "Backed by thousands of dog owners who trust PawVoyage",
         "proof_rating_text": "4.9/5 from 1,247 reviews",
         "proof_avatar_2": "shopify://shop_images/ChatGPT_Image_22_27_16_21_thg_5_2026.png",
