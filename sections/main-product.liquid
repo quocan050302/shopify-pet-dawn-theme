@@ -708,18 +708,76 @@
 
   <script type="application/ld+json">{{ product | structured_data }}</script>
 
+  {%- comment -%} Variant data for immediate client-side gallery sync (no fetch delay) {%- endcomment -%}
+  <script type="application/json" id="PVVariantData-{{ section.id }}">
+    {{ product.variants | json }}
+  </script>
+
   <!-- PV Gallery JS: Thumbnail Click + Arrow Nav + Swipe + Variant sync -->
   <script>
   (function() {
     'use strict';
     var sid = '{{ section.id }}';
+
+    /* ── Helpers ────────────────────────────────────────────────── */
+
+    /**
+     * Parse the embedded product variants JSON once.
+     * Returns an array of variant objects, or [] on failure.
+     */
+    function getVariantsData() {
+      try {
+        var el = document.getElementById('PVVariantData-' + sid);
+        return el ? JSON.parse(el.textContent) : [];
+      } catch (e) { return []; }
+    }
+
+    /**
+     * Given an array of selected option values (strings), find the
+     * matching variant from the embedded data. Returns null if not found.
+     */
+    function findVariantByOptions(variants, selectedValues) {
+      return variants.find(function(v) {
+        var opts = [v.option1, v.option2, v.option3].filter(function(o) { return o != null; });
+        if (opts.length !== selectedValues.length) return false;
+        return opts.every(function(opt, i) { return opt === selectedValues[i]; });
+      }) || null;
+    }
+
+    /**
+     * Read the currently checked/selected option values from variant-selects.
+     * Returns an array of option value strings in option-position order.
+     */
+    function readSelectedOptionValues() {
+      var variantSelects = document.getElementById('variant-selects-' + sid);
+      if (!variantSelects) return [];
+      var values = [];
+      /* Radio inputs — one per option group */
+      variantSelects.querySelectorAll('fieldset').forEach(function(fieldset) {
+        var checked = fieldset.querySelector('input[type="radio"]:checked');
+        if (checked) values.push(checked.value);
+      });
+      /* Fallback: select dropdowns */
+      if (!values.length) {
+        variantSelects.querySelectorAll('select').forEach(function(sel) {
+          values.push(sel.value);
+        });
+      }
+      return values;
+    }
+
+    /* ── Gallery core ───────────────────────────────────────────── */
+
     function pvGalleryInit() {
-      var slides = document.querySelectorAll('#Slider-Gallery-' + sid + ' .pv-media-slide');
+      var slides    = document.querySelectorAll('#Slider-Gallery-' + sid + ' .pv-media-slide');
       var thumbBtns = document.querySelectorAll('[data-pv-thumb-target]');
-      var prevBtn = document.getElementById('pv-arrow-prev-' + sid);
-      var nextBtn = document.getElementById('pv-arrow-next-' + sid);
+      var prevBtn   = document.getElementById('pv-arrow-prev-' + sid);
+      var nextBtn   = document.getElementById('pv-arrow-next-' + sid);
       if (!slides.length) return;
 
+      var variantsData = getVariantsData();
+
+      /* ── showSlide: activates slide by array index ── */
       function getActiveIdx() {
         for (var i = 0; i < slides.length; i++) { if (slides[i].style.display !== 'none') return i; }
         return 0;
@@ -732,17 +790,97 @@
           s.style.display = (i === idx) ? 'block' : 'none';
           s.classList.toggle('is-active', i === idx);
         });
+        /* Sync ALL thumbnails (desktop rail + mobile strip share [data-pv-thumb-target]) */
         var activeId = slides[idx].id.replace('Slide-', '');
         thumbBtns.forEach(function(btn) {
           var match = btn.getAttribute('data-pv-thumb-target') === activeId;
           btn.classList.toggle('is-active', match);
           btn.setAttribute('aria-current', match ? 'true' : 'false');
-          if (match && btn.parentElement.classList.contains('pv-thumb-rail')) {
-            btn.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+          if (match) {
+            /* Scroll into view for desktop vertical rail */
+            if (btn.parentElement.classList.contains('pv-thumb-rail')) {
+              btn.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }
+            /* Scroll into view for mobile horizontal strip */
+            if (btn.parentElement.classList.contains('pv-thumb-mobile-strip')) {
+              btn.scrollIntoView({ behavior: 'smooth', inline: 'nearest' });
+            }
           }
         });
       }
 
+      /* ── showSlideForMediaId: jumps to slide matching a media id ── */
+      function showSlideForMediaId(mediaId) {
+        var slideId = 'Slide-' + sid + '-' + mediaId;
+        var el = document.getElementById(slideId);
+        if (!el) return false;
+        var idx = Array.prototype.indexOf.call(slides, el);
+        if (idx >= 0) { showSlide(idx); return true; }
+        return false;
+      }
+
+      /* ── Immediate variant sync (client-side, no fetch) ── */
+      function syncGalleryToCurrentOptions() {
+        if (!variantsData.length) return;
+        var selectedValues = readSelectedOptionValues();
+        if (!selectedValues.length) return;
+        var variant = findVariantByOptions(variantsData, selectedValues);
+        if (!variant) return;
+        if (variant.featured_media) {
+          showSlideForMediaId(variant.featured_media.id);
+        }
+        /* Immediate ATC state update (before fetch completes) */
+        syncAtcState(variant.available);
+      }
+
+      /* ── Update price row from a resolved variant ── */
+      function syncPriceRow(variant) {
+        var priceRow = document.getElementById('price-' + sid);
+        if (!priceRow || !variant) return;
+        var currentEl  = priceRow.querySelector('.pv-price-current');
+        var compareEl  = priceRow.querySelector('.pv-price-compare');
+        var saveEl     = priceRow.querySelector('.pv-price-save-badge');
+        if (currentEl && typeof Shopify !== 'undefined' && Shopify.formatMoney) {
+          currentEl.textContent = Shopify.formatMoney(variant.price, window.moneyFormat || '{{ shop.money_format }}');
+        }
+        if (compareEl && saveEl) {
+          if (variant.compare_at_price && variant.compare_at_price > variant.price) {
+            compareEl.style.display = '';
+            saveEl.style.display = '';
+            if (typeof Shopify !== 'undefined' && Shopify.formatMoney) {
+              compareEl.textContent = Shopify.formatMoney(variant.compare_at_price, window.moneyFormat || '{{ shop.money_format }}');
+            }
+          } else {
+            compareEl.style.display = 'none';
+            saveEl.style.display = 'none';
+          }
+        }
+      }
+
+      /* ── ATC button availability state ── */
+      function syncAtcState(available) {
+        var atcBtn = document.getElementById('ProductSubmitButton-' + sid);
+        if (!atcBtn) return;
+        if (available) {
+          atcBtn.disabled = false;
+          atcBtn.removeAttribute('aria-disabled');
+          if (atcBtn.dataset.soldOutLabel) {
+            atcBtn.querySelector('span') && (atcBtn.querySelector('span').textContent = atcBtn.dataset.addToCartLabel || '');
+          }
+        } else {
+          atcBtn.disabled = true;
+          atcBtn.setAttribute('aria-disabled', 'true');
+        }
+        /* Also sync floating sticky ATC if present */
+        var stickyBtn = document.getElementById('pvpdp-sticky-btn-' + sid);
+        if (stickyBtn) {
+          stickyBtn.disabled = !available;
+          if (available) stickyBtn.removeAttribute('aria-disabled');
+          else stickyBtn.setAttribute('aria-disabled', 'true');
+        }
+      }
+
+      /* ── Thumbnail click ── */
       thumbBtns.forEach(function(btn) {
         btn.addEventListener('click', function() {
           var target = btn.getAttribute('data-pv-thumb-target');
@@ -751,9 +889,11 @@
         });
       });
 
+      /* ── Arrow navigation ── */
       if (prevBtn) prevBtn.addEventListener('click', function() { showSlide(getActiveIdx() - 1); });
       if (nextBtn) nextBtn.addEventListener('click', function() { showSlide(getActiveIdx() + 1); });
 
+      /* ── Touch swipe on main image ── */
       var wrap = document.getElementById('pv-main-img-wrap-' + sid);
       if (wrap) {
         var tx = 0;
@@ -761,16 +901,41 @@
         wrap.addEventListener('touchend', function(e) { var d = e.changedTouches[0].pageX - tx; if (Math.abs(d) > 40) showSlide(getActiveIdx() + (d < 0 ? 1 : -1)); }, { passive: true });
       }
 
-      document.addEventListener('variant:change', function(e) {
-        var v = e.detail && e.detail.variant;
-        if (!v || !v.featured_media) return;
-        var el = document.getElementById('Slide-' + sid + '-' + v.featured_media.id);
-        if (el) { var i = Array.prototype.indexOf.call(slides, el); if (i >= 0) showSlide(i); }
-      });
+      /* ── Immediate sync: listen to option input changes BEFORE fetch completes ──
+         Hooks into variant-selects change event for instant gallery response.  */
+      var variantSelectsEl = document.getElementById('variant-selects-' + sid);
+      if (variantSelectsEl) {
+        variantSelectsEl.addEventListener('change', function() {
+          syncGalleryToCurrentOptions();
+        });
+      }
 
-      /* Old sticky atc removed — new premium floating bar handles its own visibility */
+      /* ── Post-fetch sync: subscribe to Dawn's variantChange pubsub event ──
+         product-info.js publishes this AFTER the server resolves the variant.
+         Payload: { data: { sectionId, html, variant } }                      */
+      if (typeof subscribe === 'function' && typeof PUB_SUB_EVENTS !== 'undefined') {
+        subscribe(PUB_SUB_EVENTS.variantChange, function(payload) {
+          var data = payload && payload.data;
+          if (!data || data.sectionId !== sid) return;
+          var variant = data.variant;
+          if (!variant) return;
+          /* Gallery sync */
+          if (variant.featured_media && variant.featured_media.id) {
+            showSlideForMediaId(variant.featured_media.id);
+          }
+          /* Price update */
+          syncPriceRow(variant);
+          /* ATC state */
+          syncAtcState(variant.available);
+        });
+      }
     }
-    if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', pvGalleryInit); } else { pvGalleryInit(); }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', pvGalleryInit);
+    } else {
+      pvGalleryInit();
+    }
   })();
   </script>
 
