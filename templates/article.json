@@ -1,1 +1,32 @@
-{"sections":{"main":{"type":"main-article","blocks":{"featured_image":{"type":"featured_image","settings":{"image_height":"adapt"}},"title":{"type":"title","settings":{"blog_show_date":true,"blog_show_author":false}},"share":{"type":"share","settings":{"share_label":"Share"}},"content":{"type":"content","settings":{}}},"block_order":["featured_image","title","share","content"],"settings":{}}},"order":["main"]}
+{
+  "sections": {
+    "pv-article": {
+      "type": "pv-article",
+      "settings": {
+        "hero_layout": "split",
+        "show_featured_image": true,
+        "show_excerpt": true,
+        "show_author": true,
+        "show_date": true,
+        "show_reading_time": true,
+        "show_table_of_contents": true,
+        "show_cta_block": true,
+        "cta_heading": "Make Every Walk Feel Calmer",
+        "cta_text": "The PawVoyage No-Pull Tactical Harness is designed to help reduce pulling, improve control, and keep your dog comfortable from daily walks to outdoor adventures.",
+        "cta_button_label": "Shop The Harness",
+        "cta_trust": "Secure checkout  •  30-day easy returns  •  Free shipping available",
+        "show_trust_strip": true,
+        "trust_1": "Better Control",
+        "trust_2": "Comfortable Fit",
+        "trust_3": "Built for Travel",
+        "trust_4": "Easy Returns",
+        "bottom_banner_heading": "Ready for Better Walks?",
+        "bottom_banner_text": "Discover the no-pull harness trusted by dog owners across the US.",
+        "bottom_banner_btn": "Shop Now",
+        "show_related_articles": true,
+        "related_heading": "You Might Also Like"
+      }
+    }
+  },
+  "order": ["pv-article"]
+}

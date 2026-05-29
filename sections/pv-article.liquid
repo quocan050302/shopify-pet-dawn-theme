@@ -1,0 +1,718 @@
+{{ 'pv-article.css' | asset_url | stylesheet_tag }}
+{{ 'pv-blog.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  # ── Hero image: custom picker > article.image > nil ──────────────────────
+  assign hero_img = section.settings.custom_hero_image | default: article.image
+
+  # ── Reading time ──────────────────────────────────────────────────────────
+  assign word_count    = article.content | strip_html | split: ' ' | size
+  assign reading_mins  = word_count | divided_by: 200 | at_least: 1
+
+  # ── Tag / category ────────────────────────────────────────────────────────
+  assign article_tag   = article.tags | first
+  assign tag_label     = article_tag | replace: '-', ' '
+
+  # ── Hero layout ───────────────────────────────────────────────────────────
+  assign hero_layout   = section.settings.hero_layout | default: 'split'
+
+  # ── Sidebar visibility ────────────────────────────────────────────────────
+  assign show_toc            = section.settings.show_article_toc
+  assign toc_position        = section.settings.toc_position
+  assign toc_sticky_desktop  = section.settings.toc_sticky_desktop
+-%}
+
+<div class="pva-page" id="pva-page">
+
+  {%- comment -%}══════════════════════════════════════════════════
+    HERO
+  ══════════════════════════════════════════════════{%- endcomment -%}
+  {%- if section.settings.show_featured_image and hero_img or hero_layout == 'centered' -%}
+    <header class="pva-hero pva-hero--{{ hero_layout }}" aria-label="Article hero">
+
+      {%- if hero_layout == 'full_width' -%}
+        {%- comment -%}── Full width hero ─────────────────────────────────{%- endcomment -%}
+        <div class="pva-hero__bg" aria-hidden="true">
+          {%- if hero_img -%}
+            {{
+              hero_img
+              | image_url: width: 1600
+              | image_tag:
+                class: 'pva-hero__img',
+                alt: hero_img.alt | default: article.title,
+                loading: 'eager',
+                fetchpriority: 'high',
+                widths: '750, 1100, 1600'
+            }}
+          {%- else -%}
+            <div class="pva-hero__img-placeholder"></div>
+          {%- endif -%}
+        </div>
+        <div class="pva-hero__overlay"></div>
+        <div class="pva-hero__content">
+          {%- render 'pv-article-hero-inner',
+            article: article,
+            article_tag: article_tag,
+            tag_label: tag_label,
+            reading_mins: reading_mins,
+            section: section
+          -%}
+        </div>
+
+      {%- elsif hero_layout == 'split' -%}
+        {%- comment -%}── Split hero ──────────────────────────────────────{%- endcomment -%}
+        <div class="pva-hero__content">
+          {%- if article_tag != blank -%}
+            <a href="{{ blog.url }}/tagged/{{ article_tag | handleize }}" class="pva-hero__tag">
+              {{ tag_label }}
+            </a>
+          {%- endif -%}
+          <h1 class="pva-hero__title">{{ article.title | escape }}</h1>
+          {%- if section.settings.show_excerpt and article.excerpt != blank -%}
+            <p class="pva-hero__excerpt">{{ article.excerpt | strip_html | truncate: 180 }}</p>
+          {%- endif -%}
+          <div class="pva-hero__meta">
+            {%- if section.settings.show_author and article.author -%}
+              <span class="pva-hero__author">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                  <circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/>
+                </svg>
+                {{ article.author }}
+              </span>
+              <span class="pva-hero__meta-dot" aria-hidden="true">·</span>
+            {%- endif -%}
+            {%- if section.settings.show_date -%}
+              <time datetime="{{ article.published_at | date: '%Y-%m-%d' }}">
+                {{- article.published_at | date: '%B %-d, %Y' -}}
+              </time>
+            {%- endif -%}
+            {%- if section.settings.show_reading_time -%}
+              <span class="pva-hero__meta-dot" aria-hidden="true">·</span>
+              <span>{{ reading_mins }} min read</span>
+            {%- endif -%}
+          </div>
+        </div>
+        <div class="pva-hero__visual" aria-hidden="true">
+          {%- if hero_img -%}
+            {{
+              hero_img
+              | image_url: width: 1200
+              | image_tag:
+                class: 'pva-hero__img',
+                alt: hero_img.alt | default: article.title,
+                loading: 'eager',
+                fetchpriority: 'high',
+                widths: '600, 900, 1200'
+            }}
+          {%- else -%}
+            <div class="pva-hero__img-placeholder" style="min-height:480px;"></div>
+          {%- endif -%}
+        </div>
+
+      {%- else -%}
+        {%- comment -%}── Centered editorial hero ─────────────────────────{%- endcomment -%}
+        <div class="pva-hero__content">
+          {%- if article_tag != blank -%}
+            <a href="{{ blog.url }}/tagged/{{ article_tag | handleize }}" class="pva-hero__tag">
+              {{ tag_label }}
+            </a>
+          {%- endif -%}
+          <h1 class="pva-hero__title">{{ article.title | escape }}</h1>
+          {%- if section.settings.show_excerpt and article.excerpt != blank -%}
+            <p class="pva-hero__excerpt">{{ article.excerpt | strip_html | truncate: 200 }}</p>
+          {%- endif -%}
+          <div class="pva-hero__meta">
+            {%- if section.settings.show_author and article.author -%}
+              <span class="pva-hero__author">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                  <circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/>
+                </svg>
+                {{ article.author }}
+              </span>
+              <span class="pva-hero__meta-dot" aria-hidden="true">·</span>
+            {%- endif -%}
+            {%- if section.settings.show_date -%}
+              <time datetime="{{ article.published_at | date: '%Y-%m-%d' }}">
+                {{- article.published_at | date: '%B %-d, %Y' -}}
+              </time>
+            {%- endif -%}
+            {%- if section.settings.show_reading_time -%}
+              <span class="pva-hero__meta-dot" aria-hidden="true">·</span>
+              <span>{{ reading_mins }} min read</span>
+            {%- endif -%}
+          </div>
+        </div>
+        {%- if hero_img -%}
+          <div class="pva-hero__visual">
+            {{
+              hero_img
+              | image_url: width: 1200
+              | image_tag:
+                class: 'pva-hero__img',
+                alt: hero_img.alt | default: article.title,
+                loading: 'eager',
+                fetchpriority: 'high',
+                widths: '750, 1100, 1200'
+            }}
+          </div>
+        {%- endif -%}
+      {%- endif -%}
+
+    </header>
+  {%- endif -%}
+
+  {%- comment -%}══════════════════════════════════════════════════
+    ARTICLE BODY
+  ══════════════════════════════════════════════════{%- endcomment -%}
+  <article
+    class="pva-wrap{% if show_toc %} pva-wrap--with-sidebar{% endif %}"
+    itemscope
+    itemtype="https://schema.org/BlogPosting"
+  >
+    <meta itemprop="headline" content="{{ article.title | escape }}">
+    <meta itemprop="datePublished" content="{{ article.published_at | date: '%Y-%m-%d' }}">
+    {%- if article.author -%}
+      <meta itemprop="author" content="{{ article.author | escape }}">
+    {%- endif -%}
+
+    {%- comment -%}── MAIN CONTENT COLUMN ────────────────────────────────────{%- endcomment -%}
+    <div class="pva-main-col">
+
+      {%- comment -%} Back link {%- endcomment -%}
+      <a href="{{ blog.url }}" class="pva-back-link">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true">
+          <line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/>
+        </svg>
+        Back to {{ blog.title }}
+      </a>
+
+      {%- comment -%} Mobile TOC {%- endcomment -%}
+      {%- if show_toc and toc_position != 'sidebar_desktop_only' -%}
+        <div class="pva-toc-mobile" id="pva-toc-mobile">
+          <button
+            class="pva-toc-mobile__toggle"
+            id="pva-toc-toggle"
+            aria-expanded="false"
+            aria-controls="pva-toc-mobile-body"
+          >
+            <span>📋 In this article</span>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true">
+              <polyline points="6 9 12 15 18 9"/>
+            </svg>
+          </button>
+          <ul
+            class="pva-toc-mobile__list"
+            id="pva-toc-mobile-body"
+            hidden
+            role="list"
+          ></ul>
+        </div>
+      {%- endif -%}
+
+      {%- comment -%} PROSE CONTENT {%- endcomment -%}
+      <div class="pva-prose" id="pva-prose" itemprop="articleBody">
+        {{ article.content }}
+      </div>
+
+      {%- comment -%} CTA BLOCK {%- endcomment -%}
+      {%- if section.settings.show_cta_block -%}
+        <aside class="pva-cta" aria-label="Product recommendation">
+          <div class="pva-cta__body">
+            <p class="pva-cta__eyebrow">PawVoyage Gear</p>
+            <h2 class="pva-cta__heading">{{ section.settings.cta_heading }}</h2>
+            <p class="pva-cta__text">{{ section.settings.cta_text }}</p>
+            <a
+              href="{{ section.settings.cta_button_link | default: '/collections/all' }}"
+              class="pva-cta__btn"
+            >
+              {{ section.settings.cta_button_label }}
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true">
+                <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
+              </svg>
+            </a>
+            {%- if section.settings.cta_trust != blank -%}
+              <p class="pva-cta__trust">{{ section.settings.cta_trust }}</p>
+            {%- endif -%}
+          </div>
+          {%- if section.settings.cta_image -%}
+            <div class="pva-cta__img-wrap" aria-hidden="true">
+              {{
+                section.settings.cta_image
+                | image_url: width: 400
+                | image_tag:
+                  class: 'pva-cta__img',
+                  alt: '',
+                  loading: 'lazy',
+                  widths: '200, 400'
+              }}
+            </div>
+          {%- endif -%}
+        </aside>
+      {%- endif -%}
+
+      {%- comment -%} TRUST STRIP {%- endcomment -%}
+      {%- if section.settings.show_trust_strip -%}
+        <div class="pva-trust" aria-label="Trust features">
+          <div class="pva-trust__item">
+            <span class="pva-trust__icon" aria-hidden="true">🐾</span>
+            <span class="pva-trust__label">{{ section.settings.trust_1 }}</span>
+          </div>
+          <div class="pva-trust__item">
+            <span class="pva-trust__icon" aria-hidden="true">🎽</span>
+            <span class="pva-trust__label">{{ section.settings.trust_2 }}</span>
+          </div>
+          <div class="pva-trust__item">
+            <span class="pva-trust__icon" aria-hidden="true">✈️</span>
+            <span class="pva-trust__label">{{ section.settings.trust_3 }}</span>
+          </div>
+          <div class="pva-trust__item">
+            <span class="pva-trust__icon" aria-hidden="true">↩️</span>
+            <span class="pva-trust__label">{{ section.settings.trust_4 }}</span>
+          </div>
+        </div>
+      {%- endif -%}
+
+      {%- comment -%} BOTTOM BANNER {%- endcomment -%}
+      {%- if section.settings.bottom_banner_image or section.settings.bottom_banner_heading != blank -%}
+        <div class="pva-bottom-banner{% unless section.settings.bottom_banner_image %} pva-bottom-banner--no-img{% endunless %}">
+          {%- if section.settings.bottom_banner_image -%}
+            <div class="pva-bottom-banner__bg" aria-hidden="true">
+              {{
+                section.settings.bottom_banner_image
+                | image_url: width: 1200
+                | image_tag:
+                  class: '',
+                  alt: '',
+                  loading: 'lazy',
+                  widths: '600, 900, 1200'
+              }}
+            </div>
+            <div class="pva-bottom-banner__overlay"></div>
+          {%- endif -%}
+          <div class="pva-bottom-banner__content">
+            {%- if section.settings.bottom_banner_heading != blank -%}
+              <h3 class="pva-bottom-banner__heading">{{ section.settings.bottom_banner_heading }}</h3>
+            {%- endif -%}
+            {%- if section.settings.bottom_banner_text != blank -%}
+              <p class="pva-bottom-banner__text">{{ section.settings.bottom_banner_text }}</p>
+            {%- endif -%}
+            {%- if section.settings.bottom_banner_btn != blank -%}
+              <a
+                href="{{ section.settings.bottom_banner_link | default: '/collections/all' }}"
+                class="pva-bottom-banner__btn"
+              >
+                {{ section.settings.bottom_banner_btn }}
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true">
+                  <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
+                </svg>
+              </a>
+            {%- endif -%}
+          </div>
+        </div>
+      {%- endif -%}
+
+      {%- comment -%} ARTICLE FOOTER: tags + share + back {%- endcomment -%}
+      <div class="pva-article-footer">
+        <a href="{{ blog.url }}" class="pva-article-footer__back">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true">
+            <line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/>
+          </svg>
+          Back to {{ blog.title }}
+        </a>
+        <div class="pva-article-footer__share">
+          {%- assign share_url = request.origin | append: article.url -%}
+          <script src="{{ 'share.js' | asset_url }}" defer="defer"></script>
+          <share-button id="Share-{{ section.id }}" class="share-button">
+            <details id="Details-share-{{ section.id }}">
+              <summary class="share-button__button">
+                <span class="svg-wrapper">{{- 'icon-share.svg' | inline_asset_content -}}</span>
+                Share
+              </summary>
+              <div class="share-button__fallback motion-reduce">
+                <div class="field">
+                  <span id="ShareMessage-{{ section.id }}" class="share-button__message hidden" role="status"></span>
+                  <input
+                    type="text"
+                    class="field__input"
+                    id="ShareUrl-{{ section.id }}"
+                    value="{{ share_url }}"
+                    placeholder="{{ 'general.share.share_url' | t }}"
+                    onclick="this.select();"
+                    readonly
+                  >
+                  <label class="field__label" for="ShareUrl-{{ section.id }}">{{ 'general.share.share_url' | t }}</label>
+                </div>
+                <button class="share-button__close hidden">
+                  <span class="svg-wrapper">{{- 'icon-close.svg' | inline_asset_content -}}</span>
+                  <span class="visually-hidden">{{ 'general.share.close' | t }}</span>
+                </button>
+                <button class="share-button__copy">
+                  <span class="svg-wrapper">{{- 'icon-copy.svg' | inline_asset_content -}}</span>
+                  <span class="visually-hidden">{{ 'general.share.copy_to_clipboard' | t }}</span>
+                </button>
+              </div>
+            </details>
+          </share-button>
+        </div>
+      </div>
+
+    </div>{%- comment -%}/.pva-main-col{%- endcomment -%}
+
+    {%- comment -%}── DESKTOP SIDEBAR TOC ────────────────────────────────────{%- endcomment -%}
+    {%- if show_toc and toc_position != 'mobile_dropdown_only' -%}
+      <aside class="pva-sidebar" aria-label="Table of contents">
+        <nav class="pva-toc" id="pva-toc-desktop">
+          <p class="pva-toc__title">In this article</p>
+          <ul class="pva-toc__list" id="pva-toc-desktop-list" role="list"></ul>
+        </nav>
+      </aside>
+    {%- endif -%}
+
+  </article>
+
+  {%- comment -%}══════════════════════════════════════════════════
+    RELATED ARTICLES
+  ══════════════════════════════════════════════════{%- endcomment -%}
+  {%- if section.settings.show_related_articles -%}
+    {%- assign related_count = 0 -%}
+    {%- for related_article in blog.articles limit: 10 -%}
+      {%- unless related_article.id == article.id -%}
+        {%- if related_count < 3 -%}
+          {%- assign related_count = related_count | plus: 1 -%}
+        {%- endif -%}
+      {%- endunless -%}
+    {%- endfor -%}
+
+    {%- if related_count > 0 -%}
+      <section class="pva-related" aria-label="Related articles">
+        <div class="pva-related__inner">
+          <div class="pva-related__header">
+            <h2 class="pva-related__title">{{ section.settings.related_heading }}</h2>
+            <a href="{{ blog.url }}" class="pva-related__view-all">
+              View all
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true">
+                <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
+              </svg>
+            </a>
+          </div>
+          <div class="pva-related__grid">
+            {%- assign related_rendered = 0 -%}
+            {%- for related_article in blog.articles limit: 10 -%}
+              {%- unless related_article.id == article.id -%}
+                {%- if related_rendered < 3 -%}
+                  {%- render 'pv-blog-card',
+                    article: related_article,
+                    card_size: 'grid',
+                    show_excerpt: true
+                  -%}
+                  {%- assign related_rendered = related_rendered | plus: 1 -%}
+                {%- endif -%}
+              {%- endunless -%}
+            {%- endfor -%}
+          </div>
+        </div>
+      </section>
+    {%- endif -%}
+  {%- endif -%}
+
+</div>{%- comment -%}/.pva-page{%- endcomment -%}
+
+{%- comment -%}══════════════════════════════════════════════════
+  TABLE OF CONTENTS — JavaScript
+══════════════════════════════════════════════════{%- endcomment -%}
+{%- if show_toc -%}
+<script>
+(function () {
+  'use strict';
+
+  var prose = document.getElementById('pva-prose');
+  if (!prose) return;
+
+  var headings = Array.from(prose.querySelectorAll('h2'));
+  if (headings.length === 0) {
+    var toc = document.getElementById('pva-toc-desktop');
+    var tocMobile = document.getElementById('pva-toc-mobile');
+    if (toc) toc.closest('.pva-sidebar').style.display = 'none';
+    if (tocMobile) tocMobile.style.display = 'none';
+    return;
+  }
+
+  function buildList(listEl, clickCallback) {
+    headings.forEach(function (h, i) {
+      var id = 'pva-h-' + i;
+      h.id = id;
+      var li = document.createElement('li');
+      li.className = 'pva-toc__item';
+      var a = document.createElement('a');
+      a.href = '#' + id;
+      a.className = 'pva-toc__link';
+      a.textContent = h.textContent;
+      a.addEventListener('click', function (e) {
+        e.preventDefault();
+        h.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        if (clickCallback) clickCallback();
+      });
+      li.appendChild(a);
+      listEl.appendChild(li);
+    });
+  }
+
+  // Desktop TOC
+  var desktopList = document.getElementById('pva-toc-desktop-list');
+  if (desktopList) buildList(desktopList);
+
+  // Mobile TOC
+  var mobileList = document.getElementById('pva-toc-mobile-body');
+  var mobileToggle = document.getElementById('pva-toc-toggle');
+  if (mobileList && mobileToggle) {
+    buildList(mobileList, function () {
+      mobileList.hidden = true;
+      mobileToggle.setAttribute('aria-expanded', 'false');
+    });
+    mobileToggle.addEventListener('click', function () {
+      var isOpen = mobileList.hidden;
+      mobileList.hidden = !isOpen;
+      mobileToggle.setAttribute('aria-expanded', String(isOpen));
+    });
+  }
+
+  // Intersection Observer: highlight active heading in both TOCs
+  var allLinks = Array.from(document.querySelectorAll('.pva-toc__link'));
+  if (allLinks.length === 0) return;
+
+  var observer = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting) {
+        allLinks.forEach(function (l) { l.classList.remove('pva-toc__link--active'); });
+        var activeLinks = document.querySelectorAll('[href="#' + entry.target.id + '"]');
+        activeLinks.forEach(function (l) { l.classList.add('pva-toc__link--active'); });
+      }
+    });
+  }, { rootMargin: '-15% 0px -75% 0px', threshold: 0 });
+
+  headings.forEach(function (h) { observer.observe(h); });
+})();
+</script>
+{%- endif -%}
+
+{%- comment -%} Structured data — preserved from original section {%- endcomment -%}
+<script type="application/ld+json">
+  {{ article | structured_data }}
+</script>
+
+{% schema %}
+{
+  "name": "PV Article",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "🖼️ Hero"
+    },
+    {
+      "type": "select",
+      "id": "hero_layout",
+      "label": "Hero layout",
+      "options": [
+        { "value": "split",      "label": "Split — text left, image right" },
+        { "value": "full_width", "label": "Full width — image with overlay" },
+        { "value": "centered",   "label": "Centered editorial" }
+      ],
+      "default": "split"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_featured_image",
+      "label": "Show featured image",
+      "default": true
+    },
+    {
+      "type": "image_picker",
+      "id": "custom_hero_image",
+      "label": "Custom hero image",
+      "info": "Overrides the article's featured image. Recommended: 1600×900px landscape."
+    },
+    {
+      "type": "checkbox",
+      "id": "show_excerpt",
+      "label": "Show article excerpt in hero",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_author",
+      "label": "Show author",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_date",
+      "label": "Show publish date",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_reading_time",
+      "label": "Show reading time",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "📋 Table of Contents"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_article_toc",
+      "label": "Enable table of contents",
+      "default": true,
+      "info": "Auto-generates from H2 headings in article content."
+    },
+    {
+      "type": "select",
+      "id": "toc_position",
+      "label": "Table of Contents position",
+      "options": [
+        { "value": "sidebar_desktop_only", "label": "Sidebar (Desktop only)" },
+        { "value": "mobile_dropdown_only", "label": "Mobile dropdown only" },
+        { "value": "both", "label": "Both desktop sidebar and mobile dropdown" }
+      ],
+      "default": "sidebar_desktop_only"
+    },
+    {
+      "type": "checkbox",
+      "id": "toc_sticky_desktop",
+      "label": "Sticky sidebar on desktop",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "🛒 Conversion CTA Block"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_cta_block",
+      "label": "Show CTA block",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "cta_heading",
+      "label": "CTA heading",
+      "default": "Make Every Walk Feel Calmer"
+    },
+    {
+      "type": "textarea",
+      "id": "cta_text",
+      "label": "CTA body text",
+      "default": "The PawVoyage No-Pull Tactical Harness is designed to help reduce pulling, improve control, and keep your dog comfortable from daily walks to outdoor adventures."
+    },
+    {
+      "type": "text",
+      "id": "cta_button_label",
+      "label": "Button label",
+      "default": "Shop The Harness"
+    },
+    {
+      "type": "url",
+      "id": "cta_button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "text",
+      "id": "cta_trust",
+      "label": "Trust line below button",
+      "default": "Secure checkout  •  30-day easy returns  •  Free shipping available"
+    },
+    {
+      "type": "image_picker",
+      "id": "cta_image",
+      "label": "CTA product image",
+      "info": "Optional. Appears as a right-side panel on the CTA card. Recommended: square crop."
+    },
+    {
+      "type": "header",
+      "content": "✅ Trust Strip"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_trust_strip",
+      "label": "Show trust strip",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "trust_1",
+      "label": "Trust item 1",
+      "default": "Better Control"
+    },
+    {
+      "type": "text",
+      "id": "trust_2",
+      "label": "Trust item 2",
+      "default": "Comfortable Fit"
+    },
+    {
+      "type": "text",
+      "id": "trust_3",
+      "label": "Trust item 3",
+      "default": "Built for Travel"
+    },
+    {
+      "type": "text",
+      "id": "trust_4",
+      "label": "Trust item 4",
+      "default": "Easy Returns"
+    },
+    {
+      "type": "header",
+      "content": "🏔️ Bottom Banner"
+    },
+    {
+      "type": "image_picker",
+      "id": "bottom_banner_image",
+      "label": "Bottom banner image",
+      "info": "Optional full-width banner near the end of the article. Recommended: 1400×500px."
+    },
+    {
+      "type": "text",
+      "id": "bottom_banner_heading",
+      "label": "Banner heading",
+      "default": "Ready for Better Walks?"
+    },
+    {
+      "type": "textarea",
+      "id": "bottom_banner_text",
+      "label": "Banner body text",
+      "default": "Discover the no-pull harness trusted by dog owners across the US."
+    },
+    {
+      "type": "text",
+      "id": "bottom_banner_btn",
+      "label": "Banner button label",
+      "default": "Shop Now"
+    },
+    {
+      "type": "url",
+      "id": "bottom_banner_link",
+      "label": "Banner button link"
+    },
+    {
+      "type": "header",
+      "content": "📰 Related Articles"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_related_articles",
+      "label": "Show related articles",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "related_heading",
+      "label": "Related articles heading",
+      "default": "You Might Also Like"
+    }
+  ]
+}
+{% endschema %}
