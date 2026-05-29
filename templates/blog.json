@@ -20,10 +20,9 @@
         "tab_5_label": "Adventures",
         "tab_5_slug": "adventures",
         "tab_5_sub": "Explore together",
-        "show_featured": true,
+        "show_featured": false,
         "featured_heading": "Featured Articles",
-        "grid_heading": "All Articles",
-        "articles_per_page": 12
+        "grid_heading": "All Articles"
       }
     }
   },

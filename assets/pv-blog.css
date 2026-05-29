@@ -495,50 +495,82 @@
 }
 
 /* ══════════════════════════════════════════════════════════════════════════
-   PAGINATION
+   PAGINATION — Premium PawVoyage pill style
    ══════════════════════════════════════════════════════════════════════════ */
 .pv-blog-pagination {
   display: flex;
   justify-content: center;
-  margin-top: 32px;
+  margin-top: 48px;
+  padding-bottom: 16px;
 }
+
+/* Dawn's default_pagination renders <nav> with .pagination > <li class="pagination__item"> */
+.pv-blog-pagination nav { display: flex; justify-content: center; }
+
 .pv-blog-pagination .pagination {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
   list-style: none;
   margin: 0;
   padding: 0;
+  flex-wrap: wrap;
+  justify-content: center;
 }
+
+/* Base pill: page numbers, prev, next */
 .pv-blog-pagination .pagination__item a,
 .pv-blog-pagination .pagination__item span {
-  display: flex;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 40px;
-  height: 40px;
-  border-radius: 10px;
-  border: 1px solid var(--pv-border);
+  min-width: 42px;
+  height: 42px;
+  padding: 0 16px;
+  border-radius: 50px;
+  border: 1.5px solid rgba(20, 45, 25, 0.14);
   background: #fff;
   color: var(--pv-text);
   font-size: 1.4rem;
   font-weight: 600;
   text-decoration: none;
   transition:
-    background 0.15s,
-    color 0.15s,
-    border-color 0.15s;
+    background 0.18s,
+    color 0.18s,
+    border-color 0.18s,
+    box-shadow 0.18s,
+    transform 0.12s;
+  white-space: nowrap;
+  cursor: pointer;
 }
+
+/* Hover state */
 .pv-blog-pagination .pagination__item a:hover {
-  background: var(--pv-green-light);
+  background: rgba(26, 92, 32, 0.07);
   border-color: var(--pv-green);
   color: var(--pv-green);
+  transform: translateY(-1px);
+  box-shadow: 0 3px 10px rgba(26, 92, 32, 0.12);
 }
-.pv-blog-pagination .pagination__item--current span {
+
+/* Active / current page */
+.pv-blog-pagination .pagination__item--current span,
+.pv-blog-pagination .pagination__item--current a {
   background: var(--pv-green);
   color: #fff;
   border-color: var(--pv-green);
+  box-shadow: 0 4px 14px rgba(26, 92, 32, 0.28);
+  font-weight: 700;
 }
+
+/* Disabled state (prev on page 1, next on last page) */
+.pv-blog-pagination .pagination__item--prev.pagination__item--disabled span,
+.pv-blog-pagination .pagination__item--next.pagination__item--disabled span {
+  opacity: 0.38;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
 
 /* ══════════════════════════════════════════════════════════════════════════
    EMPTY STATE
