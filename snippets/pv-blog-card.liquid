@@ -9,25 +9,23 @@
 {% endcomment %}
 
 {%- liquid
-  assign card_size     = card_size | default: 'grid'
-  assign show_excerpt  = show_excerpt | default: nil
+  assign card_size    = card_size | default: 'grid'
+  assign show_excerpt = show_excerpt | default: nil
 
   # Reading time estimate
-  assign word_count    = article.content | strip_html | split: ' ' | size
-  assign reading_mins  = word_count | divided_by: 200 | at_least: 1
+  assign word_count   = article.content | strip_html | split: ' ' | size
+  assign reading_mins = word_count | divided_by: 200 | at_least: 1
 
   # Primary tag — first tag becomes the category badge
-  assign article_tag   = article.tags | first
-  assign tag_label     = article_tag | replace: '-', ' '
+  assign article_tag  = article.tags | first
+  assign tag_label    = article_tag | replace: '-', ' '
 
-  # Excerpt: use manually set excerpt, fallback to truncated content
-  assign raw_excerpt   = article.excerpt_or_content | strip_html | strip
-
-  # Truncate length based on card size
-  if card_size == 'large'
-    assign excerpt_len = 160
+  # Excerpt: always prefer the manually-set Shopify Excerpt field.
+  # Fall back to truncated article content only if excerpt is blank.
+  if article.excerpt != blank
+    assign raw_excerpt = article.excerpt | strip_html | strip
   else
-    assign excerpt_len = 110
+    assign raw_excerpt = article.content | strip_html | strip | truncate: 220
   endif
 -%}
 
@@ -68,13 +66,14 @@
     <div class="pv-blog-card__body">
       <h3 class="pv-blog-card__title">{{ article.title | escape }}</h3>
 
-      {%- unless card_size == 'small' and show_excerpt == nil -%}
-        {%- if raw_excerpt != blank -%}
-          <p class="pv-blog-card__excerpt">
-            {{- raw_excerpt | truncate: excerpt_len -}}
-          </p>
-        {%- endif -%}
-      {%- endunless -%}
+      {%- if raw_excerpt != blank -%}
+        <p class="pv-blog-card__excerpt">{{ raw_excerpt }}</p>
+      {%- endif -%}
+
+      <span class="pv-blog-card__read-link" aria-hidden="true">
+        Read Article
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </span>
 
       {%- comment -%}── Meta: author · date · read time ─────────────────{%- endcomment -%}
       <div class="pv-blog-card__meta">

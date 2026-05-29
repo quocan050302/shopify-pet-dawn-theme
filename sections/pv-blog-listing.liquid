@@ -162,12 +162,8 @@
             </div>
 
             <div class="pv-blog-featured__grid">
-              {%- for article in blog.articles limit: 5 -%}
-                {%- if forloop.first -%}
-                  {%- render 'pv-blog-card', article: article, card_size: 'large', show_excerpt: true -%}
-                {%- else -%}
-                  {%- render 'pv-blog-card', article: article, card_size: 'small' -%}
-                {%- endif -%}
+              {%- for article in blog.articles limit: 3 -%}
+                {%- render 'pv-blog-card', article: article, card_size: 'grid' -%}
               {%- endfor -%}
             </div>
           </section>
