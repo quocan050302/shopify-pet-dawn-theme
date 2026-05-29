@@ -1,0 +1,389 @@
+{{ 'pv-blog.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign articles_per_page = section.settings.articles_per_page | default: 12
+  assign show_featured      = section.settings.show_featured
+  assign hero_image         = section.settings.hero_image
+
+  # Active tag for category tabs
+  assign active_tag = current_tags | first | default: nil
+-%}
+
+<div class="pv-blog-page">
+
+  {%- comment -%}══════════════════════════════════════════════════
+    HERO
+  ══════════════════════════════════════════════════{%- endcomment -%}
+  <section class="pv-blog-hero" aria-label="Blog hero">
+
+    <div class="pv-blog-hero__content">
+      <p class="pv-blog-hero__badge">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M12 2a5 5 0 1 0 5 5A5 5 0 0 0 12 2Zm0 8a3 3 0 1 1 3-3 3 3 0 0 1-3 3Zm9 11v-1a7 7 0 0 0-7-7h-4a7 7 0 0 0-7 7v1h2v-1a5 5 0 0 1 5-5h4a5 5 0 0 1 5 5v1Z"/>
+        </svg>
+        {{ section.settings.hero_badge }}
+      </p>
+
+      <h1 class="pv-blog-hero__heading">
+        {{ section.settings.hero_heading }}
+      </h1>
+
+      <p class="pv-blog-hero__sub">
+        {{ section.settings.hero_subheading }}
+      </p>
+
+      <a
+        href="{{ section.settings.hero_cta_url | default: blog.url }}"
+        class="pv-blog-hero__cta"
+      >
+        {{ section.settings.hero_cta_text }}
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
+        </svg>
+      </a>
+    </div>
+
+    <div class="pv-blog-hero__visual">
+      {%- if hero_image -%}
+        {{
+          hero_image
+          | image_url: width: 1200
+          | image_tag:
+            class: 'pv-blog-hero__img',
+            alt: hero_image.alt | default: 'PawVoyage Blog',
+            loading: 'eager',
+            fetchpriority: 'high',
+            widths: '600, 900, 1200'
+        }}
+      {%- else -%}
+        <div class="pv-blog-hero__img-placeholder" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" aria-hidden="true">
+            <path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2Z"/>
+            <path d="M8 14s1.5 2 4 2 4-2 4-2"/>
+            <line x1="9" y1="9" x2="9.01" y2="9"/>
+            <line x1="15" y1="9" x2="15.01" y2="9"/>
+          </svg>
+        </div>
+      {%- endif -%}
+    </div>
+
+  </section>
+
+  {%- comment -%}══════════════════════════════════════════════════
+    CATEGORY TABS
+  ══════════════════════════════════════════════════{%- endcomment -%}
+  <nav class="pv-blog-cats" aria-label="Blog categories">
+    <div class="pv-blog-cats__inner">
+
+      {%- comment -%} All Articles tab {%- endcomment -%}
+      <a
+        href="{{ blog.url }}"
+        class="pv-blog-cats__tab{% unless active_tag %} pv-blog-cats__tab--active{% endunless %}"
+        {% unless active_tag %}aria-current="page"{% endunless %}
+      >
+        <span class="pv-blog-cats__tab-icon" aria-hidden="true">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M3 13h2v-2H3v2Zm0 4h2v-2H3v2Zm0-8h2V7H3v2Zm4 4h14v-2H7v2Zm0 4h14v-2H7v2ZM7 7v2h14V7H7Z"/></svg>
+        </span>
+        {{ section.settings.tab_1_label }}
+        <span class="pv-blog-cats__sub">View all</span>
+      </a>
+
+      {%- comment -%} Category tab helper — rendered for tabs 2-5 {%- endcomment -%}
+      {%- assign tab_configs = 'tab_2,tab_3,tab_4,tab_5' | split: ',' -%}
+      {%- assign tab_icons = '🐾,📦,🛡️,🏔️' | split: ',' -%}
+      {%- assign tab_subs = section.settings.tab_2_sub | append: '|' | append: section.settings.tab_3_sub | append: '|' | append: section.settings.tab_4_sub | append: '|' | append: section.settings.tab_5_sub | split: '|' -%}
+
+      {%- for tab in tab_configs -%}
+        {%- assign tab_idx = forloop.index | plus: 1 -%}
+        {%- assign tab_label_key = 'tab_' | append: tab_idx | append: '_label' -%}
+        {%- assign tab_slug_key  = 'tab_' | append: tab_idx | append: '_slug' -%}
+        {%- assign tab_sub_key   = 'tab_' | append: tab_idx | append: '_sub' -%}
+        {%- assign tab_label = section.settings[tab_label_key] -%}
+        {%- assign tab_slug  = section.settings[tab_slug_key] -%}
+        {%- assign tab_sub   = section.settings[tab_sub_key] -%}
+        {%- assign tab_active = false -%}
+        {%- if active_tag == tab_slug -%}{%- assign tab_active = true -%}{%- endif -%}
+        {%- if tab_label != blank and tab_slug != blank -%}
+          <a
+            href="{{ blog.url }}/tagged/{{ tab_slug | handleize }}"
+            class="pv-blog-cats__tab{% if tab_active %} pv-blog-cats__tab--active{% endif %}"
+            {% if tab_active %}aria-current="page"{% endif %}
+          >
+            <span class="pv-blog-cats__tab-icon" aria-hidden="true">
+              {%- case tab_idx -%}
+                {%- when 2 -%}
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3C7 3 3 7 3 12s4 9 9 9 9-4 9-9-4-9-9-9Zm1 13h-2v-5h2v5Zm0-7h-2V7h2v2Z"/></svg>
+                {%- when 3 -%}
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M20 7H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2ZM4 9h16v6H4V9Z"/></svg>
+                {%- when 4 -%}
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 1 3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4Z"/></svg>
+                {%- when 5 -%}
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="m14 6-1-2H5v17h2v-7h5l1 2h7V6h-6Zm4 8h-4l-1-2H7V6h5l1 2h5v6Z"/></svg>
+              {%- endcase -%}
+            </span>
+            {{ tab_label }}
+            {%- if tab_sub != blank -%}
+              <span class="pv-blog-cats__sub">{{ tab_sub }}</span>
+            {%- endif -%}
+          </a>
+        {%- endif -%}
+      {%- endfor -%}
+
+    </div>
+  </nav>
+
+  {%- comment -%}══════════════════════════════════════════════════
+    MAIN CONTENT
+  ══════════════════════════════════════════════════{%- endcomment -%}
+  <div class="pv-blog-wrap">
+
+    {%- paginate blog.articles by articles_per_page -%}
+
+      {%- if blog.articles_count == 0 -%}
+        <div class="pv-blog-empty">
+          <span class="pv-blog-empty__icon">🐾</span>
+          <h2>No articles yet</h2>
+          <p>Check back soon — we're working on some great content for you and your pup.</p>
+        </div>
+
+      {%- else -%}
+
+        {%- comment -%}── Featured Articles (page 1 only) ──────────────────{%- endcomment -%}
+        {%- if show_featured and current_page == 1 and blog.articles_count >= 1 -%}
+          <section class="pv-blog-featured" aria-label="Featured articles">
+            <div class="pv-blog-section-header">
+              <h2 class="pv-blog-section-title">{{ section.settings.featured_heading }}</h2>
+              <a href="{{ blog.url }}" class="pv-blog-view-all">
+                View all articles
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true">
+                  <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
+                </svg>
+              </a>
+            </div>
+
+            <div class="pv-blog-featured__grid">
+              {%- for article in blog.articles limit: 5 -%}
+                {%- if forloop.first -%}
+                  {%- render 'pv-blog-card', article: article, card_size: 'large', show_excerpt: true -%}
+                {%- else -%}
+                  {%- render 'pv-blog-card', article: article, card_size: 'small' -%}
+                {%- endif -%}
+              {%- endfor -%}
+            </div>
+          </section>
+        {%- endif -%}
+
+        {%- comment -%}── All Articles Grid ─────────────────────────────────{%- endcomment -%}
+        {%- assign skip_count = 0 -%}
+        {%- if show_featured and current_page == 1 -%}
+          {%- assign skip_count = 5 -%}
+        {%- endif -%}
+
+        {%- assign has_remaining = false -%}
+        {%- for article in blog.articles -%}
+          {%- if forloop.index > skip_count -%}
+            {%- assign has_remaining = true -%}
+            {%- break -%}
+          {%- endif -%}
+        {%- endfor -%}
+
+        {%- if has_remaining or current_page > 1 -%}
+          <section class="pv-blog-grid" aria-label="All articles">
+            {%- if current_page == 1 -%}
+              <div class="pv-blog-section-header">
+                <h2 class="pv-blog-section-title">{{ section.settings.grid_heading }}</h2>
+              </div>
+            {%- endif -%}
+
+            <div class="pv-blog-grid__articles">
+              {%- for article in blog.articles -%}
+                {%- if forloop.index > skip_count -%}
+                  {%- render 'pv-blog-card', article: article, card_size: 'grid', show_excerpt: true -%}
+                {%- endif -%}
+              {%- endfor -%}
+            </div>
+          </section>
+        {%- endif -%}
+
+        {%- comment -%}── Pagination ────────────────────────────────────────{%- endcomment -%}
+        {%- if paginate.pages > 1 -%}
+          <div class="pv-blog-pagination">
+            {% render 'pagination', paginate: paginate %}
+          </div>
+        {%- endif -%}
+
+      {%- endif -%}
+
+    {%- endpaginate -%}
+
+  </div>{%- comment -%}/.pv-blog-wrap{%- endcomment -%}
+
+</div>{%- comment -%}/.pv-blog-page{%- endcomment -%}
+
+{% schema %}
+{
+  "name": "PV Blog Listing",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "🖼️ Hero Section"
+    },
+    {
+      "type": "image_picker",
+      "id": "hero_image",
+      "label": "Hero image",
+      "info": "Recommended: 1200×900px, lifestyle/dog photo. Displayed on the right side of the hero."
+    },
+    {
+      "type": "text",
+      "id": "hero_badge",
+      "label": "Badge text",
+      "default": "PAWVOYAGE BLOG"
+    },
+    {
+      "type": "text",
+      "id": "hero_heading",
+      "label": "Heading",
+      "default": "Tips, guides, and stories for happier adventures together."
+    },
+    {
+      "type": "textarea",
+      "id": "hero_subheading",
+      "label": "Subheading",
+      "default": "Expert advice, training tips, and real-life stories to help you and your pup live your best life — together."
+    },
+    {
+      "type": "text",
+      "id": "hero_cta_text",
+      "label": "CTA button text",
+      "default": "Explore All Articles"
+    },
+    {
+      "type": "url",
+      "id": "hero_cta_url",
+      "label": "CTA button link",
+      "info": "Leave blank to use blog URL automatically."
+    },
+    {
+      "type": "header",
+      "content": "📂 Category Tabs"
+    },
+    {
+      "type": "text",
+      "id": "tab_1_label",
+      "label": "Tab 1 label",
+      "default": "All Articles"
+    },
+    {
+      "type": "text",
+      "id": "tab_2_label",
+      "label": "Tab 2 label",
+      "default": "Training Tips"
+    },
+    {
+      "type": "text",
+      "id": "tab_2_slug",
+      "label": "Tab 2 tag slug",
+      "default": "training-tips",
+      "info": "Must match the exact article tag (e.g. 'training-tips')"
+    },
+    {
+      "type": "text",
+      "id": "tab_2_sub",
+      "label": "Tab 2 subtitle",
+      "default": "Better behavior"
+    },
+    {
+      "type": "text",
+      "id": "tab_3_label",
+      "label": "Tab 3 label",
+      "default": "Product Guides"
+    },
+    {
+      "type": "text",
+      "id": "tab_3_slug",
+      "label": "Tab 3 tag slug",
+      "default": "product-guides"
+    },
+    {
+      "type": "text",
+      "id": "tab_3_sub",
+      "label": "Tab 3 subtitle",
+      "default": "Helpful insights"
+    },
+    {
+      "type": "text",
+      "id": "tab_4_label",
+      "label": "Tab 4 label",
+      "default": "Health & Safety"
+    },
+    {
+      "type": "text",
+      "id": "tab_4_slug",
+      "label": "Tab 4 tag slug",
+      "default": "health-safety"
+    },
+    {
+      "type": "text",
+      "id": "tab_4_sub",
+      "label": "Tab 4 subtitle",
+      "default": "Care & wellness"
+    },
+    {
+      "type": "text",
+      "id": "tab_5_label",
+      "label": "Tab 5 label",
+      "default": "Adventures"
+    },
+    {
+      "type": "text",
+      "id": "tab_5_slug",
+      "label": "Tab 5 tag slug",
+      "default": "adventures"
+    },
+    {
+      "type": "text",
+      "id": "tab_5_sub",
+      "label": "Tab 5 subtitle",
+      "default": "Explore together"
+    },
+    {
+      "type": "header",
+      "content": "✨ Featured Articles"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_featured",
+      "label": "Show featured articles section",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "featured_heading",
+      "label": "Featured section heading",
+      "default": "Featured Articles"
+    },
+    {
+      "type": "header",
+      "content": "📰 Articles Grid"
+    },
+    {
+      "type": "text",
+      "id": "grid_heading",
+      "label": "Grid section heading",
+      "default": "All Articles"
+    },
+    {
+      "type": "range",
+      "id": "articles_per_page",
+      "label": "Articles per page",
+      "min": 6,
+      "max": 24,
+      "step": 3,
+      "default": 12
+    }
+  ]
+}
+{% endschema %}

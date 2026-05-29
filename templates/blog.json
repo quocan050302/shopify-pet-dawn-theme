@@ -1,19 +1,31 @@
 {
   "sections": {
-    "main": {
-      "type": "main-blog",
+    "pv-blog": {
+      "type": "pv-blog-listing",
       "settings": {
-        "layout": "collage",
-        "show_image": true,
-        "image_height": "medium",
-        "show_date": true,
-        "show_author": false,
-        "padding_top": 36,
-        "padding_bottom": 36
+        "hero_badge": "PAWVOYAGE BLOG",
+        "hero_heading": "Tips, guides, and stories for happier adventures together.",
+        "hero_subheading": "Expert advice, training tips, and real-life stories to help you and your pup live your best life — together.",
+        "hero_cta_text": "Explore All Articles",
+        "tab_1_label": "All Articles",
+        "tab_2_label": "Training Tips",
+        "tab_2_slug": "training-tips",
+        "tab_2_sub": "Better behavior",
+        "tab_3_label": "Product Guides",
+        "tab_3_slug": "product-guides",
+        "tab_3_sub": "Helpful insights",
+        "tab_4_label": "Health & Safety",
+        "tab_4_slug": "health-safety",
+        "tab_4_sub": "Care & wellness",
+        "tab_5_label": "Adventures",
+        "tab_5_slug": "adventures",
+        "tab_5_sub": "Explore together",
+        "show_featured": true,
+        "featured_heading": "Featured Articles",
+        "grid_heading": "All Articles",
+        "articles_per_page": 12
       }
     }
   },
-  "order": [
-    "main"
-  ]
+  "order": ["pv-blog"]
 }
