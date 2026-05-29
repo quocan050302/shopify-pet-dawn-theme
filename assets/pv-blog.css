@@ -5,23 +5,25 @@
 
 /* ── Design Tokens ───────────────────────────────────────────────────────── */
 .pv-blog-page {
-  --pv-cream:         #f5f3ef;
-  --pv-cream-dark:    #ede9e2;
-  --pv-green:         #1a5c20;
-  --pv-green-mid:     #2d7a35;
-  --pv-green-light:   rgba(26, 92, 32, 0.08);
-  --pv-gold:          #c4985a;
-  --pv-gold-light:    rgba(196, 152, 90, 0.15);
-  --pv-text:          #0d2211;
-  --pv-text-muted:    rgba(13, 34, 17, 0.5);
-  --pv-border:        rgba(20, 45, 25, 0.09);
-  --pv-card-bg:       #ffffff;
-  --pv-radius-card:   14px;
-  --pv-radius-img:    12px;
-  --pv-shadow-sm:     0 2px 10px rgba(0,0,0,0.06);
-  --pv-shadow-md:     0 6px 24px rgba(0,0,0,0.10);
-  --pv-shadow-hover:  0 12px 36px rgba(0,0,0,0.14);
+  --pv-cream: #f5f3ef;
+  --pv-cream-dark: #ede9e2;
+  --pv-green: #1a5c20;
+  --pv-green-mid: #2d7a35;
+  --pv-green-light: rgba(26, 92, 32, 0.08);
+  --pv-gold: #c4985a;
+  --pv-gold-light: rgba(196, 152, 90, 0.15);
+  --pv-text: #0d2211;
+  --pv-text-muted: rgba(13, 34, 17, 0.5);
+  --pv-border: rgba(20, 45, 25, 0.09);
+  --pv-card-bg: #ffffff;
+  --pv-radius-card: 14px;
+  --pv-radius-img: 12px;
+  --pv-shadow-sm: 0 2px 10px rgba(0, 0, 0, 0.06);
+  --pv-shadow-md: 0 6px 24px rgba(0, 0, 0, 0.1);
+  --pv-shadow-hover: 0 12px 36px rgba(0, 0, 0, 0.14);
   background: var(--pv-cream);
+  /* Prevent horizontal scrollbar from full-bleed tab technique */
+  overflow-x: clip;
 }
 
 /* ══════════════════════════════════════════════════════════════════════════
@@ -91,7 +93,10 @@
   padding: 14px 28px;
   border-radius: 50px;
   text-decoration: none;
-  transition: background 0.18s, transform 0.15s, box-shadow 0.15s;
+  transition:
+    background 0.18s,
+    transform 0.15s,
+    box-shadow 0.15s;
   box-shadow: 0 4px 16px rgba(26, 92, 32, 0.22);
 }
 .pv-blog-hero__cta:hover {
@@ -99,8 +104,13 @@
   transform: translateY(-1px);
   box-shadow: 0 6px 22px rgba(26, 92, 32, 0.3);
 }
-.pv-blog-hero__cta svg { flex-shrink: 0; transition: transform 0.15s; }
-.pv-blog-hero__cta:hover svg { transform: translateX(3px); }
+.pv-blog-hero__cta svg {
+  flex-shrink: 0;
+  transition: transform 0.15s;
+}
+.pv-blog-hero__cta:hover svg {
+  transform: translateX(3px);
+}
 
 .pv-blog-hero__visual {
   position: relative;
@@ -130,7 +140,7 @@
 }
 /* Soft gradient overlay on hero image */
 .pv-blog-hero__visual::before {
-  content: '';
+  content: "";
   position: absolute;
   inset: 0;
   background: linear-gradient(to right, var(--pv-cream) 0%, transparent 18%);
@@ -142,8 +152,14 @@
    CATEGORY TABS
    ══════════════════════════════════════════════════════════════════════════ */
 .pv-blog-cats {
+  /* Full-bleed: break out of any parent padding to span full viewport */
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
   background: #fff;
+  border-top: 1px solid var(--pv-border);
   border-bottom: 1px solid var(--pv-border);
+  box-shadow: 0 2px 12px rgba(20, 45, 25, 0.05);
   position: sticky;
   top: 0;
   z-index: 40;
@@ -153,39 +169,49 @@
   margin: 0 auto;
   padding: 0 24px;
   display: flex;
+  justify-content: center;
   gap: 4px;
   overflow-x: auto;
   scrollbar-width: none;
   -webkit-overflow-scrolling: touch;
 }
-.pv-blog-cats__inner::-webkit-scrollbar { display: none; }
+.pv-blog-cats__inner::-webkit-scrollbar {
+  display: none;
+}
 
 .pv-blog-cats__tab {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 4px;
-  padding: 16px 20px 14px;
+  gap: 6px;
+  padding: 18px 28px 16px;
   text-decoration: none;
   color: var(--pv-text-muted);
-  font-size: 1.35rem;
+  font-size: 1.55rem;
   font-weight: 600;
   white-space: nowrap;
   border-bottom: 3px solid transparent;
-  transition: color 0.16s, border-color 0.16s;
+  transition:
+    color 0.16s,
+    border-color 0.16s;
   flex-shrink: 0;
 }
 .pv-blog-cats__tab-icon {
-  width: 28px;
-  height: 28px;
-  border-radius: 8px;
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
   background: var(--pv-green-light);
   display: flex;
   align-items: center;
   justify-content: center;
   color: var(--pv-green);
-  margin-bottom: 2px;
+  margin-bottom: 3px;
   transition: background 0.16s;
+  flex-shrink: 0;
+}
+.pv-blog-cats__tab-icon svg {
+  width: 18px;
+  height: 18px;
 }
 .pv-blog-cats__tab:hover {
   color: var(--pv-green);
@@ -202,7 +228,7 @@
   color: #fff;
 }
 .pv-blog-cats__sub {
-  font-size: 1.1rem;
+  font-size: 1.2rem;
   font-weight: 400;
   color: var(--pv-text-muted);
   margin-top: 1px;
@@ -245,7 +271,9 @@
   white-space: nowrap;
   transition: gap 0.15s;
 }
-.pv-blog-view-all:hover { gap: 10px; }
+.pv-blog-view-all:hover {
+  gap: 10px;
+}
 
 /* ══════════════════════════════════════════════════════════════════════════
    FEATURED GRID (1 large + 4 small)
@@ -275,7 +303,9 @@
   overflow: hidden;
   box-shadow: var(--pv-shadow-sm);
   border: 1px solid var(--pv-border);
-  transition: box-shadow 0.22s, transform 0.22s;
+  transition:
+    box-shadow 0.22s,
+    transform 0.22s;
   height: 100%;
 }
 .pv-blog-card:hover {
@@ -450,7 +480,10 @@
   font-size: 1.4rem;
   font-weight: 600;
   text-decoration: none;
-  transition: background 0.15s, color 0.15s, border-color 0.15s;
+  transition:
+    background 0.15s,
+    color 0.15s,
+    border-color 0.15s;
 }
 .pv-blog-pagination .pagination__item a:hover {
   background: var(--pv-green-light);
@@ -500,7 +533,10 @@
     padding: 48px 24px 40px;
     text-align: center;
   }
-  .pv-blog-hero__sub { margin-left: auto; margin-right: auto; }
+  .pv-blog-hero__sub {
+    margin-left: auto;
+    margin-right: auto;
+  }
   .pv-blog-hero__visual {
     min-height: 320px;
   }
@@ -535,12 +571,30 @@
     font-size: clamp(2.4rem, 8vw, 3.6rem);
   }
 
-  /* Category tabs: smaller padding */
-  .pv-blog-cats__tab {
-    padding: 12px 14px 10px;
-    font-size: 1.2rem;
+  /* Category tabs: compact on mobile — icon + label, no sub */
+  .pv-blog-cats__inner {
+    justify-content: flex-start;
+    gap: 0;
+    padding: 0 12px;
   }
-  .pv-blog-cats__sub { display: none; }
+  .pv-blog-cats__tab {
+    padding: 14px 16px 12px;
+    font-size: 1.3rem;
+    gap: 4px;
+    flex: 1;
+    min-width: 72px;
+  }
+  .pv-blog-cats__tab-icon {
+    width: 30px;
+    height: 30px;
+  }
+  .pv-blog-cats__tab-icon svg {
+    width: 15px;
+    height: 15px;
+  }
+  .pv-blog-cats__sub {
+    display: none;
+  }
 
   .pv-blog-wrap {
     padding: 32px 16px 48px;

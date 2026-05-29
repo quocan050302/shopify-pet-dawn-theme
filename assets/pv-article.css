@@ -220,7 +220,8 @@
   display: grid;
   grid-template-columns: minmax(0, 1fr) 240px;
   gap: 56px;
-  align-items: start;
+  /* NOTE: Do NOT use align-items: start — it collapses sidebar height
+     and breaks position: sticky on the TOC. Let items stretch. */
 }
 
 /* Back breadcrumb */
@@ -249,7 +250,8 @@
   padding: 20px;
   position: sticky;
   top: 110px;
-  align-self: flex-start;
+  /* align-self: start keeps the card at top and allows sticky scroll */
+  align-self: start;
   max-height: calc(100vh - 140px);
   overflow-y: auto;
   box-shadow: 0 16px 40px rgba(20, 45, 25, 0.06);
