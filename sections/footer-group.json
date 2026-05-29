@@ -36,11 +36,7 @@
           }
         }
       },
-      "block_order": [
-        "menu_shop",
-        "menu_support",
-        "menu_company"
-      ],
+      "block_order": ["menu_shop", "menu_support", "menu_company"],
       "settings": {
         "newsletter_eyebrow": "WALK BETTER. TOGETHER.",
         "newsletter_heading": "Join 10,000+ Dog Owners Creating Calmer Walks.",
@@ -58,7 +54,7 @@
         "social_facebook": "",
         "social_tiktok": "",
         "social_youtube": "",
-        "proof_rating": "4.9/5 from 1,247+ reviews",
+        "proof_rating": "4.9/5",
         "proof_reviews": "1,247+ reviews",
         "proof_count": "10,000+ Happy Dog Owners",
         "proof_count_label": "happy dog owners",
@@ -70,7 +66,5 @@
       }
     }
   },
-  "order": [
-    "pv_premium_footer"
-  ]
+  "order": ["pv_premium_footer"]
 }
