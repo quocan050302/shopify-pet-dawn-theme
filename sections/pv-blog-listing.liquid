@@ -162,7 +162,7 @@
             </div>
 
             <div class="pv-blog-featured__grid">
-              {%- for article in blog.articles limit: 10 -%}
+              {%- for article in blog.articles limit: 3 -%}
                 {%- render 'pv-blog-card', article: article, card_size: 'grid' -%}
               {%- endfor -%}
             </div>
@@ -377,8 +377,8 @@
       "label": "Articles per page",
       "min": 6,
       "max": 24,
-      "step": 2,
-      "default": 10
+      "step": 3,
+      "default": 12
     }
   ]
 }

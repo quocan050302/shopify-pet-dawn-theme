@@ -1,12 +1,23 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "pv-blog": {
       "type": "pv-blog-listing",
       "settings": {
+        "hero_image": "shopify://shop_images/ChatGPT_Image_16_36_20_30_thg_5_2026.png",
         "hero_badge": "PAWVOYAGE BLOG",
         "hero_heading": "Tips, guides, and stories for happier adventures together.",
         "hero_subheading": "Expert advice, training tips, and real-life stories to help you and your pup live your best life — together.",
         "hero_cta_text": "Explore All Articles",
+        "hero_cta_url": "",
         "tab_1_label": "All Articles",
         "tab_2_label": "Training Tips",
         "tab_2_slug": "training-tips",
@@ -20,11 +31,14 @@
         "tab_5_label": "Adventures",
         "tab_5_slug": "adventures",
         "tab_5_sub": "Explore together",
-        "show_featured": false,
+        "show_featured": true,
         "featured_heading": "Featured Articles",
-        "grid_heading": "All Articles"
+        "grid_heading": "All Articles",
+        "articles_per_page": 12
       }
     }
   },
-  "order": ["pv-blog"]
+  "order": [
+    "pv-blog"
+  ]
 }

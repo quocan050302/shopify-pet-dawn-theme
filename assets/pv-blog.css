@@ -450,7 +450,9 @@
   margin-top: 4px;
   opacity: 0;
   transform: translateX(-4px);
-  transition: opacity 0.18s, transform 0.18s;
+  transition:
+    opacity 0.18s,
+    transform 0.18s;
 }
 .pv-blog-card:hover .pv-blog-card__read-link {
   opacity: 1;
@@ -495,82 +497,50 @@
 }
 
 /* ══════════════════════════════════════════════════════════════════════════
-   PAGINATION — Premium PawVoyage pill style
+   PAGINATION
    ══════════════════════════════════════════════════════════════════════════ */
 .pv-blog-pagination {
   display: flex;
   justify-content: center;
-  margin-top: 48px;
-  padding-bottom: 16px;
+  margin-top: 32px;
 }
-
-/* Dawn's default_pagination renders <nav> with .pagination > <li class="pagination__item"> */
-.pv-blog-pagination nav { display: flex; justify-content: center; }
-
 .pv-blog-pagination .pagination {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
   list-style: none;
   margin: 0;
   padding: 0;
-  flex-wrap: wrap;
-  justify-content: center;
 }
-
-/* Base pill: page numbers, prev, next */
 .pv-blog-pagination .pagination__item a,
 .pv-blog-pagination .pagination__item span {
-  display: inline-flex;
+  display: flex;
   align-items: center;
   justify-content: center;
-  min-width: 42px;
-  height: 42px;
-  padding: 0 16px;
-  border-radius: 50px;
-  border: 1.5px solid rgba(20, 45, 25, 0.14);
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  border: 1px solid var(--pv-border);
   background: #fff;
   color: var(--pv-text);
   font-size: 1.4rem;
   font-weight: 600;
   text-decoration: none;
   transition:
-    background 0.18s,
-    color 0.18s,
-    border-color 0.18s,
-    box-shadow 0.18s,
-    transform 0.12s;
-  white-space: nowrap;
-  cursor: pointer;
+    background 0.15s,
+    color 0.15s,
+    border-color 0.15s;
 }
-
-/* Hover state */
 .pv-blog-pagination .pagination__item a:hover {
-  background: rgba(26, 92, 32, 0.07);
+  background: var(--pv-green-light);
   border-color: var(--pv-green);
   color: var(--pv-green);
-  transform: translateY(-1px);
-  box-shadow: 0 3px 10px rgba(26, 92, 32, 0.12);
 }
-
-/* Active / current page */
-.pv-blog-pagination .pagination__item--current span,
-.pv-blog-pagination .pagination__item--current a {
+.pv-blog-pagination .pagination__item--current span {
   background: var(--pv-green);
   color: #fff;
   border-color: var(--pv-green);
-  box-shadow: 0 4px 14px rgba(26, 92, 32, 0.28);
-  font-weight: 700;
 }
-
-/* Disabled state (prev on page 1, next on last page) */
-.pv-blog-pagination .pagination__item--prev.pagination__item--disabled span,
-.pv-blog-pagination .pagination__item--next.pagination__item--disabled span {
-  opacity: 0.38;
-  cursor: not-allowed;
-  pointer-events: none;
-}
-
 
 /* ══════════════════════════════════════════════════════════════════════════
    EMPTY STATE
@@ -700,5 +670,120 @@
   /* Grid: 1 col */
   .pv-blog-grid__articles {
     grid-template-columns: 1fr;
+  }
+}
+
+/* ══════════════════════════════════════════════════════════════════════════
+   MOBILE HERO — Compact (≤ 768px)
+   Only applies to hero section elements — no layout or grid changes.
+   ══════════════════════════════════════════════════════════════════════════ */
+@media screen and (max-width: 768px) {
+  /* Hero: tighter overall padding */
+  .pv-blog-hero {
+    min-height: unset;
+  }
+  .pv-blog-hero__content {
+    padding: 24px 20px 20px;
+    text-align: center;
+  }
+
+  /* Badge: smaller and lighter */
+  .pv-blog-hero__badge {
+    font-size: 0.95rem;
+    padding: 4px 12px;
+    margin-bottom: 12px;
+    gap: 5px;
+  }
+  .pv-blog-hero__badge svg {
+    width: 12px;
+    height: 12px;
+  }
+
+  /* Heading: tighter font and line-height */
+  .pv-blog-hero__heading {
+    font-size: clamp(2.2rem, 7.5vw, 3rem);
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    margin: 0 0 12px;
+  }
+
+  /* Subtitle: smaller and less spacing */
+  .pv-blog-hero__sub {
+    font-size: 1.45rem;
+    line-height: 1.5;
+    margin: 0 0 20px;
+  }
+
+  /* CTA button: compact height, same pill style */
+  .pv-blog-hero__cta {
+    font-size: 1.3rem;
+    padding: 6px 12px;
+    gap: 7px;
+  }
+  .pv-blog-hero__cta svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  /* Hero visual image: shorter on mobile */
+  .pv-blog-hero__visual {
+    min-height: 220px;
+  }
+  .pv-blog-hero__img-placeholder {
+    min-height: 220px;
+  }
+
+  /* ── Category Tabs: horizontal scroll bar on mobile ── */
+
+  /* Container: enable smooth horizontal scroll, hide scrollbar */
+  .pv-blog-cats {
+    position: sticky;
+    top: 0;
+    z-index: 40;
+  }
+  .pv-blog-cats__inner {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    overflow-y: visible;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;           /* Firefox */
+    justify-content: flex-start;
+    gap: 6px;
+    padding: 0 16px;
+  }
+  .pv-blog-cats__inner::-webkit-scrollbar {
+    display: none;                   /* Chrome / Safari */
+  }
+
+  /* Each tab: auto width, no shrink/grow — prevents overlap */
+  .pv-blog-cats__tab {
+    flex: 0 0 auto;                  /* KEY FIX: don't stretch or shrink */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    padding: 12px 14px 10px;
+    font-size: 1.25rem;
+    white-space: nowrap;
+    min-width: unset;
+    border-bottom: 3px solid transparent;
+  }
+
+  /* Icon: slightly smaller */
+  .pv-blog-cats__tab-icon {
+    width: 28px;
+    height: 28px;
+    border-radius: 8px;
+  }
+  .pv-blog-cats__tab-icon svg {
+    width: 14px;
+    height: 14px;
+  }
+
+  /* Subtitle: still hidden on mobile */
+  .pv-blog-cats__sub {
+    display: none;
   }
 }
