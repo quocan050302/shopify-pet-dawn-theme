@@ -342,8 +342,8 @@
   color: var(--pva-text);
   font-size: 1.8rem;
   line-height: 1.82;
-  overflow-x: hidden;   /* prevent child elements (e.g. table) from expanding page width */
-  max-width: 100%;       /* ensure container never exceeds viewport */
+  overflow-x: hidden; /* prevent child elements (e.g. table) from expanding page width */
+  max-width: 100%; /* ensure container never exceeds viewport */
 }
 .pva-prose > * + * {
   margin-top: 1.4em;
@@ -417,7 +417,6 @@
 }
 
 .pva-prose a {
-  color: var(--pva-green-mid);
   text-decoration: underline;
   text-decoration-color: rgba(26, 92, 42, 0.35);
   text-underline-offset: 3px;
@@ -515,7 +514,7 @@
   font-size: 1.55rem;
   margin: 2em 0;
   border-radius: var(--pva-radius-sm);
-  overflow: hidden;
+  /* overflow:hidden removed — unreliable on <table> and blocks .potty-table-wrap scroll */
   box-shadow: var(--pva-shadow-sm);
 }
 .pva-prose th {

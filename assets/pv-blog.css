@@ -1016,3 +1016,68 @@
     margin-bottom: 6px;
   }
 }
+
+.potty-schedule-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 24px 0;
+  border-radius: 14px;
+  /* overflow:hidden removed — blocks horizontal scroll on mobile */
+  box-shadow: 0 4px 18px rgba(11, 61, 27, 0.08);
+}
+.potty-schedule-table th {
+  background: #0b3d1b;
+  color: #fff;
+  padding: 13px 16px;
+  text-align: left;
+  font-size: 0.93em;
+  font-weight: 700;
+}
+.potty-schedule-table td {
+  background: #fffaf2;
+  padding: 11px 16px;
+  border-bottom: 1px solid rgba(11, 61, 27, 0.09);
+  font-size: 0.93em;
+  line-height: 1.45;
+  vertical-align: top;
+}
+.potty-schedule-table tr:last-child td {
+  border-bottom: none;
+}
+.potty-schedule-table tr:nth-child(even) td {
+  background: #f5f2e8;
+}
+
+/* ── Table scroll wrapper for mobile ── */
+.potty-table-wrap {
+  display: block;
+  width: 100%;
+  max-width: 100%; /* constrain to parent width */
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin: 20px 0;
+  border-radius: 14px;
+}
+
+@media screen and (max-width: 749px) {
+  /* Constrain scroll wrapper to viewport − pva-wrap padding (16px × 2 = 32px) */
+  .potty-table-wrap {
+    max-width: calc(100vw - 32px) !important;
+  }
+  .potty-schedule-table {
+    min-width: 460px;
+    font-size: 0.85em;
+  }
+  .potty-schedule-table th,
+  .potty-schedule-table td {
+    padding: 8px 10px;
+  }
+  .blog-affiliate-button {
+    display: block !important;
+    width: 100%;
+    text-align: center;
+  }
+  .affiliate-product-box {
+    padding: 18px 14px;
+  }
+}
