@@ -748,18 +748,18 @@
     overflow-x: auto;
     overflow-y: visible;
     -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;           /* Firefox */
+    scrollbar-width: none; /* Firefox */
     justify-content: flex-start;
     gap: 6px;
     padding: 0 16px;
   }
   .pv-blog-cats__inner::-webkit-scrollbar {
-    display: none;                   /* Chrome / Safari */
+    display: none; /* Chrome / Safari */
   }
 
   /* Each tab: auto width, no shrink/grow — prevents overlap */
   .pv-blog-cats__tab {
-    flex: 0 0 auto;                  /* KEY FIX: don't stretch or shrink */
+    flex: 0 0 auto; /* KEY FIX: don't stretch or shrink */
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -785,5 +785,234 @@
   /* Subtitle: still hidden on mobile */
   .pv-blog-cats__sub {
     display: none;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════
+   BLOG ARTICLE — Mobile Typography & Spacing Optimisation
+   Target: all blog post article pages
+   Breakpoint: ≤ 767px
+═══════════════════════════════════════════════════════ */
+@media screen and (max-width: 767px) {
+  /* ── Article wrapper: prevent horizontal overflow ── */
+  .article-template .article__content,
+  .article__content,
+  .rte {
+    overflow-x: hidden;
+    word-break: break-word;
+    overflow-wrap: break-word;
+  }
+
+  /* ── Headings: tighter size & spacing on mobile ── */
+  .article__content h1,
+  .rte h1 {
+    font-size: 1.75rem;
+    line-height: 1.2;
+    margin: 0 0 16px;
+  }
+
+  .article__content h2,
+  .rte h2 {
+    font-size: 1.35rem;
+    line-height: 1.25;
+    margin: 28px 0 12px;
+  }
+
+  .article__content h3,
+  .rte h3 {
+    font-size: 1.1rem;
+    line-height: 1.3;
+    margin: 20px 0 10px;
+  }
+
+  /* ── Body text ── */
+  .article__content p,
+  .rte p {
+    font-size: 0.97rem;
+    line-height: 1.65;
+    margin: 0 0 14px;
+  }
+
+  /* ── Images: always full-width, no side overflow ── */
+  .article__content img,
+  .rte img,
+  .blog-post-img {
+    width: 100% !important;
+    max-width: 100% !important;
+    height: auto !important;
+    border-radius: 10px;
+    margin: 14px 0 !important;
+    display: block;
+  }
+
+  /* ── HR dividers: less vertical space ── */
+  .article__content hr,
+  .rte hr {
+    margin: 22px 0;
+  }
+
+  /* ── Inline blog callout / disclaimer / warning boxes ── */
+  .blog-disclaimer,
+  .blog-callout,
+  .blog-urgent,
+  .blog-warning-note {
+    padding: 13px 14px;
+    margin: 16px 0;
+    font-size: 0.93em;
+    border-radius: 0 8px 8px 0;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
+  /* ── Affiliate disclosure ── */
+  .affiliate-disclosure {
+    padding: 11px 14px;
+    margin: 14px 0;
+    font-size: 0.88em;
+    box-sizing: border-box;
+    max-width: 100%;
+  }
+
+  /* ── Affiliate product box (dark green) ── */
+  .affiliate-product-box {
+    padding: 20px 14px;
+    margin: 22px 0;
+    border-radius: 14px;
+    box-sizing: border-box;
+  }
+  .affiliate-product-box h3 {
+    font-size: 1.1em;
+    margin: 0 0 10px;
+  }
+  .affiliate-product-box p {
+    font-size: 0.91em;
+    margin: 0 auto 14px;
+  }
+  .affiliate-product-box img {
+    max-width: 240px !important;
+    margin: 0 auto 14px !important;
+  }
+
+  /* ── Blog affiliate CTA button: full width tap target ── */
+  .blog-affiliate-button {
+    display: block !important;
+    width: 100%;
+    text-align: center;
+    padding: 13px 14px;
+    font-size: 0.9em !important;
+    box-sizing: border-box;
+  }
+
+  /* ── Product CTA section (dark gradient box) ── */
+  .blog-product-cta {
+    padding: 22px 14px;
+    margin: 28px 0;
+    border-radius: 14px;
+    box-sizing: border-box;
+  }
+  .blog-product-cta h3 {
+    font-size: 1.15em;
+    margin: 0 0 10px;
+  }
+  .blog-product-cta p {
+    font-size: 0.91em;
+    margin: 0 auto 12px;
+  }
+  .blog-product-cta ul {
+    margin: 0 0 18px;
+    text-align: left;
+  }
+  .blog-product-cta ul li {
+    font-size: 0.91em;
+    padding: 4px 0 4px 20px;
+  }
+  .blog-product-cta .button {
+    display: block;
+    width: 100%;
+    padding: 13px 14px;
+    box-sizing: border-box;
+    font-size: 0.95em;
+  }
+
+  /* ── Final CTA box (cream) ── */
+  .blog-final-cta {
+    padding: 20px 14px;
+    margin: 28px 0 0;
+    border-radius: 10px;
+    box-sizing: border-box;
+  }
+  .blog-final-cta h3 {
+    font-size: 1.1em;
+    margin: 0 0 8px;
+  }
+  .blog-final-cta p {
+    font-size: 0.93em;
+    margin: 0 0 14px;
+  }
+  .blog-final-cta a {
+    display: block;
+    width: 100%;
+    padding: 13px 14px;
+    box-sizing: border-box;
+    font-size: 0.95em;
+    text-align: center;
+  }
+
+  /* ── Checklist: tighter spacing ── */
+  .blog-checklist li {
+    padding: 7px 0 7px 26px;
+    font-size: 0.95em;
+  }
+
+  /* ── FAQ items ── */
+  .blog-faq-list {
+    margin: 14px 0;
+  }
+  .blog-faq-item {
+    margin-bottom: 8px;
+  }
+  .blog-faq-q {
+    padding: 12px 14px;
+    font-size: 0.95em;
+  }
+  .blog-faq-a {
+    padding: 0 14px 12px;
+    font-size: 0.91em;
+  }
+
+  /* ── Comparison table: horizontal scroll ── */
+  .bite-table-wrap,
+  .blog-table-wrap {
+    width: 100%;
+    max-width: calc(
+      100vw - 32px
+    ) !important; /* 100vw − (pva-wrap padding-left 16px + padding-right 16px) */
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    margin: 18px 0;
+    border-radius: 8px;
+  }
+  .bite-table {
+    font-size: 0.85em;
+    min-width: 460px;
+  }
+  .bite-table th,
+  .bite-table td {
+    padding: 8px 10px;
+  }
+
+  /* ── Lists inside article ── */
+  .article__content ul,
+  .rte ul,
+  .article__content ol,
+  .rte ol {
+    padding-left: 18px;
+    margin: 12px 0;
+  }
+  .article__content li,
+  .rte li {
+    font-size: 0.97em;
+    line-height: 1.6;
+    margin-bottom: 6px;
   }
 }
